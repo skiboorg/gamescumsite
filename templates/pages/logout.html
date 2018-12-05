@@ -1,0 +1,23 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+      <div class="site-content">
+            <div class="container">
+                <!-- Error 404 -->
+                <div class="error-404">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <figure class="error-404__figure"><img src="{% static 'images/icon-ghost.svg' %}" alt=""></figure>
+                            <header class="error__header">
+                                <h2 class="error__title">Данные сессии очищенны!</h2>
+                                <h3 class="error__subtitle">Ждем в гости снова:)</h3></header>
+{#                            <div class="error__description"><a href="mailto:info@alchemists.com">info@alchemists.com</a></div>#}
+                            <footer class="error__cta"><a href="/" class="btn btn-primary">На главную</a> </footer>
+                        </div>
+                    </div>
+                </div>
+                <!-- Error 404 / End -->
+            </div>
+        </div>
+{% endblock %}
