@@ -8,7 +8,7 @@ def index(request):
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
 
-  
+
 
 
     return render(request, 'pages/index.html', locals())
@@ -21,5 +21,6 @@ def login(request):
 
 
 def logout_page(request):
+
     logout(request)
-    return HttpResponseRedirect('/pages/index.html/', locals())
+    return render(request, 'pages/index.html', locals())
