@@ -2,9 +2,6 @@ from django.contrib.auth import logout
 from django.shortcuts import render
 from news.models import News
 
-
-
-
 def index(request):
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
