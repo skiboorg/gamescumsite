@@ -1,0 +1,91 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- Page Heading
+		================================================== -->
+        <div class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <h1 class="page-heading__title">Staff <span class="highlight">Member</span></h1>
+                        <ol class="page-heading__breadcrumb breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="team-overview.html">Team</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Staff Member</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading / End -->
+        <!-- Content
+		================================================== -->
+        <div class="site-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Content -->
+                    <div class="content col-md-12">
+                        <!-- Staff Member -->
+                        <div class="card card--clean alc-staff">
+{#                            <div class="card__header card__header--has-btn">#}
+{#                                <h4>Ин</h4><a class="btn btn-default btn-outline btn-xs card-header__button" href="#" title="Go to the Team">Go to the Team</a>#}
+{#                            </div>#}
+                            <div class="card__content">
+                                <div class="card mb-0">
+                                    <div class="card__content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="alc-staff__photo"><img src="{{ user.avatarfull }}" alt=""></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="alc-staff-inner">
+                                                    <header class="alc-staff__header">
+                                                        <h1 class="alc-staff__header-name"><span class="alc-staff__header-last-name">{{ player.personaname }}</span></h1><span class="alc-staff__header-role">Звание : </span></header>
+                                                    <!-- Excerpt -->
+                                                    <div class="alc-staff-excerpt">Информация о игроке</div>
+                                                    <!-- Excerpt / End -->
+                                                    <!-- Details -->
+                                                    <dl class="alc-staff-details"><dt class="alc-staff-details__label">Рейтинг:</dt>
+                                                        <dd class="alc-staff-details__value">1</dd><dt class="alc-staff-details__label">Age:</dt>
+                                                        <dd class="alc-staff-details__value">48</dd><dt class="alc-staff-details__label">Birthday:</dt>
+                                                        <dd class="alc-staff-details__value">October 26th, 1968</dd><dt class="alc-staff-details__label">Current Team:</dt>
+                                                        <dd class="alc-staff-details__value">Alchemists</dd><dt class="alc-staff-details__label">Past Teams:</dt>
+                                                        <dd class="alc-staff-details__value">Lucky Clovers</dd><dt class="alc-staff-details__label">Competitions:</dt>
+                                                        <dd class="alc-staff-details__value">Regular Season</dd><dt class="alc-staff-details__label">Seasons:</dt>
+                                                        <dd class="alc-staff-details__value">2011, 2012, 2014, 2016, 2017</dd>
+                                                    </dl>
+                                                    <!-- Details / End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% if own_profile %}
+                    <div class="content col-md-12">
+                        <form action="profile.html" method="post">
+                            {% csrf_token %}
+                           <div class="form-group">
+                            <label for="contact-form-name">E-MAIL <span class="required">*</span></label>
+                               {{ form.email.errors }}
+                            <input type="email" name="{{ form.email.name }}" required  class="form-control" placeholder="admin@gamescum.ru">
+                        </div>
+                         <div class="form-group">
+                            <label for="contact-form-name">DISCORD ID <span class="required">*</span></label>
+                            <input type="text" name="{{ form.discord_id.name }}" required class="form-control" placeholder="например : greshnik#2015">
+                        </div>
+                            <button type="submit" class="btn btn-primary-inverse btn-lg ">Обновить данные профиля</button>
+                        </form>
+
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Content / End -->
+{% endblock %}

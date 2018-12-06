@@ -7,7 +7,7 @@
                     <!-- Account Navigation -->
                     <ul class="nav-account">
                         {% if user.is_authenticated %}
-                              <li class="nav-account__item nav-account__item--wishlist"><a href="profile/{{ user.id }}">ПРОФИЛЬ {{ user.personaname }}
+                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
                                   {% if profile_bad %}
                                 <span class="highlight">   ЗАПОЛНЕН НЕ ПОЛНОСТЬЮ !!!</span>
                             {% endif %}

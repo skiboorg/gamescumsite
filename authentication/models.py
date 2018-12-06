@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from squads.models import Squad
 from events.models import Event
+from pytils.translit import slugify
 
 
 class SteamUserManager(BaseUserManager):
@@ -51,6 +52,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
+    nickname = models.SlugField(blank=True, null=True, unique=True)
 
     squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
@@ -74,3 +76,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return self.personaname
+
+    def save(self, *args, **kwargs):
+        self.nickname = slugify(self.personaname)
+        super(SteamUser, self).save(*args, **kwargs)
