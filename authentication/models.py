@@ -3,6 +3,8 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from squads.models import Squad
+from events.models import Event
 
 
 class SteamUserManager(BaseUserManager):
@@ -48,8 +50,18 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatar = models.CharField(max_length=255)
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, unique=True)
 
-    # Add the other fields that can be retrieved from the Web-API if required
+    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
+    discord_id = models.CharField(max_length=50, blank=True, unique=True)
+
+    wallet = models.IntegerField(default=0, blank=True)
+    rating = models.DecimalField(max_digits=4, decimal_places=3, default=1)
+    squad_leader = models.BooleanField(default=False)
+    vip = models.BooleanField(default=False)
+    kills = models.IntegerField(default=0, blank=True)
+    deaths = models.IntegerField(default=0, blank=True)
 
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_active = models.BooleanField(default=True)
