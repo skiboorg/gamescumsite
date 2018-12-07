@@ -49,18 +49,18 @@ def profile(request, nickname_req):
     else:
         if request.user.is_authenticated:
             if nickname_req == request.user.nickname:
-                own_profile = True
+
                 player = request.user
                 form = EditProfileForm(instance=request.user)
                 return render(request, 'pages/ownprofile.html', locals())
             else:
-                own_profile = False
+
                 player = SteamUser.objects.filter(nickname=nickname_req).first()
                 return render(request, 'pages/profile.html', locals())
         else:
-            own_profile = False
+
             player = SteamUser.objects.filter(nickname=nickname_req).first()
-            print(get_play_time(player.steamid))
+            player_play_time = get_play_time(player.steamid)
             return render(request, 'pages/profile.html', locals())
 
 

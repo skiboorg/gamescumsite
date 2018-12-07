@@ -36,24 +36,50 @@
                                     <div class="card__content">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="alc-staff__photo"><img src="{{ user.avatarfull }}" alt=""></div>
+                                               
+                                                <aside class="widget card widget--sidebar widget-player widget-player--alt">
+                                                    <div class="widget__content card__content">
+                                                        <div class="widget-player__team-logo"><img src="assets/images/logo.png" alt=""></div>
+                                                        <figure class="widget-player__photo"><img src="src="{{ player.avatarfull }}"" alt=""></figure>
+                                                        <header class="widget-player__header clearfix">
+                                                            <div class="widget-player__number">38</div>
+                                                            <h4 class="widget-player__name"><span class="widget-player__first-name">James</span> <span class="widget-player__last-name">Girobili</span></h4></header>
+                                                        <div class="widget-player__content">
+                                                            <div class="widget-player__content-inner">
+                                                                <div class="widget-player__stat widget-player__assists">
+                                                                    <h6 class="widget-player__stat-label">Assists</h6>
+                                                                    <div class="widget-player__stat-number">16.9</div>
+                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                </div>
+                                                                <div class="widget-player__stat widget-player__steals">
+                                                                    <h6 class="widget-player__stat-label">Steals</h6>
+                                                                    <div class="widget-player__stat-number">7.2</div>
+                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                </div>
+                                                                <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Blocks</h6>
+                                                                    <div class="widget-player__stat-number">12.4</div>
+                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">1st Shooting Guard</span></footer>
+                                                    </div>
+                                                </aside>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="alc-staff-inner">
                                                     <header class="alc-staff__header">
-                                                        <h1 class="alc-staff__header-name"><span class="alc-staff__header-last-name">{{ player.personaname }}</span></h1><span class="alc-staff__header-role">Звание : </span></header>
+                                                        <h1 class="alc-staff__header-name"><span class="alc-staff__header-last-name">{{ player.personaname }}</span></h1><span class="alc-staff__header-role">Звание : {{ player.rank }}</span></header>
                                                     <!-- Excerpt -->
                                                     <div class="alc-staff-excerpt">Информация о игроке</div>
                                                     <!-- Excerpt / End -->
                                                     <!-- Details -->
-                                                    <dl class="alc-staff-details"><dt class="alc-staff-details__label">Рейтинг:</dt>
-                                                        <dd class="alc-staff-details__value">1</dd><dt class="alc-staff-details__label">Age:</dt>
-                                                        <dd class="alc-staff-details__value">48</dd><dt class="alc-staff-details__label">Birthday:</dt>
-                                                        <dd class="alc-staff-details__value">October 26th, 1968</dd><dt class="alc-staff-details__label">Current Team:</dt>
-                                                        <dd class="alc-staff-details__value">Alchemists</dd><dt class="alc-staff-details__label">Past Teams:</dt>
-                                                        <dd class="alc-staff-details__value">Lucky Clovers</dd><dt class="alc-staff-details__label">Competitions:</dt>
-                                                        <dd class="alc-staff-details__value">Regular Season</dd><dt class="alc-staff-details__label">Seasons:</dt>
-                                                        <dd class="alc-staff-details__value">2011, 2012, 2014, 2016, 2017</dd>
+                                                    <dl class="alc-staff-details">
+                                                        <dt class="alc-staff-details__label">Рейтинг:</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
+                                                        <dt class="alc-staff-details__label">Дата регистрации:</dt><dd class="alc-staff-details__value">{{ player.date_joined }}</dd>
+                                                        <dt class="alc-staff-details__label">Убийств:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                        <dt class="alc-staff-details__label">Смертей:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
                                                     </dl>
                                                     <!-- Details / End -->
                                                 </div>
@@ -68,19 +94,7 @@
                     {% if own_profile %}
                     <div class="content col-md-12">
 
-                        <form action="" method="post">
-                            {% csrf_token %}
-                           <div class="form-group">
-                            <label for="contact-form-name">E-MAIL <span class="required">*</span></label>
-                               {{ form.errors }}
-                            <input type="email" name="{{ form.email.name }}" value="{{ player.email }}" required  class="form-control" placeholder="admin@gamescum.ru">
-                        </div>
-                         <div class="form-group">
-                            <label for="contact-form-name">DISCORD ID <span class="required">*</span></label>
-                            <input type="text" name="{{ form.discord_id.name }}" value="{{ player.discord_id }}" required class="form-control" placeholder="например : greshnik#2015">
-                        </div>
-                            <button type="submit" class="btn btn-primary-inverse btn-lg ">Обновить данные профиля</button>
-                        </form>
+
 
 
                     </div>
