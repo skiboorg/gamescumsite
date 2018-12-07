@@ -45,18 +45,17 @@ class SteamUserManager(BaseUserManager):
 class SteamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'steamid'
 
+    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
     steamid = models.CharField(max_length=17, unique=True)
+    discord_id = models.CharField(max_length=50, blank=True, unique=True)
+    email = models.CharField(max_length=255, unique=True)
     personaname = models.CharField(max_length=255)
+    nickname = models.SlugField(blank=True, null=True, unique=True)
     profileurl = models.CharField(max_length=300)
     avatar = models.CharField(max_length=255)
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, unique=True)
-    nickname = models.SlugField(blank=True, null=True, unique=True)
-
-    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
-    discord_id = models.CharField(max_length=50, blank=True, unique=True)
 
     wallet = models.IntegerField(default=0, blank=True)
     rating = models.DecimalField(max_digits=4, decimal_places=3, default=1)
@@ -65,10 +64,10 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     kills = models.IntegerField(default=0, blank=True)
     deaths = models.IntegerField(default=0, blank=True)
 
-    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    # last_zp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = SteamUserManager()
 
     def get_short_name(self):

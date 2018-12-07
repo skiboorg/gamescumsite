@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
-                        <h1 class="page-heading__title">Staff <span class="highlight">Member</span></h1>
+                        <h1 class="page-heading__title">Staff <span class="highlight">OWN</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="breadcrumb-item"><a href="team-overview.html">Team</a></li>
@@ -65,26 +65,21 @@
                         </div>
 
                     </div>
-                    {% if own_profile %}
+                    {% if form.errors %}
+                        gfhfgh
+                    {% endif %}
                     <div class="content col-md-12">
 
                         <form action="" method="post">
                             {% csrf_token %}
-                           <div class="form-group">
-                            <label for="contact-form-name">E-MAIL <span class="required">*</span></label>
-                               {{ form.errors }}
-                            <input type="email" name="{{ form.email.name }}" value="{{ player.email }}" required  class="form-control" placeholder="admin@gamescum.ru">
-                        </div>
-                         <div class="form-group">
-                            <label for="contact-form-name">DISCORD ID <span class="required">*</span></label>
-                            <input type="text" name="{{ form.discord_id.name }}" value="{{ player.discord_id }}" required class="form-control" placeholder="например : greshnik#2015">
-                        </div>
+
+                        {{ form.as_p}}
                             <button type="submit" class="btn btn-primary-inverse btn-lg ">Обновить данные профиля</button>
                         </form>
 
 
                     </div>
-                    {% endif %}
+
                 </div>
             </div>
         </div>
