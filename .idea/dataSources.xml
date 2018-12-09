@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db" uuid="2ee0aa20-6a4e-4a9b-9177-f91929b5f079">
+    <data-source source="LOCAL" name="db" uuid="5ac9009c-8e7c-437e-994a-b76b3be6c146">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>SQLite</remarks>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\xxx\PycharmProjects\gamescumsite\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\ххх\PycharmProjects\gamescumsite\db.sqlite3</jdbc-url>
       <driver-properties>
         <property name="enable_load_extension" value="true" />
       </driver-properties>

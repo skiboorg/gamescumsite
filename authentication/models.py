@@ -8,6 +8,8 @@ from events.models import Event
 from pytils.translit import slugify
 
 
+
+
 class SteamUserManager(BaseUserManager):
     def _create_user(self, steamid, password, **extra_fields):
         """
@@ -45,7 +47,7 @@ class SteamUserManager(BaseUserManager):
 class SteamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'steamid'
 
-    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.CASCADE)
+    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.SET_NULL)
     event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
     steamid = models.CharField(max_length=17, unique=True)
     discord_id = models.CharField(max_length=40, blank=True, unique=True)
@@ -81,3 +83,6 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         self.nickname = slugify(self.personaname)
         super(SteamUser, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return '%s' % self.nickname

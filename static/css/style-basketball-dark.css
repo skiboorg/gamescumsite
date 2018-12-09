@@ -5595,7 +5595,7 @@ body {
 .header-logo {
     position: absolute;
     z-index: 3;
-    bottom: 21px;
+    bottom: 0px;
     left: 0;
     display: block
 }
@@ -6974,7 +6974,7 @@ input.header-mobile__search-control:focus {
     right: 0;
     top: 0;
     bottom: 0;
-    background-image: url(../images/page-heading-pattern.png);
+
     background-size: auto;
     background-position: 100% 0;
     background-repeat: no-repeat;

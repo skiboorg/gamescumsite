@@ -4,15 +4,14 @@
 {% block content %}
      <!-- Page Heading
 		================================================== -->
-        <div class="page-heading">
+        <div class="page-heading" style="background-image: url({% static 'images/home_bg1.png' %});">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
-                        <h1 class="page-heading__title">Staff <span class="highlight">Member</span></h1>
+                        <h1 class="page-heading__title font_scum">ПРОФИЛЬ <span class="highlight">ИГРОКА</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="team-overview.html">Team</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Staff Member</li>
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Профиль игрока</li>
                         </ol>
                     </div>
                 </div>
@@ -35,52 +34,52 @@
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                               
-                                                <aside class="widget card widget--sidebar widget-player widget-player--alt">
+                                            <div class="col-md-12">
+                                        <div class="widget card widget--sidebar widget-player widget-player--alt">
                                                     <div class="widget__content card__content">
-                                                        <div class="widget-player__team-logo"><img src="assets/images/logo.png" alt=""></div>
-                                                        <figure class="widget-player__photo"><img src="src="{{ player.avatarfull }}"" alt=""></figure>
+                                                        <div class="widget-player__team-logo"><img src="{{ player.avatarfull }}" alt=""></div>
+                                                        <figure class="widget-player__photo"><img src="{{ player.avatarfull }}" alt=""></figure>
                                                         <header class="widget-player__header clearfix">
-                                                            <div class="widget-player__number">38</div>
-                                                            <h4 class="widget-player__name"><span class="widget-player__first-name">James</span> <span class="widget-player__last-name">Girobili</span></h4></header>
+                                                            <div class="widget-player__number"></div>
+                                                            <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
                                                         <div class="widget-player__content">
                                                             <div class="widget-player__content-inner">
                                                                 <div class="widget-player__stat widget-player__assists">
-                                                                    <h6 class="widget-player__stat-label">Assists</h6>
-                                                                    <div class="widget-player__stat-number">16.9</div>
+                                                                    <h6 class="widget-player__stat-label">Убийств</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.kills }}</div>
                                                                     <div class="widget-player__stat-legend">AVG</div>
                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__steals">
-                                                                    <h6 class="widget-player__stat-label">Steals</h6>
-                                                                    <div class="widget-player__stat-number">7.2</div>
+                                                                    <h6 class="widget-player__stat-label">Смертей</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.deaths }}</div>
                                                                     <div class="widget-player__stat-legend">AVG</div>
                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__blocks">
-                                                                    <h6 class="widget-player__stat-label">Blocks</h6>
-                                                                    <div class="widget-player__stat-number">12.4</div>
-                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                    <h6 class="widget-player__stat-label">Рейтинг</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.rating }}</div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">1st Shooting Guard</span></footer>
+                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined }}</span></footer>
                                                     </div>
-                                                </aside>
+                                                </div>
+                        </div>
+
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="alc-staff-inner">
-                                                    <header class="alc-staff__header">
-                                                        <h1 class="alc-staff__header-name"><span class="alc-staff__header-last-name">{{ player.personaname }}</span></h1><span class="alc-staff__header-role">Звание : {{ player.rank }}</span></header>
-                                                    <!-- Excerpt -->
-                                                    <div class="alc-staff-excerpt">Информация о игроке</div>
-                                                    <!-- Excerpt / End -->
-                                                    <!-- Details -->
+
+
                                                     <dl class="alc-staff-details">
-                                                        <dt class="alc-staff-details__label">Рейтинг:</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
-                                                        <dt class="alc-staff-details__label">Дата регистрации:</dt><dd class="alc-staff-details__value">{{ player.date_joined }}</dd>
-                                                        <dt class="alc-staff-details__label">Убийств:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
-                                                        <dt class="alc-staff-details__label">Смертей:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
+                                                        <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
+                                                        <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
+                                                        <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                        <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
+                                                        <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">нет</dd>
                                                     </dl>
+                                                    <div class="alc-staff-excerpt">{{ player.info }}</div>
                                                     <!-- Details / End -->
                                                 </div>
                                             </div>
@@ -90,7 +89,6 @@
                             </div>
                         </div>
 
-                    </div>
                     {% if own_profile %}
                     <div class="content col-md-12">
 

@@ -5,3 +5,22 @@
     padding: 13px;
     border-radius: 2px;
 }
+
+@font-face {
+  font-family: "scum_font";
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/10929.otf');
+}
+
+.font_scum{
+    font-family: scum_font;
+}
+
+.btn_close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px !important;
+    background: #ff7e1f !important;
+}
