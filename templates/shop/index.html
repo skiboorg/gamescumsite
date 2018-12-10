@@ -9,10 +9,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
-                        <h1 class="page-heading__title">Shop <span class="highlight">Grid</span></h1>
+                        <h1 class="page-heading__title font_scum">BLACK<span class="highlight">MARKET</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                            <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ cat_name }}</li>
                         </ol>
                     </div>
                 </div>
@@ -70,6 +70,7 @@
                             <div class="card__content">
                                 <!-- Products -->
                                 <ul class="products products--grid">
+                                    {% for item in items %}
                                     <!-- Product #0 -->
                                     <li class="product__item product__item--color-1 card">
                                         <div class="product__img">
@@ -77,14 +78,9 @@
                                                 <div class="product__bg-letters">SK</div>
                                                 <div class="product__slider">
                                                     <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
+                                                        <div class="product__slide-img"><img src="{{ MEDIA_URL }}{{  item.image }}" alt=""></div>
                                                     </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -100,336 +96,9 @@
                                         </div>
                                     </li>
                                     <!-- Product #0 / End -->
-                                    <!-- Product #1 -->
-                                    <li class="product__item product__item--color-2 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Atlantic Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #1 / End -->
-                                    <!-- Product #2 -->
-                                    <li class="product__item product__item--color-3 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder"><span class="onsale">Sale!</span>
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img3.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img3.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Aquarium Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price"><del>$26.00</del> <ins>$22.00</ins></div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #2 / End -->
-                                    <!-- Product #3 -->
-                                    <li class="product__item product__item--color-4 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">HC</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Hats and Caps</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Crimson Fitted Hat</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$20.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #3 / End -->
-                                    <!-- Product #4 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Jumper Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #4 / End -->
-                                    <!-- Product #5 -->
-                                    <li class="product__item product__item--color-5 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Greyson Fitted Shirt</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$50.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #5 / End -->
-                                    <!-- Product #6 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Slime Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$32.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #6 / End -->
-                                    <!-- Product #7 -->
-                                    <li class="product__item product__item--color-6 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Sporting Shirt</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$40.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #7 / End -->
-                                    <!-- Product #8 -->
-                                    <li class="product__item product__item--color-3 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Futuristic Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$34.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #8 / End -->
-                                    <!-- Product #9 -->
-                                    <li class="product__item product__item--color-2 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Carbon Fiber Hoodie</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$45.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #9 / End -->
-                                    <!-- Product #10 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">HC</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Hats and Caps</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Carbon Fiber Hoodie</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$22.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #10 / End -->
-                                    <!-- Product #11 -->
-                                    <li class="product__item product__item--color-5 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Iceberg Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #11 / End -->
+                                    {% endfor %}
+
+
                                 </ul>
                                 <!-- Products / End -->
                             </div>
@@ -456,17 +125,10 @@
                                 <h4>Categories</h4></div>
                             <div class="widget__content card__content">
                                 <ul class="widget__list">
-                                    <li><a href="#">All Products</a></li>
-                                    <li><a href="#">Shirt and Hoodies</a></li>
-                                    <li class="has-children"><a href="#">Sneakers</a>
-                                        <ul>
-                                            <li><a href="#">The Alchemist Sneakers</a></li>
-                                            <li><a href="#">Running Collection</a></li>
-                                            <li><a href="#">James Girobili Collection</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Hats and Caps</a></li>
-                                    <li><a href="#">Merchandising</a></li>
+                                    <li><a class="active" href="{% url 'shop_home' %}">ВСЕ ПРЕДЛОЖЕНИЯ</a></li>
+                                    {% for cat in all_categories %}
+                                    <li><a href="{{ cat.name_slug }}">{{ cat.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </aside>
