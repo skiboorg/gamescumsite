@@ -16,8 +16,21 @@ class CategoriesAdmin(admin.ModelAdmin):
         model = Categories
 
 
+class ItemsInline (admin.TabularInline):
+    model = ItemsInOrder
+    extra = 0
 
+
+class OredersAdmin(admin.ModelAdmin):
+    # list_display = ['name','discount']
+   # list_display = [field.name for field in Categories._meta.fields]
+    inlines = [ItemsInline]
+    # exclude = ['info'] #не отображать на сранице редактирования
+    class Meta:
+        model = Orders
 
 admin.site.register(Categories,CategoriesAdmin)
 admin.site.register(Items)
+admin.site.register(Orders,OredersAdmin)
+admin.site.register(ItemsInOrder)
 # Register your models here.

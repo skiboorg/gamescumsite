@@ -13163,6 +13163,7 @@ th.team-leader__total {
 }
 
 .products-list__product-thumb {
+    width: 60px;
     float: left;
     margin: 0 12px 0 0;
     overflow: hidden;
@@ -13170,7 +13171,7 @@ th.team-leader__total {
 }
 
 .products-list__product-thumb img {
-    max-width: 100%;
+    /*max-width: 100%;*/
     height: auto;
     transition: opacity .2s ease
 }

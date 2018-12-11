@@ -107,7 +107,11 @@
 
                                             </header>
                                             <footer class="product__footer">
-                                                <a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">В корзину</a>
+                                                <form id="add-in-cart-form" class="form-inline" onsubmit="test(this);return false;">
+                                                     <input type="number" class="form-control val_to_cart" min="1" value="1">
+                                                <button type="submit" class="btn btn-primary btn-icon product__add-to-cart">В корзину</button>
+                                                </form>
+
                                             </footer>
                                         </div>
                                     </li>
@@ -128,7 +132,7 @@
                         <!-- Widget: Categories -->
                         <aside class="widget card widget--sidebar widget_categories">
                             <div class="widget__title card__header">
-                                <h4>Categories</h4></div>
+                                <h4>КАТЕГОРИИ</h4></div>
                             <div class="widget__content card__content">
                                 <ul class="widget__list">
 
@@ -148,7 +152,7 @@
                                     {% for item in hot_items %}
                                     <li class="products-list__item">
                                         <figure class="products-list__product-thumb">
-                                            <a href="#"><img src="{{ MEDIA_URL }}{{  item.image }}" alt=""></a>
+                                            <a style="width: 60px;" href="#"><img src="{{ MEDIA_URL }}{{  item.image }}" alt=""></a>
                                         </figure>
                                         <div class="products-list__inner"><span class="products-list__product-cat">{{  item.category.name }}</span>
                                             <h5 class="products-list__product-name"><a href="{{  item.category.name_slug }}">{{  item.name }}</a></h5>
@@ -172,5 +176,10 @@
             </div>
         </div>
         <!-- Content / End -->
-
+<script>
+function test(item) {
+        alert('ddd');
+        console.log(self);
+    }
+</script>
 {% endblock %}

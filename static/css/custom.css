@@ -33,3 +33,9 @@
     bottom: 14px;
     position: absolute;
 }
+
+.val_to_cart{
+    width: 70px;
+    height: 44px;
+    margin-right: 10px;
+}

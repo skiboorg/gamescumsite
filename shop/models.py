@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
 from authentication.models import SteamUser
 from pytils.translit import slugify
 
@@ -55,6 +56,61 @@ class Items(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
+
+class Orders(models.Model):
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    is_complete = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return 'Заказ : %s. Статус: %s ' % (self.id, self.is_complete)
+
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
+
+class ItemsInOrder(models.Model):
+    order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    number = models.IntegerField(blank=True, null=True, default=0)
+    current_price = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, default=0)
+    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if self.item.discount > 0:
+            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
+        elif self.order.player.vip:
+            self.current_price = self.item.price - (self.item.price * 50 / 100)
+        else:
+            self.current_price = self.item.price
+        self.total_price = self.number * self.current_price
+
+        super(ItemsInOrder, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return 'Товар : %s . В заказе от игрока ID %s .' % (self.item.name, self.order.player.steamid)
+
+    class Meta:
+        verbose_name = "Товар в заказе"
+        verbose_name_plural = "Товары в заказах"
+
+def ItemsInOrder_post_save(sender,instance,**kwargs):
+    order = instance.order
+    order_total_price = 0
+    all_items_in_order = ItemsInOrder.objects.filter(order=order)
+    for item in all_items_in_order:
+        order_total_price += item.total_price
+    instance.order.total_price = order_total_price
+    instance.order.save(force_update=True)
+
+post_delete.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
+post_save.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 
 
 
