@@ -24,3 +24,12 @@
     padding: 10px !important;
     background: #ff7e1f !important;
 }
+
+.shop_active_cat{
+    background: #ffdc11;
+}
+
+.shop_filter_btn{
+    bottom: 14px;
+    position: absolute;
+}
