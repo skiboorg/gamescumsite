@@ -21,7 +21,6 @@ from . import views
 urlpatterns = [
     path('', views.shop_home, name='shop_home'),
     path('<cat_slug>', views.shop_show_cat, name='shop_show_cat'),
-
-    # path('statistic/', views.statistic, name='statistic'),
+    path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
 
 ]

@@ -83,12 +83,12 @@ class ItemsInOrder(models.Model):
 
     def save(self, *args, **kwargs):
         if self.item.discount > 0:
-            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
+            self.current_price = float(self.item.price - (self.item.price * self.item.discount / 100))
         elif self.order.player.vip:
-            self.current_price = self.item.price - (self.item.price * 50 / 100)
+            self.current_price = float(self.item.price - (self.item.price * 50 / 100))
         else:
-            self.current_price = self.item.price
-        self.total_price = self.number * self.current_price
+            self.current_price = float(self.item.price)
+        self.total_price = float(self.number) * self.current_price
 
         super(ItemsInOrder, self).save(*args, **kwargs)
 
@@ -100,6 +100,32 @@ class ItemsInOrder(models.Model):
         verbose_name = "Товар в заказе"
         verbose_name_plural = "Товары в заказах"
 
+class Baskets(models.Model):
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    number = models.IntegerField(blank=True, null=True, default=0)
+    current_price = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, default=0)
+    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Товар в корзине"
+        verbose_name_plural = "Товары в корзинах"
+
+    def save(self, *args, **kwargs):
+        if self.item.discount > 0:
+            self.current_price = float(self.item.price - (self.item.price * self.item.discount / 100))
+        elif self.player.vip:
+            self.current_price = float(self.item.price - (self.item.price * 50 / 100))
+        else:
+            self.current_price = float(self.item.price)
+        self.total_price = float(self.number) * self.current_price
+
+        super(Baskets, self).save(*args, **kwargs)
+
+
 def ItemsInOrder_post_save(sender,instance,**kwargs):
     order = instance.order
     order_total_price = 0
@@ -108,9 +134,20 @@ def ItemsInOrder_post_save(sender,instance,**kwargs):
         order_total_price += item.total_price
     instance.order.total_price = order_total_price
     instance.order.save(force_update=True)
+    
+def apply_discount(sender,instance,**kwargs):
+    cat_id = instance.id
+    all_items = Items.objects.filter(category=cat_id)
+    for item in all_items:
+        item.discount = instance.discount
+        item.save(force_update=True)
+        
+        
+
 
 post_delete.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 post_save.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
+post_save.connect(apply_discount, sender=Categories)
 
 
 

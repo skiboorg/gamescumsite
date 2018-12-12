@@ -39,3 +39,9 @@
     height: 44px;
     margin-right: 10px;
 }
+
+.shop_reg_button{
+    padding: 5px;
+    color: #000000;
+    margin: auto;
+}

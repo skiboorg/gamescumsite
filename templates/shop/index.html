@@ -107,9 +107,20 @@
 
                                             </header>
                                             <footer class="product__footer">
-                                                <form id="add-in-cart-form" class="form-inline" onsubmit="test(this);return false;">
-                                                     <input type="number" class="form-control val_to_cart" min="1" value="1">
-                                                <button type="submit" class="btn btn-primary btn-icon product__add-to-cart">В корзину</button>
+                                                 {% if user.is_authenticated %}
+                                                <form action="{% url 'add_to_cart' %}" id="add-in-cart-form" class="form-inline" method="post" onsubmit="test(this);return false;"> {% csrf_token %}
+                                                    <input type="number" id="items_number" class="form-control val_to_cart" min="1" value="1">
+                                                    <input type="hidden" id="item_id" value="{{ item.id }}">
+                                                    <input type="hidden" id="item_name" value="{{ item.name }}">
+                                                    <input type="hidden" id="item_price" value="{{ item.price }}">
+                                                    <input type="hidden" id="item_image" value="{{ item.image }}">
+                                                  <button type="submit" class="btn btn-primary btn-icon product__add-to-cart">В корзину</button>
+                                                     {% else %}
+
+
+                                                     <a class="btn btn-danger btn-xs shop_reg_button" href="#" data-toggle="modal" data-target="#modal-login-register">необходима регистрация</a>
+
+                                                     {% endif %}
                                                 </form>
 
                                             </footer>
@@ -152,7 +163,7 @@
                                     {% for item in hot_items %}
                                     <li class="products-list__item">
                                         <figure class="products-list__product-thumb">
-                                            <a style="width: 60px;" href="#"><img src="{{ MEDIA_URL }}{{  item.image }}" alt=""></a>
+                                            <a style="width: 60px;" href="#"><img src="{{  item.image.url }}" alt=""></a>
                                         </figure>
                                         <div class="products-list__inner"><span class="products-list__product-cat">{{  item.category.name }}</span>
                                             <h5 class="products-list__product-name"><a href="{{  item.category.name_slug }}">{{  item.name }}</a></h5>
@@ -176,10 +187,83 @@
             </div>
         </div>
         <!-- Content / End -->
-<script>
-function test(item) {
-        alert('ddd');
-        console.log(self);
+<script language="JavaScript">
+function test(form) {
+
+
+        console.log(form.elements["items_number"].value);
+        console.log(form.elements["item_id"].value);
+        console.log(form.elements["item_name"].value);
+        console.log(form.elements["item_price"].value);
+        console.log(form.elements["item_image"].value);
+        var item_number = form.elements["items_number"].value
+        var item_id = form.elements["item_id"].value
+        var item_name = form.elements["item_name"].value
+        var item_price = form.elements["item_price"].value
+        var item_image = form.elements["item_image"].value
+        var csrf_token = form.elements["csrfmiddlewaretoken"].value
+
+        var append_block = '   <li class="header-cart__item">\n' +
+            '                                    <figure class="header-cart__product-thumb">\n' +
+            '                                        <a href="#"><img src="' + item_image + '" alt=""></a>\n' +
+            '                                    </figure>\n' +
+            '                                    <div class="header-cart__inner"><span class="header-cart__product-cat">Sneakers</span>\n' +
+            '                                        <h5 class="header-cart__product-name"><a href="#">'+ item_name +'</a></h5>\n' +
+            '                                        <div class="header-cart__product-sum"><span class="header-cart__product-price">'+ item_price +'</span> x <span class="header-cart__product-count">'+ items_number +'</span></div>\n' +
+            '                                        <div class="fa fa-times header-cart__close"></div>\n' +
+            '                                    </div>\n' +
+            '                                </li>'
+
+
+
+    console.log($(form).attr('action'));
+     console.log(csrf_token);
+        var data = {};
+        data.item_id = item_id;
+        data.item_number = item_number;
+        data['csrfmiddlewaretoken'] = csrf_token;
+        var url = $(form).attr('action');
+  console.log(data);
+        $.ajax({
+            url:url,
+            type:'POST',
+            data: data,
+            cache:true,
+            success: function (data) {
+                console.log('OK');
+                console.log(data.total_items_in_cart);
+                console.log(data.all_items);
+                $('.header-cart').empty();
+                $.each(data.all_items,function (k,v) {
+                    $('.header-cart').append('   <li class="header-cart__item">\n' +
+            '                                    <figure style="width: 100px;" class="header-cart__product-thumb">\n' +
+            '                                        <a href="#"><img src="/media/' + v.image + '" alt=""></a>\n' +
+            '                                    </figure>\n' +
+            '                                    <div class="header-cart__inner"><span class="header-cart__product-cat">'+ v.category +'</span>\n' +
+            '                                        <h5 class="header-cart__product-name"><a href="#">'+ v.name +'</a></h5>\n' +
+            '                                        <div class="header-cart__product-sum"><span class="header-cart__product-price">'+ v.price +'</span> x <span class="header-cart__product-count">'+ v.number +'</span>= <span class="header-cart__product-count">'+ v.total_price +' RC</span> </div>\n' +
+            '                                        <div class="fa fa-times header-cart__close"></div>\n' +
+            '                                    </div>\n' +
+            '                                </li>')
+
+                    
+                })
+               $('.header-cart').append('  <li class="header-cart__item header-cart__item--subtotal"><span class="header-cart__subtotal">ИТОГО</span> <span class="header-cart__subtotal-sum">'+ data.total_cart_price +' RC</span></li>\n' +
+                   '                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : '+ data.player_wallet +'</a> <a href="#" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>')
+
+                $('#count_items_in_cart').html('('+ data.total_items_in_cart +')');
+                $('.info-block__cart-sum').html(data.total_cart_price + ' RC');
+            },
+            error: function () {
+                console.log('ERROR')
+            }
+        }
+
+
+
+
+
+           )
     }
 </script>
 {% endblock %}
