@@ -72,6 +72,8 @@ class Orders(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 
+
+
 class ItemsInOrder(models.Model):
     order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
@@ -142,12 +144,16 @@ def apply_discount(sender,instance,**kwargs):
         item.discount = instance.discount
         item.save(force_update=True)
         
-        
+
+
+
+
 
 
 post_delete.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 post_save.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 post_save.connect(apply_discount, sender=Categories)
+
 
 
 

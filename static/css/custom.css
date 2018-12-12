@@ -38,6 +38,7 @@
     width: 70px;
     height: 44px;
     margin-right: 10px;
+    display: inline !important;
 }
 
 .shop_reg_button{

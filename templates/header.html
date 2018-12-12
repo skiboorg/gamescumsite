@@ -103,12 +103,16 @@
                                     <div class="header-cart__inner"><span class="header-cart__product-cat">{{ item_in_backet.item.category.name }}</span>
                                         <h5 class="header-cart__product-name"><a href="{{  item_in_backet.item.category.name_slug }}">{{ item_in_backet.item.name }}</a></h5>
                                         <div class="header-cart__product-sum"><span class="header-cart__product-price">{{ item_in_backet.current_price }}</span> x <span class="header-cart__product-count">{{ item_in_backet.number }}</span> = <span class="header-cart__product-count">{{ item_in_backet.total_price }} RC</span> </div>
-                                        <div class="fa fa-times header-cart__close"></div>
+                                        <a class="fa fa-times header-cart__close" href="#" data-item_id="{{  item_in_backet.item.id }}" onclick="delete_from_cart(this);return false;"></a>
                                     </div>
                                     </li>
                                 {% endfor %}
+                            {% if all_items_in_cart.count > 0 %}
                                 <li class="header-cart__item header-cart__item--subtotal"><span class="header-cart__subtotal">ИТОГО</span> <span class="header-cart__subtotal-sum">{{ total_cart_price }} RC</span></li>
-                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : {{ request.user.wallet }}</a> <a href="#" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>
+                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : {{ request.user.wallet }}</a> <a href="{% url 'place_order' %}" onclick="place_order(this);return false;" data-total_price="{{ total_cart_price }}" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>
+                           {% else %}
+                                <li class="header-cart__item header-cart__item--subtotal"> КОРЗИНА ПУСТА</li>
+                            {% endif %}
                             </ul>
                             <!-- Dropdown Shopping Cart / End -->
                         </li>
