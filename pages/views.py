@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
 from news.models import News
 from authentication.forms import EditProfileForm
+from squads.forms import *
 from authentication.models import SteamUser
-from squads.models import SquadMembers,Squad
+from squads.models import SquadMembers, Squad
 import json
 import requests
 from datetime import datetime , time
@@ -76,7 +77,14 @@ def profile(request, nickname_req):
                 own_profile = True
                 player = request.user
                 squad_info = get_squad_info(player.id)
+                if squad_info:
+                    if squad_info.leader.id == player.id:
+                        squad_leader = True
+                        squad_form = UpdateSquadForm(instance=squad_info)
+                    else:
+                        squad_form = CreateSquadForm()
                 form = EditProfileForm(instance=request.user)
+
                 return render(request, 'pages/ownprofile.html', locals())
             else:
                 player = SteamUser.objects.filter(nickname=nickname_req).first()

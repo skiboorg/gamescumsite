@@ -10,7 +10,7 @@ class Squad(models.Model):
     leader = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50, blank=False, null=False, unique=True)
     name_slug = models.SlugField(max_length=50, blank=True, null=False, unique=True)
-    avatar = models.ImageField(upload_to='squad_avatars/', null=True, blank=False)
+    avatar = models.ImageField(upload_to='squad_avatars/', null=True, blank=True)
     balance = models.IntegerField(default=0, blank=True)
     level = models.IntegerField(default=1, blank=True)
     rating = models.IntegerField(default=1, blank=True)
@@ -19,7 +19,7 @@ class Squad(models.Model):
     battles_loose = models.IntegerField(default=0, blank=True)
     vip = models.BooleanField(default=False)
     recruting = models.BooleanField(default=True)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now=True)
 
 
 
@@ -39,7 +39,7 @@ class Squad(models.Model):
 class SquadRequests(models.Model):
     squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.SET_NULL)
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return 'Заявка в отряд : %s от игрока %s' % (self.squad.name, self.player.personaname)
@@ -53,7 +53,7 @@ class SquadMembers(models.Model):
     squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     income = models.IntegerField(default=0, blank=True)
-    created = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
         return 'Состав отряда : %s' % self.squad.name
@@ -78,7 +78,8 @@ class SquadSectors(models.Model):
 
 class SquadWear(models.Model):
     squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=5, blank=False, null=False)
+    name = models.CharField(max_length=100, blank=False, null=False)
+    spawn_info = models.TextField(default='Тут можно указать команды спавна')
     for_vip = models.BooleanField(default=False)
 
     def __str__(self):
@@ -90,7 +91,10 @@ class SquadWear(models.Model):
 
 
 def squad_post_save(sender, instance, **kwargs):
-    SquadMembers.objects.create(squad_id=instance.id, player_id=instance.leader.id)
+    try:
+        SquadMembers.objects.get(player_id=instance.leader.id)
+    except:
+        SquadMembers.objects.create(squad_id=instance.id, player_id=instance.leader.id)
 
 
 post_save.connect(squad_post_save, sender=Squad)

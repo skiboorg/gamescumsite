@@ -8,7 +8,8 @@ class EditProfileForm(UserChangeForm):
         model = SteamUser
         fields = (
             'email',
-            'discord_id'
+            'discord_id',
+            'info'
         )
         error_messages = {
             'email': {

@@ -8,11 +8,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
-                        <h1 class="page-heading__title">Staff <span class="highlight">OWN</span></h1>
+                        <h1 class="page-heading__title font_scum">ТВОЙ <span class="highlight">ПРОфИЛЬ</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="team-overview.html">Team</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Staff Member</li>
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ПРОФИЛЬ</li>
                         </ol>
                     </div>
                 </div>
@@ -21,74 +20,254 @@
         <!-- Page Heading / End -->
         <!-- Content
 		================================================== -->
-        <div class="site-content">
-            <div class="container">
-                <div class="row">
-                    <!-- Content -->
-                    <div class="content col-md-12">
-                        <!-- Staff Member -->
-                        <div class="card card--clean alc-staff">
-{#                            <div class="card__header card__header--has-btn">#}
-{#                                <h4>Ин</h4><a class="btn btn-default btn-outline btn-xs card-header__button" href="#" title="Go to the Team">Go to the Team</a>#}
-{#                            </div>#}
-                            <div class="card__content">
+
+    <div class="container">
+    <div class="row">
+        <!-- Content -->
+        <div class="content col-md-8">
+            <!-- Staff Member -->
+            <div class="card card--clean alc-staff">
+                <div class="card__header card__header--has-btn">
+                    <h4>Персональная информация</h4></div>
+
+                 <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="alc-staff__photo"><img src="{{ user.avatarfull }}" alt=""></div>
+                                            <div class="col-md-12">
+                                        <div class="widget card widget--sidebar widget-player widget-player--alt">
+                                                    <div class="widget__content card__content">
+                                                        <div class="widget-player__team-logo"><img src="{{ player.avatarfull }}" alt=""></div>
+                                                        <figure class="widget-player__photo"><img src="{{ player.avatarfull }}" alt=""></figure>
+                                                        <header class="widget-player__header clearfix">
+                                                            <div class="widget-player__number"></div>
+                                                            <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
+                                                        <div class="widget-player__content">
+                                                            <div class="widget-player__content-inner">
+                                                                <div class="widget-player__stat widget-player__assists">
+                                                                    <h6 class="widget-player__stat-label">Убийств</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.kills }}</div>
+                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                </div>
+                                                                <div class="widget-player__stat widget-player__steals">
+                                                                    <h6 class="widget-player__stat-label">Смертей</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.deaths }}</div>
+                                                                    <div class="widget-player__stat-legend">AVG</div>
+                                                                </div>
+                                                                <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Рейтинг</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.rating }}</div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined }}</span></footer>
+                                                    </div>
+                                                </div>
+                        </div>
+
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="alc-staff-inner">
-                                                    <header class="alc-staff__header">
-                                                        <h1 class="alc-staff__header-name"><span class="alc-staff__header-last-name">{{ player.personaname }}</span></h1><span class="alc-staff__header-role">Звание : </span></header>
-                                                    <!-- Excerpt -->
-                                                    <div class="alc-staff-excerpt">Информация о игроке</div>
-                                                    <!-- Excerpt / End -->
-                                                    <!-- Details -->
-                                                    <dl class="alc-staff-details"><dt class="alc-staff-details__label">Рейтинг:</dt>
-                                                        <dd class="alc-staff-details__value">1</dd><dt class="alc-staff-details__label">Age:</dt>
-                                                        <dd class="alc-staff-details__value">48</dd><dt class="alc-staff-details__label">Birthday:</dt>
-                                                        <dd class="alc-staff-details__value">October 26th, 1968</dd><dt class="alc-staff-details__label">Current Team:</dt>
-                                                        <dd class="alc-staff-details__value">Alchemists</dd><dt class="alc-staff-details__label">Past Teams:</dt>
-                                                        <dd class="alc-staff-details__value">Lucky Clovers</dd><dt class="alc-staff-details__label">Competitions:</dt>
-                                                        <dd class="alc-staff-details__value">Regular Season</dd><dt class="alc-staff-details__label">Seasons:</dt>
-                                                        <dd class="alc-staff-details__value">2011, 2012, 2014, 2016, 2017</dd>
-                                                        {{ squad_info.leader.personaname }}
+
+
+                                                    <dl class="alc-staff-details">
+                                                    <dt class="alc-staff-details__label">Уровень игрока:</dt><dd class="alc-staff-details__value">{{ player.level }}</dd>
+                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
+                                                        <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
+                                                        <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
+                                                        <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                        <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
+                                                        <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">
+                                                        {% if squad_info %}
+                                                            {{ squad_info.name }}
+                                                        {% else %}
+                                                           нет
+                                                        {% endif %}
+
+
+                                                    </dd>
                                                     </dl>
+                                                    <div class="alc-staff-excerpt">
+                                                          <form action="" method="post">
+                                                            {% csrf_token %}
+                                                           <div class="form-group">
+                                                            <label for="player_info">Информация о себе <span class="required">*</span></label>
+
+                                                               <textarea id="player_info" name="{{ form.info.name }}"  class="form-control">{{ request.user.info }}</textarea>
+                                                         </div>
+
+                                                            <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить данные профиля</button>
+                                                        </form>
+                                                    </div>
                                                     <!-- Details / End -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
+            </div>
+            <!-- Staff Member / End -->
+            <!-- Lates News -->
+        {% if not squad_info %}
+             <div class="card card--clean alc-staff">
+                <div class="card__header card__header--has-btn">
+                    <h4>Создание отряда</h4></div>
+                 <div class="card__content">
+                                <div class="card mb-0">
+                                    <div class="card__content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="alc-staff-inner">
 
-                    <div class="content col-md-12">
 
-                         <form action="" method="post">
+                                               <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                             {% csrf_token %}
-                           <div class="form-group">
-                            <label for="contact-form-name">E-MAIL <span class="required">*</span></label>
-                               {{ form.email.errors }}
-                            <input type="email" name="{{ form.email.name }}" value="{{ request.user.email }}" required  class="form-control" placeholder="admin@gamescum.ru">
+
+                              <div class="form-group">
+                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                               {{ squad_form.name.errors }}
+                            <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                         </div>
                          <div class="form-group">
-                            <label for="contact-form-name">DISCORD ID <span class="required">*</span></label>
-                              {{ form.discord_id.errors }}
-                            <input type="text" name="{{ form.discord_id.name }}" value="{{ request.user.discord_id }}" required class="form-control" placeholder="например : greshnik#2015">
+                            <label for="contact-form-name">Автар отряда <span class="required">*</span></label>
+                              {{ squad_form.avatar.errors }}
+
+                            <input type="file" name="{{ squad_form.avatar.name }}"  required="required" class="form-control" >
                         </div>
-                            <button type="submit" class="btn btn-primary-inverse btn-lg ">Обновить данные профиля</button>
+                           <div class="form-group">
+                            <label for="squad_info">Дополнительная информация об отряде </label>
+
+                               <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
+                         </div>
+                             <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+
+                            <button type="submit" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
                         </form>
 
+                                                    <!-- Details / End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    </div>
-
-                </div>
             </div>
+             </div>
+         {% endif %}
+
+          {% if squad_leader %}
+           <div class="card card--clean alc-staff">
+                <div class="card__header card__header--has-btn">
+                    <h4>Управление отрядом</h4></div>
+                 <div class="card__content">
+                                <div class="card mb-0">
+                                    <div class="card__content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="alc-staff-inner">
+
+
+                                               <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
+                                                        {% csrf_token %}
+
+                                                          <div class="form-group">
+                                                        <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                         
+                                                        <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                    </div>
+                                                     <div class="form-group">
+                                                        <label for="contact-form-name">Автар отряда </label>
+
+                                                         <img style="margin: 20px;
+                                                                                width: 100px;
+                                                                                border-radius: 10px;"  src="{{ squad_info.avatar.url }}">
+
+                                                        <input type="file" name="{{ squad_form.avatar.name }}"   class="form-control" >
+                                                    </div>
+                                                       <div class="form-group">
+                                                        <label for="squad_info">Дополнительная информация об отряде </label>
+
+                                                           <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
+                                                     </div>
+                                                         <input type="hidden" name="update" value="1">
+
+                                                        <button type="submit" class="btn  btn-outline-danger btn-sm ">Изменить отряд</button>
+                                                    </form>
+
+                                                    <!-- Details / End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+            </div>
+             </div>
+          {% endif %}
         </div>
+        <!-- Content / End -->
+        <!-- Sidebar -->
+        <div class="sidebar col-md-4">
+
+            <!-- Widget: Player Newslog -->
+            <aside class="widget card widget--sidebar widget-newslog">
+                <div class="widget__title card__header">
+                    <h4>Сообшения</h4></div>
+                <div class="widget__content card__content">
+                    <ul class="newslog">
+                        <li class="newslog__item newslog__item--join">
+                            <div class="newslog__item-inner">
+                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
+                                <div class="newslog__date">December 19, 2015</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </aside>
+             {% if squad_leader %}
+             <aside class="widget card widget--sidebar widget-newslog">
+                <div class="widget__title card__header">
+                    <h4>Состав отряда</h4></div>
+                <div class="widget__content card__content">
+                    <ul class="newslog">
+                        <li class="newslog__item newslog__item--join">
+                            <div class="newslog__item-inner">
+                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
+                                <div class="newslog__date">December 19, 2015</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </aside>
+
+            <aside class="widget card widget--sidebar widget-newslog">
+                <div class="widget__title card__header">
+                    <h4>Заявки на вступление</h4></div>
+                <div class="widget__content card__content">
+                    <ul class="newslog">
+                        <li class="newslog__item newslog__item--join">
+                            <div class="newslog__item-inner">
+                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
+                                <div class="newslog__date">December 19, 2015</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </aside>
+
+
+            {% endif %}
+            <!-- Widget: Player Newslog / End -->
+        </div>
+        <!-- Sidebar / End -->
+    </div>
+</div>
+
+
         <!-- Content / End -->
 {% endblock %}

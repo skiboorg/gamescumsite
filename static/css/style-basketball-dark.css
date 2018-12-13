@@ -27,7 +27,7 @@ body {
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: -.03em;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 #jprePercentage:before {
@@ -126,7 +126,7 @@ a:hover {
 
 a:focus,
 a:hover {
-    color: #ffdc11;
+    color: #ff7e1f;
     outline: none
 }
 
@@ -173,7 +173,7 @@ ul.list li:before {
     position: absolute;
     left: 0;
     width: 20px;
-    color: #ffdc11;
+    color: #ff7e1f;
     font-family: Montserrat, sans-serif;
     font-size: 14px;
     content: "\f00c";
@@ -376,7 +376,7 @@ figure {
     width: 28px;
     height: 28px;
     fill: none;
-    stroke: #ffdc11
+    stroke: #ff7e1f
 }
 
 .df-icon-stack {
@@ -703,7 +703,7 @@ th {
     bottom: 0;
     width: 120px;
     height: 25px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     border-radius: 3px
 }
 
@@ -876,7 +876,7 @@ th {
 }
 
 .df-color-pallete__item.color-primary {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .df-color-pallete__item.color-primary-darken {
@@ -2021,7 +2021,7 @@ fieldset[disabled] .btn-odnoklassniki:hover {
 
 .btn-fab--clean:after,
 .btn-fab--clean:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .btn-fab--sm {
@@ -2109,7 +2109,7 @@ fieldset[disabled] .btn-odnoklassniki:hover {
     left: 0;
     top: 0;
     bottom: 0;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     border-radius: 3px 0 0 0
 }
 
@@ -2320,7 +2320,7 @@ a.label:hover {
 }
 
 .label-primary {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .label-primary[href]:focus,
@@ -2374,7 +2374,7 @@ label {
 }
 
 label .required {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .form-control {
@@ -2399,7 +2399,7 @@ label .required {
 .form-control:focus {
     color: #fff;
     background-color: hsla(0, 0%, 100%, .03);
-    border-color: #ffdc11;
+    border-color: #ff7e1f;
     box-shadow: none
 }
 
@@ -3014,24 +3014,24 @@ abbr.required {
     padding: 5px 10px;
     color: #292c31;
     text-align: center;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     border-radius: 2px
 }
 
 .bs-tooltip-top .arrow:before {
-    border-top-color: #ffdc11
+    border-top-color: #ff7e1f
 }
 
 .bs-tooltip-right .arrow:before {
-    border-right-color: #ffdc11
+    border-right-color: #ff7e1f
 }
 
 .bs-tooltip-bottom .arrow:before {
-    border-bottom-color: #ffdc11
+    border-bottom-color: #ff7e1f
 }
 
 .bs-tooltip-left .arrow:before {
-    border-left-color: #ffdc11
+    border-left-color: #ff7e1f
 }
 
 .countdown__content {
@@ -3096,7 +3096,7 @@ abbr.required {
 }
 
 .breadcrumb-item>a:hover {
-    color: #ffdc11!important
+    color: #ff7e1f!important
 }
 
 .breadcrumb-item.active {
@@ -3218,7 +3218,7 @@ abbr.required {
     height: 100%;
     line-height: 6px;
     color: hsla(0, 0%, 100%, .03);
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .progress__label,
@@ -3471,7 +3471,7 @@ abbr.required {
 }
 
 .progress--battery .progress__bar {
-    background-image: radial-gradient(circle, #ffdc11, #ffdc11 2px, transparent 0, transparent), radial-gradient(circle, #ffdc11, #ffdc11 2px, transparent 0, transparent), linear-gradient(90deg, #ffdc11, #ffdc11 4px, transparent 0, transparent 8px)
+    background-image: radial-gradient(circle, #ff7e1f, #ff7e1f 2px, transparent 0, transparent), radial-gradient(circle, #ff7e1f, #ff7e1f 2px, transparent 0, transparent), linear-gradient(90deg, #ff7e1f, #ff7e1f 4px, transparent 0, transparent 8px)
 }
 
 .progress--battery .progress__bar,
@@ -3744,7 +3744,7 @@ abbr.required {
     right: auto;
     bottom: auto;
     transform: translate(-50%, -50%);
-    border: 2px solid #ffdc11;
+    border: 2px solid #ff7e1f;
     background-color: rgba(30, 32, 36, .6);
     border-radius: 50%;
     color: #fff;
@@ -3840,7 +3840,7 @@ abbr.required {
     line-height: 16px;
     left: 10px;
     top: 0;
-    border: 2px solid #ffdc11;
+    border: 2px solid #ff7e1f;
     border-radius: 50%;
     color: #fff;
     -webkit-font-smoothing: antialiased;
@@ -4214,7 +4214,7 @@ div.cs-skin-border li.cs-focus span {
 }
 
 .slick-dots li.slick-active button {
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     opacity: .75
 }
 
@@ -4443,7 +4443,7 @@ div.cs-skin-border li.cs-focus span {
 .js-team-roster--card-compact .slick-prev:hover:not(.slick-disabled),
 .team-roster--card-slider .slick-next:hover:not(.slick-disabled),
 .team-roster--card-slider .slick-prev:hover:not(.slick-disabled) {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .js-team-roster--card-compact .slick-next:hover:not(.slick-disabled):before,
@@ -4503,7 +4503,7 @@ div.cs-skin-border li.cs-focus span {
 
 .team-roster--case-slider .slick-next:hover,
 .team-roster--case-slider .slick-prev:hover {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .team-roster--case-slider .slick-next:hover:before,
@@ -4552,7 +4552,7 @@ div.cs-skin-border li.cs-focus span {
 
 .js-team-roster--grid-sm .slick-next:hover:not(.slick-disabled),
 .js-team-roster--grid-sm .slick-prev:hover:not(.slick-disabled) {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .js-team-roster--grid-sm .slick-next:hover:not(.slick-disabled):before,
@@ -4642,7 +4642,7 @@ div.cs-skin-border li.cs-focus span {
 
 .posts--slider-top-news .slick-dots li.slick-active button {
     opacity: 1;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .category-filter {
@@ -4871,7 +4871,7 @@ div.cs-skin-border li.cs-focus span {
 }
 
 .noUi-connect {
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     transition: background .45s
 }
 
@@ -4930,7 +4930,7 @@ div.cs-skin-border li.cs-focus span {
     height: 50px;
     overflow: hidden;
     position: relative;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .icobox__icon i {
@@ -4953,7 +4953,7 @@ div.cs-skin-border li.cs-focus span {
 }
 
 .icobox__icon--filled {
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     color: #fff
 }
 
@@ -4973,11 +4973,11 @@ div.cs-skin-border li.cs-focus span {
 }
 
 .icobox__icon--color--primary {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .icobox__icon--color--primary.icobox__icon--filled {
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     color: #fff
 }
 
@@ -5003,7 +5003,7 @@ div.cs-skin-border li.cs-focus span {
 }
 
 .ratings .fa {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .ratings .empty {
@@ -5042,8 +5042,8 @@ div.cs-skin-border li.cs-focus span {
     width: 19px;
     height: 19px;
     border-radius: 50%;
-    background-color: #ffdc11;
-    border: 2px solid #ffdc11;
+    background-color: #ff7e1f;
+    border: 2px solid #ff7e1f;
     box-shadow: inset 0 0 0 5px #292c31
 }
 
@@ -5098,7 +5098,7 @@ div.cs-skin-border li.cs-focus span {
 
 .marquee-wrapper:before {
     left: 0;
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .marquee-wrapper:after,
@@ -5168,11 +5168,11 @@ div.cs-skin-border li.cs-focus span {
         font-weight: 700;
         letter-spacing: -.02em;
         color: #fff;
-        background-color: #ffdc11
+        background-color: #ff7e1f
     }
     .marquee-label:before {
         right: -26px;
-        background-color: #ffdc11;
+        background-color: #ff7e1f;
         width: 35px
     }
     .marquee-label:after,
@@ -5464,13 +5464,13 @@ body {
         line-height: 48px
     }
     .nav-account .nav-account__item>a:hover {
-        color: #ffdc11
+        color: #ff7e1f
     }
     .nav-account .nav-account__item>a:focus {
         outline: none
     }
     .nav-account .nav-account__item>a .highlight {
-        color: #ffdc11
+        color: #ff7e1f
     }
     .nav-account .nav-account__item:last-child:before {
         display: none
@@ -5691,7 +5691,7 @@ input.header-mobile__search-control:focus {
     padding: 0;
     border: none;
     font-size: 16px;
-    color: #ffdc11;
+    color: #ff7e1f;
     transition: color, background-color .3s ease;
     border-radius: 0 20px 20px 0
 }
@@ -5918,23 +5918,23 @@ input.header-mobile__search-control:focus {
 }
 
 .main-nav__list>li>a:hover {
-    color: #ffdc11;
+    color: #ff7e1f;
     background-color: transparent;
     text-decoration: none
 }
 
 .main-nav__list>li>a:hover:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .main-nav__list>li.active>a {
-    color: #ffdc11;
+    color: #ff7e1f;
     text-decoration: none;
     background-color: transparent
 }
 
 .main-nav__list>li.active>a:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .main-nav__list>li.has-children>a:after {
@@ -6205,7 +6205,7 @@ input.header-mobile__search-control:focus {
         float: right;
         font-size: 11px;
         line-height: 1.5em;
-        color: #ffdc11
+        color: #ff7e1f
     }
     .main-nav .main-nav__back {
         width: 49px;
@@ -6229,7 +6229,7 @@ input.header-mobile__search-control:focus {
         height: auto
     }
     .main-nav .main-nav__list>li>a .highlight {
-        color: #ffdc11
+        color: #ff7e1f
     }
     .main-nav .main-nav__list>li.has-children>a:after {
         display: none
@@ -6564,7 +6564,7 @@ input.header-mobile__search-control:focus {
 
 .hero-unit__decor {
     display: block;
-    color: #ffdc11;
+    color: #ff7e1f;
     margin-bottom: 5px
 }
 
@@ -6732,7 +6732,7 @@ input.header-mobile__search-control:focus {
     width: 62px;
     height: 62px;
     line-height: 62px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     vertical-align: top;
     margin-left: 27px;
     position: relative
@@ -6963,7 +6963,7 @@ input.header-mobile__search-control:focus {
 }
 
 .page-heading .breadcrumb>li>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .page-heading:before {
@@ -6997,7 +6997,7 @@ input.header-mobile__search-control:focus {
 }
 
 .page-heading__title .highlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .page-heading--post-bg {
@@ -7126,7 +7126,7 @@ input.header-mobile__search-control:focus {
 
 @media (min-width:768px) {
     .footer-secondary--has-decor {
-        background-color: #ffdc11
+        background-color: #ff7e1f
     }
 }
 
@@ -7149,7 +7149,7 @@ input.header-mobile__search-control:focus {
     top: 0;
     bottom: 0;
     width: 120px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     display: none
 }
 
@@ -7265,7 +7265,7 @@ input.header-mobile__search-control:focus {
 }
 
 .footer-nav__item>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 @media (max-width:479px) {
@@ -7477,7 +7477,7 @@ input.header-mobile__search-control:focus {
 }
 
 .footer-copyright a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 ul.posts {
@@ -7547,7 +7547,7 @@ ul.posts:not(.post-grid) {
     right: 0;
     bottom: 0;
     top: 0;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     color: #fff;
     opacity: 0;
     transition: opacity .3s ease;
@@ -7687,7 +7687,7 @@ ul.posts:not(.post-grid) {
 }
 
 .widget--footer .posts--simple-list .posts__title>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .widget--footer .posts--simple-list .posts__title+.posts__date {
@@ -8580,7 +8580,7 @@ ul.posts:not(.post-grid) {
 
 .blockquote--card .blockquote-stress {
     display: block;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .blockquote--card .blockquote__footer {
@@ -8719,7 +8719,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts--slider-featured .posts__title-higlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .posts--slider-featured .post-author {
@@ -9004,7 +9004,7 @@ ul.posts:not(.post-grid) {
     margin: -20px 0 0 -20px;
     background-color: rgba(23, 29, 33, .6);
     border-radius: 50%;
-    border: 4px solid #ffdc11;
+    border: 4px solid #ff7e1f;
     z-index: 1;
     color: #fff;
     font-size: 14px;
@@ -9219,7 +9219,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts__item--desc-center .posts__title-higlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .posts__item--desc-center:hover .posts__thumb img {
@@ -9309,7 +9309,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts__item--desc-left .posts__title-higlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .posts__item--desc-left:hover .posts__thumb img {
@@ -9413,7 +9413,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts--slider-top-news .posts__title-higlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 @media (max-width:479px) {
@@ -9553,7 +9553,7 @@ ul.posts:not(.post-grid) {
     margin: -30px 0 0 -30px;
     background-color: rgba(23, 29, 33, .6);
     border-radius: 50%;
-    border: 4px solid #ffdc11;
+    border: 4px solid #ff7e1f;
     z-index: 1;
     color: #fff;
     font-size: 24px;
@@ -11026,7 +11026,7 @@ ul.posts:not(.post-grid) {
 }
 
 .comments-list--alt .comments-list__item--category-1 .comments-list__post:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .comments-list--alt .comments-list__item--category-2 .comments-list__post:before {
@@ -11288,7 +11288,7 @@ ul.posts:not(.post-grid) {
 }
 
 .widget--footer .twitter-feed__username>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .widget--footer .twitter-feed__body {
@@ -11484,7 +11484,7 @@ ul.posts:not(.post-grid) {
 }
 
 .widget-player__last-name {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .widget-player__content {
@@ -11584,7 +11584,7 @@ ul.posts:not(.post-grid) {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     z-index: 1;
     text-align: right;
     line-height: 10px
@@ -11621,7 +11621,7 @@ ul.posts:not(.post-grid) {
 .widget-player__footer-txt .fa {
     font-size: 12px;
     margin-right: .5em;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .widget-player__footer-txt:before {
@@ -11631,7 +11631,7 @@ ul.posts:not(.post-grid) {
     top: 0;
     bottom: 0;
     width: 20px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     left: -10px;
     transform: skew(-30deg)
 }
@@ -11731,8 +11731,8 @@ ul.posts:not(.post-grid) {
 }
 
 .widget-player--alt .widget__content {
-    background-color: #ffdc11;
-    background-image: linear-gradient(180deg, #ffdc11, #f29400)
+    background-color: #ff7e1f;
+    background-image: linear-gradient(180deg, #ff7e1f, #f29400)
 }
 
 .widget-player--alt .widget-player__photo {
@@ -11749,7 +11749,7 @@ ul.posts:not(.post-grid) {
 }
 
 .widget-player--alt .widget-player__stat-number {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .widget-player--alt .widget-player__stat-legend {
@@ -11996,7 +11996,7 @@ ul.posts:not(.post-grid) {
     top: 50%;
     width: 0;
     height: 0;
-    border-left: 8px solid #ffdc11;
+    border-left: 8px solid #ff7e1f;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     transform: translateY(-50%)
@@ -12096,7 +12096,7 @@ ul.posts:not(.post-grid) {
     height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid #ffdc11
+    border-left: 8px solid #ff7e1f
 }
 
 @media (min-width:992px) {
@@ -12564,7 +12564,7 @@ ul.posts:not(.post-grid) {
     display: inline-block;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
-    border-left: 4px solid #ffdc11;
+    border-left: 4px solid #ff7e1f;
     width: 0;
     height: 0;
     margin-right: .5em
@@ -12579,7 +12579,7 @@ ul.posts:not(.post-grid) {
     display: inline-block;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
-    border-right: 4px solid #ffdc11;
+    border-right: 4px solid #ff7e1f;
     width: 0;
     height: 0;
     margin-left: .5em
@@ -12665,7 +12665,7 @@ ul.posts:not(.post-grid) {
 
 .awards__stars .fa {
     margin: 0 2px;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .awards-filter {
@@ -12992,7 +12992,7 @@ th.team-leader__total {
     height: 90px;
     border-radius: 50%;
     margin: 0 auto 16px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     overflow: hidden
 }
 
@@ -13217,7 +13217,7 @@ th.team-leader__total {
 
 .products-list__product-ratings .fa {
     margin-right: 2px;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .products-list__product-ratings .fa.empty {
@@ -13264,7 +13264,7 @@ th.team-leader__total {
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     border-radius: 50%;
     text-align: center;
     line-height: 30px;
@@ -13314,7 +13314,7 @@ th.team-leader__total {
 
 .calendar_wrap>table .next a:hover,
 .calendar_wrap>table .prev a:hover {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .calendar_wrap>table .prev {
@@ -13385,7 +13385,7 @@ th.team-leader__total {
 }
 
 .team-roster--grid .team-roster__holder:hover .team-roster__member-number {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .team-roster--grid .team-roster__img {
@@ -13538,7 +13538,7 @@ th.team-leader__total {
 
 .team-roster--grid .team-roster__member-last-name {
     display: block;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .team-roster--grid .team-roster__member-position {
@@ -13651,7 +13651,7 @@ th.team-leader__total {
     font-family: Montserrat, sans-serif;
     font-weight: 700;
     letter-spacing: -.02em;
-    color: #ffdc11;
+    color: #ff7e1f;
     line-height: 1em;
     padding-right: .12em
 }
@@ -13822,7 +13822,7 @@ th.team-leader__total {
     left: 0;
     right: 0;
     height: 52px;
-    border: solid #ffdc11;
+    border: solid #ff7e1f;
     border-width: 7px 32px;
     border-radius: 50%
 }
@@ -13932,7 +13932,7 @@ th.team-leader__total {
 }
 
 .team-roster--slider .team-roster__player-last-name {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .team-roster--slider .team-roster__player-position {
@@ -14196,7 +14196,7 @@ th.team-leader__total {
     display: block;
     font-size: 40px;
     line-height: 1em;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 @media (min-width:1200px) {
@@ -14937,7 +14937,7 @@ th.team-leader__total {
 }
 
 .player-info__last-name {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .player-info-details {
@@ -15309,7 +15309,7 @@ th.team-leader__total {
     display: block;
     font-size: 46px;
     line-height: 1em;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 @media (max-width:479px) {
@@ -15552,7 +15552,7 @@ th.team-leader__total {
 }
 
 .df-account-navigation__link>a>span {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .df-account-navigation__link+li {
@@ -15565,7 +15565,7 @@ th.team-leader__total {
 
 .df-account-navigation .active,
 .df-account-navigation__link--active a {
-    border-left: 6px solid #ffdc11;
+    border-left: 6px solid #ff7e1f;
     padding-left: 18px;
     background-color: #fafafb
 }
@@ -15662,7 +15662,7 @@ th.team-leader__total {
 
 .shop-table .product__info .product__ratings .fa-star {
     font-size: 10px;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .shop-table .product__info .product__ratings .fa-star.empty {
@@ -15956,7 +15956,7 @@ th.team-leader__total {
     content: "\f005";
     font-family: FontAwesome;
     font-size: 14px;
-    color: #ffdc11;
+    color: #ff7e1f;
     font-weight: 400;
     letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
@@ -16240,7 +16240,7 @@ th.team-leader__total {
 .icon-grid-layout:hover .icon-grid-layout__item,
 .icon-grid-layout:hover .icon-grid-layout__item:after,
 .icon-grid-layout:hover .icon-grid-layout__item:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .icon-grid-layout:hover .icon-grid-layout__item:first-child {
@@ -16339,16 +16339,16 @@ th.team-leader__total {
 
 .icon-list-layout--active .icon-list-layout__item,
 .icon-list-layout--active .icon-list-layout__item:before {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .icon-list-layout:hover .icon-list-layout__item {
     animation: e .5s;
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .icon-list-layout:hover .icon-list-layout__item:before {
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     animation: f .5s
 }
 
@@ -16439,7 +16439,7 @@ th.team-leader__total {
 }
 
 .product__ratings .fa {
-    color: #ffdc11;
+    color: #ff7e1f;
     margin-right: 3px
 }
 
@@ -17378,7 +17378,7 @@ th.team-leader__total {
 }
 
 .products--grid-overlay .product__item .product__btn-add-remove:hover {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .products--grid-overlay .product__item .product__btn-add-remove:hover .product__close-icon {
@@ -17510,7 +17510,7 @@ th.team-leader__total {
 }
 
 .products--grid-light .product__title>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .products--grid-light .product__ratings .empty {
@@ -17780,7 +17780,7 @@ th.team-leader__total {
     left: 0;
     right: 0;
     height: 0;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     transition: height .3s ease
 }
 
@@ -17884,7 +17884,7 @@ th.team-leader__total {
 }
 
 .product-tabs__header--sm .product-tabs__ratings .highlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .product-tabs__header--sm .product-tabs__reviews {
@@ -17926,7 +17926,7 @@ th.team-leader__total {
     height: auto;
     font-size: 28px;
     line-height: 1.2em;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .info-block__item .df-icon--custom img {
@@ -18022,7 +18022,7 @@ th.team-leader__total {
     }
     .info-block--header .info-block__item .df-icon {
         top: 24px;
-        stroke: #ffdc11
+        stroke: #ff7e1f
     }
     .info-block--header .info-block__item .df-icon-stack--bag {
         top: 3px
@@ -18074,7 +18074,7 @@ th.team-leader__total {
     font-family: Montserrat, sans-serif;
     line-height: 1.2em;
     display: block;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .info-block--header .header-cart {
@@ -18150,7 +18150,7 @@ th.team-leader__total {
 }
 
 .info-block--header .header-cart__product-name>a:hover {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .info-block--header .header-cart__product-ratings {
@@ -18161,7 +18161,7 @@ th.team-leader__total {
 
 .info-block--header .header-cart__product-ratings .fa {
     margin-right: 2px;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .info-block--header .header-cart__product-ratings .fa.empty {
@@ -18239,7 +18239,7 @@ th.team-leader__total {
 }
 
 .footer-widgets .info-block__item .df-icon {
-    stroke: #ffdc11
+    stroke: #ff7e1f
 }
 
 .info-block--horizontal {
@@ -18637,7 +18637,7 @@ th.team-leader__total {
 }
 
 .social-links__link:hover .fa {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .social-links--main-nav {
@@ -19304,7 +19304,7 @@ th.team-leader__total {
 }
 
 .game-result__header--alt .game-result__title .highlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .game-result__header--alt .game-result__goal {
@@ -19517,7 +19517,7 @@ th.team-leader__total {
     top: 50%;
     width: 0;
     height: 0;
-    border-left: 8px solid #ffdc11;
+    border-left: 8px solid #ff7e1f;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     transform: translateY(-50%)
@@ -19811,7 +19811,7 @@ th.team-leader__total {
 }
 
 .main-news-banner .main-news-banner__highlight {
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .main-news-banner__inner {
@@ -19869,7 +19869,7 @@ th.team-leader__total {
     top: 50%;
     transform: translateY(-50%);
     height: 23%;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     width: 50%
 }
 
@@ -20150,7 +20150,7 @@ th.team-leader__total {
     bottom: 0;
     height: 0;
     opacity: 0;
-    background-color: #ffdc11;
+    background-color: #ff7e1f;
     transition: opacity height .2s ease-out
 }
 
@@ -20232,7 +20232,7 @@ th.team-leader__total {
     margin-right: 15px;
     font-size: 30px;
     line-height: 1em;
-    color: #ffdc11;
+    color: #ff7e1f;
     transition: color .3s ease
 }
 
@@ -20376,7 +20376,7 @@ th.team-leader__total {
 }
 
 .album__item-holder--color--primary {
-    background-color: #ffdc11
+    background-color: #ff7e1f
 }
 
 .album__item-holder--color--primary .album__item-date {
@@ -20432,7 +20432,7 @@ th.team-leader__total {
     margin-right: 15px;
     font-size: 30px;
     line-height: 1em;
-    color: #ffdc11;
+    color: #ff7e1f;
     transition: color .3s ease
 }
 
@@ -20694,7 +20694,7 @@ th.team-leader__total {
 .nav-tabs--login>li.active>a:hover,
 .nav-tabs--login>li>a:hover {
     background-color: #292c31;
-    color: #ffdc11
+    color: #ff7e1f
 }
 
 .nav-tabs--login>li+li {
@@ -20777,7 +20777,7 @@ th.team-leader__total {
 
 .text-color-primary,
 .text-primary {
-    color: #ffdc11!important
+    color: #ff7e1f!important
 }
 
 .text-transform-normal {
