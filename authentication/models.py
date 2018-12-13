@@ -3,7 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from squads.models import Squad
+# from squads.models import Squad
 from events.models import Event
 from pytils.translit import slugify
 
@@ -46,9 +46,6 @@ class SteamUserManager(BaseUserManager):
 
 class SteamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'steamid'
-
-    squad = models.ForeignKey(Squad, blank=True, null=True, on_delete=models.SET_NULL, default=None)
-    event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.SET_NULL, default=None)
     steamid = models.CharField(max_length=17, unique=True)
     discord_id = models.CharField(max_length=40, blank=True, null=True, unique=True, default=None)
     email = models.CharField(max_length=255, unique=True, blank=True, null=True, default=None)
@@ -60,18 +57,19 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarfull = models.CharField(max_length=255)
     rank = models.CharField(max_length=100, default='Новичек')
     info = models.TextField(default='Игрок не указал дополнительных сведений о себе.')
-    wallet = models.DecimalField(max_digits=8, decimal_places=3, default=0, blank=True)
-    rating = models.DecimalField(max_digits=4, decimal_places=3, default=1)
-    kills = models.IntegerField(default=0, blank=True)
-    deaths = models.IntegerField(default=0, blank=True)
+    wallet = models.IntegerField(default=0)
+    rating = models.IntegerField(default=1)
+    level = models.IntegerField(default=1)
+    kills = models.IntegerField(default=0)
+    deaths = models.IntegerField(default=0)
 
-    squad_leader = models.BooleanField(default=False)
     vip = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_banned = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     last_zp = models.DateTimeField(default=timezone.now)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    last_vizit = models.DateField(default=timezone.now)
     objects = SteamUserManager()
 
     def get_short_name(self):
@@ -86,3 +84,12 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return '%s' % self.nickname
+
+
+class PrivateMessages(models.Model):
+    to_player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    from_player_name = models.CharField(max_length=30, blank=False)
+    from_player_name_slug = models.CharField(max_length=30, blank=True)
+    from_player_avatar = models.CharField(max_length=255, blank=False)
+    text = models.TextField(blank=False, default='')
+    created = models.DateTimeField(default=timezone.now)

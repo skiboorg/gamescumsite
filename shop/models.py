@@ -7,11 +7,9 @@ from pytils.translit import slugify
 class Categories(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
     name_slug = models.SlugField(max_length=255, blank=True, null=True)
-    info = models.CharField(max_length=255, blank=False, null=True)
     active = models.BooleanField(default=True)
-    views = models.IntegerField(default=0)
     discount = models.IntegerField(default=0)
-    for_vip = models.BooleanField(default=False)
+    for_squad = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -28,15 +26,14 @@ class Categories(models.Model):
 
 
 class Items(models.Model):
-    category = models.ForeignKey(Categories, blank=True, null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=False, null=True)
-    item_spawn_name = models.CharField(max_length=30, blank=True, null=True)
-    info = models.CharField(max_length=255, blank=True, null=True)
-    image = models.ImageField(upload_to='shop/', null=True, blank=True)
+    item_spawn_name = models.CharField(max_length=30, blank=False, null=True)
+    image = models.ImageField(upload_to='shop/', null=True, blank=False)
     active = models.BooleanField(default=True)
     price = models.IntegerField(default=0)
-    views = models.IntegerField(default=0)
     buys = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
     for_vip = models.BooleanField(default=False)
     discount = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -60,7 +57,7 @@ class Items(models.Model):
 
 class Orders(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    total_price = models.IntegerField(default=0)
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -78,19 +75,19 @@ class ItemsInOrder(models.Model):
     order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     number = models.IntegerField(blank=True, null=True, default=0)
-    current_price = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, default=0)
-    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    current_price = models.IntegerField(default=0)
+    total_price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if self.item.discount > 0:
-            self.current_price = float(self.item.price - (self.item.price * self.item.discount / 100))
+            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
         elif self.order.player.vip:
-            self.current_price = float(self.item.price - (self.item.price * 50 / 100))
+            self.current_price = self.item.price - (self.item.price * 50 / 100)
         else:
-            self.current_price = float(self.item.price)
-        self.total_price = float(self.number) * self.current_price
+            self.current_price = self.item.price
+        self.total_price = self.number * self.current_price
 
         super(ItemsInOrder, self).save(*args, **kwargs)
 
@@ -102,13 +99,13 @@ class ItemsInOrder(models.Model):
         verbose_name = "Товар в заказе"
         verbose_name_plural = "Товары в заказах"
 
+
 class Baskets(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     number = models.IntegerField(blank=True, null=True, default=0)
-    current_price = models.DecimalField(max_digits=6, decimal_places=3, blank=True, null=True, default=0)
-    total_price = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True, default=0)
+    current_price = models.IntegerField(default=0)
+    total_price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -118,12 +115,12 @@ class Baskets(models.Model):
 
     def save(self, *args, **kwargs):
         if self.item.discount > 0:
-            self.current_price = float(self.item.price - (self.item.price * self.item.discount / 100))
+            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
         elif self.player.vip:
-            self.current_price = float(self.item.price - (self.item.price * 50 / 100))
+            self.current_price = self.item.price - (self.item.price * 50 / 100)
         else:
-            self.current_price = float(self.item.price)
-        self.total_price = float(self.number) * self.current_price
+            self.current_price = self.item.price
+        self.total_price = self.number * self.current_price
 
         super(Baskets, self).save(*args, **kwargs)
 

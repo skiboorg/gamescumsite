@@ -4,11 +4,21 @@ from django.http import HttpResponseRedirect,HttpResponse
 from news.models import News
 from authentication.forms import EditProfileForm
 from authentication.models import SteamUser
+from squads.models import SquadMembers,Squad
 import json
 import requests
 from datetime import datetime , time
 
 
+def get_squad_info(player_id):
+    try:
+        squad_member = SquadMembers.objects.get(player_id=player_id)
+    except:
+        squad_member = None
+    if squad_member:
+        squad_info = Squad.objects.get(id=squad_member.squad.id)
+        return (squad_info)
+    return ()
 
 
 def index(request):
@@ -48,6 +58,8 @@ def profile(request, nickname_req):
             played_time = 'НЕТ ДАННЫХ'
         return played_time
 
+
+
     if request.POST:
 
         form = EditProfileForm(request.POST, instance=request.user)
@@ -61,23 +73,22 @@ def profile(request, nickname_req):
         if request.user.is_authenticated:
             if nickname_req == request.user.nickname:
 
+                own_profile = True
                 player = request.user
+                squad_info = get_squad_info(player.id)
                 form = EditProfileForm(instance=request.user)
                 return render(request, 'pages/ownprofile.html', locals())
             else:
                 player = SteamUser.objects.filter(nickname=nickname_req).first()
+                squad_info = get_squad_info(player.id)
                 player_play_time = get_play_time(player.steamid)
                 return render(request, 'pages/profile.html', locals())
         else:
 
             player = SteamUser.objects.filter(nickname=nickname_req).first()
+            squad_info = get_squad_info(player.id)
             player_play_time = get_play_time(player.steamid)
             return render(request, 'pages/profile.html', locals())
 
 
 
-def own_profile(request):
-    own_profile = True
-    player = request.user
-    form = EditProfileForm(instance=request.user)
-    return render(request, 'pages/ownprofile.html', locals())

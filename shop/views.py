@@ -25,7 +25,7 @@ def shop_home(request):
     return render(request, 'shop/index.html', locals())
 
 
-def shop_show_cat(request,cat_slug):
+def shop_show_cat(request, cat_slug):
     all_categories = Categories.objects.all()
     current_cat = Categories.objects.filter(name_slug=cat_slug).first()
     items = Items.objects.filter(category__name_slug=cat_slug).all()
@@ -37,8 +37,8 @@ def shop_show_cat(request,cat_slug):
 def add_to_cart(request):
     return_dict = {}
     data = request.POST
-    item_id = data.get('item_id')
-    item_number = data.get('item_number')
+    item_id = int(data.get('item_id'))
+    item_number = int(data.get('item_number'))
     addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
                                                        item_id=item_id, defaults={'number': item_number})
     if not created:
@@ -70,7 +70,7 @@ def add_to_cart(request):
 def delete_from_cart(request):
     return_dict = {}
     data = request.POST
-    item_id = data.get('item_id')
+    item_id = int(data.get('item_id'))
     Baskets.objects.filter(player_id=request.user.id, item_id=item_id).delete()
     all_items_in_cart = Baskets.objects.filter(player_id=request.user.id)
     count_items_in_cart = all_items_in_cart.count()
@@ -99,21 +99,21 @@ def delete_from_cart(request):
 def place_order(request):
     return_dict = {}
     data = request.POST
-    total_price = float(data.get('total_price'))
+    total_price = int(data.get('total_price'))
     if total_price > request.user.wallet:
         return_dict['place_order_status'] = '0'
-        return_dict['money_need'] = total_price - float(request.user.wallet)
+        return_dict['money_need'] = total_price - request.user.wallet
     else:
         order = Orders.objects.create(player_id=request.user.id, total_price=total_price)
         all_cart_items = Baskets.objects.filter(player_id=request.user.id)
         for item in all_cart_items:
-            ItemsInOrder.objects.create(order_id=order.id,item_id=item.item.id,number=item.number,current_price=item.item.price)
+            ItemsInOrder.objects.create(order_id=order.id, item_id=item.item.id, number=item.number, current_price=item.item.price)
             item.item.buys = item.item.buys + 1
             item.item.save(force_update=True)
 
         all_cart_items.delete()
         player = SteamUser.objects.get(id=request.user.id)
-        player.wallet = float(player.wallet) - float(order.total_price)
+        player.wallet = player.wallet - order.total_price
         player.save(force_update=True)
 
         return_dict['place_order_status'] = '1'
