@@ -5,7 +5,7 @@ from news.models import News
 from authentication.forms import EditProfileForm
 from squads.forms import *
 from authentication.models import SteamUser
-from squads.models import SquadMembers, Squad
+from squads.models import SquadMembers, Squad,SquadSectors
 import json
 import requests
 from datetime import datetime , time
@@ -73,6 +73,7 @@ def profile(request, nickname_req):
     else:
         if request.user.is_authenticated:
             if nickname_req == request.user.nickname:
+                sectors_a = SquadSectors.objects.filter(name__startswith='a').order_by('-name')
 
                 own_profile = True
                 player = request.user

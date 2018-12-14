@@ -266,6 +266,56 @@
         </div>
         <!-- Sidebar / End -->
     </div>
+    <div style="    background-image: url(/static/images/map.png);
+    width: 900px;
+    height: 900px;
+
+    background-size: contain;">
+
+        <table style="
+        table-layout: fixed;
+        width: 900px;
+    height: 900px;">
+            <tr style="    height: 25%;">
+                <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+            </tr>
+             <tr style="    height: 25%;">
+                <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+            </tr>
+             <tr style="    height: 25%;">
+                <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+                 <td>sdf</td>
+            </tr>
+             <tr style="    height: 25%;">
+                 {% for sect in sectors_a %}
+                <td style="
+                text-align: center;
+                        {% if sect.squad.name %}
+                            background-color: #ff7e1f96;
+    color: #fff;
+                        {% endif %}
+">
+                    {{ sect.name }}<br>
+                    {% if sect.squad.name %}
+                        ПРИНАДЛЕЖИТ : {{ sect.squad.name }}
+                        {% else %}
+                        СВОБОДНО
+                        {% endif %}
+                </td>
+
+                 {% endfor %}
+            </tr>
+        </table>
+
+    </div>
 </div>
 
 
