@@ -65,6 +65,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
 
     vip = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_squad_leader = models.BooleanField(default=False)
     is_banned = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     last_zp = models.DateTimeField(default=timezone.now)

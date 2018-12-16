@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect,HttpResponse
 from news.models import News
 from authentication.forms import EditProfileForm
 from squads.forms import *
-from authentication.models import SteamUser
-from squads.models import SquadMembers, Squad,SquadSectors
+from authentication.models import PrivateMessages
+from squads.models import *
 import json
 import requests
 from datetime import datetime , time
@@ -15,11 +15,11 @@ def get_squad_info(player_id):
     try:
         squad_member = SquadMembers.objects.get(player_id=player_id)
     except:
-        squad_member = None
+        squad_member = False
+        squad_info = False
     if squad_member:
         squad_info = Squad.objects.get(id=squad_member.squad.id)
-        return (squad_info)
-    return ()
+    return(squad_info)
 
 
 def index(request):
@@ -78,12 +78,22 @@ def profile(request, nickname_req):
                 own_profile = True
                 player = request.user
                 squad_info = get_squad_info(player.id)
+                print('squad_info  : ')
+                print(squad_info)
+                squad_wear = SquadWear.objects.all()
+
                 if squad_info:
-                    if squad_info.leader.id == player.id:
-                        squad_leader = True
+                    if player.is_squad_leader:
                         squad_form = UpdateSquadForm(instance=squad_info)
-                    else:
-                        squad_form = CreateSquadForm()
+                        squad_join_requests = SquadRequests.objects.filter(squad=squad_info.id)
+
+                    squad_members = SquadMembers.objects.filter(squad=squad_info.id)
+                    squad_sectors = SquadSectors.objects.filter(squad=squad_info.id)
+
+                else:
+                    print('No squad info')
+                    squad_form = CreateSquadForm()
+
                 form = EditProfileForm(instance=request.user)
 
                 return render(request, 'pages/ownprofile.html', locals())
@@ -99,5 +109,10 @@ def profile(request, nickname_req):
             player_play_time = get_play_time(player.steamid)
             return render(request, 'pages/profile.html', locals())
 
+def del_message(request):
+    message = PrivateMessages.objects.get(id=int(request.GET.get('m_id')))
+    if message.to_player == request.user.id:
+        message.delete()
+    return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 

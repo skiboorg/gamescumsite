@@ -1,0 +1,200 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+ <!-- Page Heading
+		================================================== -->
+        <div class="page-heading" style="background-image: url({% static 'images/blackmarket.jpg' %});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <h1 class="page-heading__title font_scum">BLACK<span class="highlight">MARKET</span></h1>
+                        <ol class="page-heading__breadcrumb breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ cat_name }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+     <!-- Content
+		================================================== -->
+        <div class="site-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Content -->
+                    <div class="content col-md-8">
+                        <!-- Game Scoreboard -->
+                        <div class="card">
+
+                                <!-- Game Result -->
+                         <aside class="widget card widget--sidebar widget-standings">
+                            <div class="widget__title card__header card__header--has-btn">
+                                <h4>Отряды сервера</h4>
+                            </div>
+                            <div class="widget__content card__content">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-standings">
+                                        <thead>
+                                            <tr>
+                                                <th>Название отряда</th>
+                                                <th>Состав</th>
+                                                <th>Набор</th>
+                                                <th>Побед</th>
+                                                <th>Поражений</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for squad in squads %}
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">{{ squad.name }}</h6><span class="team-meta__place">Лидер отряда : <a href="{% url 'profile' squad.leader.nickname %}">{{ squad.leader.personaname }}</a></span></div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ squad.get_members.count }}</td>
+                                                <td>
+                                                    {% if player_squad_member %}
+                                                        Ты уже в отряде
+                                                        {% else %}
+                                                            {% if squad.recruting%}
+
+                                                                {% if player in squad_requests %}
+                                                                    заявка уже подана
+                                                                {% else %}
+                                                                    <a href="{{ squad.name_slug }}"> Вступить</a>
+                                                                {% endif %}
+
+
+                                                            {% else %}
+                                                                Закрыт
+                                                            {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ squad.battles_wins }}</td>
+                                                <td>{{ squad.battles_loose }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </aside>
+                                <!-- Game Result / End -->
+
+                        </div>
+                        <!-- Game Scoreboard / End -->
+
+                    </div>
+                    <!-- Content / End -->
+                    <!-- Sidebar -->
+                    <div class="sidebar col-md-4">
+                        <!-- Widget: Standings -->
+                  <aside class="widget card widget--sidebar widget-results">
+    <div class="widget__title card__header card__header--has-btn">
+        <h4>Бои за сектора</h4>{#<a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a>#}</div>
+    <div class="widget__content card__content">
+        <ul class="widget-results__list">
+            <!-- Game #0 -->
+            <li class="widget-results__item">
+                <h5 class="widget-results__title">Saturday, March 24</h5>
+                <div class="widget-results__content">
+                    <div class="widget-results__team widget-results__team--first">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Elric Bros School</span></div>
+                    </div>
+                    <div class="widget-results__result">
+                        <div class="widget-results__score"><span class="widget-results__score-winner">107</span> - <span class="widget-results__score-loser">102</span>
+                            <div class="widget-results__status">Home</div>
+                        </div>
+                    </div>
+                    <div class="widget-results__team widget-results__team--second">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/sharks_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Sharks</h5><span class="widget-results__team-info">Marine College</span></div>
+                    </div>
+                </div>
+            </li>
+            <!-- Game #0 / End -->
+            <!-- Game #1 -->
+            <li class="widget-results__item">
+                <h5 class="widget-results__title">Friday, March 16</h5>
+                <div class="widget-results__content">
+                    <div class="widget-results__team widget-results__team--first">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/pirates_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">L.A. Pirates</h5><span class="widget-results__team-info">Bebop Institute</span></div>
+                    </div>
+                    <div class="widget-results__result">
+                        <div class="widget-results__score"><span class="widget-results__score-winner">124</span> - <span class="widget-results__score-loser">106</span>
+                            <div class="widget-results__status">Away</div>
+                        </div>
+                    </div>
+                    <div class="widget-results__team widget-results__team--second">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                    </div>
+                </div>
+            </li>
+            <!-- Game #1 / End -->
+            <!-- Game #2 -->
+            <li class="widget-results__item">
+                <h5 class="widget-results__title">Saturday, March 10</h5>
+                <div class="widget-results__content">
+                    <div class="widget-results__team widget-results__team--first">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                    </div>
+                    <div class="widget-results__result">
+                        <div class="widget-results__score"><span class="widget-results__score-loser">95</span> - <span class="widget-results__score-winner">98</span>
+                            <div class="widget-results__status">Home</div>
+                        </div>
+                    </div>
+                    <div class="widget-results__team widget-results__team--second">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/lucky_clovers_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Clovers</h5><span class="widget-results__team-info">St. Patrick’s Inst</span></div>
+                    </div>
+                </div>
+            </li>
+            <!-- Game #2 / End -->
+            <!-- Game #3 -->
+            <li class="widget-results__item">
+                <h5 class="widget-results__title">Friday, March 4</h5>
+                <div class="widget-results__content">
+                    <div class="widget-results__team widget-results__team--first">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/ocean_kings_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Ocean Kings</h5><span class="widget-results__team-info">Bay College</span></div>
+                    </div>
+                    <div class="widget-results__result">
+                        <div class="widget-results__score"><span class="widget-results__score-winner">110</span> - <span class="widget-results__score-loser">104</span>
+                            <div class="widget-results__status">Home</div>
+                        </div>
+                    </div>
+                    <div class="widget-results__team widget-results__team--second">
+                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                        <div class="widget-results__team-details">
+                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                    </div>
+                </div>
+            </li>
+            <!-- Game #3 / End -->
+        </ul>
+    </div>
+</aside>
+                        <!-- Widget: Standings / End -->
+
+                    </div>
+                    <!-- Sidebar / End -->
+                </div>
+            </div>
+        </div>
+        <!-- Content / End -->
+{% endblock %}

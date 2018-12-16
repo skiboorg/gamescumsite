@@ -2,14 +2,16 @@ from django.db import models
 from django.db.models.signals import post_save, post_delete
 from authentication.models import SteamUser
 from pytils.translit import slugify
-
+from squads.models import SquadSectors
 
 class Categories(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
+    for_sector = models.ForeignKey(SquadSectors,blank=True,null=True,default=None, on_delete=models.SET_NULL)
     name_slug = models.SlugField(max_length=255, blank=True, null=True)
     active = models.BooleanField(default=True)
     discount = models.IntegerField(default=0)
     for_squad = models.BooleanField(default=False)
+    level = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,7 +50,7 @@ class Items(models.Model):
         return (dis_val)
 
     def __str__(self):
-        return '%s ' % self.name
+        return '%s . Уровень товара : %s' % (self.name,self.level)
 
     class Meta:
         verbose_name = "Товар"

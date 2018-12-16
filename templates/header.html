@@ -66,7 +66,7 @@
 
                         <li class="info-block__item info-block__item--contact-primary">
                                <a href="/support_us" class="btn btn-danger btn-xs btn-outline">ПОДДЕРЖАТЬ СЕРВЕР</a>
-                        </li>
+                         </li>
                         <li class="info-block__item info-block__item--contact-secondary">
                             {% if user.is_authenticated %}
                               <a class="btn btn-warning btn-xs btn-outline" href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
@@ -136,7 +136,8 @@
 {#                                <li class="active"><a href="/">ГЛАВНАЯ</a></li>#}
                                 <li class=""><a href="#">СТАТИСТИКА</a></li>
                                 <li class=""><a href="#">МЕРОПРИЯТИЯ</a></li>
-                                 <li class=""><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
+                                <li class="{{ squad_active }}"><a href="{% url 'all_squads' %}">ОТРЯДЫ</a></li>
+                                 <li class="{{ shop_active }}"><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
 
                             </ul>
 

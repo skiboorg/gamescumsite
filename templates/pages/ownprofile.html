@@ -47,16 +47,17 @@
                                                                 <div class="widget-player__stat widget-player__assists">
                                                                     <h6 class="widget-player__stat-label">Убийств</h6>
                                                                     <div class="widget-player__stat-number">{{ player.kills }}</div>
-                                                                    <div class="widget-player__stat-legend">AVG</div>
+
                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__steals">
                                                                     <h6 class="widget-player__stat-label">Смертей</h6>
                                                                     <div class="widget-player__stat-number">{{ player.deaths }}</div>
-                                                                    <div class="widget-player__stat-legend">AVG</div>
+
                                                                 </div>
-                                                                <div class="widget-player__stat widget-player__blocks">
-                                                                    <h6 class="widget-player__stat-label">Рейтинг</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.rating }}</div>
+
+                                                                  <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Баланс</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.wallet }} RC</div>
 
                                                                 </div>
                                                             </div>
@@ -72,21 +73,43 @@
 
 
                                                     <dl class="alc-staff-details">
-                                                    <dt class="alc-staff-details__label">Уровень игрока:</dt><dd class="alc-staff-details__value">{{ player.level }}</dd>
+                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
                                                         <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
                                                         <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
                                                         <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
-                                                        <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">
+
                                                         {% if squad_info %}
-                                                            {{ squad_info.name }}
+
+                                                            <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value"> {{ squad_info.name }}</dd>
+                                                            <dt class="alc-staff-details__label">Уровень отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.level }}</dd>
+                                                            <dt class="alc-staff-details__label">Баланс отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.balance }} RC</dd>
+
+                                                            <form style="padding-bottom: 15px;" action="{% url 'add_to_balance' %}" class="form-inline" method="post">
+                                                             {% csrf_token %}
+
+                                                                <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
+                                                                <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
+                                                                  <input type='hidden' name="squad_id" value="{{ squad_info.id }}">
+
+                                                              <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Пополнить баланс отряда</button>
+                                                            </form>
+                                                            <br>
+                                                            <dt class="alc-staff-details__label">Владение секторами:</dt><dd class="alc-staff-details__value">
+                                                        {% for sector in squad_sectors %}
+                                                            {{ sector.name }}
+                                                        {% endfor %}
+
+
+                                                             </dd>
+
                                                         {% else %}
-                                                           нет
+                                                            <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">нет</dd>
                                                         {% endif %}
 
 
-                                                    </dd>
+
                                                     </dl>
                                                     <div class="alc-staff-excerpt">
                                                           <form action="" method="post">
@@ -123,28 +146,39 @@
 
 
                                                <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
-                            {% csrf_token %}
+                                                    {% csrf_token %}
 
-                              <div class="form-group">
-                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
-                               {{ squad_form.name.errors }}
-                            <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
-                        </div>
-                         <div class="form-group">
-                            <label for="contact-form-name">Автар отряда <span class="required">*</span></label>
-                              {{ squad_form.avatar.errors }}
+                                                      <div class="form-group">
+                                                    <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                       {{ squad_form.name.errors }}
+                                                    <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                        </div>
+                                                         <div class="form-group">
+                                                            <label for="contact-form-name">Автар отряда <span class="required">*</span></label>
+                                                              {{ squad_form.avatar.errors }}
 
-                            <input type="file" name="{{ squad_form.avatar.name }}"  required="required" class="form-control" >
-                        </div>
-                           <div class="form-group">
-                            <label for="squad_info">Дополнительная информация об отряде </label>
+                                                            <input type="file" name="{{ squad_form.avatar.name }}"  required="required" class="form-control" >
+                                                        </div>
+                                                           <div class="form-group">
+                                                                <label for="squad_form_wear">Форма отряда</label>
+                                                                <select  name="{{  squad_form.wear.name }}" id="squad_form_wear" class="form-control ">
+                                                                    {% for wear in squad_wear %}
+                                                                    <option style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
+                                                                    {% endfor %}
 
-                               <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
-                         </div>
-                             <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+                                                                </select>
+                                                            </div>
 
-                            <button type="submit" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
-                        </form>
+
+                                                       <div class="form-group">
+                                                        <label for="squad_info">Дополнительная информация об отряде </label>
+
+                                                           <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
+                                                     </div>
+                                                         <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+
+                                                        <button type="submit" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
+                                                    </form>
 
                                                     <!-- Details / End -->
                                                 </div>
@@ -157,41 +191,53 @@
              </div>
          {% endif %}
 
-          {% if squad_leader %}
+          {% if player.is_squad_leader %}
            <div class="card card--clean alc-staff">
                 <div class="card__header card__header--has-btn">
-                    <h4>Управление отрядом</h4></div>
-                 <div class="card__content">
+                    <h4>Управление отрядом</h4><a href="player-stats.html" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a></div>
+                               <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="alc-staff-inner">
-
+  <div>Баланс отряда : </div>
+                                                    <hr>
 
                                                <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                         {% csrf_token %}
 
-                                                          <div class="form-group">
-                                                        <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                                 <div class="form-group">
+                                                                  <label for="contact-form-name">Название отряда <span class="required">*</span></label>
                                                          
-                                                        <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
-                                                    </div>
-                                                     <div class="form-group">
-                                                        <label for="contact-form-name">Автар отряда </label>
+                                                                     <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                                   </div>
+                                                                    <div class="form-group">
+                                                                     <label class="checkbox checkbox-inline">
+                                                                    {{ squad_form.recruting }} Набор открыт?
+                                                                         <span class="checkbox-indicator"></span>
+                                                                     </label>
+                                                                    </div>
 
-                                                         <img style="margin: 20px;
-                                                                                width: 100px;
-                                                                                border-radius: 10px;"  src="{{ squad_info.avatar.url }}">
+                                                                       <div class="form-group form-group--upload">
+                                                                            <div class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
+                                                                                <div class="form-group__label">
+                                                                                    <h6>Логотип отряда</h6><span>Желательно прозрачный png</span></div>
+                                                                            </div>
+                                                                            <div class="form-group__upload">
+                                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
+                                                                                  <input type="file" name="{{ squad_form.avatar.name }}"   style="display: none;" >
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
 
-                                                        <input type="file" name="{{ squad_form.avatar.name }}"   class="form-control" >
-                                                    </div>
-                                                       <div class="form-group">
-                                                        <label for="squad_info">Дополнительная информация об отряде </label>
+                                                                   <div class="form-group">
+                                                                    <label for="squad_info">Дополнительная информация об отряде </label>
 
-                                                           <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
-                                                     </div>
-                                                         <input type="hidden" name="update" value="1">
+                                                                       <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
+                                                                 </div>
+                                                                 <input type="hidden" name="update" value="1">
+                                                                    <input type="hidden" name="{{ squad_form.wear.name  }}" value="{{ squad_info.wear.id }}">
 
                                                         <button type="submit" class="btn  btn-outline-danger btn-sm ">Изменить отряд</button>
                                                     </form>
@@ -217,45 +263,81 @@
                     <h4>Сообшения</h4></div>
                 <div class="widget__content card__content">
                     <ul class="newslog">
+                        {% if pm%}
+                            {% for message in pm %}
                         <li class="newslog__item newslog__item--join">
                             <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
-                                <div class="newslog__date">December 19, 2015</div>
+                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong> <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'del_message' %}?m_id={{message.id  }}">Х</a></div>
+                                <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
                             </div>
                         </li>
+
+                    {% endfor %}
+                    {% else %}
+                           <li class="newslog__item newslog__item--exit">
+                            <div class="newslog__item-inner">
+                                <div class="newslog__content"><strong>Личных сообщений нет</strong> </div>
+
+                            </div>
+                        </li>
+                    {% endif %}
 
                     </ul>
                 </div>
             </aside>
-             {% if squad_leader %}
+            {% if squad_info %}
              <aside class="widget card widget--sidebar widget-newslog">
                 <div class="widget__title card__header">
                     <h4>Состав отряда</h4></div>
                 <div class="widget__content card__content">
                     <ul class="newslog">
-                        <li class="newslog__item newslog__item--join">
+                        {% for playerr in squad_members %}
+                            {% if playerr.player.is_squad_leader%}
+                                <li class="newslog__item newslog__item--award">
+                                {% else %}
+                        <li class="newslog__item newslog__item--injury">
+                        {% endif %}
                             <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
-                                <div class="newslog__date">December 19, 2015</div>
+                                <div class="newslog__content"><strong><a  href="{% url 'profile' playerr.player.nickname %}">{{ playerr.player.personaname }}</a></strong>
+
+                                    {% if player.is_squad_leader%}
+
+                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="?p_id={{ playerr.player.id  }}">Х</a>
+                                    {% endif %}
+                                </div>
+                                <div class="newslog__date">Взносов в общак отряда : {{ playerr.income }} RC</div>
                             </div>
                         </li>
-
+                    {% endfor %}
                     </ul>
                 </div>
             </aside>
-
+         {% endif %}
+        {% if player.is_squad_leader %}
             <aside class="widget card widget--sidebar widget-newslog">
                 <div class="widget__title card__header">
                     <h4>Заявки на вступление</h4></div>
                 <div class="widget__content card__content">
                     <ul class="newslog">
+                    {% if squad_join_requests%}
+                            {% for rr in squad_join_requests %}
                         <li class="newslog__item newslog__item--join">
                             <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Jenny Thomps</strong> is now the new <strong>Team Recruiter</strong> for the East Coast Colleges.</div>
-                                <div class="newslog__date">December 19, 2015</div>
+                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px;" src="{{ rr.player.avatar }}"/> <strong><a  href="{% url 'profile' rr.player.nickname %}">{{ rr.player.personaname }}</a></strong> </div>
+                                <div class="newslog__date"><a class="btn btn-success btn-outline btn-xs" href="{% url 'confirm_request' %}?name={{ rr.player.nickname }}&squad={{squad_info.id  }}">ПРИНЯТЬ</a> <a class="btn btn-danger btn-outline btn-xs" href="{% url 'reject_request' %}">ОТКЛОНИТЬ</a></div>
+
                             </div>
                         </li>
 
+                    {% endfor %}
+                    {% else %}
+                           <li class="newslog__item newslog__item--exit">
+                            <div class="newslog__item-inner">
+                                <div class="newslog__content"><strong>Заявок в отряд нет</strong> </div>
+
+                            </div>
+                        </li>
+                    {% endif %}
                     </ul>
                 </div>
             </aside>
@@ -266,11 +348,7 @@
         </div>
         <!-- Sidebar / End -->
     </div>
-    <div style="    background-image: url(/static/images/map.png);
-    width: 900px;
-    height: 900px;
-
-    background-size: contain;">
+    <div style="background-image: url(/static/images/map.png);width: 900px; height: 900px;background-size: contain;">
 
         <table style="
         table-layout: fixed;
@@ -297,17 +375,27 @@
              <tr style="    height: 25%;">
                  {% for sect in sectors_a %}
                 <td style="
-                text-align: center;
+                     text-align: center;
+                      color: #fff;
+                     font-weight: bold;
                         {% if sect.squad.name %}
                             background-color: #ff7e1f96;
-    color: #fff;
+                            color: #fff;
                         {% endif %}
 ">
                     {{ sect.name }}<br>
                     {% if sect.squad.name %}
-                        ПРИНАДЛЕЖИТ : {{ sect.squad.name }}
+                        Владелец с {{ sect.own.date }}<br>
+                        <img width="40px" src="{{ squad_info.avatar.url }}" alt=""><br>
+                         {{ sect.squad.name }}
                         {% else %}
-                        СВОБОДНО
+                        <div>
+                         СВОБОДНО<br>
+                        Доход : {{ sect.income }}<br>
+                        Цена : {{ sect.price }}<br>
+                        <a href="#" class="btn btn-danger btn-xs">КУПИТЬ</a>
+                        </div>
+
                         {% endif %}
                 </td>
 
@@ -317,6 +405,9 @@
 
     </div>
 </div>
+
+
+
 
 
         <!-- Content / End -->

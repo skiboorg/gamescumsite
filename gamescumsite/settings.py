@@ -78,6 +78,7 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
                 'django.template.context_processors.media',
                 'authentication.context_processors.check_profile',
+                'authentication.context_processors.get_player_squad_info',
                 'shop.context_processors.items_in_cart',
             ],
         },

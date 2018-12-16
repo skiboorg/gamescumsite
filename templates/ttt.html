@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Needs
 	================================================== -->
-    <title>Alchemists Basketball Club &amp; Sports News HTML Template - Shop</title>
+    <title>Alchemists Basketball Club &amp; Sports News HTML Template - Team</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sports Club, League and News HTML Template">
@@ -256,7 +256,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class=""><a href="#">The Team</a>
+                                <li class="active"><a href="#">The Team</a>
                                     <ul class="main-nav__sub">
                                         <li><a href="team-overview.html">Overview</a></li>
                                         <li><a href="team-roster-2.html">Roster</a>
@@ -301,9 +301,9 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="active"><a href="shop-grid.html">Shop</a>
+                                <li class=""><a href="shop-grid.html">Shop</a>
                                     <ul class="main-nav__sub">
-                                        <li class="active"><a href="shop-grid.html">Shop - Grid</a></li>
+                                        <li class=""><a href="shop-grid.html">Shop - Grid</a></li>
                                         <li class=""><a href="shop-list.html">Shop - List</a></li>
                                         <li class=""><a href="shop-fullwidth.html">Shop - Full Width</a></li>
                                         <li class=""><a href="shop-product.html">Single Product</a></li>
@@ -416,620 +416,937 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
-                        <h1 class="page-heading__title">Shop <span class="highlight">Grid</span></h1>
+                        <h1 class="page-heading__title">Over<span class="highlight">View</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                            <li class="breadcrumb-item"><a href="team-overview.html">Team</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Overview</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Page Heading / End -->
+        <!-- Team Pages Filter -->
+        <nav class="content-filter">
+            <div class="container">
+                <a href="#" class="content-filter__toggle"></a>
+                <ul class="content-filter__list">
+                    <li class="content-filter__item content-filter__item--active"><a href="team-overview.html" class="content-filter__link"><small>The Team</small>Overview</a></li>
+                    <li class="content-filter__item"><a href="team-roster-1.html" class="content-filter__link"><small>The Team</small>Roster</a></li>
+                    <li class="content-filter__item"><a href="team-standings.html" class="content-filter__link"><small>The Team</small>Standings</a></li>
+                    <li class="content-filter__item"><a href="team-last-results.html" class="content-filter__link"><small>The Team</small>Latest Results</a></li>
+                    <li class="content-filter__item"><a href="team-schedule.html" class="content-filter__link"><small>The Team</small>Schedule</a></li>
+                    <li class="content-filter__item"><a href="team-gallery.html" class="content-filter__link"><small>The Team</small>Gallery</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Team Pages Filter / End -->
         <!-- Content
 		================================================== -->
         <div class="site-content">
             <div class="container">
                 <div class="row">
-                    <!-- Products -->
-                    <div class="col-md-9 order-md-2">
-                        <!-- Shop Banner
-						================================================== -->
-                        <div class="shop-banner">
-                            <div class="shop-banner__content">
-                                <div class="shop-banner__txt1">See our new</div>
-                                <h2 class="shop-banner__title">Greyson</h2><span class="shop-banner__subtitle">Fitted Shirt</span> <a href="#" class="btn btn-primary btn-lg shop-banner__btn">Check it Now</a></div>
-                            <figure class="shop-banner__img"><img src="assets/images/samples/shop-banner-img.png" alt=""></figure>
-                            <div class="shop-banner__bg-txt">Greyson</div>
-                            <div class="shop-banner__discount"><span class="shop-banner__discount-txt">Only</span> <span class="shop-banner__discount-price">$50</span></div>
-                        </div>
-                        <!-- Shop Banner / End -->
-                        <!-- Shop Grid -->
-                        <div class="card card--clean">
-                            <header class="card__header card__header--shop-filter">
-                                <div class="shop-filter">
-                                    <h5 class="shop-filter__result">Showing 6 of 98 products</h5>
-                                    <ul class="shop-filter__params">
-                                        <li class="shop-filter__control">
-                                            <select class="form-control input-xs">
-                                                <option>Product Price</option>
-                                                <option>Low to High</option>
-                                                <option>High to Low</option>
-                                            </select>
-                                        </li>
-                                        <li class="shop-filter__control">
-                                            <select class="form-control input-xs">
-                                                <option>Newest First</option>
-                                                <option>Oldest First</option>
-                                            </select>
-                                        </li>
-                                        <li class="shop-filter__control">
-                                            <select class="form-control input-xs">
-                                                <option>Show 6 per page</option>
-                                                <option>Show 12 per page</option>
-                                                <option>Show 24 per page</option>
-                                            </select>
-                                        </li>
-                                    </ul>
-                                    <div class="shop-filter__layout"><a href="shop-grid.html" class="shop-filter__grid-layout icon-grid-layout icon-grid-layout--active"><span class="icon-grid-layout__inner"><span class="icon-grid-layout__item"></span> <span class="icon-grid-layout__item"></span> <span class="icon-grid-layout__item"></span> </span></a><a href="shop-list.html" class="shop-filter__list-layout icon-list-layout"><span class="icon-list-layout__inner"><span class="icon-list-layout__item"></span> <span class="icon-list-layout__item"></span> <span class="icon-list-layout__item"></span></span></a></div>
-                                </div>
-                            </header>
+                    <!-- Content -->
+                    <div class="content col-md-8">
+                        <!-- Game Scoreboard -->
+                        <div class="card">
+                            <header class="card__header card__header--has-btn">
+                                <h4>Game Scoreboard</h4><a href="#" class="btn btn-default btn-outline btn-xs card-header__button">Check previous Results</a></header>
                             <div class="card__content">
-                                <!-- Products -->
-                                <ul class="products products--grid">
-                                    <!-- Product #0 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
+                                <!-- Game Result -->
+                                <div class="game-result">
+                                    <section class="game-result__section">
+                                        <header class="game-result__header">
+                                            <h3 class="game-result__title">Championship Quarter Finals</h3>
+                                            <time class="game-result__date" datetime="2017-03-17">Saturday, March 17th, 2017</time>
+                                        </header>
+                                        <div class="game-result__content">
+                                            <!-- 1st Team -->
+                                            <div class="game-result__team game-result__team--first">
+                                                <figure class="game-result__team-logo"><img src="assets/images/samples/logo-alchemists--sm.png" alt=""></figure>
+                                                <div class="game-result__team-info">
+                                                    <h5 class="game-result__team-name">Alchemists</h5>
+                                                    <div class="game-result__team-desc">Elric Bros School</div>
+                                                </div>
+                                            </div>
+                                            <!-- 1st Team / End -->
+                                            <div class="game-result__score-wrap">
+                                                <div class="game-result__score"><span class="game-result__score-result game-result__score-result--winner">107</span> <span class="game-result__score-dash">-</span> <span class="game-result__score-result game-result__score-result--loser">102</span></div>
+                                                <div class="game-result__score-label">Final Score</div>
+                                            </div>
+                                            <!-- 2nd Team -->
+                                            <div class="game-result__team game-result__team--second">
+                                                <figure class="game-result__team-logo"><img src="assets/images/samples/logo-sharks--sm.png" alt=""></figure>
+                                                <div class="game-result__team-info">
+                                                    <h5 class="game-result__team-name">Sharks</h5>
+                                                    <div class="game-result__team-desc">Marine College</div>
+                                                </div>
+                                            </div>
+                                            <!-- 2nd Team / End -->
+                                        </div>
+                                        <div class="game-result__stats">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6 order-md-2 game-result__stats-scoreboard">
+                                                    <div class="game-result__table-stats">
+                                                        <div class="table-responsive">
+                                                            <table class="table table__cell-center table-wrap-bordered table-thead-color">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Scoreboard</th>
+                                                                        <th>1</th>
+                                                                        <th>2</th>
+                                                                        <th>3</th>
+                                                                        <th>4</th>
+                                                                        <th>T</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Alchemists</th>
+                                                                        <td>30</td>
+                                                                        <td>31</td>
+                                                                        <td>22</td>
+                                                                        <td>24</td>
+                                                                        <td>107</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Sharks</th>
+                                                                        <td>22</td>
+                                                                        <td>34</td>
+                                                                        <td>20</td>
+                                                                        <td>26</td>
+                                                                        <td>102</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
+                                                </div>
+                                                <div class="col-6 col-md-3 order-md-1 game-result__stats-team-1">
+                                                    <!-- Progress: Assists -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">ASS</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar-width-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">22</div>
                                                     </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img1.png" alt=""></div>
+                                                    <!-- Progress: Assists / End -->
+                                                    <!-- Progress: Rebounds -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">Reb</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar-width-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">35</div>
+                                                    </div>
+                                                    <!-- Progress: Rebounds / End -->
+                                                    <!-- Progress: Steals -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">STE</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar-width-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">14</div>
+                                                    </div>
+                                                    <!-- Progress: Steals / End -->
+                                                    <!-- Progress: Blocks -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">BLK</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar-width-80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">26</div>
+                                                    </div>
+                                                    <!-- Progress: Blocks / End -->
+                                                    <!-- Progress: Fouls -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">FOU</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar-width-70" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">18</div>
+                                                    </div>
+                                                    <!-- Progress: Fouls / End -->
+                                                </div>
+                                                <div class="col-6 col-md-3 order-md-3 game-result__stats-team-2">
+                                                    <!-- Progress: Assists -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">ASS</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar--info progress__bar-width-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">36</div>
+                                                    </div>
+                                                    <!-- Progress: Assists / End -->
+                                                    <!-- Progress: Rebounds -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">Reb</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar--info progress__bar-width-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">18</div>
+                                                    </div>
+                                                    <!-- Progress: Rebounds / End -->
+                                                    <!-- Progress: Steals -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">STE</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar--info progress__bar-width-80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">24</div>
+                                                    </div>
+                                                    <!-- Progress: Steals / End -->
+                                                    <!-- Progress: Blocks -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">BLK</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar--info progress__bar-width-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">23</div>
+                                                    </div>
+                                                    <!-- Progress: Blocks / End -->
+                                                    <!-- Progress: Fouls -->
+                                                    <div class="progress-stats">
+                                                        <div class="progress__label">FOU</div>
+                                                        <div class="progress">
+                                                            <div class="progress__bar progress__bar--info progress__bar-width-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="progress__number">14</div>
+                                                    </div>
+                                                    <!-- Progress: Fouls / End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="game-result__section">
+                                        <header class="game-result__subheader card__subheader">
+                                            <h5 class="game-result__subtitle">Game Statistics</h5></header>
+                                        <div class="game-result__content mb-0">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="88"><span class="circular__percents">88<small>%</small></span></div><span class="circular__label">Shot<br>Accuracy</span></div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="63"><span class="circular__percents">63<small>%</small></span></div><span class="circular__label">Pass<br>Accuracy</span></div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="75.5"><span class="circular__percents">75.5<small>%</small></span></div><span class="circular__label">Total<br>Efficiency</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-4 col-push-8 col-md-push-0">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="72.5" data-bar-color="#0cb2e2"><span class="circular__percents">72.5<small>%</small></span></div><span class="circular__label">Total<br>Efficiency</span></div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="53" data-bar-color="#0cb2e2"><span class="circular__percents">53<small>%</small></span></div><span class="circular__label">Pass<br>Accuracy</span></div>
+                                                        </div>
+                                                        <div class="col-4 col-pull-8 col-md-pull-0">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="92" data-bar-color="#0cb2e2"><span class="circular__percents">92<small>%</small></span></div><span class="circular__label">Shot<br>Accuracy</span></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Sundown Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$28.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #0 / End -->
-                                    <!-- Product #1 -->
-                                    <li class="product__item product__item--color-2 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Atlantic Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #1 / End -->
-                                    <!-- Product #2 -->
-                                    <li class="product__item product__item--color-3 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder"><span class="onsale">Sale!</span>
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img3.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img3.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img2.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Aquarium Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price"><del>$26.00</del> <ins>$22.00</ins></div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #2 / End -->
-                                    <!-- Product #3 -->
-                                    <li class="product__item product__item--color-4 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">HC</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img4.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Hats and Caps</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Crimson Fitted Hat</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$20.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #3 / End -->
-                                    <!-- Product #4 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img5.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Jumper Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #4 / End -->
-                                    <!-- Product #5 -->
-                                    <li class="product__item product__item--color-5 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img6.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Greyson Fitted Shirt</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$50.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #5 / End -->
-                                    <!-- Product #6 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img7.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Slime Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$32.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #6 / End -->
-                                    <!-- Product #7 -->
-                                    <li class="product__item product__item--color-6 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img8.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">The Sporting Shirt</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$40.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #7 / End -->
-                                    <!-- Product #8 -->
-                                    <li class="product__item product__item--color-3 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img9.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Futuristic Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$34.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #8 / End -->
-                                    <!-- Product #9 -->
-                                    <li class="product__item product__item--color-2 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SH</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img10.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Shirts and Hoodies</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Carbon Fiber Hoodie</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$45.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #9 / End -->
-                                    <!-- Product #10 -->
-                                    <li class="product__item product__item--color-1 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">HC</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img11.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Hats and Caps</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Carbon Fiber Hoodie</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                                </div>
-                                                <div class="product__price">$22.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #10 / End -->
-                                    <!-- Product #11 -->
-                                    <li class="product__item product__item--color-5 card">
-                                        <div class="product__img">
-                                            <div class="product__img-holder">
-                                                <div class="product__bg-letters">SK</div>
-                                                <div class="product__slider">
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                    <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="assets/images/samples/product-img12.png" alt=""></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content card__content">
-                                            <header class="product__header">
-                                                <div class="product__header-inner"><span class="product__category">Sneakers</span>
-                                                    <h2 class="product__title"><a href="shop-product.html">Iceberg Sneaker</a></h2>
-                                                    <div class="product__ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                                </div>
-                                                <div class="product__price">$30.00</div>
-                                            </header>
-                                            <footer class="product__footer"><a href="shop-cart.html" class="btn btn-primary btn-icon product__add-to-cart">Add to Cart</a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__wish"><i class="icon-heart"></i></a> <a href="#" class="btn btn-default btn-single-icon btn-outline btn-inverse product__view"><i class="icon-eye"></i></a></footer>
-                                        </div>
-                                    </li>
-                                    <!-- Product #11 / End -->
-                                </ul>
-                                <!-- Products / End -->
+                                    </section>
+                                </div>
+                                <!-- Game Result / End -->
                             </div>
                         </div>
-                        <!-- Shop Grid / End -->
-                        <!-- Shop Pagination -->
-                        <nav class="shop-pagination" aria-label="Shop navigation">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><span class="page-link">...</span></li>
-                                <li class="page-item"><a class="page-link" href="#">16</a></li>
-                            </ul>
-                        </nav>
-                        <!-- Shop Pagination / End -->
-                    </div>
-                    <!-- Products / End -->
-                    <!-- Sidebar -->
-                    <div class="sidebar sidebar--shop col-md-3 order-md-1">
-                        <!-- Widget: Categories -->
-                        <aside class="widget card widget--sidebar widget_categories">
-                            <div class="widget__title card__header">
-                                <h4>Categories</h4></div>
-                            <div class="widget__content card__content">
-                                <ul class="widget__list">
-                                    <li><a href="#">All Products</a></li>
-                                    <li><a href="#">Shirt and Hoodies</a></li>
-                                    <li class="has-children"><a href="#">Sneakers</a>
-                                        <ul>
-                                            <li><a href="#">The Alchemist Sneakers</a></li>
-                                            <li><a href="#">Running Collection</a></li>
-                                            <li><a href="#">James Girobili Collection</a></li>
+                        <!-- Game Scoreboard / End -->
+                        <!-- Team Roster: Table -->
+                        <div class="card card--has-table">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Main Roster</h4><a href="team-roster-2.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete Roster</a></div>
+                            <div class="card__content">
+                                <div class="table-responsive">
+                                    <table class="table table--lg team-roster-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="team-roster-table__number">NBR</th>
+                                                <th class="team-roster-table__name">Player Name</th>
+                                                <th class="team-roster-table__position hidden-xs hidden-sm">Position</th>
+                                                <th class="team-roster-table__age">Age</th>
+                                                <th class="team-roster-table__height">Height</th>
+                                                <th class="team-roster-table__weight">Weight</th>
+                                                <th class="team-roster-table__college hidden-xs hidden-sm">College</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="team-roster-table__number">38</td>
+                                                <td class="team-roster-table__name">Games Girobili</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">1st Shooting Guard</td>
+                                                <td class="team-roster-table__age">18</td>
+                                                <td class="team-roster-table__height">6&#x27;6&quot;</td>
+                                                <td class="team-roster-table__weight">205 lbs</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">South Beach College</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-roster-table__number">24</td>
+                                                <td class="team-roster-table__name">Mark Stevens</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">1st Power Forward</td>
+                                                <td class="team-roster-table__age">20</td>
+                                                <td class="team-roster-table__height">6&#x27;8&quot;</td>
+                                                <td class="team-roster-table__weight">220 lbs</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">Green Palm College</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-roster-table__number">06</td>
+                                                <td class="team-roster-table__name">Jay T.Roks</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">1st Small Forward</td>
+                                                <td class="team-roster-table__age">17</td>
+                                                <td class="team-roster-table__height">6&#x27;10&quot;</td>
+                                                <td class="team-roster-table__weight">234 lbs</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">The Sandy Coast Institute</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-roster-table__number">15</td>
+                                                <td class="team-roster-table__name">Nick Rodgers</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">1st Point Guard</td>
+                                                <td class="team-roster-table__age">18</td>
+                                                <td class="team-roster-table__height">6&#x27;9&quot;</td>
+                                                <td class="team-roster-table__weight">226 lbs</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">South Beach College</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-roster-table__number">12</td>
+                                                <td class="team-roster-table__name">Tony Ironson</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">1st Center</td>
+                                                <td class="team-roster-table__age">19</td>
+                                                <td class="team-roster-table__height">6&#x27;7&quot;</td>
+                                                <td class="team-roster-table__weight">240 lbs</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">Green Palm College</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-roster-table__number">CH</td>
+                                                <td class="team-roster-table__name">Robert Frankson</td>
+                                                <td class="team-roster-table__position hidden-xs hidden-sm">Team Coach</td>
+                                                <td class="team-roster-table__age">52</td>
+                                                <td class="team-roster-table__height">-</td>
+                                                <td class="team-roster-table__weight">-</td>
+                                                <td class="team-roster-table__college hidden-xs hidden-sm">Green Palm College</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Team Roster: Table / End -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Widget: Team Leaders -->
+                                <aside class="widget widget--sidebar card card--has-table widget-leaders">
+                                    <div class="widget__title card__header">
+                                        <h4>Team Leaders</h4></div>
+                                    <div class="widget__content card__content">
+                                        <!-- Leader: Points -->
+                                        <div class="table-responsive">
+                                            <table class="table team-leader">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="team-leader__type">Points</th>
+                                                        <th class="team-leader__total">TP</th>
+                                                        <th class="team-leader__gp">GP</th>
+                                                        <th class="team-leader__avg">AVG</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="team-leader__player">
+                                                            <div class="team-leader__player-info">
+                                                                <figure class="team-leader__player-img"><img src="assets/images/samples/stats_player_01.jpg" alt=""></figure>
+                                                                <div class="team-leader__player-inner">
+                                                                    <h5 class="team-leader__player-name">James Girobili</h5><span class="team-leader__player-position">1st Shoting Guard</span></div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="team-leader__total">424</td>
+                                                        <td class="team-leader__gp">20</td>
+                                                        <td class="team-leader__avg">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="85"><span class="circular__percents">21.2</span></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Leader: Points / End -->
+                                        <!-- Leader: Assists -->
+                                        <div class="table-responsive">
+                                            <table class="table team-leader">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="team-leader__type">Assists</th>
+                                                        <th class="team-leader__total">TA</th>
+                                                        <th class="team-leader__gp">GP</th>
+                                                        <th class="team-leader__avg">AVG</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="team-leader__player">
+                                                            <div class="team-leader__player-info">
+                                                                <figure class="team-leader__player-img"><img src="assets/images/samples/stats_player_02.jpg" alt=""></figure>
+                                                                <div class="team-leader__player-inner">
+                                                                    <h5 class="team-leader__player-name">Mark Stevens</h5><span class="team-leader__player-position">1st Power Forward</span></div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="team-leader__total">136</td>
+                                                        <td class="team-leader__gp">20</td>
+                                                        <td class="team-leader__avg">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="85"><span class="circular__percents">6.8</span></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Leader: Assists / End -->
+                                        <!-- Leader: Steals -->
+                                        <div class="table-responsive">
+                                            <table class="table team-leader">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="team-leader__type">Steals</th>
+                                                        <th class="team-leader__total">TS</th>
+                                                        <th class="team-leader__gp">GP</th>
+                                                        <th class="team-leader__avg">AVG</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="team-leader__player">
+                                                            <div class="team-leader__player-info">
+                                                                <figure class="team-leader__player-img"><img src="assets/images/samples/stats_player_02.jpg" alt=""></figure>
+                                                                <div class="team-leader__player-inner">
+                                                                    <h5 class="team-leader__player-name">Mark Stevens</h5><span class="team-leader__player-position">1st Power Forward</span></div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="team-leader__total">149</td>
+                                                        <td class="team-leader__gp">20</td>
+                                                        <td class="team-leader__avg">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="85"><span class="circular__percents">14.9</span></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Leader: Steals / End -->
+                                        <!-- Leader: Steals -->
+                                        <div class="table-responsive">
+                                            <table class="table team-leader">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="team-leader__type">Rebounds</th>
+                                                        <th class="team-leader__total">TR</th>
+                                                        <th class="team-leader__gp">GP</th>
+                                                        <th class="team-leader__avg">AVG</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="team-leader__player">
+                                                            <div class="team-leader__player-info">
+                                                                <figure class="team-leader__player-img"><img src="assets/images/samples/stats_player_01.jpg" alt=""></figure>
+                                                                <div class="team-leader__player-inner">
+                                                                    <h5 class="team-leader__player-name">James Girobili</h5><span class="team-leader__player-position">1st Shoting Guard</span></div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="team-leader__total">93</td>
+                                                        <td class="team-leader__gp">20</td>
+                                                        <td class="team-leader__avg">
+                                                            <div class="circular">
+                                                                <div class="circular__bar" data-percent="85"><span class="circular__percents">9.3</span></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Leader: Steals / End -->
+                                    </div>
+                                </aside>
+                                <!-- Widget: Team Leaders / End -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Widget: Team Stats -->
+                                <aside class="widget widget--sidebar card card--has-table widget-team-stats">
+                                    <div class="widget__title card__header">
+                                        <h4>Team Stats</h4></div>
+                                    <div class="widget__content card__content">
+                                        <ul class="team-stats-box">
+                                            <li class="team-stats__item">
+                                                <div class="team-stats__icon">
+                                                    <svg role="img" class="df-icon df-icon--ppg">
+                                                        <use xlink:href="assets/images/icons-basket.svg#points-per-game" />
+                                                    </svg>
+                                                </div>
+                                                <div class="team-stats__value">103.5</div>
+                                                <div class="team-stats__label">Points Per Game</div>
+                                            </li>
+                                            <li class="team-stats__item">
+                                                <div class="team-stats__icon">
+                                                    <svg role="img" class="df-icon df-icon--apg">
+                                                        <use xlink:href="assets/images/icons-basket.svg#assists-per-game" />
+                                                    </svg>
+                                                </div>
+                                                <div class="team-stats__value">24.7</div>
+                                                <div class="team-stats__label">Assists Per Game</div>
+                                            </li>
+                                            <li class="team-stats__item">
+                                                <div class="team-stats__icon">
+                                                    <svg role="img" class="df-icon df-icon--rpg">
+                                                        <use xlink:href="assets/images/icons-basket.svg#rebounds-per-game" />
+                                                    </svg>
+                                                </div>
+                                                <div class="team-stats__value">35.2</div>
+                                                <div class="team-stats__label">Rebounds Per Game</div>
+                                            </li>
+                                            <li class="team-stats__item">
+                                                <div class="team-stats__icon">
+                                                    <div class="df-icon-stack df-icon-stack--3pts">
+                                                        <svg role="img" class="df-icon df-icon--basketball">
+                                                            <use xlink:href="assets/images/icons-basket.svg#basketball" />
+                                                        </svg>
+                                                        <div class="df-icon--txt">3</div>
+                                                    </div>
+                                                </div>
+                                                <div class="team-stats__value">16.4</div>
+                                                <div class="team-stats__label">3 Pointers Per Game</div>
+                                            </li>
                                         </ul>
-                                    </li>
-                                    <li><a href="#">Hats and Caps</a></li>
-                                    <li><a href="#">Merchandising</a></li>
-                                </ul>
+                                    </div>
+                                </aside>
+                                <!-- Widget: Team Stats / End -->
                             </div>
-                        </aside>
-                        <!-- Widget: Categories / End -->
-                        <!-- Widget: Color Filter -->
-                        <aside class="widget card widget--sidebar widget_color-picker">
-                            <form action="#" class="color-picker-form">
-                                <div class="widget__title card__header card__header--has-btn">
-                                    <h4>Filter by Color</h4>
-                                    <button class="btn btn-default btn-outline btn-xs card-header__button">Filter</button>
+                        </div>
+                        <!-- Schedule & Tickets -->
+                        <div class="card card--has-table">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Games Schedule</h4><a href="team-schedule.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete Schedule</a></div>
+                            <div class="card__content">
+                                <div class="table-responsive">
+                                    <table class="table table-hover team-schedule">
+                                        <thead>
+                                            <tr>
+                                                <th class="team-schedule__date">Date</th>
+                                                <th class="team-schedule__versus">Versus</th>
+                                                <th class="team-schedule__time">Time</th>
+                                                <th class="team-schedule__venue">Venue</th>
+                                                <th class="team-schedule__tickets">Tickets</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="team-schedule__date">Saturday, Mar 24</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/lucky_clovers_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Lucky Clovers</h6><span class="team-meta__place">St. Patrick’s Institute</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">9:00PM EST</td>
+                                                <td class="team-schedule__venue">Madison Cube Stadium</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-schedule__date">Friday, May 31</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/red_wings_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Red Wings</h6><span class="team-meta__place">Icarus College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">9:30PM EST</td>
+                                                <td class="team-schedule__venue">Alchemists Stadium</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block disabled">Sold Out</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-schedule__date">Saturday, May 8</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/draconians_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Draconians</h6><span class="team-meta__place">Wyvern College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">10:00PM EST</td>
+                                                <td class="team-schedule__venue">Scalding Rock Stadium</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-schedule__date">Friday, May 14</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/aqua_keyes_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Aqua Keyes</h6><span class="team-meta__place">Pacific Institute</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">10:00PM EST</td>
+                                                <td class="team-schedule__venue">Alchemists Stadium</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-schedule__date">Saturday, May 22</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/icarus_wings_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Icarus Wings</h6><span class="team-meta__place">Waxer College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">10:30PM EST</td>
+                                                <td class="team-schedule__venue">The FireStar Arena</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block disabled">Sold Out</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="team-schedule__date">Saturday, May 29</td>
+                                                <td class="team-schedule__versus">
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/bloody_wave_shield.png" alt=""></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Bloody Wave</h6><span class="team-meta__place">Atlantic School</span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="team-schedule__time">9:00PM EST</td>
+                                                <td class="team-schedule__venue">Alchemists Stadium</td>
+                                                <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="widget__content card__content">
-                                    <ul class="filter-color">
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_1" value="1" class="color-violet"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_2" value="2" class="color-blue" checked="checked"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_3" value="3" class="color-light-blue"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_4" value="4" class="color-cyan"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_5" value="5" class="color-aqua"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_6" value="6" class="color-green"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_7" value="7" class="color-yellow"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_8" value="8" class="color-orange"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_9" value="9" class="color-red" checked="checked"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_10" value="10" class="color-black" checked="checked"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                        <li class="filter-color__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="product_color_11" value="11" class="color-white"> <span class="checkbox-indicator"></span></label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </form>
-                        </aside>
-                        <!-- Widget: Color Filter / End -->
-                        <!-- Widget: Filter Size -->
-                        <aside class="widget card widget--sidebar widget_filter-size">
-                            <form action="#" class="filter-size-form">
-                                <div class="widget__title card__header card__header--has-btn">
-                                    <h4>Filter by Size</h4>
-                                    <button class="btn btn-default btn-outline btn-xs card-header__button">Filter</button>
-                                </div>
-                                <div class="widget__content card__content">
-                                    <div class="form-group form-group--xs">
-                                        <label class="checkbox checkbox-inline">
-                                            <input type="checkbox" id="size-sm" value="1"> Small <span class="checkbox-indicator"></span></label>
-                                    </div>
-                                    <div class="form-group form-group--xs">
-                                        <label class="checkbox checkbox-inline">
-                                            <input type="checkbox" id="size-m" value="2" checked="checked"> Medium <span class="checkbox-indicator"></span></label>
-                                    </div>
-                                    <div class="form-group form-group--xs">
-                                        <label class="checkbox checkbox-inline">
-                                            <input type="checkbox" id="size-l" value="3"> Large <span class="checkbox-indicator"></span></label>
-                                    </div>
-                                    <div class="form-group form-group--xs">
-                                        <label class="checkbox checkbox-inline">
-                                            <input type="checkbox" id="size-xl" value="3"> Extra Large <span class="checkbox-indicator"></span></label>
-                                    </div>
-                                </div>
-                            </form>
-                        </aside>
-                        <!-- Widget: Filter Size / End -->
-                        <!-- Widget: Filter Price -->
-                        <aside class="widget card widget--sidebar widget-filter-price">
-                            <form action="#" class="filter-price-form">
-                                <div class="widget__title card__header card__header--has-btn">
-                                    <h4>Filter by Price</h4>
-                                    <button class="btn btn-default btn-outline btn-xs card-header__button">Filter</button>
-                                </div>
-                                <div class="widget__content card__content">
-                                    <div class="slider-range-wrapper">
-                                        <div id="slider-range" class="slider-range"></div>
-                                        <div class="slider-range-label">Price: $<span id="slider-range-value-min"></span> - $<span id="slider-range-value-max"></span></div>
-                                    </div>
-                                </div>
-                            </form>
-                        </aside>
-                        <!-- Widget: Filter Price / End -->
-                        <!-- Widget: Hot Products -->
-                        <aside class="widget card widget--sidebar widget-products">
-                            <div class="widget__title card__header">
-                                <h4>Hot Products</h4></div>
+                            </div>
+                        </div>
+                        <!-- Schedule & Tickets / End -->
+                        <!-- Points History -->
+                        <div class="card">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Points History</h4><a href="team-schedule.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete History</a></div>
+                            <div class="card__content">
+                                <canvas id="points-history" class="points-history-chart" height="135"></canvas>
+                            </div>
+                        </div>
+                        <!-- Points History / End -->
+                    </div>
+                    <!-- Content / End -->
+                    <!-- Sidebar -->
+                    <div class="sidebar col-md-4">
+                        <!-- Widget: Standings -->
+                        <aside class="widget card widget--sidebar widget-standings">
+                            <div class="widget__title card__header card__header--has-btn">
+                                <h4>Playoff Standings</h4><a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See All Stats</a></div>
                             <div class="widget__content card__content">
-                                <ul class="products-list">
-                                    <li class="products-list__item">
-                                        <figure class="products-list__product-thumb">
-                                            <a href="#"><img src="assets/images/samples/cart-sm-1.jpg" alt=""></a>
-                                        </figure>
-                                        <div class="products-list__inner"><span class="products-list__product-cat">Sneakers</span>
-                                            <h5 class="products-list__product-name"><a href="#">Sundown Sneaker</a></h5>
-                                            <div class="products-list__product-ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                            <div class="products-list__product-sum"><span class="products-list__product-price">$28.00</span></div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-standings">
+                                        <thead>
+                                            <tr>
+                                                <th>Team Positions</th>
+                                                <th>W</th>
+                                                <th>L</th>
+                                                <th>GB</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/pirates_shield.png" alt="L.A Pirates"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">L.A Pirates</h6><span class="team-meta__place">Bebop Institute</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>45</td>
+                                                <td>5</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/sharks_shield.png" alt="Sharks"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Sharks</h6><span class="team-meta__place">Marine College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>42</td>
+                                                <td>8</td>
+                                                <td>3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt="The Alchemists"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">The Alchemists</h6><span class="team-meta__place">Eric Bros School</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>40</td>
+                                                <td>10</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/ocean_kings_shield.png" alt="Ocean Kings"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Ocean Kings</h6><span class="team-meta__place">Bay College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>38</td>
+                                                <td>12</td>
+                                                <td>7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/red_wings_shield.png" alt="Red Wings"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Red Wings</h6><span class="team-meta__place">Icarus College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>37</td>
+                                                <td>13</td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/lucky_clovers_shield.png" alt="Lucky Clovers"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Lucky Clovers</h6><span class="team-meta__place">St. Patrick’s Institute</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>34</td>
+                                                <td>16</td>
+                                                <td>11</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/draconians_shield.png" alt="Draconians"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Draconians</h6><span class="team-meta__place">High Rock College</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>31</td>
+                                                <td>19</td>
+                                                <td>14</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="team-meta">
+                                                        <figure class="team-meta__logo"><img src="assets/images/samples/logos/bloody_wave_shield.png" alt="Bloody Wave"></figure>
+                                                        <div class="team-meta__info">
+                                                            <h6 class="team-meta__name">Bloody Wave</h6><span class="team-meta__place">Atlantic School</span></div>
+                                                    </div>
+                                                </td>
+                                                <td>30</td>
+                                                <td>20</td>
+                                                <td>15</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </aside>
+                        <!-- Widget: Standings / End -->
+                        <!-- Widget: Latest Results -->
+                        <aside class="widget card widget--sidebar widget-results">
+                            <div class="widget__title card__header card__header--has-btn">
+                                <h4>Latest Results</h4><a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a></div>
+                            <div class="widget__content card__content">
+                                <ul class="widget-results__list">
+                                    <!-- Game #0 -->
+                                    <li class="widget-results__item">
+                                        <h5 class="widget-results__title">Saturday, March 24</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Elric Bros School</span></div>
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-winner">107</span> - <span class="widget-results__score-loser">102</span>
+                                                    <div class="widget-results__status">Home</div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/sharks_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Sharks</h5><span class="widget-results__team-info">Marine College</span></div>
+                                            </div>
                                         </div>
                                     </li>
-                                    <li class="products-list__item">
-                                        <figure class="products-list__product-thumb">
-                                            <a href="#"><img src="assets/images/samples/cart-sm-2.jpg" alt=""></a>
-                                        </figure>
-                                        <div class="products-list__inner"><span class="products-list__product-cat">Sneakers</span>
-                                            <h5 class="products-list__product-name"><a href="#">Atlantik Sneaker</a></h5>
-                                            <div class="products-list__product-ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                            <div class="products-list__product-sum"><span class="products-list__product-price">$30.00</span></div>
+                                    <!-- Game #0 / End -->
+                                    <!-- Game #1 -->
+                                    <li class="widget-results__item">
+                                        <h5 class="widget-results__title">Friday, March 16</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/pirates_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">L.A. Pirates</h5><span class="widget-results__team-info">Bebop Institute</span></div>
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-winner">124</span> - <span class="widget-results__score-loser">106</span>
+                                                    <div class="widget-results__status">Away</div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                                            </div>
                                         </div>
                                     </li>
-                                    <li class="products-list__item">
-                                        <figure class="products-list__product-thumb">
-                                            <a href="#"><img src="assets/images/samples/cart-sm-3.jpg" alt=""></a>
-                                        </figure>
-                                        <div class="products-list__inner"><span class="products-list__product-cat">Sneakers</span>
-                                            <h5 class="products-list__product-name"><a href="#">Aquarium Sneaker</a></h5>
-                                            <div class="products-list__product-ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i> <i class="fa fa-star empty"></i></div>
-                                            <div class="products-list__product-sum"><span class="products-list__product-price">$28.00</span></div>
+                                    <!-- Game #1 / End -->
+                                    <!-- Game #2 -->
+                                    <li class="widget-results__item">
+                                        <h5 class="widget-results__title">Saturday, March 10</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-loser">95</span> - <span class="widget-results__score-winner">98</span>
+                                                    <div class="widget-results__status">Home</div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/lucky_clovers_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Clovers</h5><span class="widget-results__team-info">St. Patrick’s Inst</span></div>
+                                            </div>
                                         </div>
                                     </li>
-                                    <li class="products-list__item">
-                                        <figure class="products-list__product-thumb">
-                                            <a href="#"><img src="assets/images/samples/cart-sm-6.jpg" alt=""></a>
-                                        </figure>
-                                        <div class="products-list__inner"><span class="products-list__product-cat">Shirts and Hoodies</span>
-                                            <h5 class="products-list__product-name"><a href="#">The Sporting Shirt</a></h5>
-                                            <div class="products-list__product-ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star empty"></i></div>
-                                            <div class="products-list__product-sum"><span class="products-list__product-price">$40.00</span></div>
+                                    <!-- Game #2 / End -->
+                                    <!-- Game #3 -->
+                                    <li class="widget-results__item">
+                                        <h5 class="widget-results__title">Friday, March 4</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/ocean_kings_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Ocean Kings</h5><span class="widget-results__team-info">Bay College</span></div>
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-winner">110</span> - <span class="widget-results__score-loser">104</span>
+                                                    <div class="widget-results__status">Home</div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+                                                <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Game #3 / End -->
+                                </ul>
+                            </div>
+                        </aside>
+                        <!-- Widget: Latest Results / End -->
+                        <!-- Widget: Awards -->
+                        <aside class="widget card widget--sidebar widget-awards">
+                            <div class="widget__title card__header">
+                                <h4>Our Awards</h4></div>
+                            <div class="widget__content card__content">
+                                <div class="awards awards--slider">
+                                    <div class="awards__item">
+                                        <figure class="awards__figure"><img src="assets/images/samples/trophy-01.jpg" alt=""></figure>
+                                        <div class="awards__desc">
+                                            <h5 class="awards__name">Big League Champions</h5>
+                                            <div class="awards__date">December 2009</div>
+                                        </div>
+                                    </div>
+                                    <div class="awards__item">
+                                        <figure class="awards__figure"><img src="assets/images/samples/trophy-02.jpg" alt=""></figure>
+                                        <div class="awards__desc">
+                                            <h5 class="awards__name">Big League Champions</h5>
+                                            <div class="awards__date">November 2010</div>
+                                        </div>
+                                    </div>
+                                    <div class="awards__item">
+                                        <figure class="awards__figure"><img src="assets/images/samples/trophy-03.jpg" alt=""></figure>
+                                        <div class="awards__desc">
+                                            <h5 class="awards__name">Big League Champions</h5>
+                                            <div class="awards__date">December 2012</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                        <!-- Widget: Awards / End -->
+                        <!-- Widget: Games History -->
+                        <aside class="widget card widget--sidebar widget-games-history">
+                            <div class="widget__title card__header card__header--has-legend">
+                                <h4>Games History</h4>
+                                <div id="gamesHistoryLegend" class="chart-legend chart-legend--games-history"></div>
+                            </div>
+                            <div class="widget__content card__content">
+                                <canvas id="games-history" class="games-history-chart" height="270"></canvas>
+                            </div>
+                        </aside>
+                        <!-- Widget: Games History / End -->
+                        <!-- Widget: Team Newslog -->
+                        <aside class="widget card widget--sidebar widget-newslog">
+                            <div class="widget__title card__header">
+                                <h4>Team Newslog</h4></div>
+                            <div class="widget__content card__content">
+                                <ul class="newslog">
+                                    <li class="newslog__item newslog__item--injury">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Mark Johnson</strong> has a tibia fracture and he’s gonna be out of the play for <strong>2 months</strong>.</div>
+                                            <time class="newslog__date" datetime="2016-01-19">September 18, 2016</time>
+                                        </div>
+                                    </li>
+                                    <li class="newslog__item newslog__item--join">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Dominick R. Blink</strong>, a new <strong>Shooting Guard</strong> from San Francisco has joined the team!.</div>
+                                            <time class="newslog__date" datetime="2016-01-19">September 6, 2016</time>
+                                        </div>
+                                    </li>
+                                    <li class="newslog__item newslog__item--join">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Christopher Grifin</strong>, a new <strong>Power Forward</strong> from Rockstar Bay College has joined the team!.</div>
+                                            <time class="newslog__date" datetime="2016-01-19">August 24, 2016</time>
+                                        </div>
+                                    </li>
+                                    <li class="newslog__item newslog__item--injury">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Thomas Durry</strong> has a composed hand fracture and he won’t be playing untill <strong>September</strong>.</div>
+                                            <time class="newslog__date" datetime="2016-01-19">August 17, 2016</time>
+                                        </div>
+                                    </li>
+                                    <li class="newslog__item newslog__item--exit">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Jeremy Rittersen</strong> left the team after 2 year in the club and his new house are the <strong>Clovers</strong>.</div>
+                                            <time class="newslog__date" datetime="2016-01-19">August 12, 2016</time>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </aside>
-                        <!-- Widget: Hot Products / End -->
+                        <!-- Widget: Team Newslog / End -->
                     </div>
                     <!-- Sidebar / End -->
                 </div>

@@ -11,7 +11,8 @@ class CreateSquadForm(ModelForm):
             'name',
             'avatar',
             'info',
-            'leader'
+            'leader',
+            'wear',
         )
 
 
@@ -21,6 +22,8 @@ class UpdateSquadForm(ModelForm):
         fields = ('name',
                   'avatar',
                   'info',
+                  'wear',
+                  'recruting',
                   )
         # error_messages = {
         #     'email': {
@@ -31,6 +34,4 @@ class UpdateSquadForm(ModelForm):
         #     },
         #
         # }
-
-
 

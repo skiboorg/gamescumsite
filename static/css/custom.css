@@ -46,3 +46,8 @@
     color: #000000;
     margin: auto;
 }
+
+.del_btn{
+    position: absolute;
+    right: 0;
+}

@@ -5,6 +5,7 @@ from authentication.models import SteamUser
 
 
 def shop_home(request):
+    shop_active = 'active'
     order = request.GET.get('order')
     all_categories = Categories.objects.all()
     items_all = Items.objects.all()
@@ -21,11 +22,14 @@ def shop_home(request):
     else:
         items = items_all
     cat_name = 'ВСЕ ПРЕДЛОЖЕНИЯ'
+    player = request.user
+
     hot_items = Items.objects.all().order_by('-buys')[:4]
     return render(request, 'shop/index.html', locals())
 
 
 def shop_show_cat(request, cat_slug):
+    shop_active = 'active'
     all_categories = Categories.objects.all()
     current_cat = Categories.objects.filter(name_slug=cat_slug).first()
     items = Items.objects.filter(category__name_slug=cat_slug).all()
