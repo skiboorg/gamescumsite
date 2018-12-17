@@ -133,7 +133,7 @@ def join_request(request,name_slug):
 
 def confirm_request(request):
     squad = Squad.objects.get(leader=request.user)
-    members_count = SquadMembers.objects.filter(squad=squad).count
+    members_count = SquadMembers.objects.filter(squad=squad).count()
     if squad.level == 1:
         if members_count < 3:
             pass
@@ -214,21 +214,25 @@ def level_up(request):
         if squad.balance >= 3000:
             squad.balance -= 3000
             squad.level = 3
+            squad.recruting = True
             squad.save(force_update=True)
     elif squad.level == 3:
         if squad.balance >= 5000:
             squad.balance -= 5000
             squad.level = 4
+            squad.recruting = True
             squad.save(force_update=True)
     elif squad.level == 4:
         if squad.balance >= 10000:
             squad.balance -= 10000
             squad.level = 5
+            squad.recruting = True
             squad.save(force_update=True)
     elif squad.level == 5:
         if squad.balance >= 15000:
             squad.balance -= 15000
             squad.level = 6
+            squad.recruting = True
             squad.vip = True
             squad.save(force_update=True)
 

@@ -53,10 +53,13 @@ def profile(request, nickname_req):
         played_time = 0
         server_response = requests.get('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamid={}&format=json'.format(steamid))
         json_data = json.loads(server_response.text)
-        if json_data['response'] == '':
+        print('get user info')
+        print(json_data['response']['games'])
+        if json_data['response'] != '':
             for i in json_data['response']['games']:
                 if i['appid'] == 513710:
                     played_time = round(int(i['playtime_forever']) / 60)
+                    print(played_time)
         else:
             played_time = 'НЕТ ДАННЫХ'
         return played_time
@@ -100,13 +103,13 @@ def profile(request, nickname_req):
 
                 return render(request, 'pages/ownprofile.html', locals())
             else:
-                player = SteamUser.objects.filter(nickname=nickname_req).first()
+                player = SteamUser.objects.get(nickname=nickname_req)
                 squad_info = get_squad_info(player.id)
                 player_play_time = get_play_time(player.steamid)
                 return render(request, 'pages/profile.html', locals())
         else:
 
-            player = SteamUser.objects.filter(nickname=nickname_req).first()
+            player = SteamUser.objects.get(nickname=nickname_req)
             squad_info = get_squad_info(player.id)
             player_play_time = get_play_time(player.steamid)
             return render(request, 'pages/profile.html', locals())

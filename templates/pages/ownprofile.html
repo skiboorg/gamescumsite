@@ -74,7 +74,7 @@
 
 
                                                     <dl class="alc-staff-details">
-                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating| }}</dd>
+                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
                                                         <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
@@ -271,7 +271,7 @@
                                                                  <input type="hidden" name="update" value="1">
                                                                     <input type="hidden" name="{{ squad_form.wear.name  }}" value="{{ squad_info.wear.id }}">
 
-                                                        <button type="submit" class="btn  btn-outline-danger btn-sm ">Изменить отряд</button>
+                                                        <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить отряд</button>
                                                     </form>
 
                                                     <!-- Details / End -->
@@ -335,7 +335,7 @@
                                     {% if player.is_squad_leader%}
                                         {% if playerr.player.id != player.id %}
 
-                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}">Х</a>
+                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}">ИСКЛЮЧИТЬ</a>
                                          {% endif %}
                                     {% endif %}
                                 </div>
