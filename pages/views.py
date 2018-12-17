@@ -11,6 +11,7 @@ import requests
 from datetime import datetime , time
 
 
+
 def get_squad_info(player_id):
     try:
         squad_member = SquadMembers.objects.get(player_id=player_id)
@@ -27,11 +28,12 @@ def index(request):
     index_page_active = 'active'
     news = News.objects.all()
     if request.user.is_authenticated:
-        last_login = request.user.last_login.date()
+        last_login = request.user.last_vizit
         time_now = datetime.now().date()
         if time_now > last_login:
-            request.user.wallet = request.user.wallet + 30
-            request.user.save()
+            request.user.wallet += 30
+            request.user.last_vizit = datetime.now().date()
+            request.user.save(force_update=True)
 
     return render(request, 'pages/index.html', locals())
 
@@ -111,7 +113,7 @@ def profile(request, nickname_req):
 
 def del_message(request):
     message = PrivateMessages.objects.get(id=int(request.GET.get('m_id')))
-    if message.to_player == request.user.id:
+    if message.to_player.id == request.user.id:
         message.delete()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 

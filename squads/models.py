@@ -96,8 +96,17 @@ class SquadSectors(models.Model):
         verbose_name = "Сектор"
         verbose_name_plural = "Сектора"
 
+class SectorWars(models.Model):
+    sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.SET_NULL)
+    enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.SET_NULL)
+    war_date = models.DateTimeField(blank=False,default=timezone.now)
 
+    def __str__(self):
+        return 'Оспаривание сектора : %s' % self.sector.name
 
+    class Meta:
+        verbose_name = "Война за сектор"
+        verbose_name_plural = "Война за секторы"
 
 def squad_post_save(sender, instance, **kwargs):
     try:

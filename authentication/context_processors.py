@@ -17,6 +17,7 @@ def get_player_squad_info(request):
             player_squad_member = SquadMembers.objects.get(player=request.user.id)
             player_squad = player_squad_member.squad
             player_squad_sector = SquadSectors.objects.filter(squad=player_squad.id)
+            print(player_squad_sector)
 
         except:
             player_squad_member = None

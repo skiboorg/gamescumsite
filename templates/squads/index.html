@@ -39,6 +39,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Название отряда</th>
+                                                <th>Уровень</th>
                                                 <th>Состав</th>
                                                 <th>Набор</th>
                                                 <th>Побед</th>
@@ -55,12 +56,15 @@
                                                             <h6 class="team-meta__name">{{ squad.name }}</h6><span class="team-meta__place">Лидер отряда : <a href="{% url 'profile' squad.leader.nickname %}">{{ squad.leader.personaname }}</a></span></div>
                                                     </div>
                                                 </td>
+                                                <td>{{ squad.level }}</td>
                                                 <td>{{ squad.get_members.count }}</td>
                                                 <td>
                                                     {% if player_squad_member %}
                                                         Ты уже в отряде
                                                         {% else %}
+
                                                             {% if squad.recruting%}
+
 
                                                                 {% if player in squad_requests %}
                                                                     заявка уже подана

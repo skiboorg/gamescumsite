@@ -1,6 +1,7 @@
 {% extends 'basic.html' %}
 {% load static %}
 
+
 {% block content %}
      <!-- Page Heading
 		================================================== -->
@@ -57,7 +58,7 @@
 
                                                                   <div class="widget-player__stat widget-player__blocks">
                                                                     <h6 class="widget-player__stat-label">Баланс</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.wallet }} RC</div>
+                                                                      <div class="widget-player__stat-number"><span id="player_wallet">{{ player.wallet }}</span> RC</div>
 
                                                                 </div>
                                                             </div>
@@ -73,7 +74,7 @@
 
 
                                                     <dl class="alc-staff-details">
-                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
+                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating| }}</dd>
                                                         <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
@@ -90,7 +91,7 @@
                                                              {% csrf_token %}
 
                                                                 <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
-                                                                <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
+                                                                    <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
                                                                   <input type='hidden' name="squad_id" value="{{ squad_info.id }}">
 
                                                               <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Пополнить баланс отряда</button>
@@ -177,7 +178,7 @@
                                                      </div>
                                                          <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
 
-                                                        <button type="submit" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
+                                                        <button type="submit" id="create_squad_btn" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
                                                     </form>
 
                                                     <!-- Details / End -->
@@ -194,14 +195,45 @@
           {% if player.is_squad_leader %}
            <div class="card card--clean alc-staff">
                 <div class="card__header card__header--has-btn">
-                    <h4>Управление отрядом</h4><a href="player-stats.html" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a></div>
+                    <h4>Управление отрядом</h4>
+
+                    <a style="margin-left: 5px;" href="{% url 'delete_squad' %}" class="btn btn-danger btn-outline btn-xs card-header__button" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
+                    <a href="{% url 'level_up' %}" id="level_up_btn" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
+                </div>
                                <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="alc-staff-inner">
-  <div>Баланс отряда : </div>
+  <div>
+
+
+      <dl class="alc-staff-details">
+          <dt class="alc-staff-details__label">Баланс отряда :</dt><dd class="alc-staff-details__value"><span id="squad_balance">{{ squad_info.balance }}</span> RC</dd>
+          <dt class="alc-staff-details__label">Текущий уровень отряда :</dt><dd class="alc-staff-details__value">{{ squad_info.level }}
+          <dt class="alc-staff-details__label">Стоимость перехода на следуюший уровень :</dt>
+          <dd class="alc-staff-details__value">
+              {% if squad_info.level ==  1 %}
+                 <span id="level_up_cost">1000</span> RC
+               {% elif squad_info.level == 2 %}
+                   <span id="level_up_cost">3000</span> RC
+               {% elif squad_info.level == 3 %}
+                  <span id="level_up_cost">5000</span> RC
+               {% elif squad_info.level == 4 %}
+                  <span id="level_up_cost">10000</span> RC
+               {% elif squad_info.level == 5 %}
+                  <span id="level_up_cost">15000</span> RC
+              {% endif %}
+
+
+          </dd>
+
+
+
+      </dl>
+  </div>
+
                                                     <hr>
 
                                                <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
@@ -301,8 +333,10 @@
                                 <div class="newslog__content"><strong><a  href="{% url 'profile' playerr.player.nickname %}">{{ playerr.player.personaname }}</a></strong>
 
                                     {% if player.is_squad_leader%}
+                                        {% if playerr.player.id != player.id %}
 
-                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="?p_id={{ playerr.player.id  }}">Х</a>
+                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}">Х</a>
+                                         {% endif %}
                                     {% endif %}
                                 </div>
                                 <div class="newslog__date">Взносов в общак отряда : {{ playerr.income }} RC</div>
@@ -324,7 +358,7 @@
                         <li class="newslog__item newslog__item--join">
                             <div class="newslog__item-inner">
                                 <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px;" src="{{ rr.player.avatar }}"/> <strong><a  href="{% url 'profile' rr.player.nickname %}">{{ rr.player.personaname }}</a></strong> </div>
-                                <div class="newslog__date"><a class="btn btn-success btn-outline btn-xs" href="{% url 'confirm_request' %}?name={{ rr.player.nickname }}&squad={{squad_info.id  }}">ПРИНЯТЬ</a> <a class="btn btn-danger btn-outline btn-xs" href="{% url 'reject_request' %}">ОТКЛОНИТЬ</a></div>
+                                <div class="newslog__date"><a class="btn btn-success btn-outline btn-xs" href="{% url 'confirm_request' %}?name={{ rr.player.nickname }}">ПРИНЯТЬ</a> <a class="btn btn-danger btn-outline btn-xs" href="{% url 'reject_request' %}?r_id={{ rr.id }}">ОТКЛОНИТЬ</a></div>
 
                             </div>
                         </li>
@@ -393,7 +427,7 @@
                          СВОБОДНО<br>
                         Доход : {{ sect.income }}<br>
                         Цена : {{ sect.price }}<br>
-                        <a href="#" class="btn btn-danger btn-xs">КУПИТЬ</a>
+                        <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-danger btn-xs">КУПИТЬ</a>
                         </div>
 
                         {% endif %}

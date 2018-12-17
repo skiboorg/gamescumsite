@@ -25,6 +25,10 @@ urlpatterns = [
     path('confirm_request/', views.confirm_request, name='confirm_request'),
     path('reject_request/', views.reject_request, name='reject_request'),
     path('add_to_balance/', views.add_to_balance, name='add_to_balance'),
+    path('kick_player/<nickname>', views.kick_player, name='kick_player'),
+    path('level_up/', views.level_up, name='level_up'),
+    path('delete_squad/', views.delete_squad, name='delete_squad'),
+    path('buy_sector/', views.buy_sector, name='buy_sector'),
 
 
 ]
