@@ -1,4 +1,6 @@
 
+        $('#modal-activate').modal('show');
+
 
 var cur_balance = parseInt($('#player_wallet').html());
 var cur_squad_balance = parseInt($('#squad_balance').html());

@@ -152,3 +152,22 @@
         </div>
         <!-- Login/Register Modal / End -->
    {% endif %}
+
+{% if profile_bad and user.is_authenticated %}
+      <div class="modal fade" id="modal-activate" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg modal--login" role="document">
+                <div class="modal-content">
+
+                    <div style=" padding: 15px 15px 0px 15px;" class="modal-body">
+
+
+                    <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SCUM BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><span id="activate">!activate {{ request.user.steamid }}</span>  <button type="button" class="btn btn-xs btn-default btn-outline alert-btn-right">СКОПИРОВАТЬ В БУФЕР</button></div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+ {% endif %}

@@ -250,6 +250,7 @@ def delete_squad(request):
     SquadMembers.objects.filter(squad=squad_to_delete).delete()
     SquadSectors.objects.filter(squad=squad_to_delete).update(squad=None)
     SquadRequests.objects.filter(squad=squad_to_delete).delete()
+    SectorWars.objects.filter(enemy=squad_to_delete).delete()
     request.user.is_squad_leader = False
     request.user.save(force_update=True)
     squad_to_delete.delete()
