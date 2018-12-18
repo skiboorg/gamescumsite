@@ -4,7 +4,7 @@ from squads.models import Squad,SquadMembers,SquadSectors
 def check_profile(request):
     if request.user.is_authenticated:
         pm = PrivateMessages.objects.filter(to_player_id=request.user.id)
-        if request.user.discord_id == '':
+        if request.user.discord_id == None:
             profile_bad = True
         else:
             profile_bad = False

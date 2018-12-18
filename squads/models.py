@@ -99,7 +99,10 @@ class SquadSectors(models.Model):
 class SectorWars(models.Model):
     sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.SET_NULL)
     enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.SET_NULL)
-    war_date = models.DateTimeField(blank=False,default=timezone.now)
+    war_date = models.DateTimeField(blank=False, default=timezone.now)
+    owner_agreed = models.BooleanField(default=False)
+    for_bot_enemy_squad_name = models.CharField(max_length=50, blank=True)
+    for_bot_sector_name = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return 'Оспаривание сектора : %s' % self.sector.name

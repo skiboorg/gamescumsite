@@ -49,7 +49,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'steamid'
     steamid = models.CharField(max_length=17, unique=True)
     discord_id = models.CharField(max_length=40, blank=True, null=True, unique=True, default=None)
-    email = models.CharField(max_length=255, unique=True, blank=True, null=True, default=None)
+    discord_nickname = models.CharField(max_length=40, blank=True, null=True, unique=True, default=None)
+
     personaname = models.CharField(max_length=255)
     nickname = models.SlugField(blank=True, null=True, default=None)
     profileurl = models.CharField(max_length=300)
@@ -67,6 +68,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     vip = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_squad_leader = models.BooleanField(default=False)
+    profile_open = models.BooleanField(default=True)
     is_banned = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     last_zp = models.DateTimeField(default=timezone.now)

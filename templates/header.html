@@ -11,45 +11,42 @@
   <!-- Header Desktop -->
         <header class="header">
             <!-- Header Top Bar -->
-{#            <div class="header__top-bar clearfix">#}
-{#                <div class="container">#}
-{#                    <!-- Account Navigation -->#}
-{#                    <ul class="nav-account">#}
-{#                        {% if user.is_authenticated %}#}
-{#                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}#}
-{#                                  {% if profile_bad %}#}
-{#                                <span class="highlight">   ЗАПОЛНЕН НЕ ПОЛНОСТЬЮ !!!</span>#}
-{#                            {% endif %}#}
-{#                              </a>#}
-{#                              </li>#}
-{#                            <li class="nav-account__item nav-account__item--logout"> <a href="{% url "logout" %}">ВЫХОД </a></li>#}
-{##}
-{#                        {% else %}#}
-{#                             <li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>#}
-{#                        {% endif %}#}
-{##}
-{##}
-{#                        <li class="nav-account__item nav-account__item--wishlist"><a href="shop-wishlist.html">Wishlist <span class="highlight">8</span></a></li>#}
-{#                        <li class="nav-account__item"><a href="#">Currency: <span class="highlight">USD</span></a>#}
-{#                            <ul class="main-nav__sub">#}
-{#                                <li><a href="#">USD</a></li>#}
-{#                                <li><a href="#">EUR</a></li>#}
-{#                                <li><a href="#">GBP</a></li>#}
-{#                            </ul>#}
-{#                        </li>#}
-{#                        <li class="nav-account__item"><a href="#">Language: <span class="highlight">EN</span></a>#}
-{#                            <ul class="main-nav__sub">#}
-{#                                <li><a href="#">English</a></li>#}
-{#                                <li><a href="#">Spanish</a></li>#}
-{#                                <li><a href="#">French</a></li>#}
-{#                                <li><a href="#">German</a></li>#}
-{#                            </ul>#}
-{#                        </li>#}
-{#                        <li class="nav-account__item nav-account__item--logout"><a href="#">Logout</a></li>#}
-{#                    </ul>#}
-{#                    <!-- Account Navigation / End -->#}
-{#                </div>#}
-{#            </div>#}
+            <div class="header__top-bar clearfix">
+                <div class="container">
+                    <!-- Account Navigation -->
+                    <ul class="nav-account">
+                        {% if user.is_authenticated %}
+                            <li class="nav-account__item nav-account__item--wishlist"> <a style="color: #f34141;" href="{% url "logout" %}">ВЫХОД </a></li>
+                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
+                                  {% if profile_bad %}
+                                <span class="highlight">   ЗАПОЛНЕН НЕ ПОЛНОСТЬЮ !!!</span>
+                            {% endif %}
+                              </a>
+                              </li>
+                        <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#pm">Личные сообщения
+                            <span class="highlight">{% if pm.count > 0 %}{{ pm.count }}{% else %}(0){% endif %}</span></a>
+                        </li>
+                        {% if user.is_squad_leader %}
+                             <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad">Управление отрядом
+                                <span class="highlight"></span></a>
+                             </li>
+                            {% else %}
+                             <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД
+                                <span class="highlight"> !!!</span></a>
+                        {% endif %}
+                        {% else %}
+                             <li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
+                        {% endif %}
+
+
+
+
+
+
+                    </ul>
+                    <!-- Account Navigation / End -->
+                </div>
+            </div>
             <!-- Header Top Bar / End -->
             <!-- Header Secondary -->
             <div class="header__secondary">
@@ -68,18 +65,7 @@
                                <a href="/support_us" class="btn btn-danger btn-xs btn-outline">ПОДДЕРЖАТЬ СЕРВЕР</a>
                          </li>
                         <li class="info-block__item info-block__item--contact-secondary">
-                            {% if user.is_authenticated %}
-                              <a class="btn btn-warning btn-xs btn-outline" href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
-                                  {% if profile_bad %}
-                                <span class="highlight">   ЗАПОЛНЕН НЕ ПОЛНОСТЬЮ !!!</span>
-                            {% endif %}
-                              </a>
-
-                            <a class="btn btn-warning btn-xs" href="{% url "logout" %}">ВЫХОД </a>
-
-                        {% else %}
-                             <a class="btn btn-warning btn-xs" href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a>
-                        {% endif %}
+                                 <a href="/about_us" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
                          </li>
                     {% if user.is_authenticated %}
                         <li class="info-block__item info-block__item--shopping-cart">
@@ -143,9 +129,9 @@
 
                             <!-- Social Links -->
                             <ul class="social-links social-links--inline social-links--main-nav">
-                                <li class="social-links__item"><a href="https://vk.com/scum_survival" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА ВК"><i class="fa fa fa-vk"></i></a></li>
-                                <li class="social-links__item"><a href="https://steamcommunity.com/groups/gamescum" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА STEAM"><i class="fa fa fa-steam"></i></a></li>
-                                <li class="social-links__item"><a href="https://discord.gg/sgUz53k" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="НАШ ДИСКОРД"><i class="fa fa fa-comments"></i></a></li>
+                                <li class="social-links__item"><a href="https://vk.com/scum_survival" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА ВК"><i class="fa fa fa-vk"></i></a></li>
+                                <li class="social-links__item"><a href="https://steamcommunity.com/groups/gamescum" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА STEAM"><i class="fa fa fa-steam"></i></a></li>
+                                <li class="social-links__item"><a href="https://discord.gg/sgUz53k" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="НАШ ДИСКОРД"><i class="fa fa fa-comments"></i></a></li>
                             </ul>
                             <!-- Social Links / End -->
                             <!-- Pushy Panel Toggle -->

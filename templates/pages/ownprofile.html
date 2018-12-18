@@ -5,10 +5,10 @@
 {% block content %}
      <!-- Page Heading
 		================================================== -->
-        <div class="page-heading">
+        <div class="page-heading" style="background-image: url({% static 'images/own_profile.jpg' %});">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10 offset-md-1">
+                    <div class="col-md-6 offset-md-8">
                         <h1 class="page-heading__title font_scum">ТВОЙ <span class="highlight">ПРОфИЛЬ</span></h1>
                         <ol class="page-heading__breadcrumb breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Главная</a></li>
@@ -21,7 +21,7 @@
         <!-- Page Heading / End -->
         <!-- Content
 		================================================== -->
-
+<div class="site-content">
     <div class="container">
     <div class="row">
         <!-- Content -->
@@ -135,7 +135,7 @@
             <!-- Staff Member / End -->
             <!-- Lates News -->
         {% if not squad_info %}
-             <div class="card card--clean alc-staff">
+             <div id="create_squad" class="card card--clean alc-staff">
                 <div class="card__header card__header--has-btn">
                     <h4>Создание отряда</h4></div>
                  <div class="card__content">
@@ -193,7 +193,7 @@
          {% endif %}
 
           {% if player.is_squad_leader %}
-           <div class="card card--clean alc-staff">
+           <div id="squad" class="card card--clean alc-staff">
                 <div class="card__header card__header--has-btn">
                     <h4>Управление отрядом</h4>
 
@@ -290,7 +290,7 @@
         <div class="sidebar col-md-4">
 
             <!-- Widget: Player Newslog -->
-            <aside class="widget card widget--sidebar widget-newslog">
+            <aside id="pm" class="widget card widget--sidebar widget-newslog">
                 <div class="widget__title card__header">
                     <h4>Сообшения</h4></div>
                 <div class="widget__content card__content">
@@ -439,7 +439,7 @@
 
     </div>
 </div>
-
+</div>
 
 
 
