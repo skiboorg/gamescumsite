@@ -58,3 +58,11 @@
   text-decoration: none;
   color: black;
 }
+
+.squad_info_p_red{
+    font-size: 13px;
+    color: #f8f9fa;
+    background-color: #dc3545;
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -66,7 +66,7 @@
                                                             {% if squad.recruting%}
 
 
-                                                                {% if player in squad_requests %}
+                                                                {% if squad.id in req_disct %}
                                                                     заявка уже подана
                                                                 {% else %}
                                                                     <a href="{{ squad.name_slug }}"> Вступить</a>
@@ -103,93 +103,33 @@
     <div class="widget__content card__content">
         <ul class="widget-results__list">
             <!-- Game #0 -->
+            {% for war in wars %}
             <li class="widget-results__item">
-                <h5 class="widget-results__title">Saturday, March 24</h5>
+                <h5 class="widget-results__title">{{ war.war_date.date }}</h5>
                 <div class="widget-results__content">
                     <div class="widget-results__team widget-results__team--first">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
+                        <figure class="widget-results__team-logo"><img src="{{ war.enemy.avatar.url }}" alt=""></figure>
                         <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Elric Bros School</span></div>
+                            <h5 class="widget-results__team-name">{{ war.enemy.name }}</h5><span class="widget-results__team-info">нападают</span></div>
+
                     </div>
                     <div class="widget-results__result">
-                        <div class="widget-results__score"><span class="widget-results__score-winner">107</span> - <span class="widget-results__score-loser">102</span>
-                            <div class="widget-results__status">Home</div>
+                        <div class="widget-results__score"><span class="widget-results__score-winner">{{ war.sector.name }}</span>
+
                         </div>
                     </div>
                     <div class="widget-results__team widget-results__team--second">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/sharks_shield.png" alt=""></figure>
+                        <figure class="widget-results__team-logo"><img src="{{ war.sector.squad.avatar.url }}" alt=""></figure>
                         <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Sharks</h5><span class="widget-results__team-info">Marine College</span></div>
+                            <h5 class="widget-results__team-name">{{ war.sector.squad.name }}</h5><span class="widget-results__team-info">обороняются</span></div>
                     </div>
                 </div>
             </li>
             <!-- Game #0 / End -->
-            <!-- Game #1 -->
-            <li class="widget-results__item">
-                <h5 class="widget-results__title">Friday, March 16</h5>
-                <div class="widget-results__content">
-                    <div class="widget-results__team widget-results__team--first">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/pirates_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">L.A. Pirates</h5><span class="widget-results__team-info">Bebop Institute</span></div>
-                    </div>
-                    <div class="widget-results__result">
-                        <div class="widget-results__score"><span class="widget-results__score-winner">124</span> - <span class="widget-results__score-loser">106</span>
-                            <div class="widget-results__status">Away</div>
-                        </div>
-                    </div>
-                    <div class="widget-results__team widget-results__team--second">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
-                    </div>
-                </div>
-            </li>
-            <!-- Game #1 / End -->
-            <!-- Game #2 -->
-            <li class="widget-results__item">
-                <h5 class="widget-results__title">Saturday, March 10</h5>
-                <div class="widget-results__content">
-                    <div class="widget-results__team widget-results__team--first">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
-                    </div>
-                    <div class="widget-results__result">
-                        <div class="widget-results__score"><span class="widget-results__score-loser">95</span> - <span class="widget-results__score-winner">98</span>
-                            <div class="widget-results__status">Home</div>
-                        </div>
-                    </div>
-                    <div class="widget-results__team widget-results__team--second">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/lucky_clovers_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Clovers</h5><span class="widget-results__team-info">St. Patrick’s Inst</span></div>
-                    </div>
-                </div>
-            </li>
-            <!-- Game #2 / End -->
-            <!-- Game #3 -->
-            <li class="widget-results__item">
-                <h5 class="widget-results__title">Friday, March 4</h5>
-                <div class="widget-results__content">
-                    <div class="widget-results__team widget-results__team--first">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/ocean_kings_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Ocean Kings</h5><span class="widget-results__team-info">Bay College</span></div>
-                    </div>
-                    <div class="widget-results__result">
-                        <div class="widget-results__score"><span class="widget-results__score-winner">110</span> - <span class="widget-results__score-loser">104</span>
-                            <div class="widget-results__status">Home</div>
-                        </div>
-                    </div>
-                    <div class="widget-results__team widget-results__team--second">
-                        <figure class="widget-results__team-logo"><img src="assets/images/samples/logos/alchemists_b_shield.png" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">Alchemists</h5><span class="widget-results__team-info">Eric Bros School</span></div>
-                    </div>
-                </div>
-            </li>
-            <!-- Game #3 / End -->
+           {% endfor %}
+        {% if not wars %}
+            НЕТ ОСПАРИВАЕМЫХ ТЕРРИТОРИЙ
+        {% endif %}
         </ul>
     </div>
 </aside>

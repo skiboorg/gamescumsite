@@ -72,7 +72,7 @@ def profile(request, nickname_req):
         if form.is_valid():
             form.save()
 
-        return render(request, 'pages/ownprofile.html', locals())
+        return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
     else:
@@ -94,6 +94,7 @@ def profile(request, nickname_req):
 
                     squad_members = SquadMembers.objects.filter(squad=squad_info.id)
                     squad_sectors = SquadSectors.objects.filter(squad=squad_info.id)
+                    wars = SectorWars.objects.all()
 
                 else:
                     print('No squad info')

@@ -90,7 +90,10 @@ class SquadSectors(models.Model):
     own = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return 'Сектор : %s' % self.name
+        if self.squad:
+            return 'Сектор : %s. Принадлежит %s' % (self.name,self.squad.name)
+        else:
+            return 'Сектор : %s' % self.name
 
     class Meta:
         verbose_name = "Сектор"
@@ -103,7 +106,7 @@ class SectorWars(models.Model):
     owner_agreed = models.BooleanField(default=False)
     for_bot_enemy_squad_name = models.CharField(max_length=50, blank=True)
     for_bot_sector_name = models.CharField(max_length=50, blank=True)
-
+#   for_bot_owner_name = models.CharField(max_length=50, blank=True)
     def __str__(self):
         return 'Оспаривание сектора : %s' % self.sector.name
 

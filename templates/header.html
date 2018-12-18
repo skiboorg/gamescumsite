@@ -19,12 +19,12 @@
                             <li class="nav-account__item nav-account__item--wishlist"> <a style="color: #f34141;" href="{% url "logout" %}">ВЫХОД </a></li>
                               <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
                                   {% if profile_bad %}
-                                <span class="highlight">   ЗАПОЛНЕН НЕ ПОЛНОСТЬЮ !!!</span>
+                                <span style="color: red !important;" class="highlight"> !!!  НЕ АКТИВИРОВАН !!!</span>
                             {% endif %}
                               </a>
                               </li>
                         <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#pm">Личные сообщения
-                            <span class="highlight">{% if pm.count > 0 %}{{ pm.count }}{% else %}(0){% endif %}</span></a>
+                            <span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
                         </li>
                         {% if user.is_squad_leader %}
                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad">Управление отрядом

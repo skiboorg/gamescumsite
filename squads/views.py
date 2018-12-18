@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from squads.forms import *
 from squads.models import *
 from authentication.models import *
 from datetime import datetime
+import datetime
+
 
 
 
@@ -44,7 +46,7 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
-                pass
+                messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 1 сектор!')
         if squad.level == 2:
             if sectors_count < 2:
                 squad.balance -= sector_to_buy.price
@@ -53,7 +55,7 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
-                pass
+                messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 2 сектора!')
         if squad.level == 3:
             if sectors_count < 3:
                 squad.balance -= sector_to_buy.price
@@ -102,17 +104,21 @@ def add_to_balance(request):
         return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def show_squads(request):
+    print('show_squads')
     squad_active = 'active'
     squads = Squad.objects.all()
     player = request.user
     print(player.id)
-    req_list = list()
+    req_disct = []
+    wars = SectorWars.objects.all()
     try:
         squad_requests = SquadRequests.objects.filter(player_id=player.id)
     except:
         squad_requests = None
-    if player.id in squad_requests:
-        print(req_list)
+    if squad_requests:
+        for req in squad_requests:
+            req_disct.append(req.squad.id)
+        print(req_disct)
 
     return render(request, 'squads/index.html', locals())
 
@@ -195,7 +201,7 @@ def kick_player(request,nickname):
         squad_member.delete()
         new_message = PrivateMessages.objects.create(to_player_id=squad_member.player.id,
                                                      from_player_name=request.user.personaname,
-                                                     from_player_name_slug=request.user.personaname,
+                                                     from_player_name_slug=request.user.nickname,
                                                      from_player_avatar=str(request.user.avatar),
                                                      text='Привет, ты был кикнут из отряда.')
         new_message.save()
@@ -247,5 +253,38 @@ def delete_squad(request):
     request.user.is_squad_leader = False
     request.user.save(force_update=True)
     squad_to_delete.delete()
+
+    return HttpResponseRedirect('/profile/' + request.user.nickname)
+
+
+def sector_war(request, sector_name):
+    #https://discordapp.com/api/webhooks/524685270591864862/Eh1Bw5yYWrq_58xavRN1a1uWd2PjURsA6ZEuy9IJFFsqVVNxWngFDQOwRF8wGQ08tX2U
+    today = datetime.date.today()
+    sat = today + datetime.timedelta((5 - today.weekday()) % 7)
+    sun = today + datetime.timedelta((6 - today.weekday()) % 7)
+    print(sat)
+    print(sun)
+    all_wars = SectorWars.objects.filter(sector__name=sector_name)
+    sector = SquadSectors.objects.get(name=sector_name)
+    enemy = Squad.objects.get(leader=request.user)
+    if all_wars.count() == 2:
+        print('даты заняты')
+    elif all_wars.count() == 0:
+        new_war = SectorWars.objects.create(sector_id=sector.id, enemy_id=enemy.id, war_date=sat)
+        new_war.save()
+        new_message = PrivateMessages.objects.create(to_player_id=sector.squad.leader.id,
+                                                     from_player_name=enemy.leader.personaname,
+                                                     from_player_name_slug=enemy.leader.nickname,
+                                                     from_player_avatar=str(enemy.leader.avatar),
+                                                     text='Наш отряд притендует на сектор {}. '
+                                                          'По обоюдной договоренности бой состоится {}.'
+                                                          'В случае отказа от боя, сектор переходит под наш контроль'
+                                                          'автоматически. ;)'.format(sector.name, sat.strftime('%Y-%m-%d')))
+        new_message.save()
+    elif all_wars.count() == 1:
+        new_war = SectorWars.objects.create(sector_id=sector.id, enemy_id=enemy.id, war_date=sun)
+        new_war.save()
+
+
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
