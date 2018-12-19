@@ -1,0 +1,19 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+
+        <div class="site-content">
+            <div class="container">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="myfile">
+                    <button type="submit">Загрузить</button>
+                </form>
+
+            </div>
+        </div>
+        <!-- Content / End -->
+
+{% endblock %}

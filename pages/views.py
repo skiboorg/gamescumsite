@@ -6,6 +6,7 @@ from authentication.forms import EditProfileForm
 from squads.forms import *
 from authentication.models import PrivateMessages
 from squads.models import *
+from shop.models import Orders
 import json
 import requests
 from datetime import datetime , time
@@ -86,6 +87,7 @@ def profile(request, nickname_req):
                 print('squad_info  : ')
                 print(squad_info)
                 squad_wear = SquadWear.objects.all()
+                all_orders = Orders.objects.filter(player=player)
 
                 if squad_info:
                     if player.is_squad_leader:

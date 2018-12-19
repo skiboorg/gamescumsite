@@ -30,6 +30,7 @@ urlpatterns = [
     path('delete_squad/', views.delete_squad, name='delete_squad'),
     path('buy_sector/', views.buy_sector, name='buy_sector'),
     path('sector_war/<sector_name>', views.sector_war, name='sector_war'),
+    path('stat/', views.stat, name='stat'),
 
 
 ]

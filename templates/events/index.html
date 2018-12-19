@@ -31,16 +31,22 @@
 
         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ event.id }}" aria-expanded="true" aria-controls="collapse{{ event.id }}">
 
-            <span>Дата : {{ event.date.date|date:"d M, Y" }}     Время: {{ event.date.time|time:"H:i" }}</span>
-            <span>Название : {{ event.template.name }}</span>
-            <span>Участников :
-                {%  if event.eventplayers_set.count > 0 %}
+            <table style="width: 600px;">
+                <tr>
+                    <td><span>Дата :</span> {{ event.date.date|date:"D, d M, Y" }} | Время: {{ event.date.time|time:"H:i" }}</td>
+                    <td>Название : {{ event.template.name }}</td>
+                    <td>Участников :
+                    {%  if event.eventplayers_set.count > 0 %}
                     {{ event.eventplayers_set.count }}
                 {% else %}
                     НЕТ
                 {% endif %}
+                    </td>
+                </tr>
+            </table>
 
-            </span>
+
+
 
 
         </button>
@@ -50,12 +56,19 @@
 
     <div id="collapse{{ event.id }}" class="collapse" aria-labelledby="heading{{ event.id }}" data-parent="#accordion">
       <div class="card-body">
+          <img style=" width: 400px;float: left; padding: 10px;" src="{{ event.template.image.url }}">
           <div>
+            <h4 align="center">Описание события </h4>
               {{ event.template.info }}
           </div>
 
-           <div>
+           <div style="margin-top: 10px">
+               <h4 align="center">Награда</h4>
               {{ event.template.reward }}
+          </div>
+          <div style="margin-top: 20px">
+              <a href="#" class="btn btn-warning btn-sm pull-left">Записаться</a>
+
           </div>
 
       </div>

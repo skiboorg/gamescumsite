@@ -1,5 +1,19 @@
+function copyToClipboardSteamId() {
+        var btn = $('#copy_activate');
+        var $temp = $('#activate_command');
 
-        $('#modal-activate').modal('show');
+
+        console.log($temp.val());
+        $temp.select();
+        document.execCommand("copy");
+
+
+        $(btn).removeClass('btn-danger');
+        $(btn).addClass('btn-success');
+        $(btn).html('Скопировано');
+    }
+
+$('#modal-activate').modal('show');
 
 
 var cur_balance = parseInt($('#player_wallet').html());

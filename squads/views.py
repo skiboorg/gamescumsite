@@ -6,7 +6,10 @@ from squads.models import *
 from authentication.models import *
 from datetime import datetime
 import datetime
-
+from django.core.files.storage import FileSystemStorage
+import csv
+import os
+from django.conf import settings
 
 
 
@@ -289,3 +292,23 @@ def sector_war(request, sector_name):
 
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
+
+
+def stat(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        MYDIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        d = settings.BASE_DIR
+        print(os.path.join(settings.BASE_DIR,uploaded_file_url[1:]))
+
+        with open(os.path.join(settings.BASE_DIR,uploaded_file_url[1:])) as csvfile:
+            reader = csv.DictReader(csvfile)
+            data = [r for r in reader]
+            str = ''.join(data)
+            print(str)
+
+        return render(request, 'squads/stat.html', locals())
+    return render(request, 'squads/stat.html', locals())

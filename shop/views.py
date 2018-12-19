@@ -7,8 +7,8 @@ from authentication.models import SteamUser
 def shop_home(request):
     shop_active = 'active'
     order = request.GET.get('order')
-    all_categories = Categories.objects.all()
-    items_all = Items.objects.all()
+    all_categories = Categories.objects.all().filter(active=True)
+    items_all = Items.objects.all().filter(active=True)
     if request.GET.get('order') == 'price_gte':
          items = items_all.order_by('-price')
     elif request.GET.get('order') == 'price_lte':
@@ -24,16 +24,16 @@ def shop_home(request):
     cat_name = 'ВСЕ ПРЕДЛОЖЕНИЯ'
     player = request.user
 
-    hot_items = Items.objects.all().order_by('-buys')[:4]
+    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:4]
     return render(request, 'shop/index.html', locals())
 
 
 def shop_show_cat(request, cat_slug):
     shop_active = 'active'
-    all_categories = Categories.objects.all()
+    all_categories = Categories.objects.all().filter(active=True)
     current_cat = Categories.objects.filter(name_slug=cat_slug).first()
-    items = Items.objects.filter(category__name_slug=cat_slug).all()
-    hot_items = Items.objects.all().order_by('-buys')[:4]
+    items = Items.objects.filter(category__name_slug=cat_slug).all().filter(active=True)
+    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:4]
     cat_name = current_cat.name
     return render(request, 'shop/index.html', locals())
 

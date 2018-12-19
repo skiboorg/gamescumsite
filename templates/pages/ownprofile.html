@@ -29,9 +29,9 @@
     <div class="alert alert-danger alert-dismissible"><strong>{{ message }}</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>
     {% endfor %}
 </div>
-    {% if profile_bad %}
-    <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SCUM BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><span id="activate">!activate {{ player.steamid }}</span>  <button type="button" class="btn btn-xs btn-default btn-outline alert-btn-right">СКОПИРОВАТЬ В БУФЕР</button></div>
-    {% endif %}
+{#    {% if profile_bad %}#}
+{#    <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SCUM BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><span id="activate">!activate {{ player.steamid }}</span>  <button type="button" class="btn btn-xs btn-default btn-outline alert-btn-right">СКОПИРОВАТЬ В БУФЕР</button></div>#}
+{#    {% endif %}#}
     <div class="row">
         <!-- Content -->
         <div class="content col-md-8">
@@ -349,12 +349,23 @@
                     <h4>Заказы в BLACKMARKET</h4></div>
                 <div class="widget__content card__content">
                     <ul class="newslog">
-                        {% if pm%}
-                            {% for message in pm %}
+                        {% if all_orders%}
+                            {% for order in all_orders %}
                         <li class="newslog__item newslog__item--join">
                             <div class="newslog__item-inner">
-                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong> <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'del_message' %}?m_id={{message.id  }}">Х</a></div>
-                                <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
+                                <div class="newslog__content"><strong>Заказ № : {{ order.id }} на сумму {{ order.total_price }} RC</strong> </div>
+                            <hr>
+                                <div class="newslog__content"><strong>Состав заказа :</strong> </div>
+                            <ol >
+
+
+
+                                {% for item in order.itemsinorder_set.all%}
+                             <li><div class="newslog__date"><strong>{{ item.item.name }} x {{ item.number }} шт.</strong></div></li>
+                                {% endfor %}
+                            </ol>
+                            <hr>
+                                <div class="newslog__date"><strong>Состояние: <span >В обработке</span></strong></div>
                             </div>
                         </li>
 
