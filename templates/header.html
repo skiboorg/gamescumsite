@@ -121,7 +121,7 @@
                             <ul class="main-nav__list">
 {#                                <li class="active"><a href="/">ГЛАВНАЯ</a></li>#}
                                 <li class=""><a href="#">СТАТИСТИКА</a></li>
-                                <li class=""><a href="#">МЕРОПРИЯТИЯ</a></li>
+                                <li class=""><a href="{% url 'events_home' %}">МЕРОПРИЯТИЯ</a></li>
                                 <li class="{{ squad_active }}"><a href="{% url 'all_squads' %}">ОТРЯДЫ</a></li>
                                  <li class="{{ shop_active }}"><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
 

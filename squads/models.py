@@ -54,8 +54,8 @@ class Squad(models.Model):
 
 
 class SquadRequests(models.Model):
-    squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.SET_NULL)
-    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.CASCADE)
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=True)
 
 
@@ -69,17 +69,17 @@ class SquadRequests(models.Model):
 
 
 class SquadMembers(models.Model):
-    squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     income = models.IntegerField(default=0, blank=True)
 
 
     def __str__(self):
-        return 'Состав отряда : %s' % self.squad.name
+        return 'Участник отряда : %s' % self.squad.name
 
     class Meta:
-        verbose_name = "Состав отряда"
-        verbose_name_plural = "Состав отряда"
+        verbose_name = "Участник отряда"
+        verbose_name_plural = "Участник отряда"
 
 
 class SquadSectors(models.Model):
@@ -100,13 +100,13 @@ class SquadSectors(models.Model):
         verbose_name_plural = "Сектора"
 
 class SectorWars(models.Model):
-    sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.SET_NULL)
-    enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.SET_NULL)
+    sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.CASCADE)
+    enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.CASCADE)
     war_date = models.DateTimeField(blank=False, default=timezone.now)
     owner_agreed = models.BooleanField(default=False)
     for_bot_enemy_squad_name = models.CharField(max_length=50, blank=True)
     for_bot_sector_name = models.CharField(max_length=50, blank=True)
-#   for_bot_owner_name = models.CharField(max_length=50, blank=True)
+    for_bot_owner_name = models.CharField(max_length=50, blank=True)
     def __str__(self):
         return 'Оспаривание сектора : %s' % self.sector.name
 

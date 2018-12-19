@@ -1,6 +1,6 @@
 
 
-
+import bot_settings
 import random
 import asyncio
 import aiohttp
@@ -12,9 +12,14 @@ import sqlite3
 conn = sqlite3.connect('C:\/Users\ххх\PycharmProjects\gamescumsite\db.sqlite3')
 
 BOT_PREFIX = ("?", "!")
-TOKEN = 'NTIyNjc0NDMzMjc0Njc1MjEx.DvOzsg.xFzEhfWc1FdNMqA0Qb9zu2RlMDw'
+TOKEN = bot_settings.BOT_TOKEN
 
 client = Bot(command_prefix=BOT_PREFIX)
+client.remove_command('help')
+
+@client.command(name='help')
+async def help():
+    pass
 
 @client.command(name='8ball',
                 description="Answers a yes/no question.",
@@ -53,19 +58,26 @@ async def bitcoin():
         response = json.loads(response)
         await client.say("Bitcoin price is: $" + response['bpi']['USD']['rate'])
 
-@client.command()
-async def activate(steamid):
+@client.command(pass_context=True)
+async def activate(ctx):
     cursor = conn.cursor()
+    steamid=ctx.message
+    discord_name = ctx.message.author
+    discord_id = ctx.message.author.id
+
+
     cursor.execute("SELECT steamid FROM authentication_steamuser WHERE steamid=(?)", (steamid,))
     result = cursor.fetchall()
     if result:
-        cursor.execute("UPDATE authentication_steamuser SET discord_id = (?) WHERE steamid = (?); ", (dis, steamid,))
+        cursor.execute("UPDATE authentication_steamuser SET discord_id = (?) WHERE steamid = (?); ", (discord_id, steamid,))
+        cursor.execute("UPDATE authentication_steamuser SET discord_name = (?) WHERE steamid = (?); ",
+                       (discord_name, steamid,))
+        conn.commit()
+        conn.close()
     else:
         result = 'Нет steamid'
     print(result)
-    conn.commit()
 
-    conn.close()
     await client.say(steamid)
 
     conn.close()

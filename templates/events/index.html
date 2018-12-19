@@ -1,0 +1,69 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- Page Heading
+		================================================== -->
+        <div class="page-heading" style="background-image: url({% static 'images/home_bg1.png' %});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <h1 class="page-heading__title font_scum">СОБЫТИЯ <span class="highlight">СЕРВЕРА</span></h1>
+                        <ol class="page-heading__breadcrumb breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">МЕРОПРИЯТИЯ</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading / End -->
+        <!-- Content
+		================================================== -->
+        <div class="site-content">
+            <div class="container">
+
+                <div id="accordion">
+   {% for event in all_events %}
+  <div class="card">
+    <div class="card-header" id="heading{{ event.id }}">
+      <h5 class="mb-0">
+
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ event.id }}" aria-expanded="true" aria-controls="collapse{{ event.id }}">
+
+            <span>Дата : {{ event.date.date|date:"d M, Y" }}     Время: {{ event.date.time|time:"H:i" }}</span>
+            <span>Название : {{ event.template.name }}</span>
+            <span>Участников :
+                {%  if event.eventplayers_set.count > 0 %}
+                    {{ event.eventplayers_set.count }}
+                {% else %}
+                    НЕТ
+                {% endif %}
+
+            </span>
+
+
+        </button>
+
+      </h5>
+    </div>
+
+    <div id="collapse{{ event.id }}" class="collapse" aria-labelledby="heading{{ event.id }}" data-parent="#accordion">
+      <div class="card-body">
+          <div>
+              {{ event.template.info }}
+          </div>
+
+           <div>
+              {{ event.template.reward }}
+          </div>
+
+      </div>
+    </div>
+  </div>
+ {% endfor %}
+</div>
+            </div>
+        </div>
+        <!-- Content / End -->
+{% endblock %}

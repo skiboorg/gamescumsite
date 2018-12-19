@@ -4,8 +4,6 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
-# from squads.models import Squad
-from events.models import Event
 from pytils.translit import slugify
 
 

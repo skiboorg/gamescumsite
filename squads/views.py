@@ -247,10 +247,10 @@ def level_up(request):
 
 def delete_squad(request):
     squad_to_delete = Squad.objects.get(leader=request.user)
-    SquadMembers.objects.filter(squad=squad_to_delete).delete()
-    SquadSectors.objects.filter(squad=squad_to_delete).update(squad=None)
-    SquadRequests.objects.filter(squad=squad_to_delete).delete()
-    SectorWars.objects.filter(enemy=squad_to_delete).delete()
+    # SquadMembers.objects.filter(squad=squad_to_delete).delete()
+    # SquadSectors.objects.filter(squad=squad_to_delete).update(squad=None)
+    # SquadRequests.objects.filter(squad=squad_to_delete).delete()
+    # SectorWars.objects.filter(enemy=squad_to_delete).delete()
     request.user.is_squad_leader = False
     request.user.save(force_update=True)
     squad_to_delete.delete()
@@ -259,7 +259,7 @@ def delete_squad(request):
 
 
 def sector_war(request, sector_name):
-    #https://discordapp.com/api/webhooks/524685270591864862/Eh1Bw5yYWrq_58xavRN1a1uWd2PjURsA6ZEuy9IJFFsqVVNxWngFDQOwRF8wGQ08tX2U
+    #https://discordapp.com/api/webhooks/524873359436283915/vFsTvIsaY3gDiWFDMCiUT0Nu0Hf9oz-_WncJRw05Uqvb-bRV_rjDNKul9Kbxw1ui6ooE
     today = datetime.date.today()
     sat = today + datetime.timedelta((5 - today.weekday()) % 7)
     sun = today + datetime.timedelta((6 - today.weekday()) % 7)
