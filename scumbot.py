@@ -1,15 +1,17 @@
-
-
+from lxml import html
+import requests
 import bot_settings
 import random
 import asyncio
-import aiohttp
+from datetime import datetime, timedelta
 import json
+import discord
 from discord import Game
 from discord.ext.commands import Bot
 import sqlite3
 
 conn = sqlite3.connect('C:\/Users\ххх\PycharmProjects\gamescumsite\db.sqlite3')
+cursor = conn.cursor()
 
 BOT_PREFIX = ("?", "!")
 TOKEN = bot_settings.BOT_TOKEN
@@ -45,52 +47,165 @@ async def test(ctx):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name="with humans"))
+    await client.change_presence(game=Game(name="Я ЕСТЬ БОТ!"))
     print("Logged in as " + client.user.name)
 
 
+@client.command(pass_context=True)
+async def zp(ctx):
+    player_discord_id = str(ctx.message.author.id)
+
+
+    try:
+        cursor.execute("SELECT steamid FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        steam_id = cursor.fetchone()[0]
+        print(steam_id)
+    except:
+        steam_id = False
+    if steam_id:
+        print('Аккаунт гайден')
+        cursor.execute("SELECT last_zp FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        last_zp = cursor.fetchone()[0]
+        print(last_zp)
+        if last_zp > str(datetime.now()):
+            new_zp = datetime.now() + timedelta(days=1)
+            print(new_zp)
+            cursor.execute("UPDATE authentication_steamuser SET last_zp = (?) WHERE discord_id = (?); ",
+                           (new_zp, player_discord_id,))
+            print('выдача')
+            cursor.execute("SELECT rating FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+            player_rating = cursor.fetchone()[0]
+            print(player_rating)
+            cursor.execute("SELECT wallet FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+            player_wallet = cursor.fetchone()[0]
+            print(player_wallet)
+            cursor.execute("SELECT level FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+            player_level = cursor.fetchone()[0]
+            print(player_level)
+            cursor.execute("SELECT vip FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+            player_vip = cursor.fetchone()[0]
+            print(player_vip)
+            if player_vip:
+                print('vip')
+                player_rating += 2
+                player_wallet += 50
+                cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
+                               (player_rating, player_discord_id,))
+                cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
+                               (player_wallet, player_discord_id,))
+
+
+            else:
+                print('notvip')
+                player_rating += 1
+                player_wallet += 30 + (player_level * 5)
+                cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
+                               (player_rating, player_discord_id,))
+                cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
+                               (player_wallet, player_discord_id,))
+
+            conn.commit()
+        else:
+            print('выдано')
+
+    else:
+        print('Аккаунт не активирован!')
+
+
 @client.command()
-async def bitcoin():
-    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-    async with aiohttp.ClientSession() as session:  # Async HTTP request
-        raw_response = await session.get(url)
-        response = await raw_response.text()
-        response = json.loads(response)
-        await client.say("Bitcoin price is: $" + response['bpi']['USD']['rate'])
+async def p():
+    page = requests.get(bot_settings.SERVER_URL)
+    tree = html.fromstring(page.content)
+    players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')
+    embed = discord.Embed(colour=discord.Colour(0x36393e),
+                          description="\n```cs\n# Игроков онлайн : " + str(players[0])+ "\n```\nРестарты сервера в: 02:30 и 14:30 МСК")
+
+    embed.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/519049749656109086/525399659565416471/scum_by_black8joker-dcmd1wx.png")
+
+
+
+    await client.say(embed=embed)
+
+
+@client.command()
+async def server():
+    page = requests.get(bot_settings.SERVER_URL)
+    tree = html.fromstring(page.content)
+    players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')
+    rank = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')
+    name = tree.xpath('//*[@id="serverPage"]/h2/text()')
+    ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')
+    await client.say('**Название сервера** : ' + str(name[0]) + '\n' +
+                     '**Ранг сервера** : ' + str(rank[0]) + '\n' +
+                     '**Игроков** : ' + str(players[0]) + '\n' +
+                     '**IP сервера** : ' + str(ip[0]) + '\n' +
+                     '----------------------------------\n' +
+                     '3 реальных часа - 1 игровой день\n' +
+                     '**Рестарты сервера в: 02:30 и 14:30 МСК**\n' +
+                     '----------------------------------\n' +
+                     '**Группа ВК** : https://vk.com/scum_lasthero\n' +
+                     '**Сайт** : http://www.gamescum.ru/')
+
 
 @client.command(pass_context=True)
-async def activate(ctx):
-    cursor = conn.cursor()
-    steamid=ctx.message
-    discord_name = ctx.message.author
-    discord_id = ctx.message.author.id
+async def activate(ctx, steamid):
+    if ctx.message.channel.is_private:
+        steam_id = str(steamid)
+        discord_nickname = str(ctx.message.author)
+        discord_id = str(ctx.message.author.id)
 
+        cursor.execute("SELECT steamid FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+        result = cursor.fetchone()
+        if result:
+            cursor.execute("SELECT discord_id FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+            discordid = cursor.fetchone()[0]
 
-    cursor.execute("SELECT steamid FROM authentication_steamuser WHERE steamid=(?)", (steamid,))
-    result = cursor.fetchall()
-    if result:
-        cursor.execute("UPDATE authentication_steamuser SET discord_id = (?) WHERE steamid = (?); ", (discord_id, steamid,))
-        cursor.execute("UPDATE authentication_steamuser SET discord_name = (?) WHERE steamid = (?); ",
-                       (discord_name, steamid,))
-        conn.commit()
-        conn.close()
+            if discordid == None:
+                cursor.execute("SELECT id FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+                player_number = cursor.fetchone()[0]
+                if int(player_number) <= 100:
+                    cursor.execute("SELECT wallet FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+                    player_wallet = 0
+                    player_wallet = int(cursor.fetchone()[0])
+                    player_wallet += 1000
+                    cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE steamid = (?); ",
+                                   (player_wallet, steam_id,))
+                    await client.say('Тебе начислен бонус +1000 RC !')
+
+                cursor.execute("UPDATE authentication_steamuser SET discord_id = (?) WHERE steamid = (?); ",
+                               (discord_id, steam_id,))
+                cursor.execute("UPDATE authentication_steamuser SET discord_nickname = (?) WHERE steamid = (?); ",
+                               (discord_nickname, steam_id,))
+                conn.commit()
+
+                result = 'Активирован'
+                await client.say('Твой аккаунт активирован, спасибо за интерес, проявленный к нашему серверу!')
+            else:
+                await client.say('Твой аккаунт уже активирован ранее!')
+        else:
+            result = 'Нет steamid'
+            await client.say('Нет такого SteamID')
+        print(result)
     else:
-        result = 'Нет steamid'
-    print(result)
-
-    await client.say(steamid)
-
-    conn.close()
+        await client.say('Для активации аккаунта нужно отправить личное сообщение боту <@525364065933983744>')
 
 
-async def list_servers():
-    await client.wait_until_ready()
-    while not client.is_closed:
-        print("Current servers:")
-        for server in client.servers:
-            print(server.name)
-        await asyncio.sleep(100)
 
 
-client.loop.create_task(list_servers())
+
+
+
+
+
+# async def list_servers():
+#     await client.wait_until_ready()
+#     while not client.is_closed:
+#         print("Current servers:")
+#         for server in client.servers:
+#             print(server.name)
+#         await asyncio.sleep(100)
+#
+#
+# client.loop.create_task(list_servers())
 client.run(TOKEN)

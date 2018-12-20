@@ -8,7 +8,7 @@ import datetime
 conn = sqlite3.connect('db.sqlite3')
 last_id = 0
 timer = 3600
-today = datetime.date.today()
+today = datetime.datetime.now()
 
 
 with urllib.request.urlopen(bot_settings.VK_URL) as url:
@@ -45,13 +45,14 @@ with urllib.request.urlopen(bot_settings.VK_URL) as url:
             print(post_image)
 
             cursor = conn.cursor()
+            print(cursor)
             cursor.execute("SELECT post_id FROM news_news WHERE post_id=(?)", (post_id,))
             result = cursor.fetchall()
             if result:
                 print('пост уже есть в базе')
             else:
                 print('новый пост')
-                cursor.execute("INSERT INTO news_news ( post_id, post_name, post_url, post_image, created_at) VALUES ( ?,?,?,?,?);", ( post_id, post_name, post_url, post_image, today,))
+                cursor.execute("INSERT INTO news_news ( post_id, post_name, post_url, post_image,post_local,created_at) VALUES ( ?,?,?,?,?,?);", ( post_id, post_name, post_url, post_image,False,today ))
                 conn.commit()
 conn.close()
 

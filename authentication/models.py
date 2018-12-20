@@ -70,8 +70,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     is_banned = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     last_zp = models.DateTimeField(default=timezone.now)
-    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    last_vizit = models.DateField(default=datetime.now().date())
+    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
+    last_vizit = models.DateField(auto_now_add=True)
     objects = SteamUserManager()
 
     def get_short_name(self):
