@@ -135,7 +135,9 @@
                             </ul>
                             <!-- Social Links / End -->
                             <!-- Pushy Panel Toggle -->
-{#                            <a href="#" class="pushy-panel__toggle"><span class="pushy-panel__line"></span> </a>#}
+                             {% if user.is_authenticated %}
+                            <a href="#" class="pushy-panel__toggle"><span class="pushy-panel__line"></span> </a>
+                            {% endif %}
                             <!-- Pushy Panel Toggle / Eng -->
                         </nav>
                         <!-- Main Navigation / End -->
@@ -144,4 +146,69 @@
             </div>
             <!-- Header Primary / End -->
         </header>
+<aside class="pushy-panel">
+    <div class="pushy-panel__inner">
+        <header class="pushy-panel__header">
+            <div class="pushy-panel__logo">
+                <a href="/"><img src="{% static 'images/logo.png' %}" srcset="{% static 'images/logo.png' %}" alt="Руссий игровой сервер SCUM"></a>
+            </div>
+        </header>
+        <div class="pushy-panel__content">
+            <!-- Widget: Posts -->
+            <aside class="widget widget--side-panel">
+                <div class="widget__content">
+                    <ul class="posts posts--simple-list posts--simple-list--lg">
+                        <li class="posts__item posts__item--category-1">
+                            <div class="posts__inner">
 
+                                <h6 class="posts__title"><a href="#">ДОСТУПНЫЕ ДЕЙСТВИЯ</a></h6>
+
+
+                                    {% if user.is_authenticated %}
+                                        {% if user.is_staff %}
+                                           <a class="btn btn-danger btn-outline btn-sm info_button"  href="{% url 'stat' %}">Статистика</a>
+                                            <hr>
+                                         {% endif %}
+
+                              <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}">ТВОЙ ПРОФИЛЬ</a>
+
+                        <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#pm">Личные сообщения
+                            <span style="font-size: 10px;" class="badge badge-warning">{% if pm.count > 0 %} {{ pm.count }}{% else %} 0 {% endif %}</span></a><br>
+
+                           <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET
+                            <span style="font-size: 10px;" class="badge badge-warning">{% if orders_count > 0 %} {{ orders_count }}{% endif %}</span></a><br>
+
+
+
+                        {% if user.is_squad_leader %}
+                            <hr>
+                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad">Управление отрядом
+                                <span class="highlight"></span></a><br>
+                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_members">Состав отряда
+                                <span class="highlight"></span></a><br>
+                             <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_requests">Заявки на вступление
+                                <span class="highlight"></span></a><br>
+
+                            {% else %}
+                             <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+
+
+                        {% endif %}
+                               <hr>
+                              <a class="btn btn-danger btn-outline btn-sm" style="color: red;" href="{% url "logout" %}">ВЫХОД </a><br>
+                        {% else %}
+                             <a class="btn btn-warning btn-outline btn-sm" href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a>
+                        {% endif %}
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </aside>
+
+        </div>
+        <a href="#" class="pushy-panel__back-btn"></a>
+    </div>
+</aside>

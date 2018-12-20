@@ -68,10 +68,13 @@
                                     <li class="product__item product__item--color-1 card">
                                         <div class="product__img">
                                             <div class="product__img-holder">
+                                                {% if item.discount_value > 0 %}
+                                                <span class="onsale">Скидка</span>
+                                                {% endif %}
                                                 <div class="product__bg-letters">%%</div>
                                                 <div class="product__slider">
                                                     <div class="product__slide">
-                                                        <div class="product__slide-img"><img src="{{ MEDIA_URL }}{{  item.image }}" alt=""></div>
+                                                        <div class="product__slide-img"><img src="{{  item.image.url }}" alt=""></div>
                                                     </div>
 
                                                 </div>

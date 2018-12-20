@@ -2,18 +2,36 @@
 {% load static %}
 
 {% block content %}
-
-
+<div class="site-content">
+    <div class="container">
+{% if request.user.is_staff %}
+        {% if k %}
+            <div class="alert alert-info"><strong>Результат обработки:</strong>
+            Строк убийств отработано : {{ k }} |   Строк смертей отработано : {{ d }}
+            </div>
+            {% endif %}
         <div class="site-content">
             <div class="container">
+                <div class="alert alert-info"><strong>Файлы статистики должны быть не на русском и без пробелов и спец символов</strong>
+
+            </div>
+
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="myfile">
+                    Файл убийств:<br>
+                    <input type="file" name="kills_file"><br>
+                    Файл смертей:<br>
+                    <input type="file" name="deaths_file"><br>
                     <button type="submit">Загрузить</button>
                 </form>
 
             </div>
         </div>
         <!-- Content / End -->
+{% endif %}
+
+    </div>
+</div>
+
 
 {% endblock %}

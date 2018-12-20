@@ -26,37 +26,87 @@
 
   <div class="marquee" data-duplicated='true' data-gap="10" data-duration="10000">
       <ul class="posts posts--inline">
-      <li class="posts__item"><h6 class="posts__title"><a href="_football_blog-post-1.html">The Clover defense must reinvent itself without Adam Howlett</a></h6><div class="posts__excerpt">Lorem ipsum dolor sit amet consectetur adipisicing...</div></li>
-      <li class="posts__item"><h6 class="posts__title"><a href="_football_blog-post-1.html">The Clover defense must reinvent itself without Adam Howlett</a></h6><div class="posts__excerpt">Lorem ipsum dolor sit amet consectetur adipisicing...</div></li>
-      <li class="posts__item"><h6 class="posts__title"><a href="_football_blog-post-1.html">The Clover defense must reinvent itself without Adam Howlett</a></h6><div class="posts__excerpt">Lorem ipsum dolor sit amet consectetur adipisicing...</div></li>
+     {% for news_item in news %}
+          <li class="posts__item"><h6 class="posts__title">
+       <a href="{{ news_item.post_url }}" target="_blank">{{ news_item.post_name }}</a></h6>
+
+          </li>
+          {% endfor %}
       </ul>
   </div>
 
     </div>
 </div>
 
-        <div class="posts posts--carousel-featured featured-carousel">
-          {% for n in news  %}
-            <div class="posts__item posts__item--category-1">
+      <div class="site-content">
+            <div class="container">
+                <!-- Featured News -->
+                <div class="card card--clean mb-0">
+                    <header class="card__header card__header--has-btn">
+                        <h4>Новости группы ВК</h4></header>
+                    <div class="card__content">
+                        <!-- Slider -->
+                        <div class="slick posts posts-slider posts--slider-var-width">
+                            <div class="slick__slide">
+                                <div class="row">
+                                   {% for news_item in news_first3 %}
+                                       {% if forloop.first %}
+                                    <div class="col-md-8">
+                                        <div class="posts__item posts__item--desc-center posts__item--category-1">
+                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
+                                                <figure class="posts__thumb"><img style="    height: 448px;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
+                                                <div class="posts__inner">
 
-                <a href="#" class="posts__link-wrapper">
-                    <figure class="posts__thumb"><img src="{{ MEDIA_URL }}{{  n.image }}" alt=""></figure>
-                    <div class="posts__inner">
-                        <div class="posts__cat"><span class="label posts__cat-label">{{ n.tag }}</span></div>
-                        <h3 class="posts__title">{{  n.name }}</h3>
-                        <time datetime="2017-08-23" class="posts__date">{{  n.created_at }}</time>
-                        <ul class="post__meta meta">
-                            <li class="meta__item meta__item--views">2369</li>
-                            <li class="meta__item meta__item--likes"><i class="meta-like icon-heart"></i> 530</li>
-                            <li class="meta__item meta__item--comments">18</li>
-                        </ul>
+                                                    <h3 class="posts__title"><span class="posts__title-higlight">{{ news_item.post_name }}</span> </h3>
+
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                       {% endif %}
+                                    {% if forloop.counter > 1 %}
+                                    <div class="col-6 col-md-4">
+                                       <div  class="posts__item posts__item--desc-center posts__item--category-1">
+                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
+                                                <figure class="posts__thumb"><img style="height: 215px !important;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
+                                                <div style="background: #1e2024cc; padding: 10px; width: 100%;" class="posts__inner">
+
+                                                    <span class="posts__title "><span style="font-size: 20px;" class="posts__title-higlight font_new">{{ news_item.post_name }}</span> </span>
+
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="slick__slide">
+                                <div class="row">
+                                  {% for news_item in news_last6 %}
+                                      <div class="col-6 col-md-4">
+                                       <div  class="posts__item posts__item--desc-center posts__item--category-1">
+                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
+                                                <figure class="posts__thumb"><img style="height: 215px !important;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
+                                                <div style="background: #1e2024cc; padding: 10px; width: 100%;" class="posts__inner">
+
+                                                    <span class="posts__title "><span style="font-size: 20px;" class="posts__title-higlight font_new">{{ news_item.post_name }}</span> </span>
+
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                  {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slider / End -->
                     </div>
-                </a>
-
-            </div>
-            {% endfor %}
-        </div>
+                </div>
+                <!-- Featured News / End -->
         <!-- Content
 		================================================== -->
 
+            </div>
+      </div>
 {% endblock %}

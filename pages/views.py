@@ -27,8 +27,13 @@ def get_squad_info(player_id):
 def index(request):
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
-    news = News.objects.all()
+    news = News.objects.all().order_by('-id')
+    news_first3 = news.order_by('-id')[:3]
+    news_last6 = news.order_by('id')[:6]
     if request.user.is_authenticated:
+        if request.user.rating > request.user.level * 50:
+            request.user.level += 1
+            request.user.save(force_update=True)
         last_login = request.user.last_vizit
         time_now = datetime.now().date()
         if time_now > last_login:

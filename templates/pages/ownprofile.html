@@ -84,7 +84,8 @@
 
                                                     <dl class="alc-staff-details">
                                                     <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
-                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
+                                                    <dt class="alc-staff-details__label">Уровень :</dt><dd class="alc-staff-details__value">{{ player.level }}</dd>
+                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_name }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
                                                         <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
@@ -383,7 +384,7 @@
                 </div>
             </aside>
             {% if squad_info %}
-             <aside class="widget card widget--sidebar widget-newslog">
+             <aside id="squad_members" class="widget card widget--sidebar widget-newslog">
                 <div class="widget__title card__header">
                     <h4>Состав отряда</h4></div>
                 <div class="widget__content card__content">
@@ -413,7 +414,7 @@
             </aside>
          {% endif %}
         {% if player.is_squad_leader %}
-            <aside id="join_request" class="widget card widget--sidebar widget-newslog">
+            <aside id="squad_requests" class="widget card widget--sidebar widget-newslog">
                 <div class="widget__title card__header">
                     <h4>Заявки на вступление</h4></div>
                 <div class="widget__content card__content">

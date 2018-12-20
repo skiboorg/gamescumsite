@@ -97,9 +97,10 @@ def add_to_balance(request):
             squad_member = SquadMembers.objects.get(player=player.id)
             squad_member.income += int(request.POST.get('rc_amount'))
             squad_member.save(force_update=True)
-            player.wallet -= int(request.POST.get('rc_amount'))
-            player.rating += 1
-            player.save(force_update=True)
+            if int(request.POST.get('rc_amount')) >= 500:
+                player.wallet -= int(request.POST.get('rc_amount'))
+                player.rating += 1
+                player.save(force_update=True)
             squad.balance += int(request.POST.get('rc_amount'))
             squad.save(force_update=True)
 
@@ -295,20 +296,47 @@ def sector_war(request, sector_name):
 
 
 def stat(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
+    if request.method == 'POST' and request.FILES:
+        kills_file = request.FILES['kills_file']
+        deaths_file = request.FILES['deaths_file']
         fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        MYDIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        d = settings.BASE_DIR
-        print(os.path.join(settings.BASE_DIR,uploaded_file_url[1:]))
 
-        with open(os.path.join(settings.BASE_DIR,uploaded_file_url[1:])) as csvfile:
+        filename = fs.save(kills_file.name, kills_file)
+        uploaded_kills_file_url = fs.url(filename)
+
+        filename = fs.save(deaths_file.name, deaths_file)
+        uploaded_deaths_file_url = fs.url(filename)
+
+        # print(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:]))
+
+        with open(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:])) as csvfile:
             reader = csv.DictReader(csvfile)
-            data = [r for r in reader]
-            str = ''.join(data)
-            print(str)
+            k=0
+            for row in reader:
+                k +=1
+                r = row['steamid;kills'].split(';')
+                try:
+                    u = SteamUser.objects.get(steamid=r[0])
+                    u.kills += int(r[1])
+                    u.save(force_update=True)
+                except:
+                    pass
+        with open(os.path.join(settings.BASE_DIR, uploaded_deaths_file_url[1:])) as csvfile:
+            reader = csv.DictReader(csvfile)
+            d = 0
+            for row in reader:
+                d += 1
+                r = row['steamid;deaths'].split(';')
+                try:
+                    u = SteamUser.objects.get(steamid=r[0])
+                    u.deaths += int(r[1])
+                    u.save(force_update=True)
+                except:
+                    pass
+
+
+        fs.delete(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:]))
+        fs.delete(os.path.join(settings.BASE_DIR, uploaded_deaths_file_url[1:]))
 
         return render(request, 'squads/stat.html', locals())
     return render(request, 'squads/stat.html', locals())

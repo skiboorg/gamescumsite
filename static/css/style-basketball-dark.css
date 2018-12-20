@@ -5595,7 +5595,7 @@ body {
 .header-logo {
     position: absolute;
     z-index: 3;
-    bottom: 0px;
+    bottom: 17px;
     left: 0;
     display: block
 }
@@ -6857,7 +6857,7 @@ input.header-mobile__search-control:focus {
 .pushy-panel__inner {
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #1e2024;
     position: relative;
     overflow-y: scroll;
     -ms-overflow-style: none;

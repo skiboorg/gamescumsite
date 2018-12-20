@@ -1,3 +1,6 @@
+.font_new{
+    font-family: 'Comfortaa', cursive;
+}
 .errorlist{
     list-style: none;
     background-color: #f34141;
@@ -76,4 +79,8 @@
     font-weight: bold;
     width: 250px;
     cursor: default;
+}
+
+.info_button{
+    margin-top: 10px;
 }
