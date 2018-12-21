@@ -188,7 +188,7 @@ async def activate(ctx, steamid):
             await client.say('Нет такого SteamID')
         print(result)
     else:
-        await client.say('Для активации аккаунта нужно отправить личное сообщение боту <@525364065933983744>')
+        await client.say('Для активации аккаунта нужно отправить личное сообщение <@525364065933983744>')
 
 
 

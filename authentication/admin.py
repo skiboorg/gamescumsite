@@ -5,5 +5,7 @@ from authentication.models import *
 
 @admin.register(SteamUser)
 class SteamUserAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('vip', 'outlaw','is_squad_leader')
+
+
 admin.site.register(PrivateMessages)

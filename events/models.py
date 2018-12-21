@@ -7,7 +7,7 @@ class EventTemplates(models.Model):
     name = models.CharField(max_length=50, blank=False, null=True, default='')
     image = models.ImageField(upload_to='events/', null=True, blank=False,default=None)
     info = models.TextField(default='')
-    reward = models.TextField(default='')
+
 
     def __str__(self):
         return 'Шаблон мероприятия : %s' % self.name
@@ -40,3 +40,16 @@ class EventPlayers(models.Model):
         verbose_name = "Участник мероприятия"
         verbose_name_plural = "Участники мероприятии"
 
+class EventReward(models.Model):
+    event = models.ForeignKey(Event, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    reward_name = models.CharField(max_length=100, blank=False, default='')
+    reward_number = models.IntegerField(default=1)
+    reward_image = models.ImageField(upload_to='events/', null=True, blank=False, default=None)
+    spawn_command = models.CharField(max_length=100, blank=True, default='')
+
+    def __str__(self):
+        return 'Награда за мероприятие %s' % self.reward_name
+
+    class Meta:
+        verbose_name = "Награда за мероприятие"
+        verbose_name_plural = "Награды за мероприятия"

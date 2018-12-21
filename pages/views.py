@@ -30,16 +30,32 @@ def index(request):
     news = News.objects.all().order_by('-id')
     news_first3 = news.order_by('-id')[:3]
     news_last6 = news.order_by('id')[:6]
+
     if request.user.is_authenticated:
+
         if request.user.rating > request.user.level * 50:
             request.user.level += 1
             request.user.save(force_update=True)
+
+        if not request.user.vip and request.user.rating > 300:
+            request.user.vip = True
+            request.user.save(force_update=True)
+
         last_login = request.user.last_vizit
         time_now = datetime.now().date()
+
         if time_now > last_login:
-            request.user.wallet += 30
-            request.user.last_vizit = datetime.now().date()
-            request.user.save(force_update=True)
+
+            if request.user.vip:
+                request.user.wallet += 60
+                request.user.last_vizit = datetime.now().date()
+                request.user.save(force_update=True)
+            else:
+
+                if not request.user.outlaw:
+                    request.user.wallet += 30
+                    request.user.last_vizit = datetime.now().date()
+                    request.user.save(force_update=True)
 
     return render(request, 'pages/index.html', locals())
 
