@@ -7,5 +7,5 @@ class News(models.Model):
     post_url = models.CharField(max_length=255,blank=False,null=True,default=None)
     post_image = models.CharField(max_length=255, blank=False, null=True, default=None)
     post_local = models.BooleanField(default=False)
-    created_at = models.DateTimeField(default=datetime.now())
+    created_at = models.DateTimeField(auto_now_add=True)
 

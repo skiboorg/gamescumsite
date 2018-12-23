@@ -121,7 +121,7 @@ async def p():
                           description="\n```cs\n# Игроков онлайн : " + str(players[0])+ "\n```\nРестарты сервера в: 02:30 и 14:30 МСК")
 
     embed.set_thumbnail(
-        url="https://cdn.discordapp.com/attachments/519049749656109086/525399659565416471/scum_by_black8joker-dcmd1wx.png")
+        url="https://cdn.discordapp.com/attachments/519049749656109086/525958386232197131/1logo_scum_survival.png")
 
 
 

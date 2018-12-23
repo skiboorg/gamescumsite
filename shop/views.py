@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from shop.models import *
-from authentication.models import SteamUser
+from authentication.models import *
 
 
 def shop_home(request):
@@ -31,10 +31,11 @@ def shop_home(request):
 def shop_show_cat(request, cat_slug):
     shop_active = 'active'
     all_categories = Categories.objects.all().filter(active=True)
-    current_cat = Categories.objects.filter(name_slug=cat_slug).first()
+    current_cat = all_categories.get(name_slug=cat_slug)
     items = Items.objects.filter(category__name_slug=cat_slug).all().filter(active=True)
     hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:4]
     cat_name = current_cat.name
+    print(current_cat)
     return render(request, 'shop/index.html', locals())
 
 
@@ -119,6 +120,16 @@ def place_order(request):
         player = SteamUser.objects.get(id=request.user.id)
         player.wallet = player.wallet - order.total_price
         player.save(force_update=True)
+
+        admins = SteamUser.objects.filter(is_staff=True)
+        for admin in admins:
+            new_message = PrivateMessages.objects.create(to_player_id=admin.id,
+                                                         from_player_name=player.personaname,
+                                                         from_player_name_slug=player.nickname,
+                                                         from_player_avatar=str(player.avatar),
+                                                         text='Я сделал заказ в магазине. Мой дискорд {}'.format(
+                                                             player.discord_nickname))
+            new_message.save()
 
         return_dict['place_order_status'] = '1'
 

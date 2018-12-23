@@ -1,6 +1,6 @@
 from django.db import models
 from pytils.translit import slugify
-from datetime import datetime
+from django.utils import timezone
 from authentication.models import SteamUser
 from django.db.models.signals import post_save, post_delete
 
@@ -33,7 +33,7 @@ class Squad(models.Model):
     battles_loose = models.IntegerField(default=0, blank=True)
     vip = models.BooleanField(default=False)
     recruting = models.BooleanField(default=True)
-    created = models.DateTimeField(default=datetime.now())
+    created = models.DateTimeField(auto_now_add=True)
 
     @property
     def get_members(self):
@@ -56,7 +56,7 @@ class Squad(models.Model):
 class SquadRequests(models.Model):
     squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.CASCADE)
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
-    created = models.DateTimeField(default=datetime.now())
+    created = models.DateTimeField(auto_now_add=True)
 
 
 
@@ -87,8 +87,8 @@ class SquadSectors(models.Model):
     name = models.CharField(max_length=5, blank=False, null=False)
     income = models.IntegerField(default=0, blank=False)
     price = models.IntegerField(default=0, blank=False)
-    own = models.DateTimeField(default=datetime.now())
-    last_pay = models.DateTimeField(default=datetime.now())
+    own = models.DateTimeField(auto_now_add=True)
+    last_pay = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         if self.squad:
@@ -103,8 +103,10 @@ class SquadSectors(models.Model):
 class SectorWars(models.Model):
     sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.CASCADE)
     enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.CASCADE)
-    war_date = models.DateTimeField(blank=False, default=datetime.now())
-    owner_agreed = models.BooleanField(default=None)
+    war_date = models.DateTimeField(blank=False, null=True,default=None)
+    owner_notify = models.BooleanField(default=False)
+    owner_agreed = models.BooleanField(default=False)
+    owner_denied = models.BooleanField(default=False)
     for_bot_enemy_squad_name = models.CharField(max_length=50, blank=True)
     for_bot_sector_name = models.CharField(max_length=50, blank=True)
     for_bot_owner_name = models.CharField(max_length=50, blank=True)
@@ -121,6 +123,7 @@ def squad_post_save(sender, instance, **kwargs):
     except:
         SquadMembers.objects.create(squad_id=instance.id, player_id=instance.leader.id)
         instance.leader.is_squad_leader = True
+        instance.leader.rank = 'Глава отряда ' + str(instance.name)
         instance.leader.save(force_update=True)
 
 

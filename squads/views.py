@@ -4,12 +4,13 @@ from django.http import HttpResponseRedirect
 from squads.forms import *
 from squads.models import *
 from authentication.models import *
-from datetime import datetime
+# from datetime import datetime
 import datetime
 from django.core.files.storage import FileSystemStorage
 import csv
 import os
 from django.conf import settings
+
 
 
 
@@ -256,6 +257,7 @@ def delete_squad(request):
     # SquadRequests.objects.filter(squad=squad_to_delete).delete()
     # SectorWars.objects.filter(enemy=squad_to_delete).delete()
     request.user.is_squad_leader = False
+    request.user.rank = 'Бывалый'
     request.user.save(force_update=True)
     squad_to_delete.delete()
 
@@ -265,13 +267,22 @@ def delete_squad(request):
 def sector_war(request, sector_name):
     #https://discordapp.com/api/webhooks/524873359436283915/vFsTvIsaY3gDiWFDMCiUT0Nu0Hf9oz-_WncJRw05Uqvb-bRV_rjDNKul9Kbxw1ui6ooE
     today = datetime.date.today()
+    if today.weekday() == 6:
+        sun = today + datetime.timedelta(7)
+    else:
+        sun = today + datetime.timedelta((6 - today.weekday()) % 7)
     sat = today + datetime.timedelta((5 - today.weekday()) % 7)
-    sun = today + datetime.timedelta((6 - today.weekday()) % 7)
+
     print(sat)
     print(sun)
-    all_wars = SectorWars.objects.filter(sector__name=sector_name)
+
+
     sector = SquadSectors.objects.get(name=sector_name)
+    print(sector)
+    owner = sector.squad.id
     enemy = Squad.objects.get(leader=request.user)
+    all_wars = SectorWars.objects.filter(sector__squad=owner)
+    print(all_wars)
     if all_wars.count() == 2:
         print('даты заняты')
     elif all_wars.count() == 0:
@@ -340,3 +351,14 @@ def stat(request):
 
         return render(request, 'squads/stat.html', locals())
     return render(request, 'squads/stat.html', locals())
+
+def leave_squad(request):
+    squad_member = SquadMembers.objects.get(player_id=request.user.id)
+    new_message = PrivateMessages.objects.create(to_player_id=squad_member.squad.leader.id,
+                                                     from_player_name=request.user.personaname,
+                                                     from_player_name_slug=request.user.nickname,
+                                                     from_player_avatar=str(request.user.avatar),
+                                                     text='Я покинул отряд.')
+    new_message.save()
+    squad_member.delete()
+    return HttpResponseRedirect('/profile/' + request.user.nickname)

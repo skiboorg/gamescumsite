@@ -4,12 +4,15 @@ from django.http import HttpResponseRedirect,HttpResponse
 from news.models import News
 from authentication.forms import EditProfileForm
 from squads.forms import *
-from authentication.models import PrivateMessages
+from authentication.models import *
 from squads.models import *
 from shop.models import Orders
 import json
 import requests
 from datetime import datetime , time
+from lxml import html
+import requests
+import bot_settings
 
 
 
@@ -30,32 +33,43 @@ def index(request):
     news = News.objects.all().order_by('-id')
     news_first3 = news.order_by('-id')[:3]
     news_last6 = news.order_by('id')[:6]
+    page = requests.get(bot_settings.SERVER_URL)
+    tree = html.fromstring(page.content)
+    players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]
+    rank = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')[0]
+    name = tree.xpath('//*[@id="serverPage"]/h2/text()')
+    ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
+    status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
+    top3 = SteamUser.objects.all().order_by('-rating')[:3]
+    print(status)
 
     if request.user.is_authenticated:
+        player = request.user
 
-        if request.user.rating > request.user.level * 50:
-            request.user.level += 1
-            request.user.save(force_update=True)
+        if player.rating > player.level * 50:
+            player.level += 1
+            player.save(force_update=True)
 
-        if not request.user.vip and request.user.rating > 300:
-            request.user.vip = True
-            request.user.save(force_update=True)
+        if not player.vip and player.rating > 300:
+            player.vip = True
+            player.rank = 'VIP'
+            player.save(force_update=True)
 
-        last_login = request.user.last_vizit
+        last_login = player.last_vizit
         time_now = datetime.now().date()
 
         if time_now > last_login:
 
-            if request.user.vip:
-                request.user.wallet += 60
-                request.user.last_vizit = datetime.now().date()
-                request.user.save(force_update=True)
+            if player.vip:
+                player.wallet += 60
+                player.last_vizit = datetime.now().date()
+                player.save(force_update=True)
             else:
 
-                if not request.user.outlaw:
-                    request.user.wallet += 30
-                    request.user.last_vizit = datetime.now().date()
-                    request.user.save(force_update=True)
+                if not player.outlaw:
+                    player.wallet += 30
+                    player.last_vizit = datetime.now().date()
+                    player.save(force_update=True)
 
     return render(request, 'pages/index.html', locals())
 
@@ -76,8 +90,8 @@ def profile(request, nickname_req):
         server_response = requests.get('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamid={}&format=json'.format(steamid))
         json_data = json.loads(server_response.text)
         print('get user info')
-        print(json_data['response']['games'])
-        if json_data['response'] != '':
+        print(json_data['response'])
+        if json_data['response'] != {}:
             for i in json_data['response']['games']:
                 if i['appid'] == 513710:
                     played_time = round(int(i['playtime_forever']) / 60)
@@ -86,6 +100,25 @@ def profile(request, nickname_req):
             played_time = 'НЕТ ДАННЫХ'
         return played_time
 
+    def get_bans(steamid):
+
+        server_response = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamids={}'.format(steamid))
+        json_data = json.loads(server_response.text)
+        print('get user bans')
+
+        ban_data = json_data['players'][0]['NumberOfGameBans']
+        print(ban_data)
+        if json_data['players'] != '':
+            if ban_data > 0:
+                print('есть бан')
+                player_bans = ban_data
+                print(player_bans)
+            else:
+                print('нет бан')
+                player_bans = 'НЕТ'
+        else:
+            player_bans = 'НЕТ ДАННЫХ'
+        return player_bans
 
 
     if request.POST:
@@ -101,6 +134,8 @@ def profile(request, nickname_req):
         if request.user.is_authenticated:
             if nickname_req == request.user.nickname:
                 sectors_a = SquadSectors.objects.filter(name__startswith='a').order_by('-name')
+                wars_a = SectorWars.objects.all()
+
 
                 own_profile = True
                 player = request.user
@@ -127,21 +162,47 @@ def profile(request, nickname_req):
 
                 return render(request, 'pages/ownprofile.html', locals())
             else:
+                try:
+                    player = SteamUser.objects.get(nickname=nickname_req)
+                except:
+                    player = None
+
+                if player:
+                    print('user info auth mode')
+
+                    squad_info = get_squad_info(player.id)
+                    player_play_time = get_play_time(player.steamid)
+                    bans = get_bans(player.steamid)
+                    print(player)
+                    return render(request, 'pages/profile.html', locals())
+                else:
+                    return HttpResponseRedirect('/')
+
+        else:
+            try:
                 player = SteamUser.objects.get(nickname=nickname_req)
+            except:
+                player = None
+
+            if player:
+                print('user info no auth mode')
+
                 squad_info = get_squad_info(player.id)
                 player_play_time = get_play_time(player.steamid)
+                bans = get_bans(player.steamid)
+                print(bans)
                 return render(request, 'pages/profile.html', locals())
-        else:
+            else:
+                return HttpResponseRedirect('/')
 
-            player = SteamUser.objects.get(nickname=nickname_req)
-            squad_info = get_squad_info(player.id)
-            player_play_time = get_play_time(player.steamid)
-            return render(request, 'pages/profile.html', locals())
 
 def del_message(request):
     message = PrivateMessages.objects.get(id=int(request.GET.get('m_id')))
     if message.to_player.id == request.user.id:
         message.delete()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
+
+def about_us(request):
+    return render(request, 'pages/about_us.html', locals())
 
 

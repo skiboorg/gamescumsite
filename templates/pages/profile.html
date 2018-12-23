@@ -43,25 +43,30 @@
                                                             <div class="widget-player__number"></div>
                                                             <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
                                                         <div class="widget-player__content">
-                                                            <div class="widget-player__content-inner">
+                                                            <div  class="widget-player__content-inner">
                                                                 <div class="widget-player__stat widget-player__assists">
                                                                     <h6 class="widget-player__stat-label">Убийств</h6>
                                                                     <div class="widget-player__stat-number">{{ player.kills }}</div>
-                                                                    <div class="widget-player__stat-legend">AVG</div>
+
                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__steals">
                                                                     <h6 class="widget-player__stat-label">Смертей</h6>
                                                                     <div class="widget-player__stat-number">{{ player.deaths }}</div>
-                                                                    <div class="widget-player__stat-legend">AVG</div>
+
                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__blocks">
                                                                     <h6 class="widget-player__stat-label">Рейтинг</h6>
                                                                     <div class="widget-player__stat-number">{{ player.rating }}</div>
 
                                                                 </div>
+                                                                 <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Уровень</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.level }}</div>
+
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined }}</span></footer>
+                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined.date|date:"d M, Y" }}</span></footer>
                                                     </div>
                                                 </div>
                         </div>
@@ -72,19 +77,19 @@
 
 
                                                     <dl class="alc-staff-details">
-                                                    <dt class="alc-staff-details__label">Уровень игрока:</dt><dd class="alc-staff-details__value">{{ player.level }}</dd>
+
                                                     {% if player.profile_open %}
-                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_id }}</dd>
+                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_nickname }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                      {% endif %}
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
-                                                        <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                        <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ bans }}</dd>
                                                         <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
                                                         <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">
                                                         {% if squad_info %}
                                                             {{ squad_info.name }}
                                                         {% else %}
-                                                           нет
+                                                           НЕ СОСТОИТ
                                                         {% endif %}
 
 

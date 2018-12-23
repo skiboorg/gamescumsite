@@ -26,13 +26,16 @@
                         <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#pm">Личные сообщения
                             <span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
                         </li>
-                        {% if user.is_squad_leader %}
+                        {% if user.is_squad_leader  %}
                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad">Управление отрядом
                                 <span class="highlight"></span></a>
                              </li>
                             {% else %}
-                             <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД
-                                <span class="highlight"> !!!</span></a>
+                            {% if  not player_squad_member %}
+                                <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a></li>
+                            {% else %}
+                                 <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a></li>
+                            {% endif %}
                         {% endif %}
                         {% else %}
                              <li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
@@ -65,7 +68,7 @@
                                <a href="/support_us" class="btn btn-danger btn-xs btn-outline">ПОДДЕРЖАТЬ СЕРВЕР</a>
                          </li>
                         <li class="info-block__item info-block__item--contact-secondary">
-                                 <a href="/about_us" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
+                                 <a href="{% url 'about_us'  %}" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
                          </li>
                     {% if user.is_authenticated %}
                         <li class="info-block__item info-block__item--shopping-cart">
@@ -190,7 +193,11 @@
                                 <span class="highlight"></span></a><br>
 
                             {% else %}
-                             <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+                             {% if  not player_squad_member %}
+                                 <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+                                  {% else %}
+                                 <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
+                             {% endif %}
 
 
                         {% endif %}

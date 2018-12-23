@@ -29,7 +29,7 @@
 }
 
 .shop_active_cat{
-    background: #ffdc11;
+    background: #ff7e1f;
 }
 
 .shop_filter_btn{
@@ -84,3 +84,38 @@
 .info_button{
     margin-top: 10px;
 }
+
+.server_status_img{
+    position: absolute;
+    left: 30px;
+    width: 100px;
+    bottom: 120px;
+}
+.server_status_div_online{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #28a745;
+}
+.server_status_div_offline{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #dc3545;
+}
+
+.server_status_text{
+    position: relative;
+    left: 26px;
+    top: -2px;
+}
+
+.home_promo_img{
+    width: 500px;
+    /* margin: auto; */
+    display: block;
+    border-radius: 5px;
+    float: left;
+    margin-right: 20px;
+}
+

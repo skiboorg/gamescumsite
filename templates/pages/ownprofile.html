@@ -65,6 +65,18 @@
 
                                                                 </div>
 
+                                                                 <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Уровень</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.level }}</div>
+
+                                                                </div>
+
+                                                                 <div class="widget-player__stat widget-player__blocks">
+                                                                    <h6 class="widget-player__stat-label">Рейтинг</h6>
+                                                                    <div class="widget-player__stat-number">{{ player.rating }}</div>
+
+                                                                </div>
+
                                                                   <div class="widget-player__stat widget-player__blocks">
                                                                     <h6 class="widget-player__stat-label">Баланс</h6>
                                                                       <div class="widget-player__stat-number"><span id="player_wallet">{{ player.wallet }}</span> RC</div>
@@ -72,7 +84,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined }}</span></footer>
+                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined.date|date:"d M, Y" }}</span></footer>
                                                     </div>
                                                 </div>
                         </div>
@@ -83,16 +95,16 @@
 
 
                                                     <dl class="alc-staff-details">
-                                                    <dt class="alc-staff-details__label">Рейтинг :</dt><dd class="alc-staff-details__value">{{ player.rating }}</dd>
-                                                    <dt class="alc-staff-details__label">Уровень :</dt><dd class="alc-staff-details__value">{{ player.level }}</dd>
-                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_name }}</dd>
+
+
+                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_nickname }}</dd>
                                                         <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
                                                         <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
                                                         <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
                                                         <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
 
                                                         {% if squad_info %}
-
+                                                           <dt id="squad_member_info" class="alc-staff-details__label">Информация об отряде:</dt><dd class="alc-staff-details__value"> </dd>
                                                             <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value"> {{ squad_info.name }}</dd>
                                                             <dt class="alc-staff-details__label">Уровень отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.level }}</dd>
                                                             <dt class="alc-staff-details__label">Баланс отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.balance }} RC</dd>
@@ -127,7 +139,7 @@
                                                             {% csrf_token %}
                                                                   <div class="form-group">
                                                                      <label class="checkbox checkbox-inline">
-                                                                    {{ form.profile_open}} Показывать Discord ID и ссылку на Steam профиль ?
+                                                                    {{ form.profile_open}} Показывать Discord ID и ссылку на Steam профиль другим игрокам?
                                                                          <span class="checkbox-indicator"></span>
                                                                      </label>
                                                                     </div>
@@ -401,7 +413,12 @@
                                     {% if player.is_squad_leader%}
                                         {% if playerr.player.id != player.id %}
 
-                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}">ИСКЛЮЧИТЬ</a>
+                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}" onclick="return confirm('Точно исключить из отряда?');">ИСКЛЮЧИТЬ</a>
+                                         {% endif %}
+                                        {% else %}
+                                         {% if playerr.player.id == player.id %}
+
+                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'leave_squad'%}" onclick="return confirm('Точно покинуть отряд?');">ПОКИНУТЬ</a>
                                          {% endif %}
                                     {% endif %}
                                 </div>
@@ -472,8 +489,10 @@
                  <td>sdf</td>
                  <td>sdf</td>
             </tr>
-             <tr style="    height: 25%;">
+             <tr style="    height: 25%;" >
+
                  {% for sect in sectors_a %}
+
                     <td style="
                          text-align: center;
                           color: #fff;
@@ -482,7 +501,17 @@
                                 background-color: #ff7e1f96;
                                 color: #fff;
                             {% endif %}
-    ">
+    "
+                        {% for war in wars_a %}
+                        {% if war.sector.id == sect.id %}
+                        data-toggle="tooltip" data-html="true"
+                        title="
+{{ war.war_date }}
+{{ war.enemy.name }}
+                        ">
+                        {% endif %}
+                    {% endfor %}
+
                         {{ sect.name }}<br>
                          {% if sect.squad.name %}
                             Владелец с {{ sect.own.date }}<br>

@@ -7,7 +7,7 @@
    <!-- Hero Unit
 		================================================== -->
         <div class="hero-unit">
-            <div class="container hero-unit__container" style="background: #27313b url({% static 'images/slide1.jpg' %});
+            <div class="container hero-unit__container" style="background: #27313b url({% static 'images/slide2.jpg' %});
                     background-size: cover;
      max-width: 100%;
      width: 100%;">
@@ -38,8 +38,122 @@
     </div>
 </div>
 
+
+
       <div class="site-content">
-            <div class="container">
+          <div class="container">
+            <div class="row">
+                <div class="content col-md-8">
+                    <div class="widget card widget--sidebar widget-standings">
+    <div class="widget__title card__header card__header--has-btn">
+        <h4>SCUM SURVIVAL</h4><a href="{% url 'about_us'  %}" class="btn btn-default btn-outline btn-xs card-header__button">ПОДРОБНЕЕ</a></div>
+    <div style="padding: 20px 20px 20px 20px;" class="widget__content card__content">
+        <img class="home_promo_img" src="{% static 'images/home_promo.png' %}">
+      <p style="text-align: justify;">
+          Вы один из заключенных, направленный на закрытый остров, чтобы участвовать в кровавой бойне, которая будет показана по кабельному телеканалу.
+</p> <p style="text-align: justify;">
+Здесь царит мир беспрецедентных возможностей, где уровень получаемых навыков и опыта являются залогом дальнейшего выживания игрока.
+</p> <p style="text-align: justify;">
+Наш сервер RUSSIA SURVIVAL [HARDCORE] прежде всего отличается от других - созданной атмосферой выживания на острове.
+</p> <p style="text-align: justify;">
+Большое количество серверов SCUM - это аналоги PUBG. Где можно бездумно лутаться и идти стреляться, не о чем не думая, не боясь ни за что.
+</p> <p style="text-align: justify;">
+Но мы считаем, что для бездумных PvP есть другие игры - CS, PUBG, ROE..
+</p> <p style="text-align: justify; font-family: scum_font;
+    text-align: justify;
+    color: #fc8318;
+    text-align: center;
+    font-size: 20px;
+}">
+SCUM - это выживание, SCUM - SURVIVAL!</p>
+    </div>
+</div>
+                </div>
+                <div class="content col-md-4">
+                  <aside class="widget card widget--sidebar widget-player widget-player--alt">
+                        <div class="widget__title card__header">
+                            <h4>СОСТОЯНИЕ СЕРВЕРА</h4></div>
+                        <div class="widget__content card__content">
+                                <img class="server_status_img" src="{%  static 'images/logo.png' %}" alt="">
+
+                            <header class="widget-player__header clearfix">
+                                {% if status == 'online' %}
+                                       <div class="server_status_div_online"></div>
+                                       <h4 class="widget-player__name server_status_text"><span class="widget-player__first-name">СЕРВЕР</span> <span class="widget-player__last-name">ONLINE</span></h4>
+                                    </header>
+
+                                {% else %}
+                                <div class="server_status_div_offline"></div>
+                                       <h4 class="widget-player__name server_status_text"><span class="widget-player__first-name">СЕРВЕР</span> <span class="widget-player__last-name">OFFLINE</span></h4>
+                                    </header>
+                                {% endif %}
+                              <div class="widget-player__content">
+                                <div style="    margin-left: 30px;">
+                                    <div class="widget-player__stat widget-player__assists">
+                                        <h6 class="widget-player__stat-label">ИГРОКОВ</h6>
+                                        <div class="widget-player__stat-number">{{ players }}</div>
+
+                                    </div>
+                                    <div class="widget-player__stat widget-player__steals">
+                                        <h6 class="widget-player__stat-label">РАНГ</h6>
+                                        <div class="widget-player__stat-number">{{ rank }}</div>
+
+                                    </div>
+                                    <div style="width: 50% !important;" class="widget-player__stat widget-player__blocks">
+                                        <h6 class="widget-player__stat-label">IP</h6>
+                                        <div class="widget-player__stat-number">{{ ip }}</div>
+
+                                    </div>
+            </div>
+        </div>
+        <footer class="widget-player__footer"><span class="widget-player__footer-txt"><a style="padding: 2px;" class="btn btn-warning btn-outline btn-xs" href="steam://connect/91.218.244.112:28402">ПОДКЛЮЧИТЬСЯ</a></span></footer>
+    </div>
+
+
+
+</aside>
+                <aside class="widget card widget--sidebar widget-standings">
+    <div class="widget__title card__header card__header--has-btn">
+        <h4>ТОП 3 ИГРОКА</h4><a href="#" class="btn btn-default btn-outline btn-xs card-header__button">Посмотреть ТОП 20</a></div>
+    <div class="widget__content card__content">
+        <div class="table-responsive">
+            <table class="table table-hover table-standings">
+                <thead>
+                    <tr>
+                        <th>НИК</th>
+                        <th>K</th>
+                        <th>D</th>
+                        <th>R</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for player in top3 %}
+                    <tr>
+                        <td>
+                            <div class="team-meta">
+                                <figure class="team-meta__logo"><img src="{{ player.avatar }}" alt="ТОП 3 игроков сервера SCUM"></figure>
+                                <div class="team-meta__info">
+                                    <h6 class="team-meta__name">{{ player.personaname }}</h6><span class="team-meta__place"><a href="{% url 'profile' player.nickname%}">ПРОФИЛЬ</a></span></div>
+                            </div>
+                        </td>
+                        <td>{{ player.kills }}</td>
+                        <td>{{ player.deaths }}</td>
+                        <td>{{ player.rating }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aside>
+
+
+                </div>
+          </div>
+
+
+
+
                 <!-- Featured News -->
                 <div class="card card--clean mb-0">
                     <header class="card__header card__header--has-btn">
@@ -55,7 +169,7 @@
                                         <div class="posts__item posts__item--desc-center posts__item--category-1">
                                             <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
                                                 <figure class="posts__thumb"><img style="    height: 448px;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
-                                                <div class="posts__inner">
+                                                <div style="background: #1e2024cc;     padding: 30px 10px 10px 10px; width: 100%;" class="posts__inner">
 
                                                     <h3 class="posts__title"><span class="posts__title-higlight">{{ news_item.post_name }}</span> </h3>
 

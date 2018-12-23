@@ -11516,7 +11516,7 @@ ul.posts:not(.post-grid) {
 
 .widget-player__stat {
     float: left;
-    width: 33.3%;
+    width: 20%;
     text-align: center
 }
 
@@ -11736,8 +11736,8 @@ ul.posts:not(.post-grid) {
 }
 
 .widget-player--alt .widget-player__photo {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1)
+    /*-webkit-filter: grayscale(1);*/
+    /*filter: grayscale(1)*/
 }
 
 .widget-player--alt .widget-player__last-name {

@@ -31,6 +31,7 @@ urlpatterns = [
     path('buy_sector/', views.buy_sector, name='buy_sector'),
     path('sector_war/<sector_name>', views.sector_war, name='sector_war'),
     path('stat/', views.stat, name='stat'),
+    path('leave_squad/', views.leave_squad, name='leave_squad'),
 
 
 ]
