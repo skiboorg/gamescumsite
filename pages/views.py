@@ -40,7 +40,7 @@ def index(request):
     name = tree.xpath('//*[@id="serverPage"]/h2/text()')
     ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
     status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
-    top3 = SteamUser.objects.all().order_by('-rating')[:3]
+    top3 = SteamUser.objects.filter(is_superuser=False,is_staff=False).order_by('-rating')[:3]
     print(status)
 
     if request.user.is_authenticated:

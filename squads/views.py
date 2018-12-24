@@ -279,9 +279,9 @@ def sector_war(request, sector_name):
 
     sector = SquadSectors.objects.get(name=sector_name)
     print(sector)
-    owner = sector.squad.id
+
     enemy = Squad.objects.get(leader=request.user)
-    all_wars = SectorWars.objects.filter(sector__squad=owner)
+    all_wars = SectorWars.objects.filter(sector=enemy)
     print(all_wars)
     if all_wars.count() == 2:
         print('даты заняты')
@@ -293,7 +293,7 @@ def sector_war(request, sector_name):
                                                      from_player_name_slug=enemy.leader.nickname,
                                                      from_player_avatar=str(enemy.leader.avatar),
                                                      text='Наш отряд притендует на сектор {}. '
-                                                          'По обоюдной договоренности бой состоится {}.'
+                                                          'По обоюдной договоренности бой состоится {}. '
                                                           'В случае отказа от боя, сектор переходит под наш контроль'
                                                           'автоматически. ;)'.format(sector.name, sat.strftime('%Y-%m-%d')))
         new_message.save()

@@ -10,48 +10,7 @@
         </div>
   <!-- Header Desktop -->
         <header class="header">
-            <!-- Header Top Bar -->
-            <div class="header__top-bar clearfix">
-                <div class="container">
-                    <!-- Account Navigation -->
-                    <ul class="nav-account">
-                        {% if user.is_authenticated %}
-                            <li class="nav-account__item nav-account__item--wishlist"> <a style="color: #f34141;" href="{% url "logout" %}">ВЫХОД </a></li>
-                              <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}">ПРОФИЛЬ {{ user.personaname }}
-                                  {% if profile_bad %}
-                                <span style="color: red !important;" class="highlight"> !!!  НЕ АКТИВИРОВАН !!!</span>
-                            {% endif %}
-                              </a>
-                              </li>
-                        <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#pm">Личные сообщения
-                            <span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
-                        </li>
-                        {% if user.is_squad_leader  %}
-                             <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad">Управление отрядом
-                                <span class="highlight"></span></a>
-                             </li>
-                            {% else %}
-                            {% if  not player_squad_member %}
-                                <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a></li>
-                            {% else %}
-                                 <li class="nav-account__item nav-account__item--wishlist"><a href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a></li>
-                            {% endif %}
-                        {% endif %}
-                        {% else %}
-                             <li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
-                        {% endif %}
 
-
-
-
-
-
-                    </ul>
-                    <!-- Account Navigation / End -->
-                </div>
-            </div>
-            <!-- Header Top Bar / End -->
-            <!-- Header Secondary -->
             <div class="header__secondary">
                 <div class="container">
                     <!-- Header Search Form -->
@@ -70,6 +29,40 @@
                         <li class="info-block__item info-block__item--contact-secondary">
                                  <a href="{% url 'about_us'  %}" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
                          </li>
+                      {% if user.is_authenticated %}
+
+                          <div class="dropdown show info-block__item info-block__item--contact-secondary">
+  <a style="background-color: #ff7e1f;
+    border-color: #ff7e1f;" class="btn btn-warning btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    МЕНЮ ИГРОКА
+  </a>
+
+  <div style="box-shadow: inset 0 0 10px 1px #1e2024e3;
+    background-color: rgb(255, 126, 31);
+    border-radius: 4px;
+    border: 1px solid #292c31;" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+     <a class="dropdown-item" href="{% url 'profile' user.nickname %}">Персональная информация</a>
+    <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
+      {% if user.is_squad_leader  %}
+            <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad">Управление отрядом<span class="highlight"></span></a>
+      {% else %}
+          {% if  not player_squad_member %}
+              <a class="dropdown-item" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+          {% else %}
+              <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
+          {% endif %}
+      {% endif %}
+
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item"  href="{% url "logout" %}">ВЫХОД </a>
+  </div>
+</div>
+
+                        {% else %}
+                             <li class="info-block__item info-block__item--contact-secondary"><a class="btn btn-warning btn-sm " href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
+                        {% endif %}
                     {% if user.is_authenticated %}
                         <li class="info-block__item info-block__item--shopping-cart">
                             <a href="#" class="info-block__link-wrapper">
