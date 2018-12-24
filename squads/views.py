@@ -115,6 +115,8 @@ def show_squads(request):
     player = request.user
     print(player.id)
     req_disct = []
+    sectors_a = SquadSectors.objects.filter(name__startswith='a').order_by('-name')
+
     wars = SectorWars.objects.all()
     try:
         squad_requests = SquadRequests.objects.filter(player_id=player.id)

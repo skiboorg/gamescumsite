@@ -3,33 +3,33 @@
 
 {% block content %}
 
- <!-- Page Heading
-		================================================== -->
-        <div class="page-heading" style="background-image: url({% static 'images/squads.jpg' %});">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-8">
-                        <h1 class="page-heading__title font_scum">ОТРЯДЫ <span class="highlight">СЕРВЕРА</span></h1>
-                        <ol class="page-heading__breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Отряды</li>
-                        </ol>
-                    </div>
+    <!-- Page Heading
+           ================================================== -->
+    <div class="page-heading" style="background-image: url({% static 'images/squads.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-8">
+                    <h1 class="page-heading__title font_scum">ОТРЯДЫ <span class="highlight">СЕРВЕРА</span></h1>
+                    <ol class="page-heading__breadcrumb breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Отряды</li>
+                    </ol>
                 </div>
             </div>
         </div>
-     <!-- Content
-		================================================== -->
-        <div class="site-content">
-            <div class="container">
-                <div class="row">
-                    <!-- Content -->
-                    <div class="content col-md-8">
-                        <!-- Game Scoreboard -->
-                        <div class="card">
+    </div>
+    <!-- Content
+       ================================================== -->
+    <div class="site-content">
+        <div class="container">
+            <div class="row">
+                <!-- Content -->
+                <div class="content col-md-8">
+                    <!-- Game Scoreboard -->
+                    <div class="card">
 
-                                <!-- Game Result -->
-                         <aside class="widget card widget--sidebar widget-standings">
+                        <!-- Game Result -->
+                        <aside class="widget card widget--sidebar widget-standings">
                             <div class="widget__title card__header card__header--has-btn">
                                 <h4>Отряды сервера</h4>
                             </div>
@@ -37,14 +37,14 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-standings">
                                         <thead>
-                                            <tr>
-                                                <th>Название отряда</th>
-                                                <th>Уровень</th>
-                                                <th>Состав</th>
-                                                <th>Набор</th>
-                                                <th>Побед</th>
-                                                <th>Поражений</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Название отряда</th>
+                                            <th>Уровень</th>
+                                            <th>Состав</th>
+                                            <th>Набор</th>
+                                            <th>Побед</th>
+                                            <th>Поражений</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         {% for squad in squads %}
@@ -61,21 +61,21 @@
                                                 <td>
                                                     {% if player_squad_member %}
                                                         Ты уже в отряде
-                                                        {% else %}
+                                                    {% else %}
 
-                                                            {% if squad.recruting%}
-
-
-                                                                {% if squad.id in req_disct %}
-                                                                    заявка уже подана
-                                                                {% else %}
-                                                                    <a href="{{ squad.name_slug }}"> Вступить</a>
-                                                                {% endif %}
+                                                        {% if squad.recruting%}
 
 
+                                                            {% if squad.id in req_disct %}
+                                                                заявка уже подана
                                                             {% else %}
-                                                                Закрыт
+                                                                <a href="{{ squad.name_slug }}"> Вступить</a>
                                                             {% endif %}
+
+
+                                                        {% else %}
+                                                            Закрыт
+                                                        {% endif %}
                                                     {% endif %}
                                                 </td>
                                                 <td>{{ squad.battles_wins }}</td>
@@ -87,58 +87,132 @@
                                 </div>
                             </div>
                         </aside>
-                                <!-- Game Result / End -->
-
-                        </div>
-                        <!-- Game Scoreboard / End -->
+                        <!-- Game Result / End -->
 
                     </div>
-                    <!-- Content / End -->
-                    <!-- Sidebar -->
-                    <div class="sidebar col-md-4">
-                        <!-- Widget: Standings -->
-                  <aside class="widget card widget--sidebar widget-results">
-    <div class="widget__title card__header card__header--has-btn">
-        <h4>Бои за сектора</h4>{#<a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a>#}</div>
-    <div class="widget__content card__content">
-        <ul class="widget-results__list">
-            <!-- Game #0 -->
-            {% for war in wars %}
-            <li class="widget-results__item">
-                <h5 class="widget-results__title">{{ war.war_date.date }}</h5>
-                <div class="widget-results__content">
-                    <div class="widget-results__team widget-results__team--first">
-                        <figure class="widget-results__team-logo"><img src="{{ war.enemy.avatar.url }}" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">{{ war.enemy.name }}</h5><span class="widget-results__team-info">нападают</span></div>
+                    <!-- Game Scoreboard / End -->
 
-                    </div>
-                    <div class="widget-results__result">
-                        <div class="widget-results__score"><span class="widget-results__score-winner">{{ war.sector.name }}</span>
-
-                        </div>
-                    </div>
-                    <div class="widget-results__team widget-results__team--second">
-                        <figure class="widget-results__team-logo"><img src="{{ war.sector.squad.avatar.url }}" alt=""></figure>
-                        <div class="widget-results__team-details">
-                            <h5 class="widget-results__team-name">{{ war.sector.squad.name }}</h5><span class="widget-results__team-info">обороняются</span></div>
-                    </div>
                 </div>
-            </li>
-            <!-- Game #0 / End -->
-           {% endfor %}
-        {% if not wars %}
-            НЕТ ОСПАРИВАЕМЫХ ТЕРРИТОРИЙ
-        {% endif %}
-        </ul>
-    </div>
-</aside>
-                        <!-- Widget: Standings / End -->
+                <!-- Content / End -->
+                <!-- Sidebar -->
+                <div class="sidebar col-md-4">
+                    <!-- Widget: Standings -->
+                    <aside class="widget card widget--sidebar widget-results">
+                        <div class="widget__title card__header card__header--has-btn">
+                            <h4>Бои за сектора</h4>{#<a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a>#}</div>
+                        <div class="widget__content card__content">
+                            <ul class="widget-results__list">
+                                <!-- Game #0 -->
+                                {% for war in wars %}
+                                    <li class="widget-results__item">
+                                        <h5 class="widget-results__title">{{ war.war_date.date }}</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="{{ war.enemy.avatar.url }}" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">{{ war.enemy.name }}</h5><span class="widget-results__team-info">нападают</span></div>
 
-                    </div>
-                    <!-- Sidebar / End -->
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-winner">{{ war.sector.name }}</span>
+
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+                                                <figure class="widget-results__team-logo"><img src="{{ war.sector.squad.avatar.url }}" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">{{ war.sector.squad.name }}</h5><span class="widget-results__team-info">обороняются</span></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Game #0 / End -->
+                                {% endfor %}
+                                {% if not wars %}
+                                    НЕТ ОСПАРИВАЕМЫХ ТЕРРИТОРИЙ
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- Widget: Standings / End -->
+
                 </div>
+                <!-- Sidebar / End -->
             </div>
+            <h1 align="center">Владение секторами</h1>
+            <div id="war_map" style="margin: auto; background-image: url(/static/images/map.png);width: 900px; height: 900px;background-size: contain;">
+
+                <table style="
+        table-layout: fixed;
+        width: 900px;
+    height: 900px;">
+                    <tr style="    height: 25%;">
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                    </tr>
+                    <tr style="    height: 25%;">
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                    </tr>
+                    <tr style="    height: 25%;">
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                        <td>sdf</td>
+                    </tr>
+                    <tr style="    height: 25%;" >
+
+                        {% for sect in sectors_a %}
+
+                            <td style="
+                                    text-align: center;
+                                    color: #fff;
+                                    font-weight: bold;
+                                    {% if sect.squad.name %}
+                                        background-color: #ff7e1f96;
+                                        color: #fff;
+                                    {% endif %}
+                                    "
+                                    {% for war in wars %}
+                                        {% if war.sector.id == sect.id %}
+                                data-toggle="tooltip" data-html="true"
+                                title="
+                            {{ war.war_date }}
+                            {{ war.enemy.name }}
+                        ">
+                                        {% endif %}
+                                    {% endfor %}
+
+                            {{ sect.name }}<br>
+                            {% if sect.squad.name %}
+                                Владелец с {{ sect.own.date }}<br>
+                                <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
+                                {{ sect.squad.name }}<br>
+                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
+                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
+                                {%endif%}
+                            {% else %}
+                                <div>
+                                    СВОБОДНО<br>
+                                    Доход : {{ sect.income }}<br>
+                                    Цена : {{ sect.price }}<br>
+                                    {% if player.is_squad_leader %}
+                                        <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                    {%endif%}
+                                </div>
+
+                            {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+
+            </div>
+
         </div>
-        <!-- Content / End -->
+    </div>
+    <!-- Content / End -->
 {% endblock %}

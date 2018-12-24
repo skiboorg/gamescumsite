@@ -61,6 +61,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     level = models.IntegerField(default=1)
     kills = models.IntegerField(default=0)
     deaths = models.IntegerField(default=0)
+    total_buys_summ = models.IntegerField(default=0)
+    total_buys_count = models.IntegerField(default=0)
 
     vip = models.BooleanField(default=False)
     outlaw = models.BooleanField(default=False)
@@ -69,6 +71,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     profile_open = models.BooleanField(default=True)
     is_banned = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    bonus_pack = models.BooleanField(default=False)
     last_zp = models.DateTimeField(default=datetime.now() + timedelta(days=1))
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     last_vizit = models.DateField(auto_now_add=True)

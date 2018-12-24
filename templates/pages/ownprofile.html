@@ -3,170 +3,170 @@
 
 
 {% block content %}
-     <!-- Page Heading
-		================================================== -->
-        <div class="page-heading" style="background-image: url({% static 'images/own_profile.jpg' %});">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-8">
-                        <h1 class="page-heading__title font_scum">ТВОЙ <span class="highlight">ПРОфИЛЬ</span></h1>
-                        <ol class="page-heading__breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">ПРОФИЛЬ</li>
-                        </ol>
-                    </div>
+    <!-- Page Heading
+       ================================================== -->
+    <div class="page-heading" style="background-image: url({% static 'images/own_profile.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-8">
+                    <h1 class="page-heading__title font_scum">ТВОЙ <span class="highlight">ПРОфИЛЬ</span></h1>
+                    <ol class="page-heading__breadcrumb breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">ПРОФИЛЬ</li>
+                    </ol>
                 </div>
             </div>
         </div>
-        <!-- Page Heading / End -->
-        <!-- Content
-		================================================== -->
-<div class="site-content">
+    </div>
+    <!-- Page Heading / End -->
+    <!-- Content
+    ================================================== -->
+    <div class="site-content">
 
-    <div class="container">
-    <div class="messages">
-    {% for message in messages %}
-    <div class="alert alert-danger alert-dismissible"><strong>{{ message }}</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-    {% endfor %}
-</div>
-{#    {% if profile_bad %}#}
-{#    <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SCUM BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><span id="activate">!activate {{ player.steamid }}</span>  <button type="button" class="btn btn-xs btn-default btn-outline alert-btn-right">СКОПИРОВАТЬ В БУФЕР</button></div>#}
-{#    {% endif %}#}
-    <div class="row">
-        <!-- Content -->
-        <div class="content col-md-8">
-            <!-- Staff Member -->
-            <div class="card card--clean alc-staff">
-                <div class="card__header card__header--has-btn">
-                    <h4>Персональная информация</h4></div>
+        <div class="container">
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-danger alert-dismissible"><strong>{{ message }}</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                {% endfor %}
+            </div>
+            {#    {% if profile_bad %}#}
+            {#    <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SCUM BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><span id="activate">!activate {{ player.steamid }}</span>  <button type="button" class="btn btn-xs btn-default btn-outline alert-btn-right">СКОПИРОВАТЬ В БУФЕР</button></div>#}
+            {#    {% endif %}#}
+            <div class="row">
+                <!-- Content -->
+                <div class="content col-md-8">
+                    <!-- Staff Member -->
+                    <div class="card card--clean alc-staff">
+                        <div class="card__header card__header--has-btn">
+                            <h4>Персональная информация</h4><a href="#" class="btn btn-danger btn-outline btn-xs card-header__button">ПОЛУЧИТЬ БОНУС ПАК</a></div>
 
-                 <div class="card__content">
-                                <div class="card mb-0">
-                                    <div class="card__content">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                        <div class="widget card widget--sidebar widget-player widget-player--alt">
-                                                    <div class="widget__content card__content">
-                                                        <div class="widget-player__team-logo"><img src="{{ player.avatarfull }}" alt=""></div>
-                                                        <figure class="widget-player__photo"><img src="{{ player.avatarfull }}" alt=""></figure>
-                                                        <header class="widget-player__header clearfix">
-                                                            <div class="widget-player__number"></div>
-                                                            <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
-                                                        <div class="widget-player__content">
-                                                            <div class="widget-player__content-inner">
-                                                                <div class="widget-player__stat widget-player__assists">
-                                                                    <h6 class="widget-player__stat-label">Убийств</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.kills }}</div>
+                        <div class="card__content">
+                            <div class="card mb-0">
+                                <div class="card__content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget card widget--sidebar widget-player widget-player--alt">
+                                                <div class="widget__content card__content">
+                                                    <div class="widget-player__team-logo"><img src="{{ player.avatarfull }}" alt=""></div>
+                                                    <figure class="widget-player__photo"><img src="{{ player.avatarfull }}" alt=""></figure>
+                                                    <header class="widget-player__header clearfix">
+                                                        <div class="widget-player__number"></div>
+                                                        <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
+                                                    <div class="widget-player__content">
+                                                        <div class="widget-player__content-inner">
+                                                            <div class="widget-player__stat widget-player__assists">
+                                                                <h6 class="widget-player__stat-label">Убийств</h6>
+                                                                <div class="widget-player__stat-number">{{ player.kills }}</div>
 
-                                                                </div>
-                                                                <div class="widget-player__stat widget-player__steals">
-                                                                    <h6 class="widget-player__stat-label">Смертей</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.deaths }}</div>
+                                                            </div>
+                                                            <div class="widget-player__stat widget-player__steals">
+                                                                <h6 class="widget-player__stat-label">Смертей</h6>
+                                                                <div class="widget-player__stat-number">{{ player.deaths }}</div>
 
-                                                                </div>
+                                                            </div>
 
-                                                                 <div class="widget-player__stat widget-player__blocks">
-                                                                    <h6 class="widget-player__stat-label">Уровень</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.level }}</div>
+                                                            <div class="widget-player__stat widget-player__blocks">
+                                                                <h6 class="widget-player__stat-label">Уровень</h6>
+                                                                <div class="widget-player__stat-number">{{ player.level }}</div>
 
-                                                                </div>
+                                                            </div>
 
-                                                                 <div class="widget-player__stat widget-player__blocks">
-                                                                    <h6 class="widget-player__stat-label">Рейтинг</h6>
-                                                                    <div class="widget-player__stat-number">{{ player.rating }}</div>
+                                                            <div class="widget-player__stat widget-player__blocks">
+                                                                <h6 class="widget-player__stat-label">Рейтинг</h6>
+                                                                <div class="widget-player__stat-number">{{ player.rating }}</div>
 
-                                                                </div>
+                                                            </div>
 
-                                                                  <div class="widget-player__stat widget-player__blocks">
-                                                                    <h6 class="widget-player__stat-label">Баланс</h6>
-                                                                      <div class="widget-player__stat-number"><span id="player_wallet">{{ player.wallet }}</span> RC</div>
+                                                            <div class="widget-player__stat widget-player__blocks">
+                                                                <h6 class="widget-player__stat-label">Баланс</h6>
+                                                                <div class="widget-player__stat-number"><span id="player_wallet">{{ player.wallet }}</span> RC</div>
 
-                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined.date|date:"d M, Y" }}</span></footer>
                                                     </div>
-                                                </div>
-                        </div>
-
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="alc-staff-inner">
-
-
-                                                    <dl class="alc-staff-details">
-
-
-                                                        <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_nickname }}</dd>
-                                                        <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
-                                                        <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
-                                                        <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
-                                                        <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
-
-                                                        {% if squad_info %}
-                                                           <dt id="squad_member_info" class="alc-staff-details__label">Информация об отряде:</dt><dd class="alc-staff-details__value"> </dd>
-                                                            <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value"> {{ squad_info.name }}</dd>
-                                                            <dt class="alc-staff-details__label">Уровень отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.level }}</dd>
-                                                            <dt class="alc-staff-details__label">Баланс отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.balance }} RC</dd>
-
-                                                            <form style="padding-bottom: 15px;" action="{% url 'add_to_balance' %}" class="form-inline" method="post">
-                                                             {% csrf_token %}
-
-                                                                <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
-                                                                    <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
-                                                                  <input type='hidden' name="squad_id" value="{{ squad_info.id }}">
-
-                                                              <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Пополнить баланс отряда</button>
-                                                            </form>
-                                                            <br>
-                                                            <dt class="alc-staff-details__label">Владение секторами:</dt><dd class="alc-staff-details__value">
-                                                        {% for sector in squad_sectors %}
-                                                            {{ sector.name }}
-                                                        {% endfor %}
-
-
-                                                             </dd>
-
-                                                        {% else %}
-                                                            <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">нет</dd>
-                                                        {% endif %}
-
-
-
-                                                    </dl>
-                                                    <div class="alc-staff-excerpt">
-                                                          <form action="" method="post">
-                                                            {% csrf_token %}
-                                                                  <div class="form-group">
-                                                                     <label class="checkbox checkbox-inline">
-                                                                    {{ form.profile_open}} Показывать Discord ID и ссылку на Steam профиль другим игрокам?
-                                                                         <span class="checkbox-indicator"></span>
-                                                                     </label>
-                                                                    </div>
-                                                           <div class="form-group">
-                                                            <label for="player_info">Информация о себе </label>
-
-                                                               <textarea id="player_info" name="{{ form.info.name }}"  class="form-control">{{ request.user.info }}</textarea>
-                                                         </div>
-
-                                                            <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить данные профиля</button>
-                                                        </form>
-                                                    </div>
-                                                    <!-- Details / End -->
+                                                    <footer class="widget-player__footer"><span class="widget-player__footer-txt">Дата регистрации: {{ player.date_joined.date|date:"d M, Y" }}</span></footer>
                                                 </div>
                                             </div>
                                         </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="alc-staff-inner">
+
+
+                                            <dl class="alc-staff-details">
+
+
+                                                <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_nickname }}</dd>
+                                                <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
+                                                <dt class="alc-staff-details__label">Звание:</dt><dd class="alc-staff-details__value">{{ player.rank }}</dd>
+                                                <dt class="alc-staff-details__label">VAC-баны:</dt><dd class="alc-staff-details__value">{{ player.kills }}</dd>
+                                                <dt class="alc-staff-details__label">Время в игре (часов):</dt><dd class="alc-staff-details__value">{{ player_play_time }}</dd>
+
+                                                {% if squad_info %}
+                                                    <dt id="squad_member_info" class="alc-staff-details__label">Информация об отряде:</dt><dd class="alc-staff-details__value"> </dd>
+                                                    <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value"> {{ squad_info.name }}</dd>
+                                                    <dt class="alc-staff-details__label">Уровень отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.level }}</dd>
+                                                    <dt class="alc-staff-details__label">Баланс отряда:</dt><dd class="alc-staff-details__value"> {{ squad_info.balance }} RC</dd>
+
+                                                    <form style="padding-bottom: 15px;" action="{% url 'add_to_balance' %}" class="form-inline" method="post">
+                                                        {% csrf_token %}
+
+                                                        <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
+                                                        <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
+                                                        <input type='hidden' name="squad_id" value="{{ squad_info.id }}">
+
+                                                        <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Пополнить баланс отряда</button>
+                                                    </form>
+                                                    <br>
+                                                    <dt class="alc-staff-details__label">Владение секторами:</dt><dd class="alc-staff-details__value">
+                                                    {% for sector in squad_sectors %}
+                                                        {{ sector.name }}
+                                                    {% endfor %}
+
+
+                                                </dd>
+
+                                                {% else %}
+                                                    <dt class="alc-staff-details__label">Отряд:</dt><dd class="alc-staff-details__value">нет</dd>
+                                                {% endif %}
+
+
+
+                                            </dl>
+                                            <div class="alc-staff-excerpt">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <label class="checkbox checkbox-inline">
+                                                            {{ form.profile_open}} Показывать Discord ID и ссылку на Steam профиль другим игрокам?
+                                                            <span class="checkbox-indicator"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="player_info">Информация о себе </label>
+
+                                                        <textarea id="player_info" name="{{ form.info.name }}"  class="form-control">{{ request.user.info }}</textarea>
+                                                    </div>
+
+                                                    <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить данные профиля</button>
+                                                </form>
+                                            </div>
+                                            <!-- Details / End -->
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-            </div>
-            <!-- Staff Member / End -->
-            <!-- Lates News -->
-        {% if not squad_info %}
-             <div id="create_squad" class="card card--clean alc-staff">
-                <div class="card__header card__header--has-btn">
-                    <h4>Создание отряда</h4></div>
-                 <div class="card__content">
+                    </div>
+                    <!-- Staff Member / End -->
+                    <!-- Lates News -->
+                    {% if not squad_info %}
+                        <div id="create_squad" class="card card--clean alc-staff">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Создание отряда</h4></div>
+                            <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
@@ -174,37 +174,37 @@
                                                 <div class="alc-staff-inner">
 
 
-                                               <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
-                                                    {% csrf_token %}
+                                                    <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
+                                                        {% csrf_token %}
 
-                                                      <div class="form-group">
-                                                    <label for="contact-form-name">Название отряда <span class="required">*</span></label>
-                                                       {{ squad_form.name.errors }}
-                                                    <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                        <div class="form-group">
+                                                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                            {{ squad_form.name.errors }}
+                                                            <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                                                         </div>
-                                                         <div class="form-group">
+                                                        <div class="form-group">
                                                             <label for="contact-form-name">Автар отряда <span class="required">*</span></label>
-                                                              {{ squad_form.avatar.errors }}
+                                                            {{ squad_form.avatar.errors }}
 
                                                             <input type="file" name="{{ squad_form.avatar.name }}"  required="required" class="form-control" >
                                                         </div>
-                                                           <div class="form-group">
-                                                                <label for="squad_form_wear">Форма отряда <span class="required">*</span></label>
-                                                                <select  name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" class="form-control ">
-                                                                    {% for wear in squad_wear %}
+                                                        <div class="form-group">
+                                                            <label for="squad_form_wear">Форма отряда <span class="required">*</span></label>
+                                                            <select  name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" class="form-control ">
+                                                                {% for wear in squad_wear %}
                                                                     <option style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
-                                                                    {% endfor %}
+                                                                {% endfor %}
 
-                                                                </select>
-                                                            </div>
+                                                            </select>
+                                                        </div>
 
 
-                                                       <div class="form-group">
-                                                        <label for="squad_info">Дополнительная информация об отряде </label>
+                                                        <div class="form-group">
+                                                            <label for="squad_info">Дополнительная информация об отряде </label>
 
-                                                           <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
-                                                     </div>
-                                                         <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+                                                            <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
+                                                        </div>
+                                                        <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
 
                                                         <button type="submit" id="create_squad_btn" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
                                                     </form>
@@ -216,101 +216,101 @@
                                     </div>
                                 </div>
 
-            </div>
-             </div>
-         {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
 
-          {% if player.is_squad_leader %}
-           <div id="squad" class="card card--clean alc-staff">
-                <div class="card__header card__header--has-btn">
-                    <h4>Управление отрядом</h4>
+                    {% if player.is_squad_leader %}
+                        <div id="squad" class="card card--clean alc-staff">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Управление отрядом</h4>
 
-                    <a style="margin-left: 5px;" href="{% url 'delete_squad' %}" class="btn btn-danger btn-outline btn-xs card-header__button" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
-                    <a href="{% url 'level_up' %}" id="level_up_btn" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
-                </div>
-                               <div class="card__content">
+                                <a style="margin-left: 5px;" href="{% url 'delete_squad' %}" class="btn btn-danger btn-outline btn-xs card-header__button" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
+                                <a href="{% url 'level_up' %}" id="level_up_btn" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
+                            </div>
+                            <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="alc-staff-inner">
-  <div>
+                                                    <div>
 
 
-      <dl class="alc-staff-details">
-          <dt class="alc-staff-details__label">Баланс отряда :</dt><dd class="alc-staff-details__value"><span id="squad_balance">{{ squad_info.balance }}</span> RC</dd>
-          <dt class="alc-staff-details__label">Текущий уровень отряда :</dt><dd class="alc-staff-details__value">{{ squad_info.level }}</dd>
-         <p class="squad_info_p_red"> {% if squad_info.level ==  1 %}
-                На данном уровне доступно : 3 игрока с составе отряда, владением одним сектором.
-               {% elif squad_info.level == 2 %}
-                   На данном уровне доступно : 4 игрока с составе отряда, владением двумя секторами.
-               {% elif squad_info.level == 3 %}
-                 На данном уровне доступно : 5 игроков с составе отряда, владением тремя секторами.
-               {% elif squad_info.level == 4 %}
-                 На данном уровне доступно : 6 игроков с составе отряда, владением четырьмя секторами.
-               {% elif squad_info.level == 5 %}
-                 На данном уровне доступно : 7 игроков с составе отряда, владением пятью секторами.
-              {% endif %}
-      </p>
-          <dt class="alc-staff-details__label">Стоимость перехода на следуюший уровень :</dt>
-          <dd class="alc-staff-details__value">
-              {% if squad_info.level ==  1 %}
-                 <span id="level_up_cost">1000</span> RC
-               {% elif squad_info.level == 2 %}
-                   <span id="level_up_cost">3000</span> RC
-               {% elif squad_info.level == 3 %}
-                  <span id="level_up_cost">5000</span> RC
-               {% elif squad_info.level == 4 %}
-                  <span id="level_up_cost">10000</span> RC
-               {% elif squad_info.level == 5 %}
-                  <span id="level_up_cost">15000</span> RC
-              {% endif %}
+                                                        <dl class="alc-staff-details">
+                                                            <dt class="alc-staff-details__label">Баланс отряда :</dt><dd class="alc-staff-details__value"><span id="squad_balance">{{ squad_info.balance }}</span> RC</dd>
+                                                            <dt class="alc-staff-details__label">Текущий уровень отряда :</dt><dd class="alc-staff-details__value">{{ squad_info.level }}</dd>
+                                                            <p class="squad_info_p_red"> {% if squad_info.level ==  1 %}
+                                                                На данном уровне доступно : 3 игрока с составе отряда, владением одним сектором.
+                                                            {% elif squad_info.level == 2 %}
+                                                                На данном уровне доступно : 4 игрока с составе отряда, владением двумя секторами.
+                                                            {% elif squad_info.level == 3 %}
+                                                                На данном уровне доступно : 5 игроков с составе отряда, владением тремя секторами.
+                                                            {% elif squad_info.level == 4 %}
+                                                                На данном уровне доступно : 6 игроков с составе отряда, владением четырьмя секторами.
+                                                            {% elif squad_info.level == 5 %}
+                                                                На данном уровне доступно : 7 игроков с составе отряда, владением пятью секторами.
+                                                            {% endif %}
+                                                            </p>
+                                                            <dt class="alc-staff-details__label">Стоимость перехода на следуюший уровень :</dt>
+                                                            <dd class="alc-staff-details__value">
+                                                                {% if squad_info.level ==  1 %}
+                                                                    <span id="level_up_cost">1000</span> RC
+                                                                {% elif squad_info.level == 2 %}
+                                                                    <span id="level_up_cost">3000</span> RC
+                                                                {% elif squad_info.level == 3 %}
+                                                                    <span id="level_up_cost">5000</span> RC
+                                                                {% elif squad_info.level == 4 %}
+                                                                    <span id="level_up_cost">10000</span> RC
+                                                                {% elif squad_info.level == 5 %}
+                                                                    <span id="level_up_cost">15000</span> RC
+                                                                {% endif %}
 
 
-          </dd>
+                                                            </dd>
 
 
 
-      </dl>
-  </div>
+                                                        </dl>
+                                                    </div>
 
                                                     <hr>
 
-                                               <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
+                                                    <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                         {% csrf_token %}
 
-                                                                 <div class="form-group">
-                                                                  <label for="contact-form-name">Название отряда <span class="required">*</span></label>
-                                                         
-                                                                     <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
-                                                                   </div>
+                                                        <div class="form-group">
+                                                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
 
-                                                                    <div class="form-group">
-                                                                     <label class="checkbox checkbox-inline">
-                                                                    {{ squad_form.recruting }} Набор открыт?
-                                                                         <span class="checkbox-indicator"></span>
-                                                                     </label>
-                                                                    </div>
+                                                            <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                        </div>
 
-                                                                       <div class="form-group form-group--upload">
-                                                                            <div class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
-                                                                                <div class="form-group__label">
-                                                                                    <h6>Логотип отряда</h6><span>Желательно прозрачный png</span></div>
-                                                                            </div>
-                                                                            <div class="form-group__upload">
-                                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
-                                                                                  <input type="file" name="{{ squad_form.avatar.name }}"   style="display: none;" >
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="checkbox checkbox-inline">
+                                                                {{ squad_form.recruting }} Набор открыт?
+                                                                <span class="checkbox-indicator"></span>
+                                                            </label>
+                                                        </div>
 
-                                                                   <div class="form-group">
-                                                                    <label for="squad_info">Дополнительная информация об отряде </label>
+                                                        <div class="form-group form-group--upload">
+                                                            <div class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
+                                                                <div class="form-group__label">
+                                                                    <h6>Логотип отряда</h6><span>Желательно прозрачный png</span></div>
+                                                            </div>
+                                                            <div class="form-group__upload">
+                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
+                                                                    <input type="file" name="{{ squad_form.avatar.name }}"   style="display: none;" >
+                                                                </label>
+                                                            </div>
+                                                        </div>
 
-                                                                       <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
-                                                                 </div>
-                                                                 <input type="hidden" name="update" value="1">
-                                                                    <input type="hidden" name="{{ squad_form.wear.name  }}" value="{{ squad_info.wear.id }}">
+                                                        <div class="form-group">
+                                                            <label for="squad_info">Дополнительная информация об отряде </label>
+
+                                                            <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
+                                                        </div>
+                                                        <input type="hidden" name="update" value="1">
+                                                        <input type="hidden" name="{{ squad_form.wear.name  }}" value="{{ squad_info.wear.id }}">
 
                                                         <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить данные отряда</button>
                                                     </form>
@@ -322,226 +322,155 @@
                                     </div>
                                 </div>
 
-            </div>
-             </div>
-          {% endif %}
-        </div>
-
-        <div class="sidebar col-md-4">
-
-
-            <aside id="pm" class="widget card widget--sidebar widget-newslog">
-                <div class="widget__title card__header">
-                    <h4>Сообшения</h4></div>
-                <div class="widget__content card__content">
-                    <ul class="newslog">
-                        {% if pm%}
-                            {% for message in pm %}
-                        <li class="newslog__item newslog__item--join">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong> <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'del_message' %}?m_id={{message.id  }}">Х</a></div>
-                                <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
                             </div>
-                        </li>
-
-                    {% endfor %}
-                    {% else %}
-                           <li class="newslog__item newslog__item--exit">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Личных сообщений нет</strong> </div>
-
-                            </div>
-                        </li>
+                        </div>
                     {% endif %}
-
-                    </ul>
                 </div>
-            </aside>
-          <aside id="orders" class="widget card widget--sidebar widget-newslog">
-                <div class="widget__title card__header">
-                    <h4>Заказы в BLACKMARKET</h4></div>
-                <div class="widget__content card__content">
-                    <ul class="newslog">
-                        {% if all_orders%}
-                            {% for order in all_orders %}
-                        <li class="newslog__item newslog__item--join">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Заказ № : {{ order.id }} на сумму {{ order.total_price }} RC</strong> </div>
-                            <hr>
-                                <div class="newslog__content"><strong>Состав заказа :</strong> </div>
-                            <ol >
+
+                <div class="sidebar col-md-4">
 
 
+                    <aside id="pm" class="widget card widget--sidebar widget-newslog">
+                        <div class="widget__title card__header">
+                            <h4>Сообшения</h4></div>
+                        <div class="widget__content card__content">
+                            <ul class="newslog">
+                                {% if pm%}
+                                    {% for message in pm %}
+                                        <li class="newslog__item newslog__item--join">
+                                            <div class="newslog__item-inner">
+                                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong> <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'del_message' %}?m_id={{message.id  }}">Х</a></div>
+                                                <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
+                                            </div>
+                                        </li>
 
-                                {% for item in order.itemsinorder_set.all%}
-                             <li><div class="newslog__date"><strong>{{ item.item.name }} x {{ item.number }} шт.</strong></div></li>
-                                {% endfor %}
-                            </ol>
-                            <hr>
-                                <div class="newslog__date"><strong>Состояние: <span >В обработке</span></strong></div>
-                            </div>
-                        </li>
-
-                    {% endfor %}
-                    {% else %}
-                           <li class="newslog__item newslog__item--exit">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Не выданых заказов нет ;)</strong> </div>
-
-                            </div>
-                        </li>
-                    {% endif %}
-
-                    </ul>
-                </div>
-            </aside>
-            {% if squad_info %}
-             <aside id="squad_members" class="widget card widget--sidebar widget-newslog">
-                <div class="widget__title card__header">
-                    <h4>Состав отряда</h4></div>
-                <div class="widget__content card__content">
-                    <ul class="newslog">
-                        {% for playerr in squad_members %}
-                            {% if playerr.player.is_squad_leader%}
-                                <li class="newslog__item newslog__item--award">
+                                    {% endfor %}
                                 {% else %}
-                        <li class="newslog__item newslog__item--injury">
-                        {% endif %}
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong><a  href="{% url 'profile' playerr.player.nickname %}">{{ playerr.player.personaname }}</a></strong>
+                                    <li class="newslog__item newslog__item--exit">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Личных сообщений нет</strong> </div>
 
-                                    {% if player.is_squad_leader%}
-                                        {% if playerr.player.id != player.id %}
+                                        </div>
+                                    </li>
+                                {% endif %}
 
-                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}" onclick="return confirm('Точно исключить из отряда?');">ИСКЛЮЧИТЬ</a>
-                                         {% endif %}
-                                        {% else %}
-                                         {% if playerr.player.id == player.id %}
+                            </ul>
+                        </div>
+                    </aside>
+                    <aside id="orders" class="widget card widget--sidebar widget-newslog">
+                        <div class="widget__title card__header">
+                            <h4>Заказы в BLACKMARKET</h4></div>
+                        <div class="widget__content card__content">
+                            <ul class="newslog">
+                                {% if all_orders%}
+                                    {% for order in all_orders %}
+                                        <li class="newslog__item newslog__item--join">
+                                            <div class="newslog__item-inner">
+                                                <div class="newslog__content"><strong>Заказ № : {{ order.id }} на сумму {{ order.total_price }} RC</strong> </div>
+                                                <hr>
+                                                <div class="newslog__content"><strong>Состав заказа :</strong> </div>
+                                                <ol >
 
-                                       <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'leave_squad'%}" onclick="return confirm('Точно покинуть отряд?');">ПОКИНУТЬ</a>
-                                         {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="newslog__date">Взносов в общак отряда : {{ playerr.income }} RC</div>
+
+
+                                                    {% for item in order.itemsinorder_set.all%}
+                                                        <li><div class="newslog__date"><strong>{{ item.item.name }} x {{ item.number }} шт.</strong></div></li>
+                                                    {% endfor %}
+                                                </ol>
+                                                <hr>
+                                                <div class="newslog__date"><strong>Состояние: <span >В обработке</span></strong></div>
+                                            </div>
+                                        </li>
+
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="newslog__item newslog__item--exit">
+                                        <div class="newslog__item-inner">
+                                            <div class="newslog__content"><strong>Не выданых заказов нет ;)</strong> </div>
+
+                                        </div>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </aside>
+                    {% if squad_info %}
+                        <aside id="squad_members" class="widget card widget--sidebar widget-newslog">
+                            <div class="widget__title card__header">
+                                <h4>Состав отряда</h4></div>
+                            <div class="widget__content card__content">
+                                <ul class="newslog">
+                                    {% for playerr in squad_members %}
+                                        {% if playerr.player.is_squad_leader%}
+                                            <li class="newslog__item newslog__item--award">
+                                                {% else %}
+                                            <li class="newslog__item newslog__item--injury">
+                                        {% endif %}
+                                    <div class="newslog__item-inner">
+                                        <div class="newslog__content"><strong><a  href="{% url 'profile' playerr.player.nickname %}">{{ playerr.player.personaname }}</a></strong>
+
+                                            {% if player.is_squad_leader%}
+                                                {% if playerr.player.id != player.id %}
+
+                                                    <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'kick_player' playerr.player.nickname %}" onclick="return confirm('Точно исключить из отряда?');">ИСКЛЮЧИТЬ</a>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if playerr.player.id == player.id %}
+
+                                                    <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'leave_squad'%}" onclick="return confirm('Точно покинуть отряд?');">ПОКИНУТЬ</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="newslog__date">Взносов в общак отряда : {{ playerr.income }} RC</div>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </aside>
-         {% endif %}
-        {% if player.is_squad_leader %}
-            <aside id="squad_requests" class="widget card widget--sidebar widget-newslog">
-                <div class="widget__title card__header">
-                    <h4>Заявки на вступление</h4></div>
-                <div class="widget__content card__content">
-                    <ul class="newslog">
-                    {% if squad_join_requests%}
-                            {% for rr in squad_join_requests %}
-                        <li class="newslog__item newslog__item--join">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px;" src="{{ rr.player.avatar }}"/> <strong><a  href="{% url 'profile' rr.player.nickname %}">{{ rr.player.personaname }}</a></strong> </div>
-                                <div class="newslog__date"><a class="btn btn-success btn-outline btn-xs" href="{% url 'confirm_request' %}?name={{ rr.player.nickname }}">ПРИНЯТЬ</a> <a class="btn btn-danger btn-outline btn-xs" href="{% url 'reject_request' %}?r_id={{ rr.id }}">ОТКЛОНИТЬ</a></div>
-
-                            </div>
-                        </li>
-
-                    {% endfor %}
-                    {% else %}
-                           <li class="newslog__item newslog__item--exit">
-                            <div class="newslog__item-inner">
-                                <div class="newslog__content"><strong>Заявок в отряд нет</strong> </div>
-
-                            </div>
-                        </li>
+                        </aside>
                     {% endif %}
-                    </ul>
+                    {% if player.is_squad_leader %}
+                        <aside id="squad_requests" class="widget card widget--sidebar widget-newslog">
+                            <div class="widget__title card__header">
+                                <h4>Заявки на вступление</h4></div>
+                            <div class="widget__content card__content">
+                                <ul class="newslog">
+                                    {% if squad_join_requests%}
+                                        {% for rr in squad_join_requests %}
+                                            <li class="newslog__item newslog__item--join">
+                                                <div class="newslog__item-inner">
+                                                    <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px;" src="{{ rr.player.avatar }}"/> <strong><a  href="{% url 'profile' rr.player.nickname %}">{{ rr.player.personaname }}</a></strong> </div>
+                                                    <div class="newslog__date"><a class="btn btn-success btn-outline btn-xs" href="{% url 'confirm_request' %}?name={{ rr.player.nickname }}">ПРИНЯТЬ</a> <a class="btn btn-danger btn-outline btn-xs" href="{% url 'reject_request' %}?r_id={{ rr.id }}">ОТКЛОНИТЬ</a></div>
+
+                                                </div>
+                                            </li>
+
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="newslog__item newslog__item--exit">
+                                            <div class="newslog__item-inner">
+                                                <div class="newslog__content"><strong>Заявок в отряд нет</strong> </div>
+
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </aside>
+
+
+                    {% endif %}
+
                 </div>
-            </aside>
-
-
-            {% endif %}
+                <!-- Sidebar / End -->
+            </div>
 
         </div>
-        <!-- Sidebar / End -->
     </div>
-    <div style="background-image: url(/static/images/map.png);width: 900px; height: 900px;background-size: contain;">
-
-        <table style="
-        table-layout: fixed;
-        width: 900px;
-    height: 900px;">
-            <tr style="    height: 25%;">
-                <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-            </tr>
-             <tr style="    height: 25%;">
-                <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-            </tr>
-             <tr style="    height: 25%;">
-                <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-                 <td>sdf</td>
-            </tr>
-             <tr style="    height: 25%;" >
-
-                 {% for sect in sectors_a %}
-
-                    <td style="
-                         text-align: center;
-                          color: #fff;
-                         font-weight: bold;
-                            {% if sect.squad.name %}
-                                background-color: #ff7e1f96;
-                                color: #fff;
-                            {% endif %}
-    "
-                        {% for war in wars_a %}
-                        {% if war.sector.id == sect.id %}
-                        data-toggle="tooltip" data-html="true"
-                        title="
-{{ war.war_date }}
-{{ war.enemy.name }}
-                        ">
-                        {% endif %}
-                    {% endfor %}
-
-                        {{ sect.name }}<br>
-                         {% if sect.squad.name %}
-                            Владелец с {{ sect.own.date }}<br>
-                            <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
-                             {{ sect.squad.name }}<br>
-                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
-                                     <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                {%endif%}
-                            {% else %}
-                            <div>
-                                СВОБОДНО<br>
-                                Доход : {{ sect.income }}<br>
-                                Цена : {{ sect.price }}<br>
-                                 {% if player.is_squad_leader %}
-                                    <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
-                                 {%endif%}
-                            </div>
-
-                         {% endif %}
-                    </td>
-                 {% endfor %}
-            </tr>
-        </table>
-
-    </div>
-</div>
-</div>
 
 
 
 
-        <!-- Content / End -->
+    <!-- Content / End -->
 {% endblock %}

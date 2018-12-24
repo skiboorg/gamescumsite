@@ -133,8 +133,6 @@ def profile(request, nickname_req):
     else:
         if request.user.is_authenticated:
             if nickname_req == request.user.nickname:
-                sectors_a = SquadSectors.objects.filter(name__startswith='a').order_by('-name')
-                wars_a = SectorWars.objects.all()
 
 
                 own_profile = True

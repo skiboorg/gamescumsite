@@ -1,84 +1,101 @@
 {% load static %}
-     <!-- Header
-		================================================== -->
-        <!-- Header Mobile -->
-        <div class="header-mobile clearfix" id="header-mobile">
-            <div class="header-mobile__logo">
-                <a href="/"><img src="{% static 'images/logo.png' %}" srcset="{% static 'images/logo.png' %}" alt="Alchemists" class="header-mobile__logo-img"></a>
-            </div>
-            <div class="header-mobile__inner"><a id="header-mobile__toggle" class="burger-menu-icon"><span class="burger-menu-icon__line"></span></a> <span class="header-mobile__search-icon" id="header-mobile__search-icon"></span></div>
-        </div>
-  <!-- Header Desktop -->
-        <header class="header">
+<!-- Header
+   ================================================== -->
+<!-- Header Mobile -->
+<div class="header-mobile clearfix" id="header-mobile">
+    <div class="header-mobile__logo">
+        <a href="/"><img src="{% static 'images/logo.png' %}" srcset="{% static 'images/logo.png' %}" alt="Alchemists" class="header-mobile__logo-img"></a>
+    </div>
+    <div class="header-mobile__inner"><a id="header-mobile__toggle" class="burger-menu-icon"><span class="burger-menu-icon__line"></span></a> <span class="header-mobile__search-icon" id="header-mobile__search-icon"></span></div>
+</div>
+<!-- Header Desktop -->
+<header class="header">
 
-            <div class="header__secondary">
-                <div class="container">
-                    <!-- Header Search Form -->
-{#                    <div class="header-search-form">#}
-{#                        <form action="#" id="mobile-search-form" class="search-form">#}
-{#                            <input type="text" class="form-control header-mobile__search-control" value="" placeholder="Enter your search here...">#}
-{#                            <button type="submit" class="header-mobile__search-submit"><i class="fa fa-search"></i></button>#}
-{#                        </form>#}
-{#                    </div>#}
-                    <!-- Header Search Form / End -->
-                    <ul class="info-block info-block--header">
+    <div class="header__secondary">
+        <div class="container">
+            <!-- Header Search Form -->
+            {#                    <div class="header-search-form">#}
+            {#                        <form action="#" id="mobile-search-form" class="search-form">#}
+            {#                            <input type="text" class="form-control header-mobile__search-control" value="" placeholder="Enter your search here...">#}
+            {#                            <button type="submit" class="header-mobile__search-submit"><i class="fa fa-search"></i></button>#}
+            {#                        </form>#}
+            {#                    </div>#}
+            <!-- Header Search Form / End -->
+            <ul class="info-block info-block--header">
 
-                        <li class="info-block__item info-block__item--contact-primary">
-                               <a href="/support_us" class="btn btn-danger btn-xs btn-outline">ПОДДЕРЖАТЬ СЕРВЕР</a>
-                         </li>
-                        <li class="info-block__item info-block__item--contact-secondary">
-                                 <a href="{% url 'about_us'  %}" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
-                         </li>
-                      {% if user.is_authenticated %}
+                <li class="info-block__item info-block__item--contact-primary">
+                    <a href="/support_us" class="btn btn-danger btn-xs btn-outline">ПОДДЕРЖАТЬ СЕРВЕР</a>
+                </li>
+                <li class="info-block__item info-block__item--contact-secondary">
+                    <a href="{% url 'about_us'  %}" class="btn btn-warning btn-xs btn-outline">О СЕРВЕРЕ</a>
+                </li>
+                {% if user.is_authenticated %}
 
-                          <div class="dropdown show info-block__item info-block__item--contact-secondary">
-  <a style="background-color: #ff7e1f;
+                    <div class="dropdown show info-block__item info-block__item--contact-secondary">
+                        <a style="background-color: #ff7e1f;
     border-color: #ff7e1f;" class="btn btn-warning btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    МЕНЮ ИГРОКА
-  </a>
+                            МЕНЮ ИГРОКА
+                        </a>
 
-  <div style="box-shadow: inset 0 0 10px 1px #1e2024e3;
+                        <div style="box-shadow: inset 0 0 10px 1px #1e2024e3;
     background-color: rgb(255, 126, 31);
     border-radius: 4px;
     border: 1px solid #292c31;" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-     <a class="dropdown-item" href="{% url 'profile' user.nickname %}">Персональная информация</a>
-    <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
-      {% if user.is_squad_leader  %}
-            <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad">Управление отрядом<span class="highlight"></span></a>
-      {% else %}
-          {% if  not player_squad_member %}
-              <a class="dropdown-item" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
-          {% else %}
-              <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
-          {% endif %}
-      {% endif %}
+                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}">Персональная информация</a>
+                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
+                            <a class="dropdown-item"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET<span style="font-size: 10px;" class="badge badge-warning">{% if orders_count > 0 %} {{ orders_count }}{% endif %}</span></a><br>
+                            {% if user.is_squad_leader  %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad">Управление отрядом<span class="highlight"></span></a>
+                            {% else %}
+                                {% if  not player_squad_member %}
+                                    <a class="dropdown-item" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
+                                {% endif %}
+                            {% endif %}
 
-    <div class="dropdown-divider"></div>
-      <a class="dropdown-item"  href="{% url "logout" %}">ВЫХОД </a>
-  </div>
-</div>
-
-                        {% else %}
-                             <li class="info-block__item info-block__item--contact-secondary"><a class="btn btn-warning btn-sm " href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item"  href="{% url "logout" %}">ВЫХОД </a>
+                        </div>
+                        {% if pm.count > 0 or orders_count > 0 %}
+                            <div style="    width: 30px;
+    height: 38px;
+    background-color: #f34141;
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;"><span style="    display: block;
+    margin-top: 8px;
+    margin-left: 11px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: bold;">!</span></div>
                         {% endif %}
-                    {% if user.is_authenticated %}
-                        <li class="info-block__item info-block__item--shopping-cart">
-                            <a href="#" class="info-block__link-wrapper">
-                                <div class="df-icon-stack df-icon-stack--bag">
-                                    <svg role="img" class="df-icon df-icon--bag">
+                    </div>
 
-                                    </svg>
-                                    <svg role="img" class="df-icon df-icon--bag-handle">
 
-                                    </svg>
-                                </div>
-                                <h6 class="info-block__heading">КОРЗИНА <span id="count_items_in_cart"> ({{ count_items_in_cart }})</span></h6><span class="info-block__cart-sum">{{ total_cart_price }} RC</span> </a>
-                            <!-- Dropdown Shopping Cart -->
-                            <ul class="header-cart">
-                                 {% for item_in_backet in all_items_in_cart %}
-                                   <li class="header-cart__item">
+                {% else %}
+                    <li class="info-block__item info-block__item--contact-secondary"><a class="btn btn-warning btn-sm " href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a></li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="info-block__item info-block__item--shopping-cart">
+                        <a href="#" class="info-block__link-wrapper">
+                            <div class="df-icon-stack df-icon-stack--bag">
+                                <svg role="img" class="df-icon df-icon--bag">
+
+                                </svg>
+                                <svg role="img" class="df-icon df-icon--bag-handle">
+
+                                </svg>
+                            </div>
+                            <h6 class="info-block__heading">КОРЗИНА <span id="count_items_in_cart"> ({{ count_items_in_cart }})</span></h6><span class="info-block__cart-sum">{{ total_cart_price }} RC</span> </a>
+                        <!-- Dropdown Shopping Cart -->
+                        <ul class="header-cart">
+                            {% for item_in_backet in all_items_in_cart %}
+                                <li class="header-cart__item">
                                     <figure style="width: 100px;" class="header-cart__product-thumb">
                                         <a href="{{  item_in_backet.item.category.name_slug }}"><img src="{{  item_in_backet.item.image.url }}" alt=""></a>
                                     </figure>
@@ -87,61 +104,61 @@
                                         <div class="header-cart__product-sum"><span class="header-cart__product-price">{{ item_in_backet.current_price }}</span> x <span class="header-cart__product-count">{{ item_in_backet.number }}</span> = <span class="header-cart__product-count">{{ item_in_backet.total_price }} RC</span> </div>
                                         <a class="fa fa-times header-cart__close" href="#" data-item_id="{{  item_in_backet.item.id }}" onclick="delete_from_cart(this);return false;"></a>
                                     </div>
-                                    </li>
-                                {% endfor %}
+                                </li>
+                            {% endfor %}
                             {% if all_items_in_cart.count > 0 %}
                                 <li class="header-cart__item header-cart__item--subtotal"><span class="header-cart__subtotal">ИТОГО</span> <span class="header-cart__subtotal-sum">{{ total_cart_price }} RC</span></li>
                                 <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : {{ request.user.wallet }}</a> <a href="{% url 'place_order' %}" onclick="place_order(this);return false;" data-total_price="{{ total_cart_price }}" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>
-                           {% else %}
+                            {% else %}
                                 <li class="header-cart__item header-cart__item--subtotal"> КОРЗИНА ПУСТА</li>
                             {% endif %}
-                            </ul>
-                            <!-- Dropdown Shopping Cart / End -->
-                        </li>
-                     {% endif %}
+                        </ul>
+                        <!-- Dropdown Shopping Cart / End -->
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <!-- Header Secondary / End -->
+    <!-- Header Primary -->
+    <div class="header__primary">
+        <div class="container">
+            <div class="header__primary-inner">
+                <!-- Header Logo -->
+                <div class="header-logo">
+                    <a href="/"><img src="{% static 'images/logo.png' %}" alt="GAMESCUM ИГРОВОЙ СЕРВЕР" srcset="{% static 'images/logo.png' %}" class="header-logo__img"></a>
+                </div>
+                <!-- Header Logo / End -->
+                <!-- Main Navigation -->
+                <nav class="main-nav clearfix">
+                    <ul class="main-nav__list">
+                        {#                                <li class="active"><a href="/">ГЛАВНАЯ</a></li>#}
+                        <li class=""><a href="#">СТАТИСТИКА</a></li>
+                        <li class=""><a href="{% url 'events_home' %}">МЕРОПРИЯТИЯ</a></li>
+                        <li class="{{ squad_active }}"><a href="{% url 'all_squads' %}">ОТРЯДЫ</a></li>
+                        <li class="{{ shop_active }}"><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
+
                     </ul>
-                </div>
-            </div>
-            <!-- Header Secondary / End -->
-            <!-- Header Primary -->
-            <div class="header__primary">
-                <div class="container">
-                    <div class="header__primary-inner">
-                        <!-- Header Logo -->
-                        <div class="header-logo">
-                            <a href="/"><img src="{% static 'images/logo.png' %}" alt="GAMESCUM ИГРОВОЙ СЕРВЕР" srcset="{% static 'images/logo.png' %}" class="header-logo__img"></a>
-                        </div>
-                        <!-- Header Logo / End -->
-                        <!-- Main Navigation -->
-                        <nav class="main-nav clearfix">
-                            <ul class="main-nav__list">
-{#                                <li class="active"><a href="/">ГЛАВНАЯ</a></li>#}
-                                <li class=""><a href="#">СТАТИСТИКА</a></li>
-                                <li class=""><a href="{% url 'events_home' %}">МЕРОПРИЯТИЯ</a></li>
-                                <li class="{{ squad_active }}"><a href="{% url 'all_squads' %}">ОТРЯДЫ</a></li>
-                                 <li class="{{ shop_active }}"><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
 
-                            </ul>
-
-                            <!-- Social Links -->
-                            <ul class="social-links social-links--inline social-links--main-nav">
-                                <li class="social-links__item"><a href="https://vk.com/scum_survival" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА ВК"><i class="fa fa fa-vk"></i></a></li>
-                                <li class="social-links__item"><a href="https://steamcommunity.com/groups/gamescum" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА STEAM"><i class="fa fa fa-steam"></i></a></li>
-                                <li class="social-links__item"><a href="https://discord.gg/sgUz53k" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="НАШ ДИСКОРД"><i class="fa fa fa-comments"></i></a></li>
-                            </ul>
-                            <!-- Social Links / End -->
-                            <!-- Pushy Panel Toggle -->
-                             {% if user.is_authenticated %}
-                            <a href="#" class="pushy-panel__toggle"><span class="pushy-panel__line"></span> </a>
-                            {% endif %}
-                            <!-- Pushy Panel Toggle / Eng -->
-                        </nav>
-                        <!-- Main Navigation / End -->
-                    </div>
-                </div>
+                    <!-- Social Links -->
+                    <ul class="social-links social-links--inline social-links--main-nav">
+                        <li class="social-links__item"><a href="https://vk.com/scum_survival" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА ВК"><i class="fa fa fa-vk"></i></a></li>
+                        <li class="social-links__item"><a href="https://steamcommunity.com/groups/gamescum" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="ГРУППА STEAM"><i class="fa fa fa-steam"></i></a></li>
+                        <li class="social-links__item"><a href="https://discord.gg/sgUz53k" target="_blank" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="НАШ ДИСКОРД"><i class="fa fa fa-comments"></i></a></li>
+                    </ul>
+                    <!-- Social Links / End -->
+                    <!-- Pushy Panel Toggle -->
+                    {% if user.is_authenticated %}
+                        <a href="#" class="pushy-panel__toggle"><span class="pushy-panel__line"></span> </a>
+                    {% endif %}
+                    <!-- Pushy Panel Toggle / Eng -->
+                </nav>
+                <!-- Main Navigation / End -->
             </div>
-            <!-- Header Primary / End -->
-        </header>
+        </div>
+    </div>
+    <!-- Header Primary / End -->
+</header>
 <aside class="pushy-panel">
     <div class="pushy-panel__inner">
         <header class="pushy-panel__header">
@@ -160,45 +177,45 @@
                                 <h6 class="posts__title"><a href="#">ДОСТУПНЫЕ ДЕЙСТВИЯ</a></h6>
 
 
-                                    {% if user.is_authenticated %}
-                                        {% if user.is_staff %}
-                                           <a class="btn btn-danger btn-outline btn-sm info_button"  href="{% url 'stat' %}">Статистика</a>
-                                            <hr>
-                                         {% endif %}
+                                {% if user.is_authenticated %}
+                                    {% if user.is_staff %}
+                                        <a class="btn btn-danger btn-outline btn-sm info_button"  href="{% url 'stat' %}">Статистика</a>
+                                        <hr>
+                                    {% endif %}
 
-                              <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}">ТВОЙ ПРОФИЛЬ</a>
+                                    <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}">ТВОЙ ПРОФИЛЬ</a>
 
-                        <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#pm">Личные сообщения
-                            <span style="font-size: 10px;" class="badge badge-warning">{% if pm.count > 0 %} {{ pm.count }}{% else %} 0 {% endif %}</span></a><br>
+                                    <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#pm">Личные сообщения
+                                        <span style="font-size: 10px;" class="badge badge-warning">{% if pm.count > 0 %} {{ pm.count }}{% else %} 0 {% endif %}</span></a><br>
 
-                           <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET
-                            <span style="font-size: 10px;" class="badge badge-warning">{% if orders_count > 0 %} {{ orders_count }}{% endif %}</span></a><br>
-
-
-
-                        {% if user.is_squad_leader %}
-                            <hr>
-                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad">Управление отрядом
-                                <span class="highlight"></span></a><br>
-                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_members">Состав отряда
-                                <span class="highlight"></span></a><br>
-                             <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_requests">Заявки на вступление
-                                <span class="highlight"></span></a><br>
-
-                            {% else %}
-                             {% if  not player_squad_member %}
-                                 <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
-                                  {% else %}
-                                 <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
-                             {% endif %}
+                                    <a class="btn btn-warning btn-outline btn-sm info_button"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET
+                                        <span style="font-size: 10px;" class="badge badge-warning">{% if orders_count > 0 %} {{ orders_count }}{% endif %}</span></a><br>
 
 
-                        {% endif %}
-                               <hr>
-                              <a class="btn btn-danger btn-outline btn-sm" style="color: red;" href="{% url "logout" %}">ВЫХОД </a><br>
-                        {% else %}
-                             <a class="btn btn-warning btn-outline btn-sm" href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a>
-                        {% endif %}
+
+                                    {% if user.is_squad_leader %}
+                                        <hr>
+                                        <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad">Управление отрядом
+                                            <span class="highlight"></span></a><br>
+                                        <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_members">Состав отряда
+                                            <span class="highlight"></span></a><br>
+                                        <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_requests">Заявки на вступление
+                                            <span class="highlight"></span></a><br>
+
+                                    {% else %}
+                                        {% if  not player_squad_member %}
+                                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
+                                        {% else %}
+                                            <a class="btn btn-warning btn-outline btn-sm info_button" href="{% url 'profile' user.nickname %}#squad_member_info">ОТРЯД</a>
+                                        {% endif %}
+
+
+                                    {% endif %}
+                                    <hr>
+                                    <a class="btn btn-danger btn-outline btn-sm" style="color: red;" href="{% url "logout" %}">ВЫХОД </a><br>
+                                {% else %}
+                                    <a class="btn btn-warning btn-outline btn-sm" href="#" data-toggle="modal" data-target="#modal-login-register">ВХОД | РЕГИСТРАЦИЯ</a>
+                                {% endif %}
 
                             </div>
 
