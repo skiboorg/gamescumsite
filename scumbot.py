@@ -10,7 +10,7 @@ from discord import Game
 from discord.ext.commands import Bot
 import sqlite3
 
-conn = sqlite3.connect('C:\/Users\ххх\PycharmProjects\gamescumsite\db.sqlite3')
+conn = sqlite3.connect(bot_settings.DB_PATH)
 cursor = conn.cursor()
 
 BOT_PREFIX = ("?", "!")

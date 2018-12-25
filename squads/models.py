@@ -1,6 +1,6 @@
 from django.db import models
 from pytils.translit import slugify
-from django.utils import timezone
+from datetime import datetime
 from authentication.models import SteamUser
 from django.db.models.signals import post_save, post_delete
 
@@ -33,7 +33,7 @@ class Squad(models.Model):
     battles_loose = models.IntegerField(default=0, blank=True)
     vip = models.BooleanField(default=False)
     recruting = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now())
 
     @property
     def get_members(self):
@@ -56,7 +56,7 @@ class Squad(models.Model):
 class SquadRequests(models.Model):
     squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.CASCADE)
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now())
 
 
 
@@ -87,8 +87,8 @@ class SquadSectors(models.Model):
     name = models.CharField(max_length=5, blank=False, null=False)
     income = models.IntegerField(default=0, blank=False)
     price = models.IntegerField(default=0, blank=False)
-    own = models.DateTimeField(auto_now_add=True)
-    last_pay = models.DateTimeField(auto_now_add=True)
+    own = models.DateTimeField(default=datetime.now())
+    last_pay = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         if self.squad:

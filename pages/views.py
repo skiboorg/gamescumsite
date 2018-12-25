@@ -8,7 +8,7 @@ from authentication.models import *
 from squads.models import *
 from shop.models import Orders
 import json
-import requests
+from django.utils import timezone
 from datetime import datetime , time
 from lxml import html
 import requests
