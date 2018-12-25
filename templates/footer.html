@@ -126,12 +126,22 @@
                                     </div>
 
                             </div>
-                            <div class="modal-account__item">
-                                <img src="{% static 'images/logo.png' %}">
-                                <img src="{% static 'images/steam_logo.png' %}">
+                           <div class="modal-account__item">
+                                <img src="/static/images/logo.png" style="
+    margin: auto;
+    display: block;
+">
+                                <img src="/static/images/steam.png" style="
+    margin: auto;
+    display: block;
+    margin-bottom: 40px;
+">
 
 
-                                <a href="{% url "social:begin" "steam" %}" class="btn btn-warning btn-outline btn-sm"> <i style="font-size: 18px" class="fa fa-steam fa-3" aria-hidden="true"></i><span style="font-size: 18px"> ВОЙТИ ЧЕРЕЗ STEAM</span> </a>
+                                <a href="/login/steam/" class="btn btn-warning btn-outline btn-sm" style="
+    margin: auto;
+    display: block;
+"> <i style="font-size: 18px" class="fa fa-steam fa-3" aria-hidden="true"></i><span style="font-size: 18px"> ВОЙТИ ЧЕРЕЗ STEAM</span> </a>
                             </div>
                         </div>
                     </div>

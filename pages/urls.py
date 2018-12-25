@@ -25,6 +25,7 @@ urlpatterns = [
     path('logout/', views.logout_page, name='logout'),
     path('profile/<nickname_req>', views.profile, name='profile'),
     path('del_message/', views.del_message, name='del_message'),
+    path('bonus_pack/', views.bonus_pack, name='bonus_pack'),
     path('about_us/', views.about_us, name='about_us'),
 
 

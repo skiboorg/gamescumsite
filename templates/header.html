@@ -43,8 +43,8 @@
     border: 1px solid #292c31;" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
                             <a class="dropdown-item" href="{% url 'profile' user.nickname %}">Персональная информация</a>
-                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} ({{ pm.count }}){% else %} (0) {% endif %}</span></a>
-                            <a class="dropdown-item"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET<span style="font-size: 10px;" class="badge badge-warning">{% if orders_count > 0 %} {{ orders_count }}{% endif %}</span></a><br>
+                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} (<strong>{{ pm.count }}</strong>){% else %} (0) {% endif %}</span></a>
+                            <a class="dropdown-item"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET<span  class="highlight">{% if orders_count > 0 %} (<strong>{{ orders_count }}</strong>){% endif %}</span></a><br>
                             {% if user.is_squad_leader  %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad">Управление отрядом<span class="highlight"></span></a>
@@ -133,7 +133,7 @@
                 <nav class="main-nav clearfix">
                     <ul class="main-nav__list">
                         {#                                <li class="active"><a href="/">ГЛАВНАЯ</a></li>#}
-                        <li class=""><a href="#">СТАТИСТИКА</a></li>
+{#                        <li class=""><a href="#">СТАТИСТИКА</a></li>#}
                         <li class=""><a href="{% url 'events_home' %}">МЕРОПРИЯТИЯ</a></li>
                         <li class="{{ squad_active }}"><a href="{% url 'all_squads' %}">ОТРЯДЫ</a></li>
                         <li class="{{ shop_active }}"><a href="{% url 'shop_home' %}">BLACKMARKET</a></li>

@@ -8,6 +8,7 @@ from django.db.models.signals import post_save, post_delete
 class SquadWear(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
     spawn_info = models.TextField(default='Тут можно указать команды спавна')
+    image = models.ImageField(upload_to='squad_avatars/', null=True, blank=False)
     for_vip = models.BooleanField(default=False)
 
     def __str__(self):

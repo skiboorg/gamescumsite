@@ -127,8 +127,9 @@ def place_order(request):
                                                          from_player_name=player.personaname,
                                                          from_player_name_slug=player.nickname,
                                                          from_player_avatar=str(player.avatar),
-                                                         text='Я сделал заказ в магазине. Мой дискорд {}'.format(
-                                                             player.discord_nickname))
+                                                         text='Я сделал заказ в магазине. '
+                                                              'Номер заказа : {} . Мой дискорд {} '
+                                                              .format(str(order.id), player.discord_nickname))
             new_message.save()
 
         return_dict['place_order_status'] = '1'

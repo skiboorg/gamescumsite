@@ -30,7 +30,7 @@ class Categories(models.Model):
 class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=False, null=True)
-    item_spawn_name = models.CharField(max_length=30, blank=False, null=True)
+    item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
     image = models.ImageField(upload_to='shop/', null=True, blank=False)
     active = models.BooleanField(default=True)
     price = models.IntegerField(default=0)

@@ -8,7 +8,7 @@ from authentication.models import *
 from squads.models import *
 from shop.models import Orders
 import json
-from django.utils import timezone
+from django.contrib import messages
 from datetime import datetime , time
 from lxml import html
 import requests
@@ -50,7 +50,7 @@ def index(request):
             player.level += 1
             player.save(force_update=True)
 
-        if not player.vip and player.rating > 300:
+        if not player.vip and player.rating > 500:
             player.vip = True
             player.rank = 'VIP'
             player.save(force_update=True)
@@ -202,5 +202,25 @@ def del_message(request):
 
 def about_us(request):
     return render(request, 'pages/about_us.html', locals())
+
+def bonus_pack(request):
+    admins = SteamUser.objects.filter(is_staff=True)
+    player = request.user
+    for admin in admins:
+        new_message = PrivateMessages.objects.create(to_player_id=admin.id,
+                                                     from_player_name=player.personaname,
+                                                     from_player_name_slug=player.nickname,
+                                                     from_player_avatar=str(player.avatar),
+                                                     text='Привет богоподобный и лучезарный админ!!! '
+                                                          'Я бы хотел попросить бонус пак . Мой дискорд {}. '
+                                                          'Огромное спасибо и здоровья на долгие года.'
+                                                          .format(player.discord_nickname))
+        new_message.save()
+    player.bonus_pack = True
+    player.save(force_update=True)
+    messages.add_message(request, messages.INFO, 'Заявка на получение бонус-пака отправлена! '
+                                                 'Ожидай в дискорде сообщения от администрации сервера.')
+
+    return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 

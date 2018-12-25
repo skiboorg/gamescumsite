@@ -54,6 +54,7 @@ async def on_ready():
 @client.command(pass_context=True)
 async def zp(ctx):
     player_discord_id = str(ctx.message.author.id)
+    user = ctx.message.author
 
 
     try:
@@ -65,9 +66,12 @@ async def zp(ctx):
     if steam_id:
         print('Аккаунт гайден')
         cursor.execute("SELECT last_zp FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
-        last_zp = cursor.fetchone()[0]
+        last_zp = datetime.strptime(cursor.fetchone()[0], '%Y-%m-%d %H:%M:%S.%f')
         print(last_zp)
-        if last_zp > str(datetime.now()):
+        print(datetime.now())
+        print(last_zp < datetime.now())
+
+        if last_zp < datetime.now():
             new_zp = datetime.now() + timedelta(days=1)
             print(new_zp)
             cursor.execute("UPDATE authentication_steamuser SET last_zp = (?) WHERE discord_id = (?); ",
@@ -88,7 +92,12 @@ async def zp(ctx):
             if player_vip:
                 print('vip')
                 player_rating += 2
-                player_wallet += 50
+                to_pay = 50 + (player_level * 5)
+                player_wallet += to_pay
+                await client.send_message(user,
+                                          'VIP выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay),
+                                                                                                        str(
+                                                                                                            player_wallet)))
                 cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
                                (player_rating, player_discord_id,))
                 cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
@@ -97,8 +106,11 @@ async def zp(ctx):
 
             else:
                 print('notvip')
+
                 player_rating += 1
-                player_wallet += 30 + (player_level * 5)
+                to_pay = 30 + (player_level * 5)
+                player_wallet += to_pay
+                await client.send_message(user, 'Выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay), str(player_wallet)))
                 cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
                                (player_rating, player_discord_id,))
                 cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
@@ -107,6 +119,7 @@ async def zp(ctx):
             conn.commit()
         else:
             print('выдано')
+            await client.send_message(user, 'Выплата доступна 1 раз в сутки.')
 
     else:
         print('Аккаунт не активирован!')

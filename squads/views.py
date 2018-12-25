@@ -67,7 +67,7 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
-                pass
+                messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 3 сектора!')
 
         if squad.level == 4:
             if sectors_count < 4:
@@ -76,7 +76,7 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
-                pass
+                messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 4 сектора!')
 
         if squad.level == 5:
             if sectors_count < 5:
@@ -85,7 +85,7 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
-                pass
+                messages.add_message(request, messages.INFO, 'У отряда максимальное количество покупаемых секторов!')
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
