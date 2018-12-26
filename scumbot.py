@@ -66,7 +66,10 @@ async def zp(ctx):
     if steam_id:
         print('Аккаунт гайден')
         cursor.execute("SELECT last_zp FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
-        last_zp = datetime.strptime(cursor.fetchone()[0], '%Y-%m-%d %H:%M:%S.%f')
+
+        last_zp = datetime.strptime(cursor.fetchone()[0].split('.')[0], '%Y-%m-%d %H:%M:%S')
+
+
         print(last_zp)
         print(datetime.now())
         print(last_zp < datetime.now())
@@ -119,7 +122,7 @@ async def zp(ctx):
             conn.commit()
         else:
             print('выдано')
-            await client.send_message(user, 'Выплата доступна 1 раз в сутки.')
+            await client.send_message(user, 'Выплата доступна 1 раз в сутки. Получить выплату можно после : {}'.format(str(last_zp)))
 
     else:
         print('Аккаунт не активирован!')
