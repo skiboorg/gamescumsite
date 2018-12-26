@@ -40,7 +40,8 @@
                         <div class="card__header card__header--has-btn">
                             <h4>Персональная информация</h4>
                             {% if not player.bonus_pack %}
-                            <a href="{% url 'bonus_pack' %}" class="btn btn-danger btn-outline btn-xs card-header__button">ПОЛУЧИТЬ БОНУС ПАК</a>
+                                <a href="#" style="margin-left: 5px;" class="btn btn-warning btn-outline btn-xs card-header__button">ЧТО ТАКОЕ БОНУС ПАК?</a>
+                                <a href="{% url 'bonus_pack' %}" class="btn btn-danger btn-outline btn-xs card-header__button">ПОЛУЧИТЬ БОНУС ПАК</a>
                             {% endif %}
                         </div>
 
@@ -61,7 +62,7 @@
                                                             <div class="widget-player__stat widget-player__assists">
                                                                 {% if player.vip %}
                                                                     <img src="{% static '/images/vip.png' %}">
-                                                                 {% elif player.outlaw %}
+                                                                {% elif player.outlaw %}
                                                                     <img src="{% static '/images/outlaw.png' %}">
                                                                 {% endif %}
 
@@ -108,7 +109,8 @@
 
 
                                             <dl class="alc-staff-details">
-
+                                                <dt class="alc-staff-details__label">Покупок в BLACKMARKET:</dt><dd class="alc-staff-details__value">{{ player.total_buys_count }}</dd>
+                                                <dt class="alc-staff-details__label">Сумма покупок:</dt><dd class="alc-staff-details__value">{{ player.total_buys_summ }} RC</dd>
 
                                                 <dt class="alc-staff-details__label">Discord ID:</dt><dd class="alc-staff-details__value">{{ player.discord_nickname }}</dd>
                                                 <dt class="alc-staff-details__label">Steam профиль:</dt><dd class="alc-staff-details__value"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></dd>
@@ -393,8 +395,7 @@
                                                 </ol>
                                                 <hr>
                                                 <div class="newslog__date"><strong>Состояние: <span >В обработке</span></strong><br>
-                                                    <span style="font-weight: 600;color: #f34141;">
-                                                    ЗАКАЗЫ ВЫДАЮТСЯ ПОСЛЕ 20:00 МСК</span>
+
                                                 </div>
                                             </div>
                                         </li>
@@ -410,6 +411,18 @@
                                 {% endif %}
 
                             </ul>
+                            {% if all_orders%}
+                                <hr>
+                                <p style="margin-top: 2px;
+                                            right: 52px;
+                                            font-weight: 600;
+                                            color: #f34141;
+                                            position: absolute;">
+                                    ЗАКАЗЫ ВЫДАЮТСЯ ПОСЛЕ 20:00 МСК
+                                </p>
+
+
+                            {% endif %}
                         </div>
                     </aside>
                     {% if squad_info %}

@@ -2,25 +2,50 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from shop.models import *
 from authentication.models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def shop_home(request):
     shop_active = 'active'
+    page_title = 'BLACKMARKET'
     order = request.GET.get('order')
     all_categories = Categories.objects.all().filter(active=True)
     items_all = Items.objects.all().filter(active=True)
+    page = request.GET.get('page')
+
+
+
+
     if request.GET.get('order') == 'price_gte':
-         items = items_all.order_by('-price')
+        items_qs = items_all.order_by('-price')
+        param = 'price_gte'
+
     elif request.GET.get('order') == 'price_lte':
-         items = items_all.order_by('price')
+        items_qs = items_all.order_by('price')
+        param = 'price_lte'
     elif request.GET.get('order') == 'age_gte':
-         items = items_all.order_by('-created_at')
+        items_qs = items_all.order_by('-created_at')
+        param = 'age_gte'
     elif request.GET.get('order') == 'age_lte':
-         items = items_all.order_by('created_at')
+        items_qs = items_all.order_by('created_at')
+        param = 'age_lte'
     elif request.GET.get('order') == 'discount':
-         items = items_all.order_by('discount')
+        items_qs = items_all.order_by('-discount')
+        param = 'discount'
     else:
-        items = items_all
+        items_qs = items_all
+        param = None
+
+    items_paginator = Paginator(items_qs, 9)
+
+    try:
+        items = items_paginator.get_page(page)
+    except PageNotAnInteger:
+        items = items_paginator.page(1)
+    except EmptyPage:
+        items = items_paginator.page(items_paginator.num_pages)
+
+
     cat_name = 'ВСЕ ПРЕДЛОЖЕНИЯ'
     player = request.user
 
@@ -29,6 +54,7 @@ def shop_home(request):
 
 
 def shop_show_cat(request, cat_slug):
+    page_title = 'BLACKMARKET'
     shop_active = 'active'
     all_categories = Categories.objects.all().filter(active=True)
     current_cat = all_categories.get(name_slug=cat_slug)
@@ -104,6 +130,7 @@ def delete_from_cart(request):
 def place_order(request):
     return_dict = {}
     data = request.POST
+    spawn_txt = ''
     total_price = int(data.get('total_price'))
     if total_price > request.user.wallet:
         return_dict['place_order_status'] = '0'
@@ -115,10 +142,15 @@ def place_order(request):
             ItemsInOrder.objects.create(order_id=order.id, item_id=item.item.id, number=item.number, current_price=item.item.price)
             item.item.buys = item.item.buys + 1
             item.item.save(force_update=True)
+            spawn_txt += '#spawnItem ' + item.item.item_spawn_name + ' ' + str(item.number) + '\n'
 
         all_cart_items.delete()
+        order.spawn_text = spawn_txt
+        order.save(force_update=True)
         player = SteamUser.objects.get(id=request.user.id)
         player.wallet = player.wallet - order.total_price
+        player.total_buys_count += 1
+        player.total_buys_summ += order.total_price
         player.save(force_update=True)
 
         admins = SteamUser.objects.filter(is_staff=True)

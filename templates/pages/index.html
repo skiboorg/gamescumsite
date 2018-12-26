@@ -71,8 +71,8 @@ SCUM - это выживание, SCUM - SURVIVAL!</p>
                 </div>
                 <div class="content col-md-4">
                   <aside class="widget card widget--sidebar widget-player widget-player--alt">
-                        <div class="widget__title card__header">
-                            <h4>СОСТОЯНИЕ СЕРВЕРА</h4></div>
+                        <div class="widget__title card__header card__header--has-btn">
+                            <h4>СТАТУС СЕРВЕРА</h4><a href="{% url 'about_us'  %}" class="btn btn-default btn-outline btn-xs card-header__button">КАК ПОДКЛЮЧИТЬСЯ?</a></div>
                         <div class="widget__content card__content">
                                 <img class="server_status_img" src="{%  static 'images/logo.png' %}" alt="">
 
@@ -106,6 +106,7 @@ SCUM - это выживание, SCUM - SURVIVAL!</p>
                                     </div>
             </div>
         </div>
+
         <footer class="widget-player__footer"><span class="widget-player__footer-txt"><a style="padding: 2px;" class="btn btn-warning btn-outline btn-xs" href="steam://connect/91.218.244.112:28402">ПОДКЛЮЧИТЬСЯ</a></span></footer>
     </div>
 

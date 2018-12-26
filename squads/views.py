@@ -109,6 +109,7 @@ def add_to_balance(request):
         return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def show_squads(request):
+    page_title = 'ОТРЯДЫ'
     print('show_squads')
     squad_active = 'active'
     squads = Squad.objects.all()
@@ -116,7 +117,9 @@ def show_squads(request):
     print(player.id)
     req_disct = []
     sectors_a = SquadSectors.objects.filter(name__startswith='a').order_by('-name')
-
+    sectors_b = SquadSectors.objects.filter(name__startswith='b').order_by('-name')
+    sectors_c = SquadSectors.objects.filter(name__startswith='c').order_by('-name')
+    sectors_d = SquadSectors.objects.filter(name__startswith='d').order_by('-name')
     wars = SectorWars.objects.all()
     try:
         squad_requests = SquadRequests.objects.filter(player_id=player.id)

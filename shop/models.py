@@ -63,9 +63,10 @@ class Orders(models.Model):
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    spawn_text = models.TextField(default='')
 
     def __str__(self):
-        return 'Заказ : %s. Статус: %s ' % (self.id, self.is_complete)
+        return 'Заказ № %s игрока %s . Статус: %s ' % (self.id, self.player.personaname, self.is_complete)
 
     class Meta:
         verbose_name = "Заказ"

@@ -11,7 +11,7 @@ class CategoriesAdmin(admin.ModelAdmin):
     # list_display = ['name','discount']
     list_display = [field.name for field in Categories._meta.fields]
     inlines = [CategoriesInline]
-    # exclude = ['info'] #не отображать на сранице редактирования
+    exclude = ['for_squad','created_at','updated_at'] #не отображать на сранице редактирования
     class Meta:
         model = Categories
 
@@ -24,6 +24,7 @@ class ItemsInline (admin.TabularInline):
 class OredersAdmin(admin.ModelAdmin):
     # list_display = ['name','discount']
    # list_display = [field.name for field in Categories._meta.fields]
+    list_filter = ('is_complete',)
     inlines = [ItemsInline]
     # exclude = ['info'] #не отображать на сранице редактирования
     class Meta:

@@ -694,18 +694,18 @@ th {
     }
 }
 
-.error-404__figure:after,
-.error-404__figure:before {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 120px;
-    height: 25px;
-    background-color: #ff7e1f;
-    border-radius: 3px
-}
+/*.error-404__figure:after,*/
+/*.error-404__figure:before {*/
+    /*content: "";*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*width: 120px;*/
+    /*height: 25px;*/
+    /*background-color: #ff7e1f;*/
+    /*border-radius: 3px*/
+/*}*/
 
 .error-404__figure:before {
     transform: translate(50px, -70px) rotate(45deg)
@@ -978,7 +978,7 @@ th {
 }
 
 .alert-warning:before {
-    background-color: #fc0;
+    background-color: #ff7e1f;
     background-size: 5px 18px;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 18'%3E%3Cpath transform='translate(-194 -2257)' fill='%23fff' d='M194.714,2257h3.572a0.716,0.716,0,0,1,.714.72l-0.714,11.16a0.716,0.716,0,0,1-.715.72h-2.142a0.716,0.716,0,0,1-.715-0.72L194,2257.72A0.716,0.716,0,0,1,194.714,2257Zm0.715,14.4h2.142a0.716,0.716,0,0,1,.715.72v2.16a0.716,0.716,0,0,1-.715.72h-2.142a0.716,0.716,0,0,1-.715-0.72v-2.16A0.716,0.716,0,0,1,195.429,2271.4Z'/%3E%3C/svg%3E")
 }
@@ -3134,8 +3134,8 @@ abbr.required {
 .page-item.active .page-link,
 .page-item.active .page-link:focus,
 .page-item.active .page-link:hover {
-    background-color: #fc0;
-    border-color: #fc0;
+    background-color: #ff7e1f;
+    border-color: #ff7e1f;
     color: #fff
 }
 
@@ -3159,8 +3159,8 @@ abbr.required {
 }
 
 .page-link:hover {
-    background-color: #fc0;
-    border-color: #fc0;
+    background-color: #FFA02E;
+    border-color: #FFA02E;
     color: #fff
 }
 
@@ -5205,7 +5205,7 @@ div.cs-skin-border li.cs-focus span {
 
 .icon-svg:before,
 .no-svg .icon-svg:before {
-    background-image: url(../images/sprite.svg)
+    /*background-image: url(../images/sprite.svg)*/
 }
 
 .icon-svg.icon-corner-flag:before {
@@ -6653,15 +6653,15 @@ input.header-mobile__search-control:focus {
 }
 
 .hero-slider__item--img1 {
-    background-image: url(../images/soccer/samples/hero-slide-1.jpg)
+    /*background-image: url(../images/soccer/samples/hero-slide-1.jpg)*/
 }
 
 .hero-slider__item--img2 {
-    background-image: url(../images/soccer/samples/hero-slide-2.jpg)
+    /*background-image: url(../images/soccer/samples/hero-slide-2.jpg)*/
 }
 
 .hero-slider__item--img3 {
-    background-image: url(../images/soccer/samples/hero-slide-3.jpg)
+    /*background-image: url(../images/soccer/samples/hero-slide-3.jpg)*/
 }
 
 .hero-slider__item-container {
@@ -7001,7 +7001,7 @@ input.header-mobile__search-control:focus {
 }
 
 .page-heading--post-bg {
-    background-image: url(../images/samples/single-post-img5.jpg)
+    /*background-image: url(../images/samples/single-post-img5.jpg)*/
 }
 
 .page-heading--overlay {
@@ -7058,7 +7058,7 @@ input.header-mobile__search-control:focus {
 
 @media (min-width:992px) {
     .footer-widgets__inner {
-        padding: 80px 0 96px
+        padding: 80px 0 10px
     }
 }
 
@@ -7344,15 +7344,15 @@ input.header-mobile__search-control:focus {
     }
 }
 
-.sponsors-logos {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: distribute;
-    justify-content: space-around
-}
+/*.sponsors-logos {*/
+    /*list-style: none;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*-ms-flex-pack: distribute;*/
+    /*justify-content: space-around*/
+/*}*/
 
 @media (max-width:767px) {
     .sponsors-logos {
@@ -13749,7 +13749,7 @@ th.team-leader__total {
 }
 
 .team-roster--slider {
-    background: #151719 url(../images/team-roster-slider-bg.jpg) 50% 50% no-repeat;
+    /*background: #151719 url(../images/team-roster-slider-bg.jpg) 50% 50% no-repeat;*/
     background-size: cover;
     border: 1px solid hsla(0, 0%, 100%, .05);
     border-radius: 4px;
@@ -14723,7 +14723,7 @@ th.team-leader__total {
 
 .player-heading {
     background-color: #1e2024;
-    background-image: url(../images/page-heading.jpg);
+    /*background-image: url(../images/page-heading.jpg);*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -19913,7 +19913,7 @@ th.team-leader__total {
 }
 
 .main-news-banner--bg {
-    background-image: url(../images/samples/main-news-banner__bg.jpg);
+    /*background-image: url(../images/samples/main-news-banner__bg.jpg);*/
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover
@@ -20541,7 +20541,7 @@ th.team-leader__total {
 }
 
 .modal--login .modal-header {
-    background-image: url(../images/login_register_bg.jpg);
+    /*background-image: url(../images/login_register_bg.jpg);*/
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
@@ -20619,7 +20619,7 @@ th.team-leader__total {
 }
 
 .modal--login .modal-account__item--logo {
-    background-image: url(../images/soccer/samples/login_register_bg.jpg);
+    /*background-image: url(../images/soccer/samples/login_register_bg.jpg);*/
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;

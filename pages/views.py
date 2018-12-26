@@ -84,6 +84,7 @@ def logout_page(request):
 
 
 def profile(request, nickname_req):
+    page_title = 'ПРОФИЛЬ ИГРОКА'
 
     def get_play_time(steamid):
         played_time = 0
@@ -136,12 +137,13 @@ def profile(request, nickname_req):
 
 
                 own_profile = True
+
                 player = request.user
                 squad_info = get_squad_info(player.id)
                 print('squad_info  : ')
                 print(squad_info)
                 squad_wear = SquadWear.objects.all()
-                all_orders = Orders.objects.filter(player=player)
+                all_orders = Orders.objects.filter(player=player, is_complete=False)
 
                 if squad_info:
                     if player.is_squad_leader:
@@ -201,6 +203,7 @@ def del_message(request):
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def about_us(request):
+    page_title = 'О ПРОЕКТЕ'
     return render(request, 'pages/about_us.html', locals())
 
 def bonus_pack(request):
@@ -224,3 +227,6 @@ def bonus_pack(request):
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
+def rules(request):
+    page_title = 'ПРАВИЛА СЕРВЕРА'
+    return render(request, 'pages/rules.html', locals())

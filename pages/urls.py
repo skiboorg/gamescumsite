@@ -27,6 +27,7 @@ urlpatterns = [
     path('del_message/', views.del_message, name='del_message'),
     path('bonus_pack/', views.bonus_pack, name='bonus_pack'),
     path('about_us/', views.about_us, name='about_us'),
+    path('rules/', views.rules, name='rules'),
 
 
 

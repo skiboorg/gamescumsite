@@ -33,16 +33,32 @@
                             <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!</strong>
                         </div>
 
+
+
+                            <nav id="items_paginator" class="shop-pagination" aria-label="Shop navigation">
+                                <ul class="pagination justify-content-end">
+                                    {% for pg in items.paginator.page_range %}
+                                        {% if items.number == pg %}
+                                            <li class="page-item active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% else %}
+
+                                            <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+
+                            </nav>
+
                         {% if cat_name == 'ВСЕ ПРЕДЛОЖЕНИЯ'%}
                             <header class="card__header card__header--shop-filter">
-                                <div class="shop-filter">
+                                <div id="items_filter" class="shop-filter">
 {#                                    <h5 class="shop-filter__result">фильтры</h5>#}
-                                    <form action="" method="get">
+                                    <form action="#items_filter" method="get">
                                          <ul class="shop-filter__params">
                                         <li class="shop-filter__control">
                                             <select class="form-control input-xs" name="order">
                                                 <option value="0" >фильтрация по признаку</option>
-                                                <option {% if order == 'dicount' %}selected="selected"{% endif %} value="dicount">со скидкой</option>
+                                                <option {% if order == 'discount' %}selected="selected"{% endif %} value="discount">со скидкой</option>
                                                 <option {% if order == 'price_gte' %}selected="selected"{% endif %} value="price_gte">начинать с дорогих</option>
                                                 <option {% if order == 'price_lte' %}selected="selected"{% endif %}value="price_lte">начинать с дешевых</option>
                                                 <option {% if order == 'age_gte' %}selected="selected"{% endif %} value="age_gte">начинать с новых</option>
@@ -193,15 +209,34 @@
                     </div>
                     <!-- Sidebar / End -->
                 </div>
-            <div class="alert alert-warning alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span></button>
-                            <strong>Эти изображения получено с сайта SCUM или с сайтов, созданных и принадлежащих Devolver Digital или Gamepires and Croteam,
-                                которые владеют авторским правом SCUM. Все торговые марки и зарегистрированные торговые марки, представленные на
-                                изображении, являются собственностью Devolver Digital.
-                                Для получения дополнительной информации см. Уведомление об авторских правах.<br>
-Считается, что использование изображений для иллюстрации статей, относящихся к предмету рассматриваемых изображений, квалифицируется как законное использование в соответствии с законодательством США об авторском праве, так как такое отображение не существенно ограничивает право владельца авторских прав на продажу материалов, защищенных авторским правом.</strong>
-                        </div>
+                                      <nav class="shop-pagination" aria-label="Shop navigation">
+                                <ul class="pagination justify-content-end">
+                                    {% for pg in items.paginator.page_range %}
+                                        {% if items.number == pg %}
+                                            <li class="page-item active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% else %}
+
+                                            <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+
+                            </nav>
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <img style="float: left;margin: 10px" src="{% static '/images/Devolver_Digital_Logo.png' %}">
+                    <strong>
+                        Эти изображения получены с сайта SCUM или с сайтов, созданных и принадлежащих Devolver Digital
+                        или Gamepires и Croteam, которые владеют авторским правом на SCUM. Все торговые марки и
+                        зарегистрированные торговые марки, представленные на изображении, являются собственностью
+                        Devolver Digital. Для получения дополнительной информации см. Уведомление об авторских правах.<br>
+                        Считается, что использование изображений для иллюстрации статей, относящихся к предмету
+                        рассматриваемых изображений, квалифицируется как законное использование в соответствии с
+                        законодательством США об авторском праве, так как такое отображение не существенно ограничивает
+                        право владельца авторских прав на продажу материалов, защищенных авторским правом.
+                    </strong>
+                </div>
             </div>
         </div>
         <!-- Content / End -->
