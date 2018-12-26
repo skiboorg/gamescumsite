@@ -130,7 +130,7 @@ def delete_from_cart(request):
 def place_order(request):
     return_dict = {}
     data = request.POST
-    spawn_txt = ''
+    spawn_txt = '#teleportto ' + request.user.steamid + '\n'
     total_price = int(data.get('total_price'))
     if total_price > request.user.wallet:
         return_dict['place_order_status'] = '0'
