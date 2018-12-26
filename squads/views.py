@@ -100,7 +100,7 @@ def add_to_balance(request):
             squad_member.save(force_update=True)
             if int(request.POST.get('rc_amount')) >= 500:
                 player.wallet -= int(request.POST.get('rc_amount'))
-                player.rating += 1
+                player.rating += 5
                 player.save(force_update=True)
             squad.balance += int(request.POST.get('rc_amount'))
             squad.save(force_update=True)
@@ -154,18 +154,23 @@ def confirm_request(request):
         if members_count < 3:
             pass
         else:
+            messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 3 человека в отряде!')
             squad.recruting = False
             squad.save(force_update=True)
     if squad.level == 2:
         if members_count < 4:
             pass
         else:
+            messages.add_message(request, messages.INFO,
+                                 'На данном уровне отряда можно иметь только 4 человека в отряде!')
             squad.recruting = False
             squad.save(force_update=True)
     if squad.level == 3:
         if members_count < 5:
             pass
         else:
+            messages.add_message(request, messages.INFO,
+                                 'На данном уровне отряда можно иметь только 5 человек в отряде!')
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -173,6 +178,8 @@ def confirm_request(request):
         if members_count < 6:
             pass
         else:
+            messages.add_message(request, messages.INFO,
+                                 'На данном уровне отряда можно иметь только 6 человек в отряде!')
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -180,6 +187,8 @@ def confirm_request(request):
         if members_count < 7:
             pass
         else:
+            messages.add_message(request, messages.INFO,
+                                 'В отряда можно иметь 7 человек максимум!')
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -251,6 +260,9 @@ def level_up(request):
             squad.recruting = True
             squad.vip = True
             squad.save(force_update=True)
+
+    messages.add_message(request, messages.INFO,
+                         'Уровень отряда успешно повышен. Открыты новые возможности!')
 
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)

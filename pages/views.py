@@ -46,7 +46,7 @@ def index(request):
     if request.user.is_authenticated:
         player = request.user
 
-        if player.rating > player.level * 50:
+        if player.rating > player.level * 99:
             player.level += 1
             player.save(force_update=True)
 
@@ -61,12 +61,14 @@ def index(request):
         if time_now > last_login:
 
             if player.vip:
+                player.rating += 5
                 player.wallet += 60
                 player.last_vizit = datetime.now().date()
                 player.save(force_update=True)
             else:
 
                 if not player.outlaw:
+                    player.rating += 1
                     player.wallet += 30
                     player.last_vizit = datetime.now().date()
                     player.save(force_update=True)
@@ -230,3 +232,8 @@ def bonus_pack(request):
 def rules(request):
     page_title = 'ПРАВИЛА СЕРВЕРА'
     return render(request, 'pages/rules.html', locals())
+
+
+def about_bonus_pack(request):
+    page_title = 'БОНУС ПАК НОВЫМ ИГРОКАМ'
+    return render(request, 'pages/bonus_pack.html', locals())

@@ -40,7 +40,7 @@
                         <div class="card__header card__header--has-btn">
                             <h4>Персональная информация</h4>
                             {% if not player.bonus_pack %}
-                                <a href="#" style="margin-left: 5px;" class="btn btn-warning btn-outline btn-xs card-header__button">ЧТО ТАКОЕ БОНУС ПАК?</a>
+                                <a href="{% url 'about_bonus_pack' %}" style="margin-left: 5px;" class="btn btn-warning btn-outline btn-xs card-header__button">ЧТО ТАКОЕ БОНУС ПАК?</a>
                                 <a href="{% url 'bonus_pack' %}" class="btn btn-danger btn-outline btn-xs card-header__button">ПОЛУЧИТЬ БОНУС ПАК</a>
                             {% endif %}
                         </div>

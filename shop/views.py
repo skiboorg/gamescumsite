@@ -150,6 +150,11 @@ def place_order(request):
         player = SteamUser.objects.get(id=request.user.id)
         player.wallet = player.wallet - order.total_price
         player.total_buys_count += 1
+        if player.vip:
+            player.rating += 1
+        else:
+            player.rating += 5
+        player.rating += 1
         player.total_buys_summ += order.total_price
         player.save(force_update=True)
 

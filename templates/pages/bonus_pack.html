@@ -1,0 +1,76 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="page-heading page-heading--overlay page-heading--post-bg" style=" background-image: url({% static '/images/bonus_head.jpg' %});background-position: 50% 0%; background-size: auto;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <!-- Post Meta - Top -->
+                    <div class="post__meta-block post__meta-block--top">
+                        <!-- Post Category
+                        <div class="post__category"><span class="label posts__cat-label">The Team</span></div>-->
+                        <!-- Post Category / End -->
+                        <!-- Post Title -->
+                        <h1 style="font-family: scum_font;" class="page-heading__title">БОНУС ПАК<br><span style="color: #ff7e1f">НОВЫМ ИГРОКАМ</span></h1>
+                        <!-- Post Title / End -->
+                        <!-- Post Meta Info -->
+
+                        <!-- Post Author / End -->
+                    </div>
+                    <!-- Post Meta - Top / End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content
+    ================================================== -->
+    <div class="site-content">
+        <div class="container">
+            <div class="row">
+                <!-- Content -->
+                <div class="content col-md-8 offset-md-2">
+                    <!-- Article -->
+                    <article class="card card--lg post post--single post--extra-top">
+                        <div class="card__content">
+                     <div class="post__content">
+                            <h4 align="justify">При регистрации на сайте каждый игрок на нашем сервере может получить Bonus Pack!</h4>
+
+                            <p style="font-weight: bold">Состав Bonus Pack:</p>
+
+
+                            <ul class="list">
+                                <li>Военная кепка новичка;</li>
+                                <li>Военная кепка новичка; </li>
+                                <li>Военная кепка новичка;</li>
+                                <li>Военная Рубашка;</li>
+                                <li>Военные штаны;</li>
+                                <li>Беспалые перчатки;</li>
+                                <li>Рюкзак;</li>
+                                <li>Противоударный жилет;</li>
+                                <li>Военные ботинки;</li>
+                                <li>Антибиотики;</li>
+                                <li>Обезболивающие;</li>
+                                <li>Аспирин;</li>
+                                <li>Витамины;</li>
+                                <li>Бинты;</li>
+                                <li>Шоколадку;</li>
+                                <li>Зажигалку;</li>
+                                <li>Воду 1л</li>
+                                <li>Дробовик и 2 коробки патрон;</li>
+                                <li>Биту с проволокой;</li>
+                           </ul>
+                            <img src="{% static '/images/bonus_pack.jpg' %}">
+                          </div>
+
+                        </div>
+                    </article>
+
+                    <!-- Post Comment Form / End -->
+                </div>
+                <!-- Content / End -->
+            </div>
+        </div>
+    </div>
+    <!-- Content / End -->
+{% endblock %}
