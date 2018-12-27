@@ -128,7 +128,7 @@
                                     <!-- Game #0 / End -->
                                 {% endfor %}
                                 {% if not wars %}
-                                    НЕТ ОСПАРИВАЕМЫХ ТЕРРИТОРИЙ
+                                   ЭТОТ РЕЖИМ БУДЕТ ДОСТУПЕН ПОСЛЕ НГ
                                 {% endif %}
                             </ul>
                         </div>
@@ -173,9 +173,9 @@
                                 Владелец с {{ sect.own.date }}<br>
                                 <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
                                 {{ sect.squad.name }}<br>
-                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
-                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                {%endif%}
+{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
+{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                {%endif%}#}
                             {% else %}
                                 <div>
                                     СВОБОДНО<br>
@@ -218,9 +218,9 @@
                                 Владелец с {{ sect.own.date }}<br>
                                 <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
                                 {{ sect.squad.name }}<br>
-                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
-                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                {%endif%}
+{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
+{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                {%endif%}#}
                             {% else %}
                                 <div>
                                     СВОБОДНО<br>
@@ -263,9 +263,9 @@
                                 Владелец с {{ sect.own.date }}<br>
                                 <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
                                 {{ sect.squad.name }}<br>
-                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
-                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                {%endif%}
+{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
+{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                {%endif%}#}
                             {% else %}
                                 <div>
                                     СВОБОДНО<br>
@@ -308,9 +308,9 @@
                                 Владелец с {{ sect.own.date }}<br>
                                 <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
                                 {{ sect.squad.name }}<br>
-                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}
-                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                {%endif%}
+{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
+{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                {%endif%}#}
                             {% else %}
                                 <div>
                                     СВОБОДНО<br>
