@@ -178,16 +178,16 @@ async def activate(ctx, steamid):
             discordid = cursor.fetchone()[0]
 
             if discordid == None:
-                cursor.execute("SELECT id FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
-                player_number = cursor.fetchone()[0]
-                if int(player_number) <= 100:
-                    cursor.execute("SELECT wallet FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
-                    player_wallet = 0
-                    player_wallet = int(cursor.fetchone()[0])
-                    player_wallet += 1000
-                    cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE steamid = (?); ",
-                                   (player_wallet, steam_id,))
-                    await client.say('Тебе начислен бонус +1000 RC !')
+                # cursor.execute("SELECT id FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+                # player_number = cursor.fetchone()[0]
+                # if int(player_number) <= 100:
+                #     cursor.execute("SELECT wallet FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
+                #     player_wallet = 0
+                #     player_wallet = int(cursor.fetchone()[0])
+                #     player_wallet += 1000
+                #     cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE steamid = (?); ",
+                #                    (player_wallet, steam_id,))
+                #     await client.say('Тебе начислен бонус +1000 RC !')
 
                 cursor.execute("UPDATE authentication_steamuser SET discord_id = (?) WHERE steamid = (?); ",
                                (discord_id, steam_id,))
