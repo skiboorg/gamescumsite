@@ -112,8 +112,13 @@
                             {% endfor %}
                             {% if all_items_in_cart.count > 0 %}
                                 <li class="header-cart__item header-cart__item--subtotal"><span class="header-cart__subtotal">ИТОГО</span> <span class="header-cart__subtotal-sum">{{ total_cart_price }} RC</span></li>
-                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : {{ request.user.wallet }}</a> <a href="{% url 'place_order' %}" onclick="place_order(this);return false;" data-total_price="{{ total_cart_price }}" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>
-                            {% else %}
+                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : {{ request.user.wallet }}</a>
+                                         {% if profile_bad %}
+                                                           <a href="#" class="btn btn-warning btn-block" onclick="return confirm('ЭТА ФУНКЦИЯ ДОСТУПНА ТОЛЬКО ПОСЛЕ АКТИВАЦИИ АККАУНТА');">ОПЛАТИТЬ</a>
+                                                            {% else %}
+                                        <a href="{% url 'place_order' %}" onclick="place_order(this);return false;" data-total_price="{{ total_cart_price }}" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>
+                                        {% endif %}
+                                     {% else %}
                                 <li class="header-cart__item header-cart__item--subtotal"> КОРЗИНА ПУСТА</li>
                             {% endif %}
                         </ul>

@@ -197,17 +197,29 @@
                                                             {{ squad_form.name.errors }}
                                                             <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="contact-form-name">Автар отряда <span class="required">*</span></label>
-                                                            {{ squad_form.avatar.errors }}
 
-                                                            <input type="file" name="{{ squad_form.avatar.name }}"  required="required" class="form-control" >
+
+                                                        <div class="form-group form-group--upload">
+                                                            <div style="float: none;" class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
+                                                                <div class="form-group__label">
+                                                                    <h6>Логотип отряда <span style="color: #ff7e1f">*</span></h6><span>Желательно прозрачный png</span></div>
+                                                            </div>
+                                                            <div class="form-group__upload">
+                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
+                                                                    <input type="file" name="{{ squad_form.avatar.name }}" required="required"  style="display: none;" >
+                                                                </label>
+                                                            </div>
                                                         </div>
+                                                    <img id="squad_wear_sample" style=" width: 90px;
+                                                                    position: absolute;
+                                                                    top: 105px;
+                                                                    right: 10px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+
                                                         <div class="form-group">
                                                             <label for="squad_form_wear">Форма отряда <span class="required">*</span></label>
                                                             <select  name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" class="form-control ">
                                                                 {% for wear in squad_wear %}
-                                                                    <option style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
+                                                                    <option data-image="{{ wear.image.url }}" style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
                                                                 {% endfor %}
 
                                                             </select>
@@ -220,8 +232,12 @@
                                                             <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
                                                         </div>
                                                         <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+                                                    {% if profile_bad %}
+                                                        <p align="center" style="color: #f34141; font-weight: bold;">ЭТА ФУНКЦИЯ ДОСТУПНА ТОЛЬКО ПОСЛЕ АКТИВАЦИИ АККАУНТА</p>
+                                                        {% else %}
 
-                                                        <button type="submit" id="create_squad_btn" class="btn btn-primary-inverse btn-lg ">Создать отряд.</button>
+                                                        <button type="submit" id="create_squad_btn" class="btn  btn-outline-danger btn-sm ">Создать отряд.</button>
+                                                    {% endif %}
                                                     </form>
 
                                                     <!-- Details / End -->

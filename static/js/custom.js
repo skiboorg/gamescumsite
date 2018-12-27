@@ -1,3 +1,8 @@
+$('#squad_form_wear').on('change', function() {
+  var image_url = this.selectedOptions[0].getAttribute('data-image');
+  $('#squad_wear_sample').attr('src', image_url);
+});
+
 function copyToClipboardSteamId() {
         var btn = $('#copy_activate');
         var $temp = $('#activate_command');
