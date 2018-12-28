@@ -224,7 +224,7 @@
 
                                                             </select>
                                                         </div>
-                                                    
+
                                                         <div class="form-group">
                                                             <label for="squad_info">Дополнительная информация об отряде </label>
 
@@ -367,9 +367,12 @@
                             <ul class="newslog">
                                 {% if pm%}
                                     {% for message in pm %}
-                                        <li class="newslog__item newslog__item--join">
+                                        <li id="pm_message_{{ message.id }}" class="newslog__item newslog__item--join">
                                             <div class="newslog__item-inner">
-                                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong> <a class="btn btn-danger btn-outline btn-xs del_btn" href="{% url 'del_message' %}?m_id={{message.id  }}">Х</a></div>
+                                                <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong>
+
+                                                 <a class="btn btn-danger btn-outline btn-xs del_btn" href="#" onclick="del_pm({{ message.id }})">Х</a>
+                                                </div>
                                                 <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
                                             </div>
                                         </li>

@@ -1,3 +1,39 @@
+function del_pm(pm_id)
+{
+   var url = '/del_message/';
+   var csrf_token = $('#dummy_form [name="csrfmiddlewaretoken"]').val();
+   var data = {};
+   var total_pms = parseInt($('#pm_count').html());
+   data.pm_id = pm_id;
+   data['csrfmiddlewaretoken'] = csrf_token;
+    console.log(data);
+   $.ajax({
+            url:url,
+            type:'POST',
+            data: data,
+            cache:true,
+            success: function (data) {
+                console.log('OK');
+                $('#pm_message_' + pm_id).remove();
+                total_pms -= 1;
+                 $('#pm_count').html(total_pms);
+                if (total_pms == 0){
+                    $('#player_mark').css('display','none');
+                }
+
+
+
+
+            },
+            error: function () {
+                console.log('ERROR')
+            }
+        });
+
+
+}
+
+
 $('#squad_form_wear').on('change', function() {
   var image_url = this.selectedOptions[0].getAttribute('data-image');
   $('#squad_wear_sample').attr('src', image_url);

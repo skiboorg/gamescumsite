@@ -13,6 +13,7 @@ from datetime import datetime , time
 from lxml import html
 import requests
 import bot_settings
+from django.http import JsonResponse
 
 
 
@@ -199,10 +200,15 @@ def profile(request, nickname_req):
 
 
 def del_message(request):
-    message = PrivateMessages.objects.get(id=int(request.GET.get('m_id')))
-    if message.to_player.id == request.user.id:
-        message.delete()
-    return HttpResponseRedirect('/profile/' + request.user.nickname)
+    return_dict = {}
+    data = request.POST
+    print(data)
+    pm_id = int(data.get('pm_id'))
+    message = PrivateMessages.objects.get(id=pm_id)
+    message.delete()
+
+    return JsonResponse(return_dict)
+
 
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'

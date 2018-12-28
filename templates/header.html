@@ -47,7 +47,7 @@
                                 <div class="dropdown-divider"></div>
                             {% endif %}
                             <a class="dropdown-item" href="{% url 'profile' user.nickname %}">Персональная информация</a>
-                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span class="highlight">{% if pm.count > 0 %} (<strong>{{ pm.count }}</strong>){% else %} (0) {% endif %}</span></a>
+                            <a class="dropdown-item" href="{% url 'profile' user.nickname %}#pm">Личные сообщения<span  class="highlight">{% if pm.count > 0 %} (<strong><span id="pm_count">{{ pm.count }}</span></strong>){% else %} (0) {% endif %}</span></a>
                             <a class="dropdown-item"  href="{% url 'profile' user.nickname %}#orders">Заказы в BLACKMARKET<span  class="highlight">{% if orders_count > 0 %} (<strong>{{ orders_count }}</strong>){% endif %}</span></a><br>
                             {% if user.is_squad_leader  %}
                                 <div class="dropdown-divider"></div>
@@ -63,8 +63,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item"  href="{% url "logout" %}">ВЫХОД </a>
                         </div>
-                        {% if pm.count > 0 or orders_count > 0 %}
-                            <div style="    width: 30px;
+                        {% if pm.count > 0  %}
+                            <div id="player_mark" style="    width: 30px;
     height: 38px;
     background-color: #f34141;
     position: absolute;

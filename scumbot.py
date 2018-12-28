@@ -23,36 +23,17 @@ client.remove_command('help')
 async def help():
     pass
 
-@client.command(name='8ball',
-                description="Answers a yes/no question.",
-                brief="Answers from the beyond.",
-                aliases=['eight_ball', 'eightball', '8-ball'],
-                pass_context=True)
-async def eight_ball(context):
-    possible_responses = [
-        'That is a resounding no',
-        'It is not looking likely',
-        'Too hard to tell',
-        'It is quite possible',
-        'Definitely',
-    ]
-    await client.say(random.choice(possible_responses) + ", " + context.message.author.mention)
-
-
-@client.command(pass_context=True)
-async def test(ctx):
-
-    await client.say(ctx.message.author.mention + ',' + ctx.message.author.id + ', ' + ctx)
-
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name="Играет с Вами ;)"))
+    await client.change_presence(game=Game(name="c Вами 😉 "))
     print("Logged in as " + client.user.name)
 
 
 @client.command(pass_context=True)
 async def zp(ctx):
+    conn = sqlite3.connect(bot_settings.DB_PATH)
+    cursor = conn.cursor()
     player_discord_id = str(ctx.message.author.id)
     user = ctx.message.author
 
@@ -120,12 +101,14 @@ async def zp(ctx):
                                (player_wallet, player_discord_id,))
 
             conn.commit()
+            conn.close()
         else:
             print('выдано')
             await client.send_message(user, 'Выплата доступна 1 раз в сутки. Получить выплату можно после : {}'.format(str(last_zp)))
 
     else:
         print('Аккаунт не активирован!')
+    conn.close()
 
 
 @client.command()
@@ -146,31 +129,45 @@ async def p():
 
 @client.command()
 async def server():
+
     page = requests.get(bot_settings.SERVER_URL)
     tree = html.fromstring(page.content)
     players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')
     rank = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')
     name = tree.xpath('//*[@id="serverPage"]/h2/text()')
     ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')
-    await client.say('**Название сервера** : ' + str(name[0]) + '\n' +
-                     '**Ранг сервера** : ' + str(rank[0]) + '\n' +
-                     '**Игроков** : ' + str(players[0]) + '\n' +
-                     '**IP сервера** : ' + str(ip[0]) + '\n' +
-                     '----------------------------------\n' +
-                     '3 реальных часа - 1 игровой день\n' +
-                     '**Рестарты сервера в: 02:30 и 14:30 МСК**\n' +
-                     '----------------------------------\n' +
-                     '**Группа новостей о игре** : https://vk.com/scum_survival\n' +
-                     '**Группа сервера** : https://vk.com/scum_lasthero\n' +
-                     '**Сайт** : http://www.gamescum.ru/')
+    embed = discord.Embed(title="RU/EU SURVIVAL PvP [HARDCORE] discord.me/scumsurvival",
+                          colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/2966477",
+                          description="[Наш сайт](http://www.gamescum.ru) | [ВК](https://vk.com/scum_survival) | [Steam](https://steamcommunity.com/app/513710/discussions/4/3104564981115010821/) | [Discord](https://discord.gg/sgUz53k)")
+
+    embed.set_image(url="https://pp.userapi.com/c847019/v847019285/161da7/N30CXstxLoc.jpg")
+    embed.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/519049749656109086/525958386232197131/1logo_scum_survival.png")
+    embed.set_author(name="𝕊ℂ𝕌𝕄 𝕊𝕌ℝ𝕍𝕀𝕍𝔸𝕃", url="https://discord.gg/sgUz53k",
+                     icon_url="https://cdn.discordapp.com/attachments/519049749656109086/525399460793155588/zzz3z.png")
+    embed.set_footer(text="ПРИСОЕДИНЯЙСЯ И ТЫ;)",
+                     icon_url="https://cdn.discordapp.com/attachments/519049749656109086/525399460793155588/zzz3z.png")
+
+    embed.add_field(name="**IP сервера : " + str(ip[0]) + "**",
+                    value="================================")
+    embed.add_field(name="**Плановые рестарты в: 02:30 и 14:30 МСК**",
+                    value="================================")
+    embed.add_field(name="**Ранг сервера:**", value=str(rank[0]), inline=True)
+    embed.add_field(name="**Онлайн сервера**", value=str(players[0]), inline=True)
+
+    await client.say(content="================Статистика сервера================", embed=embed)
 
 
 @client.command(pass_context=True)
 async def activate(ctx, steamid):
     if ctx.message.channel.is_private:
+        conn = sqlite3.connect(bot_settings.DB_PATH)
+        cursor = conn.cursor()
         steam_id = str(steamid)
         discord_nickname = str(ctx.message.author)
         discord_id = str(ctx.message.author.id)
+        print('Запрос на активацию')
+        print(steam_id)
 
         cursor.execute("SELECT steamid FROM authentication_steamuser WHERE steamid=(?)", (steam_id,))
         result = cursor.fetchone()
@@ -195,17 +192,22 @@ async def activate(ctx, steamid):
                 cursor.execute("UPDATE authentication_steamuser SET discord_nickname = (?) WHERE steamid = (?); ",
                                (discord_nickname, steam_id,))
                 conn.commit()
+                conn.close()
 
                 result = 'Активирован'
                 await client.say('Твой аккаунт активирован, спасибо за интерес, проявленный к нашему серверу!')
             else:
+                conn.close()
                 await client.say('Твой аккаунт уже активирован ранее!')
         else:
             result = 'Нет steamid'
+
             await client.say('Нет такого SteamID')
         print(result)
+
     else:
         await client.say('Для активации аккаунта нужно отправить личное сообщение <@525364065933983744>')
+
 
 
 
