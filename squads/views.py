@@ -46,7 +46,7 @@ def buy_sector(request):
             if sectors_count < 1:
                 squad.balance -= sector_to_buy.price
                 sector_to_buy.squad_id = squad.id
-                sector_to_buy.own = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
@@ -55,7 +55,8 @@ def buy_sector(request):
             if sectors_count < 2:
                 squad.balance -= sector_to_buy.price
                 sector_to_buy.squad_id = squad.id
-                sector_to_buy.own = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
@@ -64,6 +65,7 @@ def buy_sector(request):
             if sectors_count < 3:
                 squad.balance -= sector_to_buy.price
                 sector_to_buy.squad_id = squad.id
+                sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
@@ -73,6 +75,7 @@ def buy_sector(request):
             if sectors_count < 4:
                 squad.balance -= sector_to_buy.price
                 sector_to_buy.squad_id = squad.id
+                sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
@@ -82,11 +85,14 @@ def buy_sector(request):
             if sectors_count < 5:
                 squad.balance -= sector_to_buy.price
                 sector_to_buy.squad_id = squad.id
+                sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
             else:
                 messages.add_message(request, messages.INFO, 'У отряда максимальное количество покупаемых секторов!')
-    return HttpResponseRedirect('/profile/' + request.user.nickname)
+    else:
+        messages.add_message(request, messages.INFO, 'Нехватает денег для приобретения сектора!')
+    return HttpResponseRedirect('/squad/')
 
 
 def add_to_balance(request):
@@ -102,8 +108,10 @@ def add_to_balance(request):
                 player.wallet -= int(request.POST.get('rc_amount'))
                 player.rating += 5
                 player.save(force_update=True)
-            squad.balance += int(request.POST.get('rc_amount'))
-            squad.save(force_update=True)
+                squad.balance += int(request.POST.get('rc_amount'))
+                squad.save(force_update=True)
+            else:
+                messages.add_message(request, messages.INFO, 'Минимальная сумма пополнения 500 RC!')
 
 
         return HttpResponseRedirect('/profile/' + request.user.nickname)

@@ -47,7 +47,7 @@ async def test(ctx):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name="Я ЕСТЬ БОТ!"))
+    await client.change_presence(game=Game(name="Играет с Вами ;)"))
     print("Logged in as " + client.user.name)
 
 
@@ -160,7 +160,8 @@ async def server():
                      '3 реальных часа - 1 игровой день\n' +
                      '**Рестарты сервера в: 02:30 и 14:30 МСК**\n' +
                      '----------------------------------\n' +
-                     '**Группа ВК** : https://vk.com/scum_lasthero\n' +
+                     '**Группа новостей о игре** : https://vk.com/scum_survival\n' +
+                     '**Группа сервера** : https://vk.com/scum_lasthero\n' +
                      '**Сайт** : http://www.gamescum.ru/')
 
 
