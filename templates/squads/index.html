@@ -63,12 +63,13 @@
                                                         Ты уже в отряде
                                                     {% else %}
 
-                                                        {% if squad.recruting%}
+                                                        {% if squad.recruting and user.is_authenticated%}
 
 
                                                             {% if squad.id in req_disct %}
                                                                 заявка уже подана
                                                             {% else %}
+
                                                                 <a href="{{ squad.name_slug }}"> Вступить</a>
                                                             {% endif %}
 
