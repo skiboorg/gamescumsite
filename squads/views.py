@@ -147,18 +147,22 @@ def join_request(request,name_slug):
         squad = None
 
     if squad:
-        new_log = Logs.objects.create(player_id=request.user.id,
-                                      player_action='Подана заявка в отряд ' + squad.name)
-        new_log.save()
-        new_request = SquadRequests.objects.create(squad_id=squad.id, player_id=request.user.id)
-        new_request.save()
-        new_message = PrivateMessages.objects.create(to_player_id=squad.leader.id,
-                                                     from_player_name=request.user.personaname,
-                                                     from_player_name_slug=request.user.personaname,
-                                                     from_player_avatar=str(request.user.avatar),
-                                                     text='Привет, хочу вступить в твой отряд!')
-        new_message.save()
-        return HttpResponseRedirect('/squad/')
+        if request.user.id is not None:
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Подана заявка в отряд ' + squad.name)
+            new_log.save()
+            new_request = SquadRequests.objects.create(squad_id=squad.id, player_id=request.user.id)
+            new_request.save()
+            new_message = PrivateMessages.objects.create(to_player_id=squad.leader.id,
+                                                         from_player_name=request.user.personaname,
+                                                         from_player_name_slug=request.user.personaname,
+                                                         from_player_avatar=str(request.user.avatar),
+                                                         text='Привет, хочу вступить в твой отряд!')
+            new_message.save()
+            return HttpResponseRedirect('/squad/')
+        else:
+
+            return HttpResponseRedirect('/squad/')
     else:
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Подана заявка в несуществующий отряд ')
