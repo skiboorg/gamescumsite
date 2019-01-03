@@ -11,3 +11,4 @@ class SteamUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PrivateMessages)
+admin.site.register(Logs)

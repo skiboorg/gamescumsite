@@ -99,3 +99,16 @@ class PrivateMessages(models.Model):
     from_player_avatar = models.CharField(max_length=255, blank=False)
     text = models.TextField(blank=False, default='')
     created = models.DateTimeField(auto_now_add=True)
+
+class Logs(models.Model):
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    player_action = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return 'Действие игрока %s' % self.player.personaname
+
+    class Meta:
+        verbose_name = "Действие игрока"
+        verbose_name_plural = "Действия игроков"
+

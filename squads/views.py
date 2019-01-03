@@ -143,6 +143,14 @@ def show_squads(request):
 def join_request(request,name_slug):
     try:
         squad = Squad.objects.get(name_slug=name_slug)
+    except:
+        squad = None
+
+    if squad:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Подана заявка в отряд ' + squad.name)
+        new_log.save()
+
         new_request = SquadRequests.objects.create(squad_id=squad.id, player_id=request.user.id)
         new_request.save()
         new_message = PrivateMessages.objects.create(to_player_id=squad.leader.id,
@@ -152,8 +160,14 @@ def join_request(request,name_slug):
                                                      text='Привет, хочу вступить в твой отряд!')
         new_message.save()
         return HttpResponseRedirect('/squad/')
-    except:
+    else:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Подана заявка в несуществующий отряд ')
+        new_log.save()
         return HttpResponseRedirect('/squad/')
+
+
+
 
 def confirm_request(request):
     squad = Squad.objects.get(leader=request.user)

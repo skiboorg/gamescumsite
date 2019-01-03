@@ -55,8 +55,8 @@ class Squad(models.Model):
 
 
 class SquadRequests(models.Model):
-    squad = models.ForeignKey(Squad, blank=True,null=True, default=None, on_delete=models.CASCADE)
-    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.SET_NULL)
     created = models.DateTimeField(default=datetime.now())
 
 
