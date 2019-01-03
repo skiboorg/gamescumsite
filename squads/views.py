@@ -150,7 +150,6 @@ def join_request(request,name_slug):
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Подана заявка в отряд ' + squad.name)
         new_log.save()
-
         new_request = SquadRequests.objects.create(squad_id=squad.id, player_id=request.user.id)
         new_request.save()
         new_message = PrivateMessages.objects.create(to_player_id=squad.leader.id,
