@@ -49,7 +49,7 @@ def shop_home(request):
     cat_name = 'ВСЕ ПРЕДЛОЖЕНИЯ'
     player = request.user
 
-    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:4]
+    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:6]
     return render(request, 'shop/index.html', locals())
 
 
@@ -59,7 +59,7 @@ def shop_show_cat(request, cat_slug):
     all_categories = Categories.objects.all().filter(active=True)
     current_cat = all_categories.get(name_slug=cat_slug)
     items = Items.objects.filter(category__name_slug=cat_slug).all().filter(active=True)
-    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:4]
+    hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:6]
     cat_name = current_cat.name
     print(current_cat)
     return render(request, 'shop/index.html', locals())

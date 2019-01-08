@@ -71,6 +71,7 @@ if (cur_balance < 1000){
     create_squad_btn.attr( "disabled",'disabled' );
     create_squad_btn.html('НЕ ХВАТАЕТ ДЕНЕГ ДЛЯ СОЗДАНИЯ ОТРЯДА (1000 RC)');
 }
+
 $("#amount").bind('keyup', function (e) {
     var amount = parseInt($("#amount").val());
     if (amount > cur_balance){

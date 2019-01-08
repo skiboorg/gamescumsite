@@ -32,6 +32,8 @@ urlpatterns = [
     path('sector_war/<sector_name>', views.sector_war, name='sector_war'),
     path('stat/', views.stat, name='stat'),
     path('leave_squad/', views.leave_squad, name='leave_squad'),
+    path('accept_war/<sector_name>', views.accept_war, name='accept_war'),
+    path('deny_war/<sector_name>', views.deny_war, name='deny_war'),
 
 
 ]

@@ -10,7 +10,8 @@ from django.core.files.storage import FileSystemStorage
 import csv
 import os
 from django.conf import settings
-
+import bot_settings
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 
 
@@ -24,7 +25,7 @@ def create_squad(request):
             squad_form = UpdateSquadForm(request.POST, request.FILES, instance=squad)
             if squad_form.is_valid():
                 squad_form.save()
-                return HttpResponseRedirect('/profile/' + request.user.nickname)
+                return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
         else:
             squad_form = CreateSquadForm(request.POST, request.FILES)
             if squad_form.is_valid():
@@ -32,7 +33,7 @@ def create_squad(request):
                 squad_form.save()
                 request.user.wallet -= 1000
                 request.user.save(force_update=True)
-                return HttpResponseRedirect('/profile/' + request.user.nickname)
+                return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
@@ -49,6 +50,7 @@ def buy_sector(request):
                 sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
+                messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 1 сектор!')
         if squad.level == 2:
@@ -59,6 +61,7 @@ def buy_sector(request):
 
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
+                messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 2 сектора!')
         if squad.level == 3:
@@ -68,6 +71,7 @@ def buy_sector(request):
                 sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
+                messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 3 сектора!')
 
@@ -78,6 +82,7 @@ def buy_sector(request):
                 sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
+                messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 4 сектора!')
 
@@ -88,39 +93,44 @@ def buy_sector(request):
                 sector_to_buy.own = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
+                messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
             else:
                 messages.add_message(request, messages.INFO, 'У отряда максимальное количество покупаемых секторов!')
+
     else:
-        messages.add_message(request, messages.INFO, 'Нехватает денег для приобретения сектора!')
-    return HttpResponseRedirect('/squad/')
+        messages.add_message(request, messages.WARNING, 'Нехватает денег для приобретения сектора!')
+
+    return HttpResponseRedirect('/squad/#sectors_map')
 
 
 def add_to_balance(request):
 
     if request.POST:
         player = request.user
-        if player.wallet >= int(request.POST.get('rc_amount')):
+        if player.wallet >= int(request.POST.get('rc_amount')) and int(request.POST.get('rc_amount')) >= 500:
             squad = Squad.objects.get(id=request.POST.get('squad_id'))
             squad_member = SquadMembers.objects.get(player=player.id)
             squad_member.income += int(request.POST.get('rc_amount'))
             squad_member.save(force_update=True)
-            if int(request.POST.get('rc_amount')) >= 500:
-                player.wallet -= int(request.POST.get('rc_amount'))
-                player.rating += 5
-                player.save(force_update=True)
-                squad.balance += int(request.POST.get('rc_amount'))
-                squad.save(force_update=True)
-            else:
-                messages.add_message(request, messages.INFO, 'Минимальная сумма пополнения 500 RC!')
+            player.wallet -= int(request.POST.get('rc_amount'))
+            player.rating += 5
+            player.save(force_update=True)
+            squad.balance += int(request.POST.get('rc_amount'))
+            squad.save(force_update=True)
+            messages.add_message(request, messages.SUCCESS,
+                                     'Баланс отряда успешно пополнен на ' + request.POST.get('rc_amount') + ' RC')
+        else:
+            messages.add_message(request, messages.WARNING, 'Минимальная сумма пополнения 500 RC!')
 
 
         return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def show_squads(request):
-    page_title = 'ОТРЯДЫ'
+    page_title = 'ОТРЯДЫ И ИГРОКИ СЕРВЕРА'
     print('show_squads')
     squad_active = 'active'
     squads = Squad.objects.all()
+    players = SteamUser.objects.filter( is_active=True).order_by('-rating')
     player = request.user
     print(player.id)
     req_disct = []
@@ -155,7 +165,7 @@ def join_request(request,name_slug):
             new_request.save()
             new_message = PrivateMessages.objects.create(to_player_id=squad.leader.id,
                                                          from_player_name=request.user.personaname,
-                                                         from_player_name_slug=request.user.personaname,
+                                                         from_player_name_slug=request.user.nickname,
                                                          from_player_avatar=str(request.user.avatar),
                                                          text='Привет, хочу вступить в твой отряд!')
             new_message.save()
@@ -232,7 +242,7 @@ def reject_request(request):
         req.delete()
         new_message = PrivateMessages.objects.create(to_player_id=req.player.id,
                                                      from_player_name=request.user.personaname,
-                                                     from_player_name_slug=request.user.personaname,
+                                                     from_player_name_slug=request.user.nickname,
                                                      from_player_avatar=str(request.user.avatar),
                                                      text='Заявка на вступление отклонена')
         new_message.save()
@@ -307,7 +317,8 @@ def delete_squad(request):
 
 
 def sector_war(request, sector_name):
-    #https://discordapp.com/api/webhooks/524873359436283915/vFsTvIsaY3gDiWFDMCiUT0Nu0Hf9oz-_WncJRw05Uqvb-bRV_rjDNKul9Kbxw1ui6ooE
+    no_war_at_week = False
+
     today = datetime.date.today()
     if today.weekday() == 6:
         sun = today + datetime.timedelta(7)
@@ -317,35 +328,92 @@ def sector_war(request, sector_name):
 
     print(sat)
     print(sun)
+    webhook = DiscordWebhook(url=bot_settings.SECTOR_WAR_URL)
 
 
     sector = SquadSectors.objects.get(name=sector_name)
     print(sector)
+    owner = sector.squad
 
     enemy = Squad.objects.get(leader=request.user)
-    all_wars = SectorWars.objects.filter(sector=enemy)
-    print(all_wars)
-    if all_wars.count() == 2:
-        print('даты заняты')
-    elif all_wars.count() == 0:
-        new_war = SectorWars.objects.create(sector_id=sector.id, enemy_id=enemy.id, war_date=sat)
-        new_war.save()
-        new_message = PrivateMessages.objects.create(to_player_id=sector.squad.leader.id,
-                                                     from_player_name=enemy.leader.personaname,
-                                                     from_player_name_slug=enemy.leader.nickname,
-                                                     from_player_avatar=str(enemy.leader.avatar),
-                                                     text='Наш отряд притендует на сектор {}. '
-                                                          'По обоюдной договоренности бой состоится {}. '
-                                                          'В случае отказа от боя, сектор переходит под наш контроль'
-                                                          'автоматически. ;)'.format(sector.name, sat.strftime('%Y-%m-%d')))
-        new_message.save()
-    elif all_wars.count() == 1:
-        new_war = SectorWars.objects.create(sector_id=sector.id, enemy_id=enemy.id, war_date=sun)
-        new_war.save()
+    all_wars = SectorWars.objects.all()
+    for war in all_wars:
+        if war.enemy == enemy or war.sector.squad == owner:
+            no_war_at_week = True
+
+    if no_war_at_week:
+        messages.add_message(request, messages.WARNING, 'На этой неделе твой отряд уже участвует в боевых действиях')
+
+    else:
+        print(all_wars)
+        if all_wars.count() == 2:
+            print('даты заняты')
+            messages.add_message(request, messages.WARNING, 'На этой неделе все даты зяняты!')
+        elif all_wars.count() == 0:
+            new_war = SectorWars.objects.create(sector_id=sector.id,
+                                                enemy_id=enemy.id,
+                                                war_date=sat,
+                                                for_bot_enemy_squad_name=enemy.name,
+                                                for_bot_owner_name=owner.name,
+                                                for_bot_sector_name=sector.name,
+                                                for_bot_owner_discord_id=owner.leader.discord_id)
+            sector.in_war = True
+            sector.save(force_update=True)
+            new_war.save()
+            new_message = PrivateMessages.objects.create(to_player_id=sector.squad.leader.id,
+                                                         from_player_name=enemy.leader.personaname,
+                                                         from_player_name_slug=enemy.leader.nickname,
+                                                         from_player_avatar=str(enemy.leader.avatar),
+                                                         text='Наш отряд притендует на сектор {} . '
+                                                              'По обоюдной договоренности бой состоится {} '
+                                                              'в любое время с 17 до 22 МСК. '
+                                                              'В случае отказа от боя, сектор переходит под наш контроль '
+                                                              'автоматически. ;)'.format(sector.name, sat.strftime('%d-%m-%Y')))
+            new_message.save()
 
 
+            # create embed object for webhook
+            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name, description='Дата : ' + sat.strftime('%d-%m-%Y'), color=242424)
+            embed.add_embed_field(name='Нападающие', value=enemy.name)
+            embed.add_embed_field(name='Обороняющиеся', value=sector.squad.name)
 
-    return HttpResponseRedirect('/profile/' + request.user.nickname)
+            # add embed object to webhook
+            webhook.add_embed(embed)
+
+            webhook.execute()
+        elif all_wars.count() == 1:
+            new_war = SectorWars.objects.create(sector_id=sector.id,
+                                                enemy_id=enemy.id,
+                                                war_date=sun,
+                                                for_bot_enemy_squad_name=enemy.name,
+                                                for_bot_owner_name=owner.name,
+                                                for_bot_sector_name=sector.name,
+                                                for_bot_owner_discord_id=owner.leader.discord_id)
+            new_war.save()
+            sector.in_war = True
+            sector.save(force_update=True)
+            new_message = PrivateMessages.objects.create(to_player_id=sector.squad.leader.id,
+                                                         from_player_name=enemy.leader.personaname,
+                                                         from_player_name_slug=enemy.leader.nickname,
+                                                         from_player_avatar=str(enemy.leader.avatar),
+                                                         text='Наш отряд притендует на сектор {} . '
+                                                              'По обоюдной договоренности бой состоится {} '
+                                                              'в любое время с 17 до 22 МСК. '
+                                                              'В случае отказа от боя, сектор переходит под наш контроль '
+                                                              'автоматически. ;)'.format(sector.name,
+                                                                                         sun.strftime('%d-%m-%Y')))
+            new_message.save()
+            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name,
+                                 description='Дата : ' + sun.strftime('%d-%m-%Y'), color=242424)
+            embed.add_embed_field(name='Нападающие', value=enemy.name)
+            embed.add_embed_field(name='Обороняющиеся', value=sector.squad.name)
+
+            # add embed object to webhook
+            webhook.add_embed(embed)
+
+            webhook.execute()
+
+    return HttpResponseRedirect('/squad/#sectors_map')
 
 
 def stat(request):
@@ -404,3 +472,11 @@ def leave_squad(request):
     new_message.save()
     squad_member.delete()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
+
+
+def accept_war(request, sector_name):
+    pass
+
+
+def deny_war(request, sector_name):
+    pass

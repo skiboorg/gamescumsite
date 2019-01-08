@@ -22,6 +22,11 @@
 		================================================== -->
         <div class="site-content">
             <div class="container">
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-danger{% endif %} alert-dismissible"><strong>{{ message }}</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                {% endfor %}
+            </div>
                 <div class="row">
                     <!-- Content -->
                     <div class="content col-md-12">
@@ -44,6 +49,14 @@
                                                             <h4 class="widget-player__name"><span class="widget-player__last-name">{{ player.personaname }}</span></h4></header>
                                                         <div class="widget-player__content">
                                                             <div  class="widget-player__content-inner">
+                                                                 <div class="widget-player__stat widget-player__assists">
+                                                                {% if player.vip %}
+                                                                    <img src="{% static '/images/vip.png' %}">
+                                                                {% elif player.outlaw %}
+                                                                    <img src="{% static '/images/outlaw.png' %}">
+                                                                {% endif %}
+
+                                                                 </div>
                                                                 <div class="widget-player__stat widget-player__assists">
                                                                     <h6 class="widget-player__stat-label">Убийств</h6>
                                                                     <div class="widget-player__stat-number">{{ player.kills }}</div>
@@ -74,7 +87,15 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="alc-staff-inner">
+                                                    <form style="padding-bottom: 15px;" action="{% url 'add_to_player_balance' %}" class="form-inline" method="post">
+                                                        {% csrf_token %}
 
+                                                        <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
+                                                        <input type='hidden' id="cur_bal" value="{{ request.user.wallet }}">
+                                                        <input type='hidden' name="player_id" value="{{ player.id }}">
+
+                                                        <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Сделать перевод RC</button>
+                                                    </form>
 
                                                     <dl class="alc-staff-details">
 
@@ -97,6 +118,7 @@
                                                     </dl>
                                                     <div class="alc-staff-excerpt">{{ player.info }}</div>
                                                     <!-- Details / End -->
+
                                                 </div>
                                             </div>
                                         </div>

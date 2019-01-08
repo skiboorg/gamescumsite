@@ -88,6 +88,7 @@ class SquadSectors(models.Model):
     name = models.CharField(max_length=5, blank=False, null=False)
     income = models.IntegerField(default=0, blank=False)
     price = models.IntegerField(default=0, blank=False)
+    in_war = models.BooleanField(default=False)
     own = models.DateTimeField(default=datetime.now())
     last_pay = models.DateTimeField(default=datetime.now())
 
@@ -105,18 +106,22 @@ class SectorWars(models.Model):
     sector = models.ForeignKey(SquadSectors, blank=False, null=True, on_delete=models.CASCADE)
     enemy = models.ForeignKey(Squad, blank=False, null=True, on_delete=models.CASCADE)
     war_date = models.DateTimeField(blank=False, null=True,default=None)
-    owner_notify = models.BooleanField(default=False)
-    owner_agreed = models.BooleanField(default=False)
-    owner_denied = models.BooleanField(default=False)
+
+    owner_agreed = models.BooleanField(null=True)
+
     for_bot_enemy_squad_name = models.CharField(max_length=50, blank=True)
     for_bot_sector_name = models.CharField(max_length=50, blank=True)
     for_bot_owner_name = models.CharField(max_length=50, blank=True)
+    for_bot_owner_discord_id = models.CharField(max_length=50, blank=True)
+
     def __str__(self):
         return 'Оспаривание сектора : %s' % self.sector.name
 
     class Meta:
         verbose_name = "Война за сектор"
         verbose_name_plural = "Война за секторы"
+
+
 
 def squad_post_save(sender, instance, **kwargs):
     try:
@@ -126,6 +131,7 @@ def squad_post_save(sender, instance, **kwargs):
         instance.leader.is_squad_leader = True
         instance.leader.rank = 'Глава отряда ' + str(instance.name)
         instance.leader.save(force_update=True)
+
 
 
 post_save.connect(squad_post_save, sender=Squad)

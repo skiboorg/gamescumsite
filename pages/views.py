@@ -41,7 +41,7 @@ def index(request):
     name = tree.xpath('//*[@id="serverPage"]/h2/text()')
     ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
     status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
-    top3 = SteamUser.objects.filter(is_superuser=False,is_staff=False).order_by('-rating')[:3]
+    top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:5]
     print(status)
 
     if request.user.is_authenticated:
@@ -222,14 +222,12 @@ def bonus_pack(request):
                                                      from_player_name=player.personaname,
                                                      from_player_name_slug=player.nickname,
                                                      from_player_avatar=str(player.avatar),
-                                                     text='Привет богоподобный и лучезарный админ!!! '
-                                                          'Я бы хотел попросить бонус пак . Мой дискорд {}. '
-                                                          'Огромное спасибо и здоровья на долгие года.'
-                                                          .format(player.discord_nickname))
+                                                     text='Я бы хотел попросить бонус пак .\n'
+                                                          ' Мой SteamID {} . '.format(player.steamid))
         new_message.save()
     player.bonus_pack = True
     player.save(force_update=True)
-    messages.add_message(request, messages.INFO, 'Заявка на получение бонус-пака отправлена! '
+    messages.add_message(request, messages.SUCCESS, 'Заявка на получение бонус-пака отправлена! '
                                                  'Ожидай в дискорде сообщения от администрации сервера.')
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
@@ -243,3 +241,35 @@ def rules(request):
 def about_bonus_pack(request):
     page_title = 'БОНУС ПАК НОВЫМ ИГРОКАМ'
     return render(request, 'pages/bonus_pack.html', locals())
+
+def add_to_player_balance(request):
+    player = request.user
+    to_player = SteamUser.objects.get(id=request.POST.get('player_id'))
+    if player.wallet >= int(request.POST.get('rc_amount')):
+        player.wallet -= int(request.POST.get('rc_amount'))
+        player.rating += 1
+        player.save(force_update=True)
+        to_player.wallet += int(request.POST.get('rc_amount'))
+        to_player.save(force_update=True)
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Перевод {} RC, игроку {} '.format(
+                                          request.POST.get('rc_amount'), to_player.nickname))
+        new_log.save()
+        new_message = PrivateMessages.objects.create(to_player_id=to_player.id,
+                                                     from_player_name=player.personaname,
+                                                     from_player_name_slug=player.nickname,
+                                                     from_player_avatar=str(player.avatar),
+                                                     text='Привет, я перевел тебе {} RC'
+                                                     .format(request.POST.get('rc_amount')))
+        new_message.save()
+        messages.add_message(request, messages.SUCCESS,
+                             'Баланс игрока '+ to_player.personaname +' успешно пополнен на '
+                             + request.POST.get('rc_amount') + ' RC')
+    else:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка перевода {} RC, игроку {} '.format(
+                                          request.POST.get('rc_amount'), to_player.nickname))
+        new_log.save()
+        messages.add_message(request, messages.WARNING, 'Не хватает собственных средств для перевода!')
+
+    return HttpResponseRedirect('/profile/' + to_player.nickname)
