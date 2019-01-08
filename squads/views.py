@@ -338,11 +338,18 @@ def sector_war(request, sector_name):
     enemy = Squad.objects.get(leader=request.user)
     all_wars = SectorWars.objects.all()
     for war in all_wars:
-        if war.enemy == enemy or war.sector.squad == owner:
+        if war.enemy.id == enemy.id or war.sector.squad.id == owner.id:
+            print('war.enemy')
+            print(war.enemy.id)
+            print(enemy.id)
+            print('war.sector.squad')
+            print(war.sector.squad.id)
+            print(owner.id)
             no_war_at_week = True
 
     if no_war_at_week:
-        messages.add_message(request, messages.WARNING, 'На этой неделе твой отряд уже участвует в боевых действиях')
+        messages.add_message(request, messages.WARNING, 'На этой неделе твой отряд или отряд противника'
+                                                        ' уже участвует в боевых действиях')
 
     else:
         print(all_wars)
@@ -373,7 +380,7 @@ def sector_war(request, sector_name):
 
 
             # create embed object for webhook
-            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name, description='Дата : ' + sat.strftime('%d-%m-%Y'), color=242424)
+            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name, color=242424)
             embed.add_embed_field(name='Нападающие', value=enemy.name)
             embed.add_embed_field(name='Обороняющиеся', value=sector.squad.name)
 
@@ -403,8 +410,7 @@ def sector_war(request, sector_name):
                                                               'автоматически. ;)'.format(sector.name,
                                                                                          sun.strftime('%d-%m-%Y')))
             new_message.save()
-            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name,
-                                 description='Дата : ' + sun.strftime('%d-%m-%Y'), color=242424)
+            embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА : ' + sector_name, color=242424)
             embed.add_embed_field(name='Нападающие', value=enemy.name)
             embed.add_embed_field(name='Обороняющиеся', value=sector.squad.name)
 
@@ -475,8 +481,88 @@ def leave_squad(request):
 
 
 def accept_war(request, sector_name):
-    pass
+    try:
+        sector = SquadSectors.objects.get(name=sector_name)
+    except:
+        sector = None
+
+    if sector:
+        print(sector)
+        webhook = DiscordWebhook(url=bot_settings.SECTOR_WAR_URL)
+        war_sector = SectorWars.objects.get(sector=sector)
+        enemy = war_sector.enemy
+        war_sector.owner_agreed = True
+        war_sector.save(force_update=True)
+        new_message = PrivateMessages.objects.create(to_player_id=enemy.leader.id,
+                                                     from_player_name=request.user.personaname,
+                                                     from_player_name_slug=request.user.nickname,
+                                                     from_player_avatar=str(request.user.avatar),
+                                                     text='Мы принимаем ваш вызов в секторе {} на {}'
+                                                     .format(sector_name, war_sector.war_date.strftime('%d-%m-%Y')))
+        new_message.save()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Согласие на войну в секторе {} {}'
+                                      .format(sector_name, war_sector.war_date.strftime('%d-%m-%Y')))
+        new_log.save()
+        embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА {} СОСТОИТСЯ'.format(sector_name),
+                             description='Дата : ' + war_sector.war_date.strftime('%d-%m-%Y'), color=242424)
+        embed.add_embed_field(name='Нападающий отряд', value=enemy.name)
+        embed.add_embed_field(name='Обороняющийся отряд', value=sector.squad.name)
+
+        # add embed object to webhook
+        webhook.add_embed(embed)
+
+        webhook.execute()
+    else:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка согласия на войну в секторе {}'
+                                      .format(sector_name))
+        new_log.save()
+
+    return HttpResponseRedirect('/squad/#sectors_map')
 
 
 def deny_war(request, sector_name):
-    pass
+    try:
+        sector = SquadSectors.objects.get(name=sector_name)
+    except:
+        sector = None
+
+    if sector:
+        print(sector)
+        webhook = DiscordWebhook(url=bot_settings.SECTOR_WAR_URL)
+        war_sector = SectorWars.objects.get(sector=sector)
+        enemy = war_sector.enemy
+
+
+        new_message = PrivateMessages.objects.create(to_player_id=enemy.leader.id,
+                                                     from_player_name=request.user.personaname,
+                                                     from_player_name_slug=request.user.nickname,
+                                                     from_player_avatar=str(request.user.avatar),
+                                                     text='Мы не принимаем ваш вызов в секторе {} на {}'
+                                                     .format(sector_name, war_sector.war_date.strftime('%d-%m-%Y')))
+        new_message.save()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Отказ от войны в секторе {} {}'
+                                      .format(sector_name, war_sector.war_date.strftime('%d-%m-%Y')))
+        new_log.save()
+        # war_sector.delete()
+        embed = DiscordEmbed(title='ОСПАРИВАНИЯ СЕКТОРА {} НЕ СОСТОИТСЯ'.format(sector_name),
+                             description='Отряд {} не принял вызов от отряда {} . Сектор {} переходит к отряду {} !'
+                             .format(sector.squad.name, enemy.name, sector_name, enemy.name), color=242424)
+
+
+        # add embed object to webhook
+        webhook.add_embed(embed)
+
+        webhook.execute()
+        sector.squad = enemy
+        sector.in_war = False
+        sector.save(force_update=True)
+    else:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка отказа от войны в секторе {}'
+                                      .format(sector_name))
+        new_log.save()
+
+    return HttpResponseRedirect('/squad/#sectors_map')

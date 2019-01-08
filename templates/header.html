@@ -52,6 +52,9 @@
                             {% if user.is_squad_leader  %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'profile' user.nickname %}#squad">Управление отрядом<span class="highlight"></span></a>
+                                {% if  in_war  %}
+                                    <a class="dropdown-item" href="{% url 'all_squads'%}#sectors_map"><strong>Оспаривание сектора</strong></a>
+                                {% endif %}
                             {% else %}
                                 {% if  not player_squad_member %}
                                     <a class="dropdown-item" href="{% url 'profile' user.nickname %}#create_squad">СОЗДАТЬ ОТРЯД</a>
@@ -63,7 +66,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item"  href="{% url "logout" %}">ВЫХОД </a>
                         </div>
-                        {% if pm.count > 0  %}
+                        {% if pm.count or in_war  %}
                             <div id="player_mark" style="    width: 30px;
     height: 38px;
     background-color: #f34141;

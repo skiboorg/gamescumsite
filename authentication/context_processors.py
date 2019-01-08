@@ -14,11 +14,15 @@ def check_profile(request):
     return locals()
 
 def get_player_squad_info(request):
+    in_war = False
     if request.user.is_authenticated:
         try:
             player_squad_member = SquadMembers.objects.get(player=request.user.id)
             player_squad = player_squad_member.squad
             player_squad_sector = SquadSectors.objects.filter(squad=player_squad.id)
+            for sect in player_squad_sector:
+                if sect.in_war:
+                    in_war = True
             if request.user.id == player_squad.leader.id:
                 sector_wars = SectorWars.objects.filter(sector__in=player_squad_sector)
             print(player_squad_sector)

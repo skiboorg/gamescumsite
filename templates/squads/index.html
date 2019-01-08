@@ -183,6 +183,30 @@
                             <ul class="widget-results__list">
                                 <!-- Game #0 -->
                                 {% for war in wars %}
+                                    {% if not war.owner_agreed %}
+                                         <li class="widget-results__item">
+                                        <h5 class="widget-results__title">{{ war.war_date.date }}</h5>
+                                        <div class="widget-results__content">
+                                            <div class="widget-results__team widget-results__team--first">
+                                                <figure class="widget-results__team-logo"><img src="{{ war.enemy.avatar.url }}" alt=""></figure>
+                                                <div class="widget-results__team-details">
+                                                    <h5 class="widget-results__team-name">{{ war.enemy.name }}</h5><span class="widget-results__team-info">нападают</span></div>
+
+                                            </div>
+                                            <div class="widget-results__result">
+                                                <div class="widget-results__score"><span class="widget-results__score-winner">{{ war.sector.name }}</span>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="widget-results__team widget-results__team--second">
+
+                                                    <h5 class="widget-results__team-name">Победа без боя</h5></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% else %}
+
                                     <li class="widget-results__item">
                                         <h5 class="widget-results__title">{{ war.war_date.date }}</h5>
                                         <div class="widget-results__content">
@@ -195,6 +219,7 @@
                                             <div class="widget-results__result">
                                                 <div class="widget-results__score"><span class="widget-results__score-winner">{{ war.sector.name }}</span>
 
+
                                                 </div>
                                             </div>
                                             <div class="widget-results__team widget-results__team--second">
@@ -204,6 +229,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    {% endif %}
                                     <!-- Game #0 / End -->
                                 {% endfor %}
                                 {% if not wars %}
@@ -243,38 +269,57 @@
                                     font-weight: bold;
                                     {% if sect.squad.name %}
                                         background-color: #ff7e1f96;
-                                        color: #fff;
+
                                     {% endif %}
-                                    "
-                                    {% for war in wars %}
-                                        {% if war.sector.id == sect.id %}
-                                data-toggle="tooltip" data-html="true"
-                                title="
-                            {{ war.war_date }}
-                            {{ war.enemy.name }}
-                        ">
-                                        {% endif %}
-                                    {% endfor %}
 
-                            {{ sect.name }}<br>
-                            {% if sect.squad.name %}
-                                Владелец с {{ sect.own.date }}<br>
-                                <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
-                                {{ sect.squad.name }}<br>
-{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
-{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
-{#                                {%endif%}#}
-                            {% else %}
-                                <div>
-                                    СВОБОДНО<br>
-                                    Доход : {{ sect.income }}<br>
-                                    Цена : {{ sect.price }}<br>
-                                    {% if player.is_squad_leader %}
-                                        <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                    {% if sect.in_war %}
+                                        background-color: rgba(243, 65, 65, 0.91);
+                                    {% endif %}
+
+                                    " >
+
+
+                                {{ sect.name }}<br>
+                                {% if sect.squad.name %}
+                                    Владелец с {{ sect.own.date }}<br>
+                                    <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
+                                    {{ sect.squad.name }}<br>
+
+
+
+
+                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
+                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
                                     {%endif%}
-                                </div>
+                                    {% if sect.in_war %}
+                                        {% for war in sect.sectorwars_set.all %}
+                                            <div style="    background-color: #1e2024;
+                                                            margin: 5px;
+                                                            padding: 10px;">
+                                             Сектор будет оспорен<br>{{ war.war_date|date:"d M, Y" }}, отрядом<br> <img width="20px" src="{{ war.enemy.avatar.url }}"> {{ war.enemy.name }}<br>
+                                            {% if player.is_squad_leader and sect in player_squad_sector.all and not war.owner_agreed  %}
+                                            <a href="{% url 'accept_war' sect.name %}" class="btn btn-success btn-outline btn-xs">ПРИНЯТЬ</a> <a href="{% url 'deny_war' sect.name %}" class="btn btn-danger btn-outline btn-xs">ОТКЛОНИТЬ</a>
+                                            {% endif %}
+                                            </div>
 
-                            {% endif %}
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
+
+
+                                {% else %}
+                                    <div>
+                                        СВОБОДНО<br>
+                                        Доход : {{ sect.income }}<br>
+                                        Цена : {{ sect.price }}<br>
+                                        {% if player.is_squad_leader %}
+                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                        {%endif%}
+                                    </div>
+
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
@@ -288,38 +333,57 @@
                                     font-weight: bold;
                                     {% if sect.squad.name %}
                                         background-color: #ff7e1f96;
-                                        color: #fff;
+
                                     {% endif %}
-                                    "
-                                    {% for war in wars %}
-                                        {% if war.sector.id == sect.id %}
-                                data-toggle="tooltip" data-html="true"
-                                title="
-                            {{ war.war_date }}
-                            {{ war.enemy.name }}
-                        ">
-                                        {% endif %}
-                                    {% endfor %}
 
-                            {{ sect.name }}<br>
-                            {% if sect.squad.name %}
-                                Владелец с {{ sect.own.date }}<br>
-                                <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
-                                {{ sect.squad.name }}<br>
-{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
-{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
-{#                                {%endif%}#}
-                            {% else %}
-                                <div>
-                                    СВОБОДНО<br>
-                                    Доход : {{ sect.income }}<br>
-                                    Цена : {{ sect.price }}<br>
-                                    {% if player.is_squad_leader %}
-                                        <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                    {% if sect.in_war %}
+                                        background-color: rgba(243, 65, 65, 0.91);
+                                    {% endif %}
+
+                                    " >
+
+
+                                {{ sect.name }}<br>
+                                {% if sect.squad.name %}
+                                    Владелец с {{ sect.own.date }}<br>
+                                    <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
+                                    {{ sect.squad.name }}<br>
+
+
+
+
+                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
+                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
                                     {%endif%}
-                                </div>
+                                    {% if sect.in_war %}
+                                        {% for war in sect.sectorwars_set.all %}
+                                            <div style="    background-color: #1e2024;
+                                                            margin: 5px;
+                                                            padding: 10px;">
+                                             Сектор будет оспорен<br>{{ war.war_date|date:"d M, Y" }}, отрядом<br> <img width="20px" src="{{ war.enemy.avatar.url }}"> {{ war.enemy.name }}<br>
+                                            {% if player.is_squad_leader and sect in player_squad_sector.all and not war.owner_agreed  %}
+                                            <a href="{% url 'accept_war' sect.name %}" class="btn btn-success btn-outline btn-xs">ПРИНЯТЬ</a> <a href="{% url 'deny_war' sect.name %}" class="btn btn-danger btn-outline btn-xs">ОТКЛОНИТЬ</a>
+                                            {% endif %}
+                                            </div>
 
-                            {% endif %}
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
+
+
+                                {% else %}
+                                    <div>
+                                        СВОБОДНО<br>
+                                        Доход : {{ sect.income }}<br>
+                                        Цена : {{ sect.price }}<br>
+                                        {% if player.is_squad_leader %}
+                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                        {%endif%}
+                                    </div>
+
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
@@ -333,38 +397,57 @@
                                     font-weight: bold;
                                     {% if sect.squad.name %}
                                         background-color: #ff7e1f96;
-                                        color: #fff;
+
                                     {% endif %}
-                                    "
-                                    {% for war in wars %}
-                                        {% if war.sector.id == sect.id %}
-                                data-toggle="tooltip" data-html="true"
-                                title="
-                            {{ war.war_date }}
-                            {{ war.enemy.name }}
-                        ">
-                                        {% endif %}
-                                    {% endfor %}
 
-                            {{ sect.name }}<br>
-                            {% if sect.squad.name %}
-                                Владелец с {{ sect.own.date }}<br>
-                                <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
-                                {{ sect.squad.name }}<br>
-{#                                {% if player.is_squad_leader and sect not in player_squad_sector.all %}#}
-{#                                    <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
-{#                                {%endif%}#}
-                            {% else %}
-                                <div>
-                                    СВОБОДНО<br>
-                                    Доход : {{ sect.income }}<br>
-                                    Цена : {{ sect.price }}<br>
-                                    {% if player.is_squad_leader %}
-                                        <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                    {% if sect.in_war %}
+                                        background-color: rgba(243, 65, 65, 0.91);
+                                    {% endif %}
+
+                                    " >
+
+
+                                {{ sect.name }}<br>
+                                {% if sect.squad.name %}
+                                    Владелец с {{ sect.own.date }}<br>
+                                    <img width="40px" src="{{ sect.squad.avatar.url }}" alt=""><br>
+                                    {{ sect.squad.name }}<br>
+
+
+
+
+                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
+                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
                                     {%endif%}
-                                </div>
+                                    {% if sect.in_war %}
+                                        {% for war in sect.sectorwars_set.all %}
+                                            <div style="    background-color: #1e2024;
+                                                            margin: 5px;
+                                                            padding: 10px;">
+                                             Сектор будет оспорен<br>{{ war.war_date|date:"d M, Y" }}, отрядом<br> <img width="20px" src="{{ war.enemy.avatar.url }}"> {{ war.enemy.name }}<br>
+                                            {% if player.is_squad_leader and sect in player_squad_sector.all and not war.owner_agreed  %}
+                                            <a href="{% url 'accept_war' sect.name %}" class="btn btn-success btn-outline btn-xs">ПРИНЯТЬ</a> <a href="{% url 'deny_war' sect.name %}" class="btn btn-danger btn-outline btn-xs">ОТКЛОНИТЬ</a>
+                                            {% endif %}
+                                            </div>
 
-                            {% endif %}
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
+
+
+                                {% else %}
+                                    <div>
+                                        СВОБОДНО<br>
+                                        Доход : {{ sect.income }}<br>
+                                        Цена : {{ sect.price }}<br>
+                                        {% if player.is_squad_leader %}
+                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
+                                        {%endif%}
+                                    </div>
+
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
@@ -406,7 +489,9 @@
                                                             margin: 5px;
                                                             padding: 10px;">
                                              Сектор будет оспорен<br>{{ war.war_date|date:"d M, Y" }}, отрядом<br> <img width="20px" src="{{ war.enemy.avatar.url }}"> {{ war.enemy.name }}<br>
-                                            <a href="#" class="btn btn-success btn-outline btn-xs">ПРИНЯТЬ</a> <a href="#" class="btn btn-danger btn-outline btn-xs">ОТКЛОНИТЬ</a>
+                                            {% if player.is_squad_leader and sect in player_squad_sector.all and not war.owner_agreed  %}
+                                            <a href="{% url 'accept_war' sect.name %}" class="btn btn-success btn-outline btn-xs">ПРИНЯТЬ</a> <a href="{% url 'deny_war' sect.name %}" class="btn btn-danger btn-outline btn-xs">ОТКЛОНИТЬ</a>
+                                            {% endif %}
                                             </div>
 
 
