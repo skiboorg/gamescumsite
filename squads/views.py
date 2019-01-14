@@ -25,6 +25,9 @@ def create_squad(request):
             squad_form = UpdateSquadForm(request.POST, request.FILES, instance=squad)
             if squad_form.is_valid():
                 squad_form.save()
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Изменение отряда')
+                new_log.save()
                 return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
         else:
             squad_form = CreateSquadForm(request.POST, request.FILES)
@@ -33,7 +36,11 @@ def create_squad(request):
                 squad_form.save()
                 request.user.wallet -= 1000
                 request.user.save(force_update=True)
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Создание отряда')
+                new_log.save()
                 return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
+
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
@@ -51,8 +58,22 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
                 messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Покупка сектора {} отрядом {}  за {} '.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
             else:
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                            'Максимально можно иметь 1 сектор'.
+                                                            format(sector_to_buy.name,
+                                                            squad.name,
+                                                            sector_to_buy.price))
+                new_log.save()
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 1 сектор!')
+
         if squad.level == 2:
             if sectors_count < 2:
                 squad.balance -= sector_to_buy.price
@@ -62,8 +83,21 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
                 messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Покупка сектора {} отрядом {}  за {} '.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 2 сектора!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                            'Максимально можно иметь 2 сектора'.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
         if squad.level == 3:
             if sectors_count < 3:
                 squad.balance -= sector_to_buy.price
@@ -72,8 +106,21 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
                 messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Покупка сектора {} отрядом {}  за {} '.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 3 сектора!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                            'Максимально можно иметь 3 сектора'.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
 
         if squad.level == 4:
             if sectors_count < 4:
@@ -83,8 +130,21 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
                 messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Покупка сектора {} отрядом {}  за {} '.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
             else:
                 messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 4 сектора!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                            'Максимально можно иметь 4 сектора'.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
 
         if squad.level == 5:
             if sectors_count < 5:
@@ -94,11 +154,31 @@ def buy_sector(request):
                 squad.save(force_update=True)
                 sector_to_buy.save(force_update=True)
                 messages.add_message(request, messages.SUCCESS, 'СЕКТОР ПРИОБРЕТЕН!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Покупка сектора {} отрядом {}  за {} '.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
             else:
                 messages.add_message(request, messages.INFO, 'У отряда максимальное количество покупаемых секторов!')
+                new_log = Logs.objects.create(player_id=request.user.id,
+                                              player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                            'Максимально можно иметь 5 сектор'.
+                                              format(sector_to_buy.name,
+                                                     squad.name,
+                                                     sector_to_buy.price))
+                new_log.save()
 
     else:
         messages.add_message(request, messages.WARNING, 'Нехватает денег для приобретения сектора!')
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка покупка сектора {} отрядом {}  за {}. '
+                                                    'Не хватает денег'.
+                                      format(sector_to_buy.name,
+                                             squad.name,
+                                             sector_to_buy.price))
+        new_log.save()
 
     return HttpResponseRedirect('/squad/#sectors_map')
 
@@ -107,6 +187,7 @@ def add_to_balance(request):
 
     if request.POST:
         player = request.user
+        squad = Squad.objects.get(id=request.POST.get('squad_id'))
         if player.wallet >= int(request.POST.get('rc_amount')) and int(request.POST.get('rc_amount')) >= 500:
             squad = Squad.objects.get(id=request.POST.get('squad_id'))
             squad_member = SquadMembers.objects.get(player=player.id)
@@ -119,8 +200,20 @@ def add_to_balance(request):
             squad.save(force_update=True)
             messages.add_message(request, messages.SUCCESS,
                                      'Баланс отряда успешно пополнен на ' + request.POST.get('rc_amount') + ' RC')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Баланс отряда {} пополнен на {} игроком {}'.
+                                          format(squad.name,
+                                                 request.POST.get('rc_amount'),
+                                                 player.personaname))
+            new_log.save()
         else:
             messages.add_message(request, messages.WARNING, 'Минимальная сумма пополнения 500 RC!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка пополнения баланса отряда {}  на {} игроком {}'.
+                                          format(squad.name,
+                                                 request.POST.get('rc_amount'),
+                                                 player.personaname))
+            new_log.save()
 
 
         return HttpResponseRedirect('/profile/' + request.user.nickname)
@@ -174,8 +267,12 @@ def join_request(request,name_slug):
 
             return HttpResponseRedirect('/squad/')
     else:
-        new_log = Logs.objects.create(player_id=request.user.id,
+        if request.user.id is not None:
+            new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Подана заявка в несуществующий отряд ')
+        else:
+            new_log = Logs.objects.create(player_id=1,
+                                          player_action='Подана заявка в несуществующий отряд от незареганного юзера ')
         new_log.save()
         return HttpResponseRedirect('/squad/')
 
@@ -190,6 +287,10 @@ def confirm_request(request):
             pass
         else:
             messages.add_message(request, messages.INFO, 'На данном уровне отряда можно иметь только 3 человека в отряде!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка прием в отряд {} уровня игрока {}'
+                                          .format(squad.level, request.GET.get('name')))
+            new_log.save()
             squad.recruting = False
             squad.save(force_update=True)
     if squad.level == 2:
@@ -198,6 +299,10 @@ def confirm_request(request):
         else:
             messages.add_message(request, messages.INFO,
                                  'На данном уровне отряда можно иметь только 4 человека в отряде!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка прием в отряд {} уровня игрока {}'
+                                          .format(squad.level, request.GET.get('name')))
+            new_log.save()
             squad.recruting = False
             squad.save(force_update=True)
     if squad.level == 3:
@@ -206,6 +311,10 @@ def confirm_request(request):
         else:
             messages.add_message(request, messages.INFO,
                                  'На данном уровне отряда можно иметь только 5 человек в отряде!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка прием в отряд {} уровня игрока {}'
+                                          .format(squad.level, request.GET.get('name')))
+            new_log.save()
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -215,6 +324,10 @@ def confirm_request(request):
         else:
             messages.add_message(request, messages.INFO,
                                  'На данном уровне отряда можно иметь только 6 человек в отряде!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка прием в отряд {} уровня игрока {}'
+                                          .format(squad.level, request.GET.get('name')))
+            new_log.save()
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -224,6 +337,10 @@ def confirm_request(request):
         else:
             messages.add_message(request, messages.INFO,
                                  'В отряда можно иметь 7 человек максимум!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка прием в отряд {} уровня игрока {}'
+                                          .format(squad.level, request.GET.get('name')))
+            new_log.save()
             squad.recruting = False
             squad.save(force_update=True)
 
@@ -233,6 +350,10 @@ def confirm_request(request):
         req_squad.save()
         player_req = SquadRequests.objects.filter(player_id=req_user.id)
         player_req.delete()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Прием в отряд {} уровня игрока {}'
+                                      .format(squad.level, request.GET.get('name')))
+        new_log.save()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def reject_request(request):
@@ -246,6 +367,10 @@ def reject_request(request):
                                                      from_player_avatar=str(request.user.avatar),
                                                      text='Заявка на вступление отклонена')
         new_message.save()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Отклонение заявки в отряд {} уровня игрока {}'
+                                      .format(squad.level, req.player.personaname))
+        new_log.save()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 def kick_player(request,nickname):
@@ -259,6 +384,10 @@ def kick_player(request,nickname):
                                                      from_player_avatar=str(request.user.avatar),
                                                      text='Привет, ты был кикнут из отряда.')
         new_message.save()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Кик из отряда {} уровня игрока {}'
+                                      .format(squad.level, squad_member.personaname))
+        new_log.save()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
@@ -270,24 +399,40 @@ def level_up(request):
             squad.balance -= 1000
             squad.level = 2
             squad.save(force_update=True)
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Поднятие уровня отряда {} с 1 до 2 уровня '
+                                          .format(squad.name))
+            new_log.save()
     elif squad.level == 2:
         if squad.balance >= 3000:
             squad.balance -= 3000
             squad.level = 3
             squad.recruting = True
             squad.save(force_update=True)
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Поднятие уровня отряда {} со 2 до 3 уровня '
+                                          .format(squad.name))
+            new_log.save()
     elif squad.level == 3:
         if squad.balance >= 5000:
             squad.balance -= 5000
             squad.level = 4
             squad.recruting = True
             squad.save(force_update=True)
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Поднятие уровня отряда {} с 3 до 4 уровня '
+                                          .format(squad.name))
+            new_log.save()
     elif squad.level == 4:
         if squad.balance >= 10000:
             squad.balance -= 10000
             squad.level = 5
             squad.recruting = True
             squad.save(force_update=True)
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Поднятие уровня отряда {} с 4 до 5 уровня '
+                                          .format(squad.name))
+            new_log.save()
     elif squad.level == 5:
         if squad.balance >= 15000:
             squad.balance -= 15000
@@ -295,6 +440,10 @@ def level_up(request):
             squad.recruting = True
             squad.vip = True
             squad.save(force_update=True)
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Поднятие уровня отряда {} с 5 до ВИП уровня '
+                                          .format(squad.name))
+            new_log.save()
 
     messages.add_message(request, messages.INFO,
                          'Уровень отряда успешно повышен. Открыты новые возможности!')
@@ -312,6 +461,9 @@ def delete_squad(request):
     request.user.rank = 'Бывалый'
     request.user.save(force_update=True)
     squad_to_delete.delete()
+    new_log = Logs.objects.create(player_id=request.user.id,
+                                  player_action='Удаление отряда {}'.format(squad_to_delete.name))
+    new_log.save()
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
@@ -350,12 +502,19 @@ def sector_war(request, sector_name):
     if no_war_at_week:
         messages.add_message(request, messages.WARNING, 'На этой неделе твой отряд или отряд противника'
                                                         ' уже участвует в боевых действиях')
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка оспаривание сектора {} . Отряды {} и {} '
+                                                    'уже участвует в боевых действиях'.format(sector_name, owner.name, enemy.name))
+        new_log.save()
 
     else:
         print(all_wars)
         if all_wars.count() == 2:
             print('даты заняты')
             messages.add_message(request, messages.WARNING, 'На этой неделе все даты зяняты!')
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Попытка оспаривание сектора {} . Все даты заняты'.format(sector_name))
+            new_log.save()
         elif all_wars.count() == 0:
             new_war = SectorWars.objects.create(sector_id=sector.id,
                                                 enemy_id=enemy.id,
@@ -388,6 +547,14 @@ def sector_war(request, sector_name):
             webhook.add_embed(embed)
 
             webhook.execute()
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Заявка на оспаривание сектора {} . '
+                                                        'Владелец : {}  Нападающий : {} Дата : {} '
+                                                        'уже участвует в боевых действиях'.format(sector_name,
+                                                                                                  owner.name,
+                                                                                                  enemy.name,
+                                                                                                  sat))
+            new_log.save()
         elif all_wars.count() == 1:
             new_war = SectorWars.objects.create(sector_id=sector.id,
                                                 enemy_id=enemy.id,
@@ -418,6 +585,14 @@ def sector_war(request, sector_name):
             webhook.add_embed(embed)
 
             webhook.execute()
+            new_log = Logs.objects.create(player_id=request.user.id,
+                                          player_action='Заявка на оспаривание сектора {} . '
+                                                        'Владелец : {}  Нападающий : {} Дата : {} '
+                                                        'уже участвует в боевых действиях'.format(sector_name,
+                                                                                                  owner.name,
+                                                                                                  enemy.name,
+                                                                                                  sun))
+            new_log.save()
 
     return HttpResponseRedirect('/squad/#sectors_map')
 
@@ -477,6 +652,10 @@ def leave_squad(request):
                                                      text='Я покинул отряд.')
     new_message.save()
     squad_member.delete()
+    new_log = Logs.objects.create(player_id=request.user.id,
+                                  player_action='Игрок {} покинул отряд {}'.format(request.user.personaname,
+                                                                                   squad_member.squad.name))
+    new_log.save()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
@@ -513,6 +692,12 @@ def accept_war(request, sector_name):
         webhook.add_embed(embed)
 
         webhook.execute()
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Отряд {} принял оспаривание сектора от отряда {} в секторе {}'
+                                      .format(sector.squad.name,
+                                              enemy.name,
+                                              sector_name))
+        new_log.save()
     else:
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Попытка согласия на войну в секторе {}'
@@ -559,6 +744,12 @@ def deny_war(request, sector_name):
         sector.squad = enemy
         sector.in_war = False
         sector.save(force_update=True)
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Отряд {} не принял оспаривание сектора от отряда {} в секторе {}'
+                                      .format(sector.squad.name,
+                                              enemy.name,
+                                              sector_name))
+        new_log.save()
     else:
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Попытка отказа от войны в секторе {}'
