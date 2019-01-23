@@ -1,7 +1,14 @@
 from django.db import models
 from authentication.models import SteamUser
 
+class PoliceStat(models.Model):
+    obez = models.IntegerField('Обезврежено', default=0)
+    victim = models.IntegerField('Жертвы', default=0)
+    izyato = models.IntegerField('Изъято', default=0)
 
+    class Meta:
+        verbose_name = "Полицейская стата"
+        verbose_name_plural = "Полицейская стата"
 
 class EventTemplates(models.Model):
     name = models.CharField(max_length=50, blank=False, null=True, default='')

@@ -4,10 +4,10 @@
 {% block content %}
 <div class="site-content">
     <div class="container">
-{% if request.user.is_staff %}
+{% if request.user.is_superuser %}
         {% if k %}
             <div class="alert alert-info"><strong>Результат обработки:</strong>
-            Строк убийств отработано : {{ k }} |   Строк смертей отработано : {{ d }}
+            Строк убийств отработано : {{ k }} |   Строк смертей отработано : {{ d }} |  Строк премий отработано : {{ p }}
             </div>
             {% endif %}
         <div class="site-content">
@@ -19,10 +19,19 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     Файл убийств:<br>
-                    <input type="file" name="kills_file"><br>
+                    <input required="required" type="file" name="kills_file"><br>
+                    <br>
                     Файл смертей:<br>
-                    <input type="file" name="deaths_file"><br>
+                    <input required="required" type="file" name="deaths_file"><br>
+                    <br>
+                    Файл надбавка за время:<br>
+                    <input required="required" type="file" name="time_file"><br>
                     <button type="submit">Загрузить</button>
+                </form>
+                <form method="get">
+                    Массовое начисление ЗП<br>
+                    <input type="number" name="amount">
+                     <button   type="submit">начислить</button>
                 </form>
 
             </div>

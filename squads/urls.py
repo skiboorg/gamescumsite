@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('', views.show_squads, name='all_squads'),
-    path('<name_slug>', views.join_request, name='join_request'),
+    path('join/<name_slug>', views.join_request, name='join_request'),
     path('create_squad/', views.create_squad, name='create_squad'),
     path('confirm_request/', views.confirm_request, name='confirm_request'),
     path('reject_request/', views.reject_request, name='reject_request'),

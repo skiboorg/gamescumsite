@@ -87,6 +87,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="alc-staff-inner">
+                                                {% if user.is_authenticated %}
                                                     <form style="padding-bottom: 15px;" action="{% url 'add_to_player_balance' %}" class="form-inline" method="post">
                                                         {% csrf_token %}
 
@@ -96,6 +97,7 @@
 
                                                         <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Сделать перевод RC</button>
                                                     </form>
+                                                {% endif %}
 
                                                     <dl class="alc-staff-details">
 

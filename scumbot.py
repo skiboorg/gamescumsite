@@ -140,7 +140,7 @@ async def server():
                           colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/3163030",
                           description="[Наш сайт](http://www.gamescum.ru) | [ВК](https://vk.com/scum_survival) | [Steam](https://steamcommunity.com/app/513710/discussions/4/3104564981115010821/) | [Discord](https://discord.gg/sgUz53k)")
 
-    embed.set_image(url="https://cdn.discordapp.com/attachments/524819840515702808/536193217180205066/2.png")
+    embed.set_image(url="https://pp.userapi.com/c847019/v847019285/161da7/N30CXstxLoc.jpg")
     embed.set_thumbnail(
         url="https://cdn.discordapp.com/attachments/519049749656109086/525958386232197131/1logo_scum_survival.png")
     embed.set_author(name="𝕊ℂ𝕌𝕄 𝕊𝕌ℝ𝕍𝕀𝕍𝔸𝕃", url="https://discord.gg/sgUz53k",

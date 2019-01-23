@@ -23,4 +23,5 @@ admin.site.register(Event,EventAdmin)
 admin.site.register(EventTemplates)
 admin.site.register(EventPlayers)
 admin.site.register(EventReward)
+admin.site.register(PoliceStat)
 # Register your models here.

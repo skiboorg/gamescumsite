@@ -223,7 +223,7 @@ def show_squads(request):
     print('show_squads')
     squad_active = 'active'
     squads = Squad.objects.all()
-    players = SteamUser.objects.filter( is_active=True).order_by('-rating')
+    players = SteamUser.objects.filter(is_active=True,is_staff=False).order_by('-rating')
     player = request.user
     print(player.id)
     req_disct = []
@@ -598,9 +598,29 @@ def sector_war(request, sector_name):
 
 
 def stat(request):
+    if request.method =='GET':
+        amount = request.GET.get('amount')
+        if amount:
+            users = SteamUser.objects.all()
+            for u in users:
+                u.wallet += int(amount)
+                u.save(force_update=True)
+
+            webhook = DiscordWebhook(url=bot_settings.TIME_PAY_URL)
+            embed = DiscordEmbed(title='Массовая выдача ЗП',
+                                 description='', color=242424)
+
+            embed.add_embed_field(name='Всем игрокам начислено :', value=amount + ' RC')
+
+            webhook.add_embed(embed)
+
+            webhook.execute()
+
+
     if request.method == 'POST' and request.FILES:
         kills_file = request.FILES['kills_file']
         deaths_file = request.FILES['deaths_file']
+        time_file = request.FILES['time_file']
         fs = FileSystemStorage()
 
         filename = fs.save(kills_file.name, kills_file)
@@ -609,11 +629,14 @@ def stat(request):
         filename = fs.save(deaths_file.name, deaths_file)
         uploaded_deaths_file_url = fs.url(filename)
 
+        filename = fs.save(time_file.name, time_file)
+        uploaded_time_file_url = fs.url(filename)
+
         # print(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:]))
 
-        with open(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:])) as csvfile:
+        with open(os.path.join(settings.BASE_DIR, uploaded_kills_file_url[1:])) as csvfile:
             reader = csv.DictReader(csvfile)
-            k=0
+            k = 0
             for row in reader:
                 k +=1
                 r = row['steamid;kills'].split(';')
@@ -636,9 +659,39 @@ def stat(request):
                 except:
                     pass
 
+        with open(os.path.join(settings.BASE_DIR, uploaded_time_file_url[1:])) as csvfile:
+            reader = csv.DictReader(csvfile)
+            p = 0
+            names={}
+            for row in reader:
+                p += 1
+                r = row['SteamID;DayPay'].split(';')
+                try:
+                    u = SteamUser.objects.get(steamid=r[0])
+                    u.wallet += int(r[1])
+                    u.save(force_update=True)
+                    names[u.personaname] = r[1]
+                except:
+                    pass
+
+        webhook = DiscordWebhook(url=bot_settings.TIME_PAY_URL)
+        embed = DiscordEmbed(title='Выдача премии за время в игре',
+                             description='', color=242424)
+        for p,m in names.items():
+            embed.add_embed_field(name='Ник : ' + p, value='Выдано : ' + m + ' RC',  inline=False)
+
+
+        webhook.add_embed(embed)
+
+        webhook.execute()
+
+
+
+
 
         fs.delete(os.path.join(settings.BASE_DIR,uploaded_kills_file_url[1:]))
         fs.delete(os.path.join(settings.BASE_DIR, uploaded_deaths_file_url[1:]))
+        fs.delete(os.path.join(settings.BASE_DIR, uploaded_time_file_url[1:]))
 
         return render(request, 'squads/stat.html', locals())
     return render(request, 'squads/stat.html', locals())

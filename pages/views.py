@@ -14,6 +14,7 @@ from lxml import html
 import requests
 import bot_settings
 from django.http import JsonResponse
+from events.models import PoliceStat
 
 
 
@@ -28,12 +29,17 @@ def get_squad_info(player_id):
     return(squad_info)
 
 
+def support(request):
+    return render(request, 'pages/support.html', locals())
+
+
 def index(request):
+    policestat = PoliceStat.objects.first()
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
     news = News.objects.all().order_by('-id')
     news_first3 = news.order_by('-id')[:3]
-    news_last6 = news.order_by('id')[:6]
+    news_last6 = news.order_by('-id')[:6]
     page = requests.get(bot_settings.SERVER_URL)
     tree = html.fromstring(page.content)
     players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]

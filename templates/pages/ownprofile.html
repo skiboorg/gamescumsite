@@ -371,7 +371,7 @@
                                             <div class="newslog__item-inner">
                                                 <div class="newslog__content"><img style="margin-right: 10px;border-radius: 10px; float: left;" src="{{ message.from_player_avatar }}"/> <strong>{{ message.text }}</strong>
 
-                                                 <a class="btn btn-danger btn-outline btn-xs del_btn" href="#" onclick="del_pm({{ message.id }})">Х</a>
+                                                 <a class="btn btn-danger btn-outline btn-xs del_btn" href="javascript:void(0);" onclick="del_pm({{ message.id }})">Х</a>
                                                 </div>
                                                 <div class="newslog__date">От: <a  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a> </div>
                                             </div>

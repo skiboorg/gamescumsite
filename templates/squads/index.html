@@ -93,7 +93,7 @@
                                                                 заявка уже подана
                                                             {% else %}
 
-                                                                <a href="{{ squad.name_slug }}"> Вступить</a>
+                                                                <a href="{% url 'join_request' squad.name_slug %}"> Вступить</a>
                                                             {% endif %}
 
 
