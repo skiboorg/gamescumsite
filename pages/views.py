@@ -37,9 +37,8 @@ def index(request):
     policestat = PoliceStat.objects.first()
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
-    news = News.objects.all().order_by('-id')
-    news_first3 = news.order_by('-id')[:3]
-    news_last6 = news.order_by('-id')[:6]
+    news = News.objects.all().order_by('id')[:12]
+
     page = requests.get(bot_settings.SERVER_URL)
     if page:
         tree = html.fromstring(page.content)

@@ -111,7 +111,8 @@
 }
 
 .home_promo_img{
-    width: 500px;
+    margin-bottom: 20px;
+    /*width: 500px;*/
     /* margin: auto; */
     display: block;
     border-radius: 5px;

@@ -50,22 +50,35 @@
     <div style="padding: 20px 20px 20px 20px;" class="widget__content card__content">
         <img class="home_promo_img" src="{% static 'images/home_promo.png' %}">
       <p style="text-align: justify;">
-          Вы один из заключенных, направленный на закрытый остров, чтобы участвовать в кровавой бойне, которая будет показана по кабельному телеканалу.
-</p> <p style="text-align: justify;">
-Здесь царит мир беспрецедентных возможностей, где уровень получаемых навыков и опыта являются залогом дальнейшего выживания игрока.
-</p> <p style="text-align: justify;">
+         Вы один из заключенных, направленный на закрытый остров, чтобы участвовать в кровавой бойне, которая будет показана по кабельному телеканалу.
+
+«Хлеба и зрелищ» - просили они.
+
+«Неутолимая жажда развлечений человечества обернулась жаждой крови:
+
+гигант индустрии TEC1 вот-вот начнёт премьерный показ второго сезона своей телесенсации SCUM.
+
+Новый сезон перенесёт соревнование из замкнутого пространства сурового Алькатраса на остров Бань де Кайен (Bagne de Cayenne),
+
+          печально известный бесчеловечным обращением с заключёнными.</p>
+
+<p style="text-align: justify;">Как уже полюбившиеся поклонникам, так и новые осуждённые столкнутся в беспощадной войне за выживание и поддержку зрителей, продюсеров и спонсоров».
+
+Здесь царит мир беспрецедентных возможностей, где уровень получаемых навыков и опыта являются залогом дальнейшего выживания.
+
 Наш сервер RUSSIA SURVIVAL [HARDCORE] прежде всего отличается от других - созданной атмосферой выживания на острове.
-</p> <p style="text-align: justify;">
+
 Большое количество серверов SCUM - это аналоги PUBG. Где можно бездумно лутаться и идти стреляться, не о чем не думая, не боясь ни за что.
-</p> <p style="text-align: justify;">
-Но мы считаем, что для бездумных PvP есть другие игры - CS, PUBG, ROE..
-</p> <p style="text-align: justify; font-family: scum_font;
+
+    Но мы считаем, что для бездумных PvP есть другие игры - CS, PUBG, ROE..</p>
+
+<p style="text-align: justify; font-family: scum_font;
     text-align: justify;
     color: #fc8318;
     text-align: center;
     font-size: 20px;
-}">
-SCUM - это выживание, SCUM - SURVIVAL!</p>
+">RUSSIA SCUM SURVIVAL</p>
+
     </div>
 </div>
                 </div>
@@ -187,68 +200,30 @@ SCUM - это выживание, SCUM - SURVIVAL!</p>
 
 
                 <!-- Featured News -->
-                <div class="card card--clean mb-0">
-                    <header class="card__header card__header--has-btn">
-                        <h4>Новости группы ВК</h4></header>
-                    <div class="card__content">
-                        <!-- Slider -->
-                        <div class="slick posts posts-slider posts--slider-var-width">
-                            <div class="slick__slide">
-                                <div class="row">
-                                   {% for news_item in news_first3 %}
-                                       {% if forloop.first %}
-                                    <div class="col-md-8">
-                                        <div class="posts__item posts__item--desc-center posts__item--category-1">
-                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
-                                                <figure class="posts__thumb"><img style="    height: 448px;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
-                                                <div style="background: #1e2024cc;     padding: 30px 10px 10px 10px; width: 100%;" class="posts__inner">
+          
+           <div class="row">
+                    <!-- Content -->
+                    <div class="content col-md-12">
+                        <!-- Posts Grid -->
+                        <div class="posts posts--cards post-grid post-grid--masonry row">
+                            {% for n in news %}
+                            <div class="post-grid__item col-sm-4">
+                                <div class="posts__item posts__item--card posts__item--category-1 card">
+                                    <figure class="posts__thumb">
 
-                                                    <h3 class="posts__title"><span class="posts__title-higlight">{{ news_item.post_name }}</span> </h3>
+                                        <a href="{{ n.post_url }}"><img src="{{ n.post_image }}" alt=""></a>
+                                    </figure>
+                                    <div class="posts__inner card__content">
+                                        <a href="{{ n.post_url }}" class="posts__cta"></a>
 
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                       {% endif %}
-                                    {% if forloop.counter > 1 %}
-                                    <div class="col-6 col-md-4">
-                                       <div  class="posts__item posts__item--desc-center posts__item--category-1">
-                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
-                                                <figure class="posts__thumb"><img style="height: 215px !important;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
-                                                <div style="background: #1e2024cc; padding: 10px; width: 100%;" class="posts__inner">
+                                        <h6 class="posts__title"><a href="{{ n.post_url }}">{{ n.post_name }}</a></h6></div>
 
-                                                    <span class="posts__title "><span style="font-size: 20px;" class="posts__title-higlight font_new">{{ news_item.post_name }}</span> </span>
-
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% endfor %}
                                 </div>
                             </div>
-                            <div class="slick__slide">
-                                <div class="row">
-                                  {% for news_item in news_last6 %}
-                                      <div class="col-6 col-md-4">
-                                       <div  class="posts__item posts__item--desc-center posts__item--category-1">
-                                            <a href="{{ news_item.post_url }}" target="_blank" class="posts__link-wrapper">
-                                                <figure class="posts__thumb"><img style="height: 215px !important;" src="{{ news_item.post_image  }}" alt="" class="duotone-img" data-gradient-map="#282840, #f92552"></figure>
-                                                <div style="background: #1e2024cc; padding: 10px; width: 100%;" class="posts__inner">
-
-                                                    <span class="posts__title "><span style="font-size: 20px;" class="posts__title-higlight font_new">{{ news_item.post_name }}</span> </span>
-
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                  {% endfor %}
-                                </div>
-                            </div>
+                        {% endfor %}
                         </div>
-                        <!-- Slider / End -->
                     </div>
-                </div>
+           </div>
                 <!-- Featured News / End -->
         <!-- Content
 		================================================== -->
