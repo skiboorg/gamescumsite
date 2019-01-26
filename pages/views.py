@@ -41,12 +41,13 @@ def index(request):
     news_first3 = news.order_by('-id')[:3]
     news_last6 = news.order_by('-id')[:6]
     page = requests.get(bot_settings.SERVER_URL)
-    tree = html.fromstring(page.content)
-    players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]
-    rank = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')[0]
-    name = tree.xpath('//*[@id="serverPage"]/h2/text()')
-    ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
-    status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
+    if page:
+        tree = html.fromstring(page.content)
+        players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]
+        rank = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')[0]
+        name = tree.xpath('//*[@id="serverPage"]/h2/text()')
+        ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
+        status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
     top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:5]
     print(status)
 
