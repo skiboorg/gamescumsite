@@ -56,20 +56,44 @@
 
                         <div id="collapse{{ event.id }}" class="collapse" aria-labelledby="heading{{ event.id }}" data-parent="#accordion">
                             <div class="card-body">
-                                <img style=" width: 400px;float: left; padding: 10px;" src="{{ event.template.image.url }}">
+
+
+                             {% if user.is_authenticated %}
+
+                                    <div style="margin-top: 20px">
+                                        <a style="position: absolute; right: 23px;" href="{% url 'event_apply' event.id %}" class="btn btn-warning btn-sm pull-left">Записаться</a>
+
+                                    </div>
+
+                                {% endif %}
+                                <img style=" width: 350px;float: left; padding: 10px;" src="{{ event.template.image.url }}">
                                 <div>
                                     <h4 align="center">Описание события </h4>
+
                                     {{ event.template.info }}
                                 </div>
 
                                 <div style="margin-top: 10px">
                                     <h4 align="center">Награда</h4>
-                                    {{ event.template.reward }}
-                                </div>
-                                <div style="margin-top: 20px">
-                                    <a href="#" class="btn btn-warning btn-sm pull-left">Записаться</a>
 
+
+                                     {% for reward in  event.eventreward_set.all %}
+
+                                         <img style="margin-right: 20px;" width="50" src="{{ reward.reward_image.url }}"> <span style="margin-right: 20px;
+    font-size: 20px;
+    font-weight: bold;">X</span> <span style="margin-right: 20px;
+    font-size: 20px;
+    font-weight: bold;">{{ reward.reward_number }}</span> <span style="margin-right: 20px;
+    font-size: 20px;
+    font-weight: bold;">{{ reward.reward_name }}</span><br>
+
+
+
+                                    {% endfor %}
+
+                                   
                                 </div>
+
 
                             </div>
                         </div>

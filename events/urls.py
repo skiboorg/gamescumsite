@@ -20,6 +20,8 @@ from . import views
 
 urlpatterns = [
     path('', views.events_home, name='events_home'),
+    path('apply/<event_id>', views.event_apply, name='event_apply'),
+    path('leave/<event_id>', views.event_leave, name='event_leave'),
 
 
 ]

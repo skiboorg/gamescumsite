@@ -35,10 +35,22 @@ class Event(models.Model):
         verbose_name = "Мероприятие"
         verbose_name_plural = "Мероприятия"
 
+    def save(self, *args, **kwargs):
+        all_players = self.eventplayers_set.all()
+
+        if all_players:
+            for player in all_players:
+                if player.is_present:
+
+                    player.player.rating += 1
+                    player.player.save(force_update=True)
+        super(Event, self).save(*args, **kwargs)
+
 class EventPlayers(models.Model):
-    event = models.ForeignKey(Event,blank=False,null=True,default=None, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, blank=False,null=True,default=None, on_delete=models.CASCADE)
     player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.CASCADE)
     spawn_command = models.CharField(max_length=100, blank=True, null=True, default='')
+    is_present = models.BooleanField('Был на событии?', default=False)
 
     def __str__(self):
         return 'Участник : %s, мероприятия %s' % (self.player.personaname, self.event.template.name)
@@ -46,6 +58,7 @@ class EventPlayers(models.Model):
     class Meta:
         verbose_name = "Участник мероприятия"
         verbose_name_plural = "Участники мероприятии"
+
 
 class EventReward(models.Model):
     event = models.ForeignKey(Event, blank=True, null=True, default=None, on_delete=models.SET_NULL)
