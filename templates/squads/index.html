@@ -11,7 +11,7 @@
                 <div class="col-md-6 offset-md-8">
                     <h1 class="page-heading__title font_scum">ОТРЯДЫ <span class="highlight">СЕРВЕРА</span></h1>
                     <ol class="page-heading__breadcrumb breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Отряды</li>
                     </ol>
                 </div>
@@ -48,7 +48,6 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified nav-product-tabs" role="tablist">
         <li class="nav-item"><a class="nav-link active" href="#tab-squads" role="tab" data-toggle="tab">ОТРЯДЫ СЕРВЕРА</a></li>
-        <li class="nav-item"><a class="nav-link" href="#tab-players" role="tab" data-toggle="tab">ИГРОКИ</a></li>
         <li class="nav-item"><a class="nav-link" href="#tab-wars" role="tab" data-toggle="tab">ВОЙНА ЗА СЕКТОРА</a></li>
         <li class="nav-item"><a class="nav-link" href="#tab-quests" role="tab" data-toggle="tab">ИСПЫТАНИЯ ОТРЯДОВ</a></li>
     </ul>
@@ -139,47 +138,14 @@
         </div>
         <!-- Tab: Description / End -->
         <!-- Tab: Shipping -->
-        <div role="tabpanel" class="tab-pane fade" id="tab-players">
-                <div class="table-responsive">
-                                    <table class="table table-condensed  table-standings" >
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Ник игрока</th>
-                                            <th>Уровень</th>
-                                            <th>Рейтинг</th>
-                                            <th>Смертей</th>
-                                            <th>Убийств</th>
 
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for pl in players %}
-                                            <tr  >
-                                                <td>
-                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
-
-
-
-                                                </td>
-                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
-                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
-                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
-                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
-                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
-                                            </tr>
-
-
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-        </div>
         <!-- Tab: Shipping / End -->
         <!-- Tab: Reviews -->
         <div role="tabpanel" class="tab-pane fade" id="tab-wars">
            <div class="widget__content card__content">
+            {% if not wars %}
+                               <h3 align="center"> В ДАННЫЙ МОМЕНТ ВСЕ ЖИВУТ МИРНО ;)</h3>
+                                {% endif %}
                             <ul class="widget-results__list">
                                 <!-- Game #0 -->
                                 {% for war in wars %}
@@ -201,9 +167,10 @@
                                             </div>
                                             <div class="widget-results__team widget-results__team--second">
 
-                                                    <h5 class="widget-results__team-name">Победа без боя</h5></div>
+                                                    <h5 class="widget-results__team-name">Победа без боя</h5>
                                             </div>
                                         </div>
+
                                     </li>
                                     {% else %}
 
@@ -232,15 +199,14 @@
                                     {% endif %}
                                     <!-- Game #0 / End -->
                                 {% endfor %}
-                                {% if not wars %}
-                                   ЭТОТ РЕЖИМ БУДЕТ ДОСТУПЕН ПОСЛЕ НГ
-                                {% endif %}
+
                             </ul>
+
                         </div>
         </div>
      <div role="tabpanel" class="tab-pane fade" id="tab-quests">
-         Этот раздел в стадии разрботки
 
+ <h3 align="center" >  ЭТОТ РАЗДЕЛ В СТАДИИ РАЗРБОТКИ</h3>
         </div>
         <!-- Tab: Reviews / End -->
     </div>

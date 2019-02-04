@@ -31,6 +31,7 @@ urlpatterns = [
     path('support/', views.support, name='support'),
     path('add_to_player_balance/', views.add_to_player_balance, name='add_to_player_balance'),
     path('about_bonus_pack/', views.about_bonus_pack, name='about_bonus_pack'),
+    path('players/', views.players, name='players'),
 
 
 

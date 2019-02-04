@@ -1,0 +1,174 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="page-heading" style="background-image: url({% static 'images/squads.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-8">
+                    <h1 class="page-heading__title font_scum">СТАТИСТИКА <span class="highlight">ИГРОКОВ</span></h1>
+                    <ol class="page-heading__breadcrumb breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">СТАТИСТИКА ИГРОКОВ</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-content">
+        <div class="container">
+
+        <div class="card">
+    <header class="card__header">
+        <h4>Играете с друзьями? Для вас специальное предложение!</h4></header>
+    <div class="card__content">
+        <p>Создайте отряд - и вы получите дополниельные возможности. Подробнее :</p>
+        <ul class="list">
+            <li>Создание отряда 1 уровня стоит <strong>1000 RC</strong> .</li>
+            <li>Каждый кандидат на вступление подает заявку, лидер принимает ее.</li>
+            <li>Всего 5 уровней отряда. Повышая уровень отряда, вы увеличиваете максимальное количество участников.</li>
+            <li>Казна отряда - куда игроки могут внести средства. При внесении средств от 500 RC повышается рейтинг игрока.</li>
+            <li>На деньги из казны - отряд может повысить уровень отряда или <a href="{% url 'all_squads' %}#sectors_map">купить</a>  сектор.</li>
+            <li>Максимальное количество секторов во владении отряда - 3.</li>
+            <li>Владение сектором открывает возможность приобретения специальных товаров в <a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
+            <li>Любой отряд может оспорить владение сектором</li>
+
+
+        </ul>
+
+    </div>
+</div>
+
+        <div id="main_tab" class="product-tabs card card--xlg">
+
+    <ul class="nav nav-tabs nav-justified nav-product-tabs" role="tablist">
+
+        <li class="nav-item"><a class="nav-link active" href="#tab-players-top20" role="tab" data-toggle="tab">ТОП 20 ПО УБИЙСТВАМ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab-players-rating" role="tab" data-toggle="tab">ТОП 20 ПО РЕЙТИНГУ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab-players-all" role="tab" data-toggle="tab">ВСЕ ИГРОКИ</a></li>
+    </ul>
+
+    <div class="tab-content card__content">
+
+       <div role="tabpanel" class="tab-pane show active" id="tab-players-top20">
+                <div class="table-responsive">
+                                    <table class="table table-condensed  table-standings" >
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ник игрока</th>
+                                            <th>Уровень</th>
+                                            <th>Рейтинг</th>
+                                            <th>Смертей</th>
+                                            <th>Убийств</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for pl in top20_kills %}
+                                            <tr  >
+                                                <td>
+                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                            </tr>
+
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+        </div>
+    <div role="tabpanel" class="tab-pane fade" id="tab-players-rating">
+                <div class="table-responsive">
+                                    <table class="table table-condensed  table-standings" >
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ник игрока</th>
+                                            <th>Уровень</th>
+                                            <th>Рейтинг</th>
+                                            <th>Смертей</th>
+                                            <th>Убийств</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for pl in top20_rating %}
+                                            <tr  >
+                                                <td>
+                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                            </tr>
+
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+        </div>
+         <div role="tabpanel" class="tab-pane fade" id="tab-players-all">
+                <div class="table-responsive">
+                                    <table class="table table-condensed  table-standings" >
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ник игрока</th>
+                                            <th>Уровень</th>
+                                            <th>Рейтинг</th>
+                                            <th>Смертей</th>
+                                            <th>Убийств</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for pl in all_players %}
+                                            <tr  >
+                                                <td>
+                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                            </tr>
+
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}

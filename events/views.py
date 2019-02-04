@@ -4,12 +4,15 @@ from .models import *
 
 
 def events_home(request):
-    all_ids =[]
+    player_in_events =[]
     page_title = 'СОБЫТИЯ СЕРВЕРА'
     all_events = Event.objects.all()
     all_players = EventPlayers.objects.all()
     for pl in all_players:
-        all_ids.append(pl.player.id)
+        if pl.player.id == request.user.id:
+            player_in_events.append(pl.event.id)
+    print(player_in_events)
+
 
     return render(request, 'events/index.html', locals())
 

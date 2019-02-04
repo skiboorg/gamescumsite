@@ -48,7 +48,7 @@ def index(request):
         ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
         status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
     top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:5]
-    print(status)
+
 
     if request.user.is_authenticated:
         player = request.user
@@ -243,6 +243,14 @@ def rules(request):
     page_title = 'ПРАВИЛА СЕРВЕРА'
     return render(request, 'pages/rules.html', locals())
 
+def players(request):
+    all_players = SteamUser.objects.filter(is_staff=False, is_active=True)
+    top20_kills = all_players.order_by('-kills')[:20]
+    top20_rating = all_players.order_by('-rating')[:20]
+    players_active = 'active'
+
+    page_title = 'СТАТИСТИКА ИГРОКОВ'
+    return render(request, 'pages/top20.html', locals())
 
 def about_bonus_pack(request):
     page_title = 'БОНУС ПАК НОВЫМ ИГРОКАМ'
@@ -253,8 +261,9 @@ def add_to_player_balance(request):
     to_player = SteamUser.objects.get(id=request.POST.get('player_id'))
     if player.wallet >= int(request.POST.get('rc_amount')):
         player.wallet -= int(request.POST.get('rc_amount'))
-        player.rating += 1
-        player.save(force_update=True)
+        if int(request.POST.get('rc_amount')) >= 500:
+            player.rating += 1
+            player.save(force_update=True)
         to_player.wallet += int(request.POST.get('rc_amount'))
         to_player.save(force_update=True)
         new_log = Logs.objects.create(player_id=request.user.id,
