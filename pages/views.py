@@ -65,6 +65,10 @@ def index(request):
         last_login = player.last_vizit
         time_now = datetime.now().date()
 
+        if time_now > player.last_buy:
+            player.buys_count = 0
+
+
         if time_now > last_login:
 
             if player.vip:

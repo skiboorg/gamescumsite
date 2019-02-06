@@ -76,6 +76,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     last_zp = models.DateTimeField(default=datetime.now() + timedelta(days=1))
     date_joined = models.DateTimeField(_('date joined'), default=datetime.now())
     last_vizit = models.DateField(default=datetime.now().date())
+    last_buy = models.DateField(default=datetime.now().date())
+    buys_count = models.IntegerField(default=0)
     objects = SteamUserManager()
 
     def get_short_name(self):

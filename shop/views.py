@@ -130,47 +130,62 @@ def delete_from_cart(request):
 def place_order(request):
     return_dict = {}
     data = request.POST
-    spawn_txt = '#teleportto ' + request.user.steamid + '\n'
+    player = request.user
+    spawn_txt = '#teleportto ' + player.steamid + '\n'
     total_price = int(data.get('total_price'))
-    if total_price > request.user.wallet:
-        return_dict['place_order_status'] = '0'
-        return_dict['money_need'] = total_price - request.user.wallet
+    print(player.buys_count)
+    if player.vip and player.buys_count > 10:
+        return_dict['place_order_status'] = '2'
+        return_dict['buys_limit'] = '10'
+        return JsonResponse(return_dict)
+    elif not player.vip and player.buys_count > 3:
+        return_dict['place_order_status'] = '2'
+        return_dict['buys_limit'] = '3'
+        return JsonResponse(return_dict)
     else:
-        order = Orders.objects.create(player_id=request.user.id, total_price=total_price)
-        all_cart_items = Baskets.objects.filter(player_id=request.user.id)
-        for item in all_cart_items:
-            ItemsInOrder.objects.create(order_id=order.id, item_id=item.item.id, number=item.number, current_price=item.item.price)
-            item.item.buys = item.item.buys + 1
-            item.item.save(force_update=True)
-            spawn_txt += '#spawnItem ' + item.item.item_spawn_name + ' ' + str(item.number) + '\n'
 
-        all_cart_items.delete()
-        order.spawn_text = spawn_txt
-        order.save(force_update=True)
-        player = SteamUser.objects.get(id=request.user.id)
-        player.wallet = player.wallet - order.total_price
-        player.total_buys_count += 1
-        if player.vip:
-            player.rating += 1
+        if total_price > player.wallet:
+            return_dict['place_order_status'] = '0'
+            return_dict['money_need'] = total_price - player.wallet
         else:
-            player.rating += 5
-        player.rating += 1
-        player.total_buys_summ += order.total_price
-        player.save(force_update=True)
+            order = Orders.objects.create(player_id=player.id, total_price=total_price)
+            all_cart_items = Baskets.objects.filter(player_id=player.id)
+            for item in all_cart_items:
+                ItemsInOrder.objects.create(order_id=order.id, item_id=item.item.id, number=item.number, current_price=item.item.price)
+                item.item.buys = item.item.buys + 1
+                item.item.save(force_update=True)
+                spawn_txt += '#spawnItem ' + item.item.item_spawn_name + ' ' + str(item.number) + '\n'
 
-        admins = SteamUser.objects.filter(is_staff=True)
-        for admin in admins:
-            new_message = PrivateMessages.objects.create(to_player_id=admin.id,
-                                                         from_player_name=player.personaname,
-                                                         from_player_name_slug=player.nickname,
-                                                         from_player_avatar=str(player.avatar),
-                                                         text='Я сделал заказ в магазине. '
-                                                              'Номер заказа : {} . Мой дискорд {} '
-                                                              .format(str(order.id), player.discord_nickname))
-            new_message.save()
+            all_cart_items.delete()
+            order.spawn_text = spawn_txt
+            order.save(force_update=True)
+            player = SteamUser.objects.get(id=player.id)
+            player.wallet = player.wallet - order.total_price
+            player.total_buys_count += 1
+            player.buys_count += 1
+            player.last_buy = datetime.now().date()
 
-        return_dict['place_order_status'] = '1'
+            if player.vip and order.total_price >= 500:
+                player.rating += 5
+            if not player.vip and order.total_price >= 500:
+                player.rating += 1
+
+            player.total_buys_summ += order.total_price
+            player.save(force_update=True)
+
+            admins = SteamUser.objects.filter(is_staff=True)
+            for admin in admins:
+                new_message = PrivateMessages.objects.create(to_player_id=admin.id,
+                                                             from_player_name=player.personaname,
+                                                             from_player_name_slug=player.nickname,
+                                                             from_player_avatar=str(player.avatar),
+                                                             text='Я сделал заказ в магазине. '
+                                                                  'Номер заказа : {} . Мой дискорд {} '
+                                                                  .format(str(order.id), player.discord_nickname))
+                new_message.save()
+
+            return_dict['place_order_status'] = '1'
 
 
 
-    return JsonResponse(return_dict)
+        return JsonResponse(return_dict)

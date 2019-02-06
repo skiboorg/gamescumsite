@@ -23,9 +23,19 @@ function place_order(instance){
                            },
                         theme:'colorful'
                     });
-            }
-            else
-                {
+            };
+             if (data.place_order_status == '2'){
+                    $.amaran({
+                        content:{
+                            bgcolor:'#f34141',
+                            color:'#fff',
+                            message:'Твой дневной лимит покупок : '+ data.buys_limit
+                           },
+                        theme:'colorful'
+                    });
+            };
+             if (data.place_order_status == '1'){
+
                     $('.header-cart').empty();
                     $('#count_items_in_cart').html('(0)');
                     $('.info-block__cart-sum').html('0 RC');
@@ -39,9 +49,6 @@ function place_order(instance){
                     });
 
                 }
-
-
-
             },
             error: function () {
             console.log('ERROR')
