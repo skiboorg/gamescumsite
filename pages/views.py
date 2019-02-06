@@ -265,9 +265,7 @@ def add_to_player_balance(request):
     to_player = SteamUser.objects.get(id=request.POST.get('player_id'))
     if player.wallet >= int(request.POST.get('rc_amount')):
         player.wallet -= int(request.POST.get('rc_amount'))
-        if int(request.POST.get('rc_amount')) >= 500:
-            player.rating += 1
-            player.save(force_update=True)
+        player.save(force_update=True)
         to_player.wallet += int(request.POST.get('rc_amount'))
         to_player.save(force_update=True)
         new_log = Logs.objects.create(player_id=request.user.id,

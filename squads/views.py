@@ -194,7 +194,7 @@ def add_to_balance(request):
             squad_member.income += int(request.POST.get('rc_amount'))
             squad_member.save(force_update=True)
             player.wallet -= int(request.POST.get('rc_amount'))
-            player.rating += 5
+            player.rating += 1
             player.save(force_update=True)
             squad.balance += int(request.POST.get('rc_amount'))
             squad.save(force_update=True)

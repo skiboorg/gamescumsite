@@ -166,7 +166,7 @@ def place_order(request):
             player.last_buy = datetime.now().date()
 
             if player.vip and order.total_price >= 500:
-                player.rating += 5
+                player.rating += 3
             if not player.vip and order.total_price >= 500:
                 player.rating += 1
 
