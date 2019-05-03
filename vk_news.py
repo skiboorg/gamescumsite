@@ -5,7 +5,7 @@ import textwrap
 import sqlite3
 import datetime
 
-conn = sqlite3.connect('C:/Users/ххх/PycharmProjects/gamescumsite/db.sqlite3')
+conn = sqlite3.connect(bot_settings.DB_PATH)
 last_id = 0
 timer = 3600
 today = datetime.datetime.now()
@@ -15,7 +15,7 @@ with urllib.request.urlopen(bot_settings.VK_URL) as url:
     data = json.loads(url.read().decode())
     # post_id = data['response']['items'][i]['id']
     print(data['response']['items'])
-    for i in range(0,14):
+    for i in range(0,9):
         post_id = data['response']['items'][i]['id']
         print(post_id)
         if data['response']['items'][i]['text'] != '':
@@ -37,7 +37,7 @@ with urllib.request.urlopen(bot_settings.VK_URL) as url:
                     pass
 
 
-            post_url = 'https://vk.com/scum_lasthero?w=wall' + str(data['response']['items'][i]['from_id']) + '_' + str(data['response']['items'][i]['id'])
+            post_url = 'https://vk.com/scum_survival?w=wall' + str(data['response']['items'][i]['from_id']) + '_' + str(data['response']['items'][i]['id'])
 
             print(post_name)
             print(post_url)

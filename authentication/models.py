@@ -108,7 +108,7 @@ class Logs(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return 'Действие игрока %s' % self.player.personaname
+        return '%s  - %s' % (self.player.personaname, self.player_action)
 
     class Meta:
         verbose_name = "Действие игрока"

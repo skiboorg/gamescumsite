@@ -134,11 +134,11 @@ def place_order(request):
     spawn_txt = '#teleportto ' + player.steamid + '\n'
     total_price = int(data.get('total_price'))
     print(player.buys_count)
-    if player.vip and player.buys_count > 10:
+    if player.vip and player.buys_count >= 10:
         return_dict['place_order_status'] = '2'
         return_dict['buys_limit'] = '10'
         return JsonResponse(return_dict)
-    elif not player.vip and player.buys_count > 3:
+    elif not player.vip and player.buys_count >= 3:
         return_dict['place_order_status'] = '2'
         return_dict['buys_limit'] = '3'
         return JsonResponse(return_dict)

@@ -62,7 +62,7 @@ class SquadRequests(models.Model):
 
 
     def __str__(self):
-        return 'Заявка в отряд : %s от игрока %s' % (self.squad.name, self.player.personaname)
+        return 'Заявка в отряд : %s ' % self.squad.name
 
     class Meta:
         verbose_name = "Заявка в отряд"

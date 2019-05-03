@@ -9,6 +9,10 @@ class SteamUserAdmin(admin.ModelAdmin):
     search_fields = ('steamid', 'discord_id', 'discord_nickname', 'personaname',)
     ordering = ('personaname',)
 
+class LogAdmin(admin.ModelAdmin):
+    search_fields = ('player_action', 'player__personaname',)
+    class Meta:
+        model = Logs
 
 admin.site.register(PrivateMessages)
-admin.site.register(Logs)
+admin.site.register(Logs, LogAdmin)
