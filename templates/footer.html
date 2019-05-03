@@ -1,187 +1,140 @@
-  {% load static %}
-   <footer id="footer" class="footer">
-            <!-- Footer Widgets -->
-            <div class="footer-widgets">
-                <div class="footer-widgets__inner">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3">
-                                <div class="footer-col-inner">
-                                    <!-- Footer Logo -->
-                                    <div class="footer-logo">
-                                        <a href="#"><img src="{% static 'images/logo.png' %}" srcset="{% static 'images/logo.png' %}" alt="Alchemists" class="footer-logo__img"></a>
-                                    </div>
-                                    <!-- Footer Logo / End -->
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="footer-col-inner">
-                                    <!-- Widget: Contact Info -->
-                                    <div class="widget widget--footer widget-contact-info">
-
-                                        <div class="widget__content">
-                                            <div class="widget-contact-info__desc">
-                                                <p>Нравится игра SCUM? Но надоели сервера с лагами, читерами ,малым онлайном, нестабильностью  и пассивной администрацией? Тогда вам к нам !</p>
-                                            </div>
-                                            <div class="widget-contact-info__body info-block">
-                                                <ul class="list">
-                                                    <li>Постоянный мониторинг сервера. </li>
-                                                    <li>Защита от читеров - возврат лута в случае смерти от рук читера. </li>
-                                                    <li>Сервер на 64 слота. Россия (Москва). Долгосрочная аренда! </li>
-                                                    <li>Стабильная работа, отсутствие лагов! </li>
-                                                    <li>Лимит пинга: 300мс </li>
-                                                    <li>Интерактивный сайт и Discord!</li>
-                                                    <li>Система зарплат для игроков! </li>
-                                                    <li>Отсутствие доната! </li>
-                                                    <li>Стартовый набор новичкам! </li>
-                                                    <li>Самые актуальные и эксклюзивные новости о развитии игры. </li>
-                                                </ul>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Widget: Contact Info / End -->
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4 col-md-4">
-                                <div class="footer-col-inner">
-
-                                    <a href="https://store.steampowered.com/app/513710/SCUM/"
-                                       class="btn btn-warning btn-outline btn-lg footer_btn" target="_blank">КУПИТЬ SCUM</a>
-                                    <a href="{% url 'rules' %}" class="btn btn-danger btn-outline btn-lg footer_btn">ПРАВИЛА СЕРВЕРА</a>
-                                    <a href="{% url 'about_us' %}" class="btn btn-warning btn-outline btn-lg footer_btn">О СЕРВЕРЕ SCUM SURVIVAL</a>
-                                    <a href="{% url 'about_us' %}#how_to_connect" class="btn btn-warning btn-outline btn-lg footer_btn">КАК ПОДКЛЮЧИТЬСЯ</a>
-                                    <a href="{% url 'about_bonus_pack' %}" class="btn btn-warning btn-outline btn-lg footer_btn">БОНУС ПАК</a>
-                                    <a href="https://discord.gg/sgUz53k" class="btn btn-warning  btn-lg footer_btn" target="_blank">НАШ ДИСКОРД</a>
-                                    <a href="https://vk.com/scum_survival" class="btn btn-warning  btn-lg footer_btn" target="_blank">ГРУППА ВК</a>
-
-
-
-                                </div>
+{% load static %}
+<footer id="footer" class="footer">
+    <div class="footer-widgets">
+        <div class="footer-widgets__inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <div class="footer-col-inner">
+                            <div class="footer-logo">
+                                <a href="#"><img src="{% static 'images/logo.png' %}" srcset="{% static 'images/logo.png' %}" alt="Alchemists" class="footer-logo__img"></a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Footer Widgets / End -->
-            <!-- Footer Secondary -->
-            <div class="footer-secondary footer-secondary--has-decor">
-                <div class="container">
-                    <div class="footer-secondary__inner">
-                        <div class="row">
-                            <div class="col-md-10 offset-md-1">
-                                <ul style="margin-top: 10px;" class="footer-nav">
-                                 <li style="font-family: scum_font; font-size: 20px; color: #ff7e1f" > 2018-2019 SURVIVAL SCUM - РУССКИЙ СЕРВЕР.</li>
-                                    <li style="position: absolute;
-                                        font-size: 10px;
-                                        left: 441px;
-                                        top: 29px;">
-                                        <a style="border: 1px dotted #ff7e1f;
-                                        color: #9a9da2;
-                                        padding: 2px;" href="https://vk.com/im.greshnik" target="_blank">
-                                        GRESHNIK WAS HERE</a>
-                                    </li>
-
-
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Secondary / End -->
-       <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-   ym(52098489, "init", {
-        id:52098489,
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/52098489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-        </footer>
-        <!-- Footer / End -->
-
-     {% if not user.is_authenticated %}
-        <!-- Login/Register Modal -->
-        <div class="modal fade" id="modal-login-register" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg modal--login" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <div class="modal-account-holder">
-
-                            <div class="modal-account__item">
-                                 <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <div class="modal-form--note"><p>Регистрация и авторизация работает через SteamOpenID,
-                                        вы будете перенаправлены на соответствующую страницу сервиса STEAM,
-                                        где нужно будет ввести свой логин и пароль. </p>
-                                        Мы гарантируем, что :
-                                        <ul>
-                                            <li><strong>Учётные данные вашего аккаунта Steam не будут переданы третьим лицам.</strong></li>
-                                            <li>
-                                                Уникальный цифровой идентификатор будет передан на наш сайт. Благодаря этому мы сможем идентифицировать ваш профиль Steam и получить доступ к той информации о нём, которую вы сделали общедоступной.
-                                            </li>
-                                            <li>
-                                            Сайт получит доступ к любой общедоступной информации из вашего профиля Steam.
-                                            </li>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="footer-col-inner">
+                            <div class="widget widget--footer widget-contact-info">
+                                <div class="widget__content">
+                                    <div class="widget-contact-info__desc">
+                                        <p>Нравится игра SCUM? Но надоели сервера с лагами, читерами ,малым онлайном, нестабильностью  и пассивной администрацией? Тогда вам к нам !<br>
+                                            <span style="color: red">Наши администраторы не играют на серверах с правами администратора, как другие игроки, они строго администраторы. Нет админских отрядов, нет админских баз, нет админских злоупотреблений</span></p>
+                                    </div>
+                                    <div class="widget-contact-info__body info-block">
+                                        <ul class="list">
+                                            <li>Постоянный мониторинг сервера. </li>
+                                            <li>Защита от читеров - возврат лута в случае смерти от рук читера. </li>
+                                            <li>Сервер расположен в России (Москва). Долгосрочная аренда! </li>
+                                            <li>Стабильная работа, отсутствие лагов! </li>
+                                            <li>Лимит пинга: 300мс </li>
+                                            <li>Интерактивный сайт и Discord!</li>
+                                            <li>Система зарплат для игроков! </li>
+                                            <li>Отсутствие доната! </li>
+                                            <li>Стартовый набор новичкам! </li>
+                                            <li>Самые актуальные и эксклюзивные новости о развитии игры. </li>
                                         </ul>
-
-
-
                                     </div>
-
+                                </div>
                             </div>
-                           <div class="modal-account__item">
-                                <img src="/static/images/logo.png" style="
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-md-4">
+                        <div class="footer-col-inner">
+                            <a href="https://store.steampowered.com/app/513710/SCUM/"
+                               class="btn btn-warning btn-outline btn-lg footer_btn" target="_blank">КУПИТЬ SCUM</a>
+                            <a href="{% url 'rules' %}" class="btn btn-danger btn-outline btn-lg footer_btn">ПРАВИЛА СЕРВЕРА</a>
+                            <a href="{% url 'about_us' %}" class="btn btn-warning btn-outline btn-lg footer_btn">О СЕРВЕРЕ SCUM SURVIVAL</a>
+                            <a href="{% url 'about_us' %}#how_to_connect" class="btn btn-warning btn-outline btn-lg footer_btn">КАК ПОДКЛЮЧИТЬСЯ</a>
+                            <a href="{% url 'about_bonus_pack' %}" class="btn btn-warning btn-outline btn-lg footer_btn">БОНУС ПАК</a>
+                            <a href="https://discord.gg/sgUz53k" class="btn btn-warning  btn-lg footer_btn" target="_blank">НАШ ДИСКОРД</a>
+                            <a href="https://vk.com/scum_survival" class="btn btn-warning  btn-lg footer_btn" target="_blank">ГРУППА ВК</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-secondary footer-secondary--has-decor">
+        <div class="container">
+            <div class="footer-secondary__inner">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <ul style="margin-top: 10px;" class="footer-nav">
+                            <li style="font-family: scum_font; font-size: 20px; color: #ff7e1f" > 2018-2019 SURVIVAL SCUM - РУССКИЙ СЕРВЕР.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(52098489, "init", {
+            id:52098489,
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/52098489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</footer>
+
+{% if not user.is_authenticated %}
+    <!-- Login/Register Modal -->
+    <div class="modal fade" id="modal-login-register" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal--login" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-account-holder">
+                        <div class="modal-account__item">
+                            <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div class="modal-form--note"><p>Регистрация и авторизация работает через SteamOpenID,
+                                вы будете перенаправлены на соответствующую страницу сервиса STEAM,
+                                где нужно будет ввести свой логин и пароль. </p>
+                                Мы гарантируем, что :
+                                <ul>
+                                    <li><strong>Учётные данные вашего аккаунта Steam не будут переданы третьим лицам.</strong></li>
+                                    <li>
+                                        Уникальный цифровой идентификатор будет передан на наш сайт. Благодаря этому мы сможем идентифицировать ваш профиль Steam и получить доступ к той информации о нём, которую вы сделали общедоступной.
+                                    </li>
+                                    <li>
+                                        Сайт получит доступ к любой общедоступной информации из вашего профиля Steam.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-account__item">
+                            <img src="/static/images/logo.png" style="
     margin: auto;
     display: block;
 ">
-                                <img src="/static/images/steam.png" style="
+                            <img src="/static/images/steam.png" style="
     margin: auto;
     display: block;
     margin-bottom: 40px;
 ">
-
-
-                                <a href="/login/steam/" class="btn btn-warning btn-outline btn-sm" style="
+                            <a href="/login/steam/" class="btn btn-warning btn-outline btn-sm" style="
     margin: auto;
     display: block;
 "> <i style="font-size: 18px" class="fa fa-steam fa-3" aria-hidden="true"></i><span style="font-size: 18px"> ВОЙТИ ЧЕРЕЗ STEAM</span> </a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Login/Register Modal / End -->
-   {% endif %}
-
+    </div>
+{% endif %}
 {% if profile_bad and user.is_authenticated %}
-      <div class="modal fade" id="modal-activate" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg modal--login" role="document">
-                <div class="modal-content">
-
-                    <div style=" padding: 15px 15px 0px 15px;" class="modal-body">
-
-
+    <div class="modal fade" id="modal-activate" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal--login" role="document">
+            <div class="modal-content">
+                <div style=" padding: 15px 15px 0px 15px;" class="modal-body">
                     <div class="alert alert-danger"><strong>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! ДЛЯ АКТИВАЦИИ ОТПРАВЬ ЛИЧНОЕ СООБЩЕНИЕ SURVIVAL BOT В ДИСКОРДЕ С ТЕКСТОМ: </strong><input class="activate_input" id="activate_command" value="!activate {{ request.user.steamid }}" >  <button id="copy_activate" type="button" class="btn btn-xs btn-danger btn-outline alert-btn-right" onclick="copyToClipboardSteamId()">СКОПИРОВАТЬ В БУФЕР</button></div>
-
-
-                    </div>
                 </div>
             </div>
         </div>
-
-
- {% endif %}
+    </div>
+{% endif %}

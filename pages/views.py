@@ -251,6 +251,7 @@ def players(request):
     all_players = SteamUser.objects.filter(is_staff=False, is_active=True)
     top20_kills = all_players.order_by('-kills')[:20]
     top20_rating = all_players.order_by('-rating')[:20]
+    top20_money = all_players.order_by('-wallet')[:20]
     players_active = 'active'
 
     page_title = 'СТАТИСТИКА ИГРОКОВ'

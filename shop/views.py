@@ -36,7 +36,7 @@ def shop_home(request):
         items_qs = items_all
         param = None
 
-    items_paginator = Paginator(items_qs, 9)
+    items_paginator = Paginator(items_qs, 12)
 
     try:
         items = items_paginator.get_page(page)

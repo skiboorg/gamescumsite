@@ -30,7 +30,9 @@
                         <div class="alert alert-warning alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span></button>
-                            <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!</strong>
+                            <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
+                                    <span style="color: red; font-size: larger;">Выдача купленного товара происходит после 18:00! Свяжитесь с администратором в Discord</span>
+                            </strong>
                         </div>
 
 
@@ -48,7 +50,7 @@
                                     {% for pg in items.paginator.page_range %}
                                         {% if items.number == pg %}
                                             <li class="page-item active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
-                                        {% elif pg > items.number|add:'-3' and pg < items.number|add:'3' %}
+                                        {% elif pg > items.number|add:'-9' and pg < items.number|add:'9' %}
 
                                             <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
                                         {% endif %}
@@ -242,7 +244,7 @@
                                     {% for pg in items.paginator.page_range %}
                                         {% if items.number == pg %}
                                             <li class="page-item active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
-                                        {% elif pg > items.number|add:'-3' and pg < items.number|add:'3' %}
+                                        {% elif pg > items.number|add:'-9' and pg < items.number|add:'9' %}
 
                                             <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
                                         {% endif %}
