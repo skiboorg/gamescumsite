@@ -6,7 +6,7 @@ from .models import *
 def events_home(request):
     player_in_events =[]
     page_title = 'СОБЫТИЯ СЕРВЕРА'
-    all_events = Event.objects.all()
+    all_events = Event.objects.all().order_by('-is_active')
     all_players = EventPlayers.objects.all()
     for pl in all_players:
         if pl.player.id == request.user.id:

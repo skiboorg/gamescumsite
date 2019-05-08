@@ -29,16 +29,17 @@
     <div class="card__content">
         <p>Создайте отряд - и вы получите дополниельные возможности. Подробнее :</p>
         <ul class="list">
-            <li>Создание отряда 1 уровня стоит <strong>1000 RC</strong> .</li>
-            <li>Каждый кандидат на вступление подает заявку, лидер принимает ее.</li>
-            <li>Всего 5 уровней отряда. Повышая уровень отряда, вы увеличиваете максимальное количество участников.</li>
-            <li>Казна отряда - куда игроки могут внести средства. При внесении средств от 500 RC повышается рейтинг игрока.</li>
-            <li>На деньги из казны - отряд может повысить уровень отряда или <a href="#sectors_map">купить</a>  сектор.</li>
-            <li>Максимальное количество секторов во владении отряда - 3.</li>
-            <li>Владение сектором открывает возможность приобретения специальных товаров в <a href="{% url 'shop_home' %}">BLACKMARKET</a></li>
-            <li>Любой отряд может оспорить владение сектором</li>
-            <li style="color: red">Отряд владеет сектором 10 дней. После 10 дней сектор автоматически станет общедоступным. Дальнейшее владение необходимо продлить.</li>
-            <li style="color: red">Неактивные отряды в течении 2 недель будут расформированы, казна отряда будет возвращена владельцу отряда</li>
+            <li style="font-size: 30px">Правила и информациях об отрядах в процессе изменения</li>
+{#            <li>Создание отряда 1 уровня стоит <strong>1000 RC</strong> .</li>#}
+{#            <li>Каждый кандидат на вступление подает заявку, лидер принимает ее.</li>#}
+{#            <li>Всего 5 уровней отряда. Повышая уровень отряда, вы увеличиваете максимальное количество участников.</li>#}
+{#            <li>Казна отряда - куда игроки могут внести средства. При внесении средств от 500 RC повышается рейтинг игрока.</li>#}
+{#            <li>На деньги из казны - отряд может повысить уровень отряда или <a href="#sectors_map">купить</a>  сектор.</li>#}
+{#            <li>Максимальное количество секторов во владении отряда - 3.</li>#}
+{#            <li>Владение сектором открывает возможность приобретения специальных товаров в <a href="{% url 'shop_home' %}">BLACKMARKET</a></li>#}
+{#            <li>Любой отряд может оспорить владение сектором</li>#}
+{#            <li style="color: red">Отряд владеет сектором 10 дней. После 10 дней сектор автоматически станет общедоступным. Дальнейшее владение необходимо продлить.</li>#}
+{#            <li style="color: red">Неактивные отряды в течении 2 недель будут расформированы, казна отряда будет возвращена владельцу отряда</li>#}
 
         </ul>
 
@@ -255,9 +256,9 @@
 
 
 
-                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
-                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                    {%endif%}
+{#                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}#}
+{#                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                    {%endif%}#}
                                     {% if sect.in_war %}
                                         {% for war in sect.sectorwars_set.all %}
                                             <div style="    background-color: #1e2024;
@@ -278,19 +279,19 @@
 
                                 {% else %}
                                     <div>
-                                        СВОБОДНО<br>
-                                        Доход : {{ sect.income }}<br>
-                                        Цена : {{ sect.price }}<br>
-                                        {% if player.is_squad_leader %}
-                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
-                                        {%endif%}
+{#                                        СВОБОДНО<br>#}
+{#                                        Доход : {{ sect.income }}<br>#}
+{#                                        Цена : {{ sect.price }}<br>#}
+{#                                        {% if player.is_squad_leader %}#}
+{#                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>#}
+{#                                        {%endif%}#}
                                     </div>
 
                                 {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
-                   <tr style="    height: 25%;" >
+                  <tr style="    height: 25%;" >
 
                         {% for sect in sectors_c %}
 
@@ -319,9 +320,9 @@
 
 
 
-                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
-                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                    {%endif%}
+{#                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}#}
+{#                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                    {%endif%}#}
                                     {% if sect.in_war %}
                                         {% for war in sect.sectorwars_set.all %}
                                             <div style="    background-color: #1e2024;
@@ -342,19 +343,19 @@
 
                                 {% else %}
                                     <div>
-                                        СВОБОДНО<br>
-                                        Доход : {{ sect.income }}<br>
-                                        Цена : {{ sect.price }}<br>
-                                        {% if player.is_squad_leader %}
-                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
-                                        {%endif%}
+{#                                        СВОБОДНО<br>#}
+{#                                        Доход : {{ sect.income }}<br>#}
+{#                                        Цена : {{ sect.price }}<br>#}
+{#                                        {% if player.is_squad_leader %}#}
+{#                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>#}
+{#                                        {%endif%}#}
                                     </div>
 
                                 {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
-                   <tr style="    height: 25%;" >
+                  <tr style="    height: 25%;" >
 
                         {% for sect in sectors_b %}
 
@@ -383,9 +384,9 @@
 
 
 
-                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
-                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                    {%endif%}
+{#                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}#}
+{#                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                    {%endif%}#}
                                     {% if sect.in_war %}
                                         {% for war in sect.sectorwars_set.all %}
                                             <div style="    background-color: #1e2024;
@@ -406,19 +407,19 @@
 
                                 {% else %}
                                     <div>
-                                        СВОБОДНО<br>
-                                        Доход : {{ sect.income }}<br>
-                                        Цена : {{ sect.price }}<br>
-                                        {% if player.is_squad_leader %}
-                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
-                                        {%endif%}
+{#                                        СВОБОДНО<br>#}
+{#                                        Доход : {{ sect.income }}<br>#}
+{#                                        Цена : {{ sect.price }}<br>#}
+{#                                        {% if player.is_squad_leader %}#}
+{#                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>#}
+{#                                        {%endif%}#}
                                     </div>
 
                                 {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
-                    <tr style="    height: 25%;" >
+                  <tr style="    height: 25%;" >
 
                         {% for sect in sectors_a %}
 
@@ -447,9 +448,9 @@
 
 
 
-                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}
-                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>
-                                    {%endif%}
+{#                                    {% if player.is_squad_leader and sect not in player_squad_sector.all and not sect.in_war %}#}
+{#                                        <a href="{% url 'sector_war' sect.name %}" class="btn btn-danger btn-xs">Оспорить территорию</a>#}
+{#                                    {%endif%}#}
                                     {% if sect.in_war %}
                                         {% for war in sect.sectorwars_set.all %}
                                             <div style="    background-color: #1e2024;
@@ -470,18 +471,21 @@
 
                                 {% else %}
                                     <div>
-                                        СВОБОДНО<br>
-                                        Доход : {{ sect.income }}<br>
-                                        Цена : {{ sect.price }}<br>
-                                        {% if player.is_squad_leader %}
-                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>
-                                        {%endif%}
+{#                                        СВОБОДНО<br>#}
+{#                                        Доход : {{ sect.income }}<br>#}
+{#                                        Цена : {{ sect.price }}<br>#}
+{#                                        {% if player.is_squad_leader %}#}
+{#                                            <a href="{% url 'buy_sector' %}?s={{ sect.id }}" class="btn btn-warning btn-xs">КУПИТЬ</a>#}
+{#                                        {%endif%}#}
                                     </div>
 
                                 {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
+
+
+
                 </table>
 
             </div>

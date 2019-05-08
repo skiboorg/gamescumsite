@@ -25,7 +25,11 @@
 
             <div id="accordion">
                 {% for event in all_events %}
-                    <div class="card">
+                    <div
+                            {% if not event.is_active %}
+                            style="background-color: #0b0b0b"
+                            {% endif %}
+                            class="card">
                         <div class="card-header" id="heading{{ event.id }}">
                             <h5 class="mb-0">
 
