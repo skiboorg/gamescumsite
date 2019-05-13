@@ -84,7 +84,7 @@ def index(request):
                     player.last_vizit = datetime.now().date()
                     player.save(force_update=True)
 
-    return render(request, 'pages/index.html', locals())
+    return render(request, 'pages/index_new.html', locals())
 
 
 def login(request):

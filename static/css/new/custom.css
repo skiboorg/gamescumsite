@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "scum_font";
+  font-style: normal;
+  font-weight: normal;
+  src: url('../../fonts/10929.otf');
+}
+
+.scum-font{
+    font-family: scum_font,sans-serif !important;
+}
+
+.edgtf-logo-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edgtf-logo-wrapper a span{
+   font-family: scum_font,sans-serif;
+}
+
+.item_text{
+    font-family: 'Roboto Condensed', sans-serif;
+}
