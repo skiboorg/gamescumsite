@@ -19,6 +19,19 @@
    font-family: scum_font,sans-serif;
 }
 
-.item_text{
+.item_text {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.edgtf-al-text{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.home_promo_img{
+    float: left;
+    margin-right: 20px;
+}
+
+.edgtf-btn-text{
     font-family: 'Roboto Condensed', sans-serif;
 }
