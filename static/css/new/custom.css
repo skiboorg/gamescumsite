@@ -40,3 +40,12 @@
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 20px;
 }
+
+.footer-text{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+}
+
+.footer-custom-menu ul li a{
+     font-family: 'Roboto Condensed', sans-serif !important;
+}
