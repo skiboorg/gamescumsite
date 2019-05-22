@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new/style.css' %}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new/custom.css' %}" media="all" />
+    <link href="{% static 'css/font-awesome.min.css'%} " rel="stylesheet">
+
+    <meta property="og:url" content="http://www.gamescum.ru" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="GAMESCUM" />
+    <meta property="og:description" content="Игровой сервер CSUM" />
+    <meta property="og:image" content="{% static 'images/logo.png' %}" />
+
+    <meta charset="UTF-8" />
+
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+    <title>{{ page_title }} | ИГРОВОЙ СЕРВЕР SCUM SURVIVAL </title>
+
+
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet" media="all">
+
+    <script type="text/javascript" src="{% static 'js/new/jq.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/new/2.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/new/3.js' %}"></script>
+
+    <link rel="canonical" href="http://www.gamescum.ru/" />
+    <link rel='shortlink' href='http://www.gamescum.ru/' />
+
+    <link rel="icon" href="https://tetsuo.edge-themes.com/wp-content/uploads/2018/08/cropped-favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" href="https://tetsuo.edge-themes.com/wp-content/uploads/2018/08/cropped-favicon-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="https://tetsuo.edge-themes.com/wp-content/uploads/2018/08/cropped-favicon-180x180.png" />
+    <meta name="msapplication-TileImage" content="https://tetsuo.edge-themes.com/wp-content/uploads/2018/08/cropped-favicon-270x270.png" />
+    <script type="text/javascript">
+        function setREVStartSize(e) {
+            try {
+                e.c = jQuery(e.c);
+                var i = jQuery(window).width(),
+                    t = 9999,
+                    r = 0,
+                    n = 0,
+                    l = 0,
+                    f = 0,
+                    s = 0,
+                    h = 0;
+                if (e.responsiveLevels && (jQuery.each(e.responsiveLevels, function(e, f) {
+                    f > i && (t = r = f, l = e), i > f && f > r && (r = f, n = e)
+                }), t > r && (l = n)), f = e.gridheight[l] || e.gridheight[0] || e.gridheight, s = e.gridwidth[l] || e.gridwidth[0] || e.gridwidth, h = i / s, h = h > 1 ? 1 : h, f = Math.round(h * f), "fullscreen" == e.sliderLayout) {
+                    var u = (e.c.width(), jQuery(window).height());
+                    if (void 0 != e.fullScreenOffsetContainer) {
+                        var c = e.fullScreenOffsetContainer.split(",");
+                        if (c) jQuery.each(c, function(e, i) {
+                            u = jQuery(i).length > 0 ? u - jQuery(i).outerHeight(!0) : u
+                        }), e.fullScreenOffset.split("%").length > 1 && void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 ? u -= jQuery(window).height() * parseInt(e.fullScreenOffset, 0) / 100 : void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 && (u -= parseInt(e.fullScreenOffset, 0))
+                    }
+                    f = u
+                } else void 0 != e.minHeight && f < e.minHeight && (f = e.minHeight);
+                e.c.closest(".rev_slider_wrapper").css({
+                    height: f
+                })
+            } catch (d) {
+                console.log("Failure at Presize of Slider:" + d)
+            }
+        };
+    </script>
+    <style type="text/css" data-type="vc_custom-css">
+        @media only screen and (min-width: 1400px) and (max-width: 1600px) {
+            #slide-10-layer-18,
+            #slide-10-layer-17 {
+                margin-left: 244px !important;
+            }
+        }
+
+        @media only screen and (min-width: 1300px) and (max-width: 1399px) {
+            #slide-10-layer-18,
+            #slide-10-layer-17 {
+                margin-left: 10px !important;
+            }
+        }
+
+        @media only screen and (min-width: 1200px) and (max-width: 1299px) {
+            #slide-10-layer-18,
+            #slide-10-layer-17 {
+                margin-left: 135px !important;
+            }
+        }
+    </style>
+    <style type="text/css" data-type="vc_shortcodes-custom-css">
+        .vc_custom_1534237658091 {
+            padding-bottom: 5px !important;
+        }
+
+        .vc_custom_1534237658091 {
+            padding-bottom: 5px !important;
+        }
+
+        .vc_custom_1536224828029 {
+            padding-top: 200px !important;
+            padding-bottom: 100px !important;
+        }
+    </style>
+    <noscript>
+        <style type="text/css">
+            .wpb_animate_when_almost_visible {
+                opacity: 1;
+            }
+        </style>
+    </noscript>
+</head>
+
+<body class="home page-template page-template-full-width page-template-full-width-php page page-id-842 tetsuo-core-1.0 woocommerce-js tetsuo-ver-1.0 edgtf-fixed-video-background edgtf-fvb-animate-overlay edgtf-grid-1300 edgtf-content-is-behind-header edgtf-wide-dropdown-menu-content-in-grid edgtf-animated-logo edgtf-menu-split-animation edgtf-no-behavior edgtf-dropdown-animate-height edgtf-header-standard edgtf-menu-area-shadow-disable edgtf-menu-area-in-grid-shadow-disable edgtf-menu-area-border-disable edgtf-menu-area-in-grid-border-disable edgtf-logo-area-border-disable edgtf-logo-area-in-grid-border-disable edgtf-header-vertical-shadow-disable edgtf-side-menu-slide-from-right edgtf-woocommerce-columns-3 edgtf-woo-normal-space edgtf-woo-pl-info-below-image edgtf-woo-single-thumb-below-image edgtf-woo-single-has-pretty-photo edgtf-default-mobile-header edgtf-sticky-up-mobile-header wpb-js-composer js-comp-ver-5.5.4 vc_responsive edgtf-fullscreen-search edgtf-search-fade edgtf-chrome">
+        <form id="dummy_form">{% csrf_token %}
+
+</form>
+<div class="edgtf-wrapper">
+    <div class="edgtf-wrapper-inner">
+
+        <a id='edgtf-back-to-top' href='#'>
+                <span class="edgtf-icon-stack">
+                     <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                </span>
+            <span class="edgtf-btt-text">НАВЕРХ</span>
+        </a>
+
+
+
+
+{% include 'header_new.html' %}
+
+{% block content %}
+
+{% endblock %}
+{% block gbvideo %}
+{% endblock %}
+{% include 'footer_new.html' %}
+</div>
+<!-- close div.edgtf-wrapper-inner  -->
+</div>
+<!-- close div.edgtf-wrapper -->
+{% block js %}
+{% endblock %}
+
+
+<script type='text/javascript'>
+    /* <![CDATA[ */
+    var edgtfGlobalVars = {"vars":{"edgtfAddForAdminBar":0,"edgtfElementAppearAmount":-100,"edgtfAjaxUrl":"https:\/\/tetsuo.edge-themes.com\/wp-admin\/admin-ajax.php","sliderNavPrevArrow":"arrow_carrot-left","sliderNavNextArrow":"arrow_carrot-right","edgtfStickyHeaderHeight":0,"edgtfStickyHeaderTransparencyHeight":70,"edgtfTopBarHeight":0,"edgtfLogoAreaHeight":0,"edgtfMenuAreaHeight":90,"edgtfMobileHeaderHeight":70}};
+    var edgtfPerPageVars = {"vars":{"edgtfMobileHeaderHeight":70,"edgtfStickyScrollAmount":0,"edgtfHeaderTransparencyHeight":0,"edgtfHeaderVerticalWidth":0}};
+    /* ]]> */
+</script>
+
+<script type="text/javascript" src="{% static 'js/new/4.js' %}"></script>
+
+<script type='text/javascript' src='{% static ' js/new/5.js ' %}'></script>
+<script type='text/javascript' src='{% static ' js/new/6.js ' %}'></script>
+
+<script type="text/javascript" src="{% static 'js/new/7.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/new/8.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/new/9.js' %}"></script>
+
+
+
+<script type="text/javascript" src="{% static 'js/new/10.js' %}"></script>
+
+</body>
+
+</html>

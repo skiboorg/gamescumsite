@@ -222,7 +222,7 @@ def del_message(request):
 
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'
-    return render(request, 'pages/about_us.html', locals())
+    return render(request, 'pages/about_us_new.html', locals())
 
 def bonus_pack(request):
     admins = SteamUser.objects.filter(is_staff=True)
