@@ -30,7 +30,7 @@ def get_squad_info(player_id):
 
 
 def support(request):
-    return render(request, 'pages/support.html', locals())
+    return render(request, 'pages/support_new.html', locals())
 
 
 def index(request):
@@ -47,7 +47,7 @@ def index(request):
         name = tree.xpath('//*[@id="serverPage"]/h2/text()')
         ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
         status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
-    top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:5]
+    top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:10]
 
 
     if request.user.is_authenticated:
@@ -245,7 +245,7 @@ def bonus_pack(request):
 
 def rules(request):
     page_title = 'ПРАВИЛА СЕРВЕРА'
-    return render(request, 'pages/rules.html', locals())
+    return render(request, 'pages/rules_new.html', locals())
 
 def players(request):
     all_players = SteamUser.objects.filter(is_staff=False, is_active=True)

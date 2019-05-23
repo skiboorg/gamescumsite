@@ -3139,8 +3139,8 @@ blockquote cite {
 
 .edgtf-content .edgtf-content-inner>.edgtf-container>.edgtf-container-inner,
 .edgtf-content .edgtf-content-inner>.edgtf-full-width>.edgtf-full-width-inner {
-    padding-top: 70px;
-    padding-bottom: 40px
+    /*padding-top: 70px;*/
+    /*padding-bottom: 40px*/
 }
 
 @media only screen and (min-width:1400px) {

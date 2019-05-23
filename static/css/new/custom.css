@@ -5,6 +5,10 @@
   src: url('../../fonts/10929.otf');
 }
 
+h1{
+    font-size: 60px !important;
+}
+
 .scum-font{
     font-family: scum_font,sans-serif !important;
 }
