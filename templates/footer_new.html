@@ -25,3 +25,35 @@
             </div>
         </div>
     </footer>
+{% if profile_bad and user.is_authenticated %}
+
+    <div id="modal-activate" class="modal">
+
+
+  <div class="modal-content">
+      <div class="modal-header">
+        <h4>ТВОЙ АККАУНТ НЕ АКТИВИРОВАН ! </h4>
+
+      </div>
+
+    <div class="modal-form">
+
+          <p>ДЛЯ АКТИВАЦИИ ОТПРАВЬ
+                        ЛИЧНОЕ СООБЩЕНИЕ SURVIVAL BOT В ДИСКОРДЕ С ТЕКСТОМ: </p>
+
+                        <input style=" width: 27%;display: block;" class="activate_input" id="activate_command" value="!activate {{ request.user.steamid }}" >
+
+              <button style="    border: none;
+    background: red;
+    padding: 5px 57px;
+    margin-top: 20px;
+    color: #fff;
+    cursor: pointer;" id="copy_activate" type="button" onclick="copyToClipboardSteamId()">СКОПИРОВАТЬ В БУФЕР</button>
+
+    </div>
+
+  </div>
+
+</div>
+{% endif %}
+

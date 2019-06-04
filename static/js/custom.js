@@ -49,12 +49,21 @@ function copyToClipboardSteamId() {
         document.execCommand("copy");
 
 
-        $(btn).removeClass('btn-danger');
-        $(btn).addClass('btn-success');
+        // $(btn).removeClass('btn-danger');
+        // $(btn).addClass('btn-success');
         $(btn).html('Скопировано');
     }
 
 $('#modal-activate').modal('show');
+$( document ).ready(function() {
+    console.log( "ready!" );
+    let modal = document.getElementById('myModal');
+
+
+      modal.style.display = "block";
+
+
+});
 
 
 var cur_balance = parseInt($('#player_wallet').html());

@@ -66,19 +66,60 @@
                                     <li id="nav-menu-item-29" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="#" class=""><span class="item_outer"><span class="item_text">BLACKMARKET</span></span></a>
 
                                     </li>
+                                     {% if user.is_authenticated %}
+                                         <li id="nav-menu-item-30" class="menu-item menu-item-type-custom menu-item-object-custom   menu-item-has-children  has_sub narrow"><a href="#" class=" current "><span class="item_outer"><span class="item_text">ЛК</span> <i class="fa fa-angle-down"></i></span></a>
+                                            <div class="second">
+                                                <div class="inner">
+                                                    <ul>
+                                                        <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/" class=""><span class="item_outer"><span class="item_text">Персональная информация</span></span></a></li>
+                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ВОЙНА ЗА СЕКТОРА</span></span></a></li>
+                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ИСПЫТАНИЯ</span></span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                         {% else %}
+                                        <div class="edgtf-shopping-cart-holder">
+                                <div style="display: flex; align-items: center" class="edgtf-shopping-cart-inner">
+                                   <a style="border: 2px solid #ec4e00;padding: 0 9px !important;"   href="#"   class="edgtf-btn edgtf-btn-medium edgtf-btn-simple"  >
+                                                <span style="font-size: 12px" class="edgtf-split-item-prim">ВХОД / РЕГИСТРАЦИЯ</span>
+                                        <span style="font-size: 12px" class="edgtf-split-item-sec">ВХОД / РЕГИСТРАЦИЯ</span>
+                                    </a>
+                                    <div class="edgtf-shopping-cart-dropdown">
+                                        <div>
+                                            <ul>
+                                                <li><a href="/login/steam/" class="btn btn-warning btn-outline btn-sm"
+                                                      style="border: 2px solid #ec4e00;padding: 9px 9px !important;"> <i style="font-size: 18px" class="fa fa-steam fa-3" aria-hidden="true"></i><span style="font-size: 14px"> ВОЙТИ ЧЕРЕЗ STEAM</span> </a></li>
+                                            <li>Регистрация и авторизация работает через SteamOpenID,
+                                вы будете перенаправлены на соответствующую страницу сервиса STEAM,
+                                где нужно будет ввести свой логин и пароль. </li>
+                                Мы гарантируем, что :
+
+                                    <li><strong>Учётные данные вашего аккаунта Steam не будут переданы третьим лицам.</strong></li>
+
+
+                                </ul>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                                    {% endif %}
 
                                 </ul>
                             </nav>
-
+                            {% if user.is_authenticated %}
                             <div class="edgtf-shopping-cart-holder">
                                 <div class="edgtf-shopping-cart-inner">
                                     <a itemprop="url" class="edgtf-header-cart edgtf-header-cart-svg-path" href="https://tetsuo.edge-themes.com/cart/">
-                                            <span class="edgtf-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="18.998px" height="20.998px" viewBox="0 0 18.998 20.998" enable-background="new 0 0 18.998 20.998" xml:space="preserve">
-<path fill="#231F20" d="M16.917,4h-2.916V0h-9v4H2.042L0,20.998h18.998L16.917,4z M7.001,2h5v2h-5V2z M2.818,18.498L4.26,6.5h0.741
-	h9h0.703l1.469,11.998H2.818z"/>
-</svg></span>
-                                        <span class="edgtf-cart-number">1</span>
+                                        <span class="edgtf-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             width="18.998px" height="20.998px" viewBox="0 0 18.998 20.998" enable-background="new 0 0 18.998 20.998" xml:space="preserve">
+                                            <path fill="#231F20" d="M16.917,4h-2.916V0h-9v4H2.042L0,20.998h18.998L16.917,4z M7.001,2h5v2h-5V2z M2.818,18.498L4.26,6.5h0.741
+                                                h9h0.703l1.469,11.998H2.818z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="edgtf-cart-number">10</span>
                                     </a>
                                     <div class="edgtf-shopping-cart-dropdown">
                                         <ul>
@@ -110,21 +151,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% endif %}
 
-                            <a class="edgtf-search-opener edgtf-icon-has-hover edgtf-search-opener-svg-path" href="javascript:void(0)">
-                                    <span class="edgtf-search-opener-wrapper">
-	       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="32px" height="32px" viewBox="0 0 32 32" version="1.1">
-    <!-- Generator: Sketch 3.0.3 (7891) - http://www.bohemiancoding.com/sketch -->
-    <title>ЛОГИН</title>
-
-    <defs/>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="icon-42-sad-face--tightly-closed-eyes" sketch:type="MSArtboardGroup" fill="#000000">
-            <path d="M16.5,29 C23.4035597,29 29,23.4035597 29,16.5 C29,9.59644029 23.4035597,4 16.5,4 C9.59644029,4 4,9.59644029 4,16.5 C4,23.4035597 9.59644029,29 16.5,29 L16.5,29 Z M16.5,28 C22.8512749,28 28,22.8512749 28,16.5 C28,10.1487251 22.8512749,5 16.5,5 C10.1487251,5 5,10.1487251 5,16.5 C5,22.8512749 10.1487251,28 16.5,28 L16.5,28 Z M16.4813232,21 C13,21 11,23 11,23 L11,22 C11,22 13,20 16.4813232,20 C19.9626465,20 22,22 22,22 L22,23 C22,23 19.9626465,21 16.4813232,21 L16.4813232,21 Z M21.5606602,16.5606602 L18.732233,13.732233 L21.5606602,10.9038059 L22.267767,11.6109127 L20.1464466,13.732233 L22.267767,15.8535534 L21.5606602,16.5606602 L21.5606602,16.5606602 Z M11.4393398,10.9038059 L14.267767,13.732233 L11.4393398,16.5606602 L10.732233,15.8535534 L12.8535534,13.732233 L10.732233,11.6109127 L11.4393398,10.9038059 L11.4393398,10.9038059 Z" id="sad-face--tightly-closed-eyes" sketch:type="MSShapeGroup"/>
-        </g>
-    </g>
-</svg>                       </span>
-                            </a>
 
                         </div>
                     </div>
@@ -220,3 +248,4 @@
             </div>
 
         </header>
+
