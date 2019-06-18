@@ -9,6 +9,7 @@ from pytils.translit import slugify
 
 
 
+
 class SteamUserManager(BaseUserManager):
     def _create_user(self, steamid, password, **extra_fields):
         """

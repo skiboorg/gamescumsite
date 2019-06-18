@@ -27,8 +27,34 @@ class Categories(models.Model):
         verbose_name_plural = "Категории"
 
 
+class ItemsSets(models.Model):
+    name = models.CharField(max_length=255, blank=False, null=True)
+    name_slug = models.SlugField(max_length=255, blank=True, null=True)
+
+
+    @property
+    def get_total_cost(self):
+        total_cost = 0
+        for item in self.items_set:
+            total_cost += item.price
+
+        return (total_cost)
+
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.name)
+        super(ItemsSets, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Сет : %s ' % self.name
+
+    class Meta:
+        verbose_name = "Сет"
+        verbose_name_plural = "Сеты"
+
+
 class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
+    set = models.ForeignKey(ItemsSets, blank=False, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, blank=False, null=True)
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
     image = models.ImageField(upload_to='shop/', null=True, blank=False)
@@ -126,6 +152,17 @@ class Baskets(models.Model):
         self.total_price = self.number * self.current_price
 
         super(Baskets, self).save(*args, **kwargs)
+
+class FavoriteItems(models.Model):
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'Товар %s  в избранном у игрока  %s' % (self.item.name, self.player.personaname)
+
+    class Meta:
+        verbose_name = "Избранный товар"
+        verbose_name_plural = "Избранные товары"
 
 
 def ItemsInOrder_post_save(sender,instance,**kwargs):
