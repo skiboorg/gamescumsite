@@ -1,0 +1,344 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 138px;background-color: #181818" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 class="edgtf-page-title entry-title">Accordions &amp; Toggles</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                            <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+                                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1534323608251">
+                                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                                            <div class="vc_column-inner">
+                                                <div class="wpb_wrapper">
+                                                    <div class="edgtf-accordion-holder edgtf-ac-default  edgtf-accordion edgtf-ac-boxed  clearfix ui-accordion ui-widget ui-helper-reset" role="tablist">
+                                                        <h5 class="edgtf-accordion-title ui-accordion-header ui-state-default ui-accordion-header-active ui-state-active ui-corner-top" role="tab" id="ui-id-1" aria-controls="ui-id-2" aria-selected="true" aria-expanded="true" tabindex="0">
+
+                                                            <span class="edgtf-tab-title">Персональные данные</span>
+                                                        </h5>
+                                                        <div class="edgtf-accordion-content ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="ui-id-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="display: block;">
+                                                            <div class="edgtf-accordion-content-inner">
+
+                                                                <div class="wpb_text_column wpb_content_element ">
+                                                                    <div class="wpb_wrapper">
+                                                                       <div class="player-info-header">
+                                                                           <div class="player-info-avatar">
+                                                                               <img src="{{ player.avatarfull }}" alt="Профиль игрока {{ player.personaname }}">
+                                                                           <p>{{ player.personaname }}</p>
+                                                                               <p>БАЛАНС<br> <span>{{ player.wallet }} RC</span></p>
+                                                                           </div>
+
+                                                                                <div class="player-info-header-stats-wrapper" >
+                                                                                      <div class="player-info-header-stats">
+                                                                                    <div class="mb-10">
+                                                                                        <p>УБИЙСТВ</p>
+                                                                                        <p>{{ player.kills }}</p>
+                                                                                    </div>
+                                                                                     <div class="mb-10">
+                                                                                        <p>СМЕРТЕЙ</p>
+                                                                                        <p>{{ player.deaths }}</p>
+                                                                                    </div>
+                                                                                    <div class="mb-10">
+                                                                                        <p>УРОВЕНЬ</p>
+                                                                                        <p>{{ player.level }}</p>
+                                                                                    </div>
+                                                                                     <div class="mb-10">
+                                                                                        <p>РЕЙТИНГ</p>
+                                                                                        <p>{{ player.rating }}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                    <div class="player-info-header-stats-balance">
+
+                                                                                        <div class="player-info-header-stats-balance-label">ДАТА РЕГИСТРАЦИИ:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.date_joined.date|date:"d M, Y" }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Покупок в BLACKMARKET:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.total_buys_count }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Сумма покупок:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.total_buys_summ }} RC</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Discord ID:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.discord_nickname }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Steam профиль:</div>
+                                                                                        <div class="player-info-header-stats-balance-info"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></div>
+                                                                                        <div class="player-info-header-stats-balance-label">Звание:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.rank }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">VAC-баны:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ bans }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Время в игре (часов):</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player_play_time }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Discord ID:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.discord_nickname }}</div>
+                                                                                        {% if squad_info %}
+                                                                                            <div class="player-info-header-stats-balance-label">Отряд:</div>
+                                                                                            <div class="player-info-header-stats-balance-info">{{ squad_info.name }}</div>
+
+                                                                                            <div class="player-info-header-stats-balance-label">Уровень отряда:</div>
+                                                                                            <div class="player-info-header-stats-balance-info">{{ squad_info.level }}</div>
+
+                                                                                            <div class="player-info-header-stats-balance-label">Баланс отряда:</div>
+                                                                                            <div class="player-info-header-stats-balance-info">{{ squad_info.balance }} RC</div>
+
+                                                                                            <form style="padding-bottom: 15px;" action="{% url 'add_to_balance' %}" class="form-inline" method="post">
+                                                                                                {% csrf_token %}
+
+                                                                                                <input  type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
+                                                                                                <input type='hidden' id="cur_bal" value="{{ player.wallet }}">
+                                                                                                <input type='hidden' name="squad_id" value="{{ squad_info.id }}">
+
+                                                                                                <button style="margin-left: 10px;" type="submit" id="add_to_bal_btn" class="btn  btn-outline-danger btn-sm ">Пополнить баланс отряда</button>
+                                                                                            </form>
+
+                                                                                         {% else %}
+                                                                                            <div class="player-info-header-stats-balance-label">ОТРЯД:</div>
+                                                                                            <div class="player-info-header-stats-balance-info">НЕТ</div>
+                                                                                        {% endif %}
+                                                                                    </div>
+                                                                                    <div class="custom_hr"></div>
+                                                                                      <form action="" method="post">
+                                                                                        {% csrf_token %}
+                                                                                        <div class="form-group">
+                                                                                            <label class="checkbox checkbox-inline">
+                                                                                                {{ form.profile_open}} Показывать Discord ID и ссылку на Steam профиль другим игрокам?
+                                                                                                <span class="checkbox-indicator"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                          <div class="gap-20"></div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="player_info">Информация о себе </label>
+                                                                                             <textarea  id="player_info" name="{{ form.info.name }}" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="{{ request.user.info }}"></textarea>
+
+                                                                                        </div>
+
+                                                                                        <button type="submit" class="btn-outline ">Обновить данные профиля</button>
+                                                                                    </form>
+                                                                                </div>
+
+
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                          <h5 class="edgtf-accordion-title ui-accordion-header ui-state-default  ui-corner-top" role="tab" id="ui-id-1" aria-controls="ui-id-2" aria-selected="true" aria-expanded="true" tabindex="0">
+
+                                                            <span class="edgtf-tab-title">
+                                                                {% if not squad_info %}
+                                                                    Создание отряда
+                                                                {% else %}
+                                                                    Управление отрядом
+                                                                {% endif %}
+                                                            </span>
+                                                        </h5>
+                                                        <div class="edgtf-accordion-content ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom " id="ui-id-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="display: block;">
+                                                            <div class="edgtf-accordion-content-inner">
+
+                                                                <div class="wpb_text_column wpb_content_element ">
+                                                                    <div class="wpb_wrapper">
+                                                                        <div class="squad-info">
+                                                                             {% if not squad_info %}
+                        
+
+
+                                                    <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
+                                                        {% csrf_token %}
+
+                                                        <div class="form-group">
+                                                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                            {{ squad_form.name.errors }}
+                                                            <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                        </div>
+
+
+                                                        <div class="form-group form-group--upload">
+                                                            <div style="float: none;" class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
+                                                                <div class="form-group__label">
+                                                                    <h6>Логотип отряда <span style="color: #ff7e1f">*</span></h6><span>Желательно прозрачный png</span></div>
+                                                            </div>
+                                                            <div class="form-group__upload">
+                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
+                                                                    <input type="file" name="{{ squad_form.avatar.name }}" required="required"  style="display: none;" >
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    <img id="squad_wear_sample" style=" width: 75px;
+                                                                    position: absolute;
+                                                                    top: 105px;
+                                                                    right: 10px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+
+                                                        <div class="form-group">
+                                                            <label for="squad_form_wear">Форма отряда <span class="required">*</span></label>
+                                                            <select  name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" class="form-control ">
+                                                                {% for wear in squad_wear %}
+                                                                    <option data-image="{{ wear.image.url }}" style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
+                                                                {% endfor %}
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="squad_info">Дополнительная информация об отряде </label>
+
+                                                            <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">Дополнительных сведений об отряде не предоставлено.</textarea>
+                                                        </div>
+                                                        <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+                                                    {% if profile_bad %}
+                                                        <p align="center" style="color: #f34141; font-weight: bold;">ЭТА ФУНКЦИЯ ДОСТУПНА ТОЛЬКО ПОСЛЕ АКТИВАЦИИ АККАУНТА</p>
+                                                        {% else %}
+
+                                                        <button type="submit" id="create_squad_btn" class="btn  btn-outline-danger btn-sm ">Создать отряд.</button>
+                                                    {% endif %}
+                                                    </form>
+
+
+                    {% endif %}
+
+                    {% if player.is_squad_leader %}
+                        <div id="squad" class="card card--clean alc-staff">
+                            <div class="card__header card__header--has-btn">
+                                <h4>Управление отрядом</h4>
+
+                                <a style="margin-left: 5px;" href="{% url 'delete_squad' %}" class="btn btn-danger btn-outline btn-xs card-header__button" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
+                                <a href="{% url 'level_up' %}" id="level_up_btn" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
+                            </div>
+                            <div class="card__content">
+                                <div class="card mb-0">
+                                    <div class="card__content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="alc-staff-inner">
+                                                    <div>
+
+
+                                                        <dl class="alc-staff-details">
+                                                            <dt class="alc-staff-details__label">Баланс отряда :</dt><dd class="alc-staff-details__value"><span id="squad_balance">{{ squad_info.balance }}</span> RC</dd>
+                                                            <dt class="alc-staff-details__label">Текущий уровень отряда :</dt><dd class="alc-staff-details__value">{{ squad_info.level }}</dd>
+                                                            <p class="squad_info_p_red"> {% if squad_info.level ==  1 %}
+                                                                На данном уровне доступно : 3 игрока с составе отряда, владением одним сектором.
+                                                            {% elif squad_info.level == 2 %}
+                                                                На данном уровне доступно : 4 игрока с составе отряда, владением двумя секторами.
+                                                            {% elif squad_info.level == 3 %}
+                                                                На данном уровне доступно : 5 игроков с составе отряда, владением тремя секторами.
+                                                            {% elif squad_info.level == 4 %}
+                                                                На данном уровне доступно : 6 игроков с составе отряда, владением четырьмя секторами.
+                                                            {% elif squad_info.level == 5 %}
+                                                                На данном уровне доступно : 7 игроков с составе отряда, владением пятью секторами.
+                                                            {% endif %}
+                                                            </p>
+                                                            <dt class="alc-staff-details__label">Стоимость перехода на следуюший уровень :</dt>
+                                                            <dd class="alc-staff-details__value">
+                                                                {% if squad_info.level ==  1 %}
+                                                                    <span id="level_up_cost">1000</span> RC
+                                                                {% elif squad_info.level == 2 %}
+                                                                    <span id="level_up_cost">3000</span> RC
+                                                                {% elif squad_info.level == 3 %}
+                                                                    <span id="level_up_cost">5000</span> RC
+                                                                {% elif squad_info.level == 4 %}
+                                                                    <span id="level_up_cost">10000</span> RC
+                                                                {% elif squad_info.level == 5 %}
+                                                                    <span id="level_up_cost">15000</span> RC
+                                                                {% endif %}
+
+
+                                                            </dd>
+
+
+
+                                                        </dl>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
+                                                        {% csrf_token %}
+
+                                                        <div class="form-group">
+                                                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+
+                                                            <input type="text" name="{{ squad_form.name.name }}" value="{{ squad_info.name }}" required="required"  class="form-control" placeholder="Тру-нагибаторы">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="checkbox checkbox-inline">
+                                                                {{ squad_form.recruting }} Набор открыт?
+                                                                <span class="checkbox-indicator"></span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group form-group--upload">
+                                                            <div class="form-group__avatar"><img src="{{ squad_info.avatar.url }}" alt="">
+                                                                <div class="form-group__label">
+                                                                    <h6>Логотип отряда</h6><span>Желательно прозрачный png</span></div>
+                                                            </div>
+                                                            <div class="form-group__upload">
+                                                                <label class="btn btn-default btn-xs btn-file">Загрузить...
+                                                                    <input type="file" name="{{ squad_form.avatar.name }}"   style="display: none;" >
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="squad_info">Дополнительная информация об отряде </label>
+
+                                                            <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="form-control">{{ squad_info.info }}</textarea>
+                                                        </div>
+                                                        <input type="hidden" name="update" value="1">
+                                                        <input type="hidden" name="{{ squad_form.wear.name  }}" value="{{ squad_info.wear.id }}">
+
+                                                        <button type="submit" class="btn  btn-outline-danger btn-sm ">Обновить данные отряда</button>
+                                                    </form>
+
+                                                    <!-- Details / End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endif %}
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div> <!-- close div.content_inner -->
+    </div>
+{% endblock %}

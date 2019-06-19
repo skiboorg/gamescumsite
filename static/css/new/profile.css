@@ -1,0 +1,81 @@
+.mb-10{
+    margin-bottom: 10px;
+
+}
+
+.custom_hr{
+    width: 100%;
+     border-bottom: 2px solid #ec4e00;
+    margin: 20px 0;
+}
+.gap-20{
+    margin-bottom: 20px;
+}
+
+.btn-outline{
+    border: 2px solid #ec4e00;
+    background: none;
+    color: #fff;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color ease-in .2s;
+}
+
+.btn-outline:hover{
+    background: #ec4e00;
+    transition: background-color ease-out .2s;
+
+
+}
+.player-info-header{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.player-info-avatar{
+    text-align: center;
+}
+.player-info-avatar p{
+  font-size: small;
+}
+.player-info-avatar p span{
+    font-size: 30px;
+    color: #ec4e00;
+    font-weight: 600;
+}
+.player-info-avatar img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ec4e00;
+}
+.player-info-header-stats-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.player-info-header-stats{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, auto));
+    align-items: center;
+    text-align: center;
+        border-bottom: 2px solid #ec4e00;
+    margin-bottom: 20px;
+}
+
+.player-info-header-stats div p:first-child{
+    font-size: small;
+
+}
+.player-info-header-stats div p:last-child{
+    font-size: 30px;
+    color: #ec4e00;
+    font-weight: 600;
+}
+.player-info-header-stats-balance{
+   width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr
+}

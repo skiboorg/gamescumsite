@@ -173,7 +173,7 @@ def profile(request, nickname_req):
 
                 form = EditProfileForm(instance=request.user)
 
-                return render(request, 'pages/ownprofile.html', locals())
+                return render(request, 'pages/ownprofile_new.html', locals())
             else:
                 try:
                     player = SteamUser.objects.get(nickname=nickname_req)

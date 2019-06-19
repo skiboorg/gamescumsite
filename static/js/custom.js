@@ -41,10 +41,10 @@ $('#squad_form_wear').on('change', function() {
 
 
 
-$('#modal-activate').modal('show');
+//$('#modal-activate').modal('show');
 $( document ).ready(function() {
     console.log( "ready!" );
-    let modal = document.getElementById('myModal');
+     let modal = document.getElementById('modal-activate');
 
 
       modal.style.display = "block";
@@ -52,9 +52,11 @@ $( document ).ready(function() {
 
 });
 
+
 function copyToClipboardSteamId() {
         var btn = $('#copy_activate');
         var $temp = $('#activate_command');
+        let modal = document.getElementById('modal-activate');
 
 
         console.log($temp.val());
@@ -65,9 +67,18 @@ function copyToClipboardSteamId() {
         // $(btn).removeClass('btn-danger');
         // $(btn).addClass('btn-success');
         $(btn).html('Скопировано');
+        function func() {
+         modal.style.display = "none";
+        }
+
+        setTimeout(func, 2000);
+
     }
 
-
+function closeActivateModal() {
+    let modal = document.getElementById('modal-activate');
+    modal.style.display = "none";
+}
 
 var cur_balance = parseInt($('#player_wallet').html());
 var cur_squad_balance = parseInt($('#squad_balance').html());
