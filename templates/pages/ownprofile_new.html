@@ -4,16 +4,16 @@
 {% block content %}
     <div class="edgtf-content">
         <div class="edgtf-content-inner">
-            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 138px;background-color: #181818" data-height="138">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/own_profile.jpg' %});" data-height="138">
                 <div class="edgtf-title-wrapper">
                     <div class="edgtf-title-inner">
                         <div class="edgtf-grid">
-                            <h3 class="edgtf-page-title entry-title">Accordions &amp; Toggles</h3>
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">ТВОЙ <span style="color: #ff7e1f">ПРОФИЛЬ</span></h3>
                         </div>
                     </div>
                 </div>
             </div>
-
+<div class="gap-20"></div>
 
             <div class="edgtf-full-width">
                 <div class="edgtf-full-width-inner">
@@ -213,12 +213,11 @@
 
                     {% if player.is_squad_leader %}
                         <div id="squad" class="card card--clean alc-staff">
-                            <div class="card__header card__header--has-btn">
-                                <h4>Управление отрядом</h4>
+
 
                                 <a style="margin-left: 5px;" href="{% url 'delete_squad' %}" class="btn btn-danger btn-outline btn-xs card-header__button" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
                                 <a href="{% url 'level_up' %}" id="level_up_btn" class="btn btn-warning btn-outline btn-xs card-header__button">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
-                            </div>
+
                             <div class="card__content">
                                 <div class="card mb-0">
                                     <div class="card__content">
@@ -341,4 +340,5 @@
 
         </div> <!-- close div.content_inner -->
     </div>
+    <div class="gap-20"></div>
 {% endblock %}
