@@ -29,8 +29,15 @@ class Categories(models.Model):
 
 class ItemsSets(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
+    name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
     name_slug = models.SlugField(max_length=255, blank=True, null=True)
-
+    image = models.ImageField(upload_to='set/', null=True, blank=False)
+    discount = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+    active = models.BooleanField(default=True)
+    for_vip = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def get_total_cost(self):
@@ -42,6 +49,7 @@ class ItemsSets(models.Model):
 
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
+        self.name_lower = self.name.lower()
         super(ItemsSets, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -56,6 +64,8 @@ class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
     set = models.ForeignKey(ItemsSets, blank=False, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, blank=False, null=True)
+    name_slug = models.CharField(max_length=255, blank=True, null=True, db_index=True)
+    name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
     image = models.ImageField(upload_to='shop/', null=True, blank=False)
     active = models.BooleanField(default=True)
@@ -67,6 +77,11 @@ class Items(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.name)
+        self.name_lower = self.name.lower()
+        super(Items, self).save(*args, **kwargs)
+
     @property
     def discount_value(self):
         if self.discount > 0:
@@ -74,6 +89,11 @@ class Items(models.Model):
         else:
             dis_val = 0
         return (dis_val)
+
+    @property
+    def discount_vip_value(self):
+        dis_vip_val = self.price - (self.price * 30 / 100)
+        return (dis_vip_val)
 
     def __str__(self):
         return '%s . Уровень товара : %s' % (self.name,self.level)

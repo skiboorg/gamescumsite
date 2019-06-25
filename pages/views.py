@@ -14,7 +14,7 @@ from lxml import html
 import requests
 import bot_settings
 from django.http import JsonResponse
-from events.models import PoliceStat
+
 
 
 
@@ -34,7 +34,7 @@ def support(request):
 
 
 def index(request):
-    policestat = PoliceStat.objects.first()
+
     page_title = 'ГЛАВНАЯ'
     index_page_active = 'active'
     news = News.objects.all().order_by('-id')[:12]
@@ -48,41 +48,6 @@ def index(request):
         ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
         status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
     top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:10]
-
-
-    if request.user.is_authenticated:
-        player = request.user
-
-        if player.rating > player.level * 99:
-            player.level += 1
-            player.save(force_update=True)
-
-        if not player.vip and player.rating > 500:
-            player.vip = True
-            player.rank = 'VIP'
-            player.save(force_update=True)
-
-        last_login = player.last_vizit
-        time_now = datetime.now().date()
-
-        if time_now > player.last_buy:
-            player.buys_count = 0
-
-
-        if time_now > last_login:
-
-            if player.vip:
-                player.rating += 5
-                player.wallet += 60
-                player.last_vizit = datetime.now().date()
-                player.save(force_update=True)
-            else:
-
-                if not player.outlaw:
-                    player.rating += 1
-                    player.wallet += 30
-                    player.last_vizit = datetime.now().date()
-                    player.save(force_update=True)
 
     return render(request, 'pages/index_new.html', locals())
 
@@ -158,6 +123,8 @@ def profile(request, nickname_req):
                 squad_wear = SquadWear.objects.all()
                 all_orders = Orders.objects.filter(player=player, is_complete=False)
 
+                if player.vip:
+                    vip_ends = player.vip_start + timedelta(days=30)
                 if squad_info:
                     if player.is_squad_leader:
                         squad_form = UpdateSquadForm(instance=squad_info)

@@ -67,6 +67,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     total_buys_count = models.IntegerField(default=0)
 
     vip = models.BooleanField(default=False)
+    vip_start = models.DateField(default=datetime.now().date())
     outlaw = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_squad_leader = models.BooleanField(default=False)

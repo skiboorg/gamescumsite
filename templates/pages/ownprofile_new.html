@@ -38,9 +38,17 @@
                                                                        <div class="player-info-header">
                                                                            <div class="player-info-avatar">
                                                                                <img src="{{ player.avatarfull }}" alt="Профиль игрока {{ player.personaname }}">
+
                                                                            <p>{{ player.personaname }}</p>
                                                                                <p>БАЛАНС<br> <span>{{ player.wallet }} RC</span></p>
+
+                                                                               {% if is_vip %}
+                                                                                    <img class="is_vip" src="{% static 'images/vip.png' %}" alt="Профиль игрока {{ player.personaname }}">
+
+                                                                               <p>VIP статус до<br> <span>{{ vip_ends }}</span></p>
+                                                                               {% endif %}
                                                                            </div>
+
 
                                                                                 <div class="player-info-header-stats-wrapper" >
                                                                                       <div class="player-info-header-stats">
