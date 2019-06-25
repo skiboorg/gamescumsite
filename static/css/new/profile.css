@@ -22,11 +22,23 @@
     transition: background-color ease-in .2s;
 }
 
-.btn-outline:hover{
+.btn-outline:hover {
     background: #ec4e00;
     transition: background-color ease-out .2s;
+    color: #fff !important;
+}
+.btn-small{
+    padding: 10px 10px;
+}
+.btn-warn{
 
+     border: 2px solid #ec1f20;
 
+}
+.btn-warn:hover{
+ background: #ec1f20;
+    transition: background-color ease-out .2s;
+    color: #fff !important;
 }
 .player-info-header{
     display: grid;

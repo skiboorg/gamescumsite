@@ -1,19 +1,10 @@
 from django.db import models
 from authentication.models import SteamUser
 
-class PoliceStat(models.Model):
-    obez = models.IntegerField('Обезврежено', default=0)
-    victim = models.IntegerField('Жертвы', default=0)
-    izyato = models.IntegerField('Изъято', default=0)
-
-    class Meta:
-        verbose_name = "Полицейская стата"
-        verbose_name_plural = "Полицейская стата"
-
 class EventTemplates(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=True, default='')
-    image = models.ImageField(upload_to='events/', null=True, blank=False,default=None)
-    info = models.TextField(default='')
+    name = models.CharField('Название шаблона', max_length=50, blank=False, null=True, default='')
+    image = models.ImageField('Картинка', upload_to='events/', null=True, blank=False,default=None)
+    info = models.TextField('Описание мероприятия', default='')
 
 
     def __str__(self):
@@ -24,9 +15,9 @@ class EventTemplates(models.Model):
         verbose_name_plural = "Шаблоны мероприятий"
 
 class Event(models.Model):
-    template = models.ForeignKey(EventTemplates,blank=False,null=True,default=None, on_delete=models.CASCADE)
-    date = models.DateTimeField(blank=False,null=True,default=None)
-    is_active = models.BooleanField(default=True)
+    template = models.ForeignKey(EventTemplates, blank=False,null=True,default=None, on_delete=models.CASCADE, verbose_name='Шаблон для мероприятия')
+    date = models.DateTimeField('Дата проведения', blank=False,null=True,default=None)
+    is_active = models.BooleanField('Активно?', default=True)
 
     def __str__(self):
         return 'Мероприятие : %s, дата проведения %s' % (self.template.name, self.date)
@@ -41,15 +32,14 @@ class Event(models.Model):
         if all_players:
             for player in all_players:
                 if player.is_present:
-
                     player.player.rating += 1
                     player.player.save(force_update=True)
         super(Event, self).save(*args, **kwargs)
 
 class EventPlayers(models.Model):
-    event = models.ForeignKey(Event, blank=False,null=True,default=None, on_delete=models.CASCADE)
-    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.CASCADE)
-    spawn_command = models.CharField(max_length=100, blank=True, null=True, default='')
+    event = models.ForeignKey(Event, blank=False,null=True,default=None, on_delete=models.CASCADE, verbose_name='Участник мероприятия')
+    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.CASCADE, verbose_name='Игрок')
+    spawn_command = models.CharField('Команда спавна', max_length=100, blank=True, null=True, default='')
     is_present = models.BooleanField('Был на событии?', default=False)
 
     def __str__(self):
@@ -61,11 +51,11 @@ class EventPlayers(models.Model):
 
 
 class EventReward(models.Model):
-    event = models.ForeignKey(Event, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    reward_name = models.CharField(max_length=100, blank=False, default='')
-    reward_number = models.IntegerField(default=1)
-    reward_image = models.ImageField(upload_to='events/', null=True, blank=False, default=None)
-    spawn_command = models.CharField(max_length=100, blank=True, default='')
+    event = models.ManyToManyField(Event, blank=True, verbose_name='Награда для мероприятия')
+    reward_name = models.CharField('Чем награждаем', max_length=100, blank=False, default='')
+    reward_number = models.IntegerField('Сколько', default=1)
+    reward_image = models.ImageField('Картинка', upload_to='events/', null=True, blank=False, default=None)
+    spawn_command = models.CharField('Команда спавна', max_length=100, blank=True, default='')
 
     def __str__(self):
         return 'Награда за мероприятие %s' % self.reward_name

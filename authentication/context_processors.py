@@ -17,28 +17,27 @@ def check_profile(request):
             player.level += 1
             player.save(force_update=True)
 
-        if not player.vip and player.rating > 500:
-            player.vip = True
-            player.rank = 'VIP'
-            player.save(force_update=True)
+        # if not player.vip and player.rating > 500:
+        #     player.vip = True
+        #     player.rank = 'VIP'
+        #     player.save(force_update=True)
 
 
         if time_now > player.last_buy:
             player.buys_count = 0
 
         # проверка последнего входа на сайт и начисление ЗП
-
+        #todo добавить начисление ЗП от уровня отряда Если игрок (Pl1) в отряде (SQ1) ур. zp = 35 + ур. SQ1*5
         if time_now > last_login:
             if player.vip:
-                player.rating += 5
-                player.wallet += 60
+                player.rating += 2
+                player.wallet += 50
                 player.last_vizit = datetime.now().date()
                 player.save(force_update=True)
             else:
-
                 if not player.outlaw:
                     player.rating += 1
-                    player.wallet += 30
+                    player.wallet += 25
                     player.last_vizit = datetime.now().date()
                     player.save(force_update=True)
 

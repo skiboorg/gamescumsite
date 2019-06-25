@@ -90,6 +90,7 @@ class Items(models.Model):
             dis_val = 0
         return (dis_val)
 
+    #todo добавить расчет скидки для старых игроков
     @property
     def discount_vip_value(self):
         dis_vip_val = self.price - (self.price * 30 / 100)
