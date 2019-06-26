@@ -45,7 +45,7 @@ async def zp(ctx):
     except:
         steam_id = False
     if steam_id:
-        print('Аккаунт гайден')
+        print('Аккаунт найден')
         cursor.execute("SELECT last_zp FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
 
         last_zp = datetime.strptime(cursor.fetchone()[0].split('.')[0], '%Y-%m-%d %H:%M:%S')
@@ -74,25 +74,51 @@ async def zp(ctx):
             player_vip = cursor.fetchone()[0]
             print(player_vip)
             if player_vip:
-                print('vip')
-                player_rating += 2
-                to_pay = 50 + (player_level * 5)
-                player_wallet += to_pay
-                await client.send_message(user,
-                                          'VIP выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay),
-                                                                                                        str(
-                                                                                                            player_wallet)))
-                cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
-                               (player_rating, player_discord_id,))
-                cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
-                               (player_wallet, player_discord_id,))
+                cursor.execute("SELECT vip_start FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+
+                vip_start = datetime.strptime(cursor.fetchone()[0].split('.')[0], '%Y-%m-%d')
+                print('vip_start + timedelta(days=30)')
+                print(vip_start + timedelta(days=30))
+                print('datetime.now()')
+                print(datetime.now())
+                if vip_start + timedelta(days=30) < datetime.now():
+                    print('vip end')
+                    await client.send_message(user,
+                                              'Срок действия VIP статуса закончен')
+                    cursor.execute("UPDATE authentication_steamuser SET vip = (?) WHERE discord_id = (?); ",
+                                   (0, player_discord_id,))
+                    player_rating += 1
+                    to_pay = 25 + (player_level * 5)
+                    player_wallet += to_pay
+                    await client.send_message(user,
+                                              'Выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay),
+                                                                                                            str(
+                                                                                                                player_wallet)))
+                    cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
+                                   (player_rating, player_discord_id,))
+                    cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
+                                   (player_wallet, player_discord_id,))
+
+                else:
+                    print('vip ')
+                    player_rating += 2
+                    to_pay = 50 + (player_level * 5)
+                    player_wallet += to_pay
+                    await client.send_message(user,
+                                              'VIP выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay),
+                                                                                                            str(
+                                                                                                                player_wallet)))
+                    cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
+                                   (player_rating, player_discord_id,))
+                    cursor.execute("UPDATE authentication_steamuser SET wallet = (?) WHERE discord_id = (?); ",
+                                   (player_wallet, player_discord_id,))
 
 
             else:
                 print('notvip')
 
                 player_rating += 1
-                to_pay = 30 + (player_level * 5)
+                to_pay = 25 + (player_level * 5)
                 player_wallet += to_pay
                 await client.send_message(user, 'Выплата в размере {} RC выдана. Текущий баланс {} RC'.format(str(to_pay), str(player_wallet)))
                 cursor.execute("UPDATE authentication_steamuser SET rating = (?) WHERE discord_id = (?); ",
@@ -108,6 +134,7 @@ async def zp(ctx):
 
     else:
         print('Аккаунт не активирован!')
+        await client.send_message(user, 'Аккаунт не активирован!')
     conn.close()
 
 
@@ -118,13 +145,43 @@ async def p():
     players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')
     embed = discord.Embed(colour=discord.Colour(0x36393e),
                           description="\n```cs\n# Игроков онлайн : " + str(players[0])+ "\n```\nРестарты сервера в: 02:30 и 14:30 МСК")
-
     embed.set_thumbnail(
         url="https://cdn.discordapp.com/attachments/519049749656109086/525958386232197131/1logo_scum_survival.png")
-
-
-
     await client.say(embed=embed)
+
+@client.command(pass_context=True)
+async def stat(ctx):
+    conn = sqlite3.connect(bot_settings.DB_PATH)
+    cursor = conn.cursor()
+    player_discord_id = str(ctx.message.author.id)
+    user = ctx.message.author
+
+    try:
+        cursor.execute("SELECT steamid FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        steam_id = cursor.fetchone()[0]
+        print(steam_id)
+    except:
+        steam_id = False
+    if steam_id:
+        print('Аккаунт найден')
+        cursor.execute("SELECT level FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_level = cursor.fetchone()[0]
+        cursor.execute("SELECT wallet FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_wallet = cursor.fetchone()[0]
+        cursor.execute("SELECT rating FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_rating = cursor.fetchone()[0]
+        cursor.execute("SELECT kills FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_kills = cursor.fetchone()[0]
+        cursor.execute("SELECT deaths FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_deaths = cursor.fetchone()[0]
+        cursor.execute("SELECT avatar FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_avatar = cursor.fetchone()[0]
+        embed = discord.Embed(title="Статистика игрока",
+                              colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/3163030",)
+        embed.set_image(url=player_avatar)
+        embed.add_field(name="Уровень : " + str(player_level) + "**",
+                        value="================================")
+        await client.say(content="================Статистика сервера================", embed=embed)
 
 
 @client.command()
