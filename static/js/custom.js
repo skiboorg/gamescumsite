@@ -97,6 +97,7 @@ if (cur_balance < 1000){
 
 $("#amount").bind('keyup', function (e) {
     var amount = parseInt($("#amount").val());
+    console.log(amount)
     if (amount > cur_balance){
         btn.attr( "disabled",'disabled' );
         btn.html('НЕ ХВАТАЕТ ДЕНЕГ');

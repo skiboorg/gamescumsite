@@ -1,4 +1,4 @@
-
+{% load static %}
         <header class="edgtf-page-header">
 
             <div class="edgtf-menu-area edgtf-menu-right">
@@ -42,8 +42,8 @@
                                         <div class="second">
                                             <div class="inner">
                                                 <ul>
-                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/" class=""><span class="item_outer"><span class="item_text">ТОП 20 ИГРОКОВ</span></span></a></li>
-                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ТОП 3 ОТРЯДЫ</span></span></a></li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ТОП 20 ИГРОКОВ</span></span></a></li>
+                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ТОП 3 ОТРЯДЫ</span></span></a></li>
 
                                                 </ul>
                                             </div>
@@ -53,9 +53,9 @@
                                         <div class="second">
                                             <div class="inner">
                                                 <ul>
-                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/" class=""><span class="item_outer"><span class="item_text">ВСЕ ОТРЯДЫ</span></span></a></li>
-                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ВОЙНА ЗА СЕКТОРА</span></span></a></li>
-                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ИСПЫТАНИЯ</span></span></a></li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ВСЕ ОТРЯДЫ</span></span></a></li>
+                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ВОЙНА ЗА СЕКТОРА</span></span></a></li>
+                                                    <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ИСПЫТАНИЯ</span></span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -71,9 +71,35 @@
                                             <div class="second">
                                                 <div class="inner">
                                                     <ul>
+                                                         {% if user.is_staff %}
+                                                              <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'stat' %}" class=""><span class="item_outer"><span class="item_text">Админ раздел</span></span></a></li>
+                                                                <li> <hr style="width: 90%;"></li>
+                                                         {% endif %}
+
                                                         <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}" class=""><span class="item_outer"><span class="item_text">Персональная информация</span></span></a></li>
-                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ВОЙНА ЗА СЕКТОРА</span></span></a></li>
-                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="https://tetsuo.edge-themes.com/pinterest-portfolio/" class=""><span class="item_outer"><span class="item_text">ИСПЫТАНИЯ</span></span></a></li>
+                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#pm" class=""><span class="item_outer"><span class="item_text">Cообщения
+                                                            {% if pm.count > 0 %}<span  class="highlight"> <span id="pm_count">{{ pm.count }}</span></span>{% endif %}
+                                                            </span></span> </a>
+                                                        </li>
+                                                        <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#pm" class=""><span class="item_outer"><span class="item_text">Заказы
+                                                            {% if orders_count > 0 %}<span  class="highlight"> {{ orders_count }}</span>{% endif %}
+                                                            </span></span></a>
+                                                        </li>
+                                                        <li> <hr style="width: 90%;"></li>
+                                                          {% if user.is_squad_leader  %}
+                                                                 <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#squad" class=""><span class="item_outer"><span class="item_text">Управление отрядом</span></span></a></li>
+{#                                                            {% if  in_war  %}#}
+{#                                                                <a class="dropdown-item" href="{% url 'all_squads'%}#sectors_map"><strong>Оспаривание сектора</strong></a>#}
+{#                                                            {% endif %}#}
+                                                        {% else %}
+                                                            {% if  not player_squad_member %}
+                                                                <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#squad" class=""><span class="item_outer"><span class="item_text">Создать отряд</span></span></a></li>
+
+                                                            {% else %}
+                                                                 <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#squad" class=""><span class="item_outer"><span class="item_text">Мой отряд</span></span></a></li>
+
+                                                            {% endif %}
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -88,6 +114,7 @@
                                     <div class="edgtf-shopping-cart-dropdown">
                                         <div>
                                             <ul>
+                                                <li><img src="{% static 'images/steam.png' %}"></li>
 
                                             <li>Регистрация и авторизация работает через SteamOpenID,
                                 вы будете перенаправлены на соответствующую страницу сервиса STEAM,

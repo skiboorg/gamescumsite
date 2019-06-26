@@ -3,6 +3,28 @@
 
 }
 
+.alert-warning{
+    border: 2px dotted #ec1f20;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.alert-sucess{
+    border: 2px dotted #2eec16;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.highlight{
+    color: #fff;
+    margin-left: 5px;
+    background: #f00;
+    padding: 3px 3px;
+}
 .custom_hr{
     width: 100%;
      border-bottom: 2px solid #ec4e00;
@@ -30,6 +52,10 @@
 .btn-small{
     padding: 10px 10px;
 }
+
+.btn-xs{
+    padding: 0 10px;
+}
 .btn-warn{
 
      border: 2px solid #ec1f20;
@@ -40,6 +66,19 @@
     transition: background-color ease-out .2s;
     color: #fff !important;
 }
+
+.btn-succ{
+
+     border: 2px solid #20ec1a;
+
+}
+.btn-succ:hover{
+ background: #20ec1a;
+    transition: background-color ease-out .2s;
+    color: #fff !important;
+}
+
+
 .player-info-header{
     display: grid;
     grid-template-columns: 1fr 4fr;

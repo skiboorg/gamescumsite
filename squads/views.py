@@ -26,7 +26,7 @@ def create_squad(request):
             if squad_form.is_valid():
                 squad_form.save()
                 new_log = Logs.objects.create(player_id=request.user.id,
-                                              player_action='Изменение отряда')
+                                              player_action='Изменение отряда {}'.format(squad.name))
                 new_log.save()
                 return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
         else:
@@ -37,7 +37,7 @@ def create_squad(request):
                 request.user.wallet -= 1000
                 request.user.save(force_update=True)
                 new_log = Logs.objects.create(player_id=request.user.id,
-                                              player_action='Создание отряда')
+                                              player_action='Создание отряда {}'.format(request.POST['name']))
                 new_log.save()
                 return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
 
@@ -201,18 +201,16 @@ def add_to_balance(request):
             messages.add_message(request, messages.SUCCESS,
                                      'Баланс отряда успешно пополнен на ' + request.POST.get('rc_amount') + ' RC')
             new_log = Logs.objects.create(player_id=request.user.id,
-                                          player_action='Баланс отряда {} пополнен на {} игроком {}'.
+                                          player_action='Баланс отряда {} пополнен на {}'.
                                           format(squad.name,
-                                                 request.POST.get('rc_amount'),
-                                                 player.personaname))
+                                                 request.POST.get('rc_amount')))
             new_log.save()
         else:
             messages.add_message(request, messages.WARNING, 'Минимальная сумма пополнения 500 RC!')
             new_log = Logs.objects.create(player_id=request.user.id,
-                                          player_action='Попытка пополнения баланса отряда {}  на {} игроком {}'.
+                                          player_action='Попытка пополнения баланса отряда {}  на {} '.
                                           format(squad.name,
-                                                 request.POST.get('rc_amount'),
-                                                 player.personaname))
+                                                 request.POST.get('rc_amount')))
             new_log.save()
 
 
@@ -375,6 +373,7 @@ def reject_request(request):
 
 def kick_player(request,nickname):
     squad_member = SquadMembers.objects.get(player__nickname=nickname)
+
     squad = squad_member.squad
     if request.user.id == squad.leader.id:
         squad_member.delete()
@@ -385,8 +384,8 @@ def kick_player(request,nickname):
                                                      text='Привет, ты был кикнут из отряда.')
         new_message.save()
         new_log = Logs.objects.create(player_id=request.user.id,
-                                      player_action='Кик из отряда {} уровня игрока {}'
-                                      .format(squad.level, squad_member.personaname))
+                                      player_action='Кик из отряда {}  игрока {}'
+                                      .format(squad.name, squad_member.player.personaname))
         new_log.save()
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
@@ -462,7 +461,7 @@ def delete_squad(request):
     request.user.save(force_update=True)
     squad_to_delete.delete()
     new_log = Logs.objects.create(player_id=request.user.id,
-                                  player_action='Удаление отряда {}'.format(squad_to_delete.name))
+                                  player_action='Удаление отряда {} '.format(squad_to_delete.name))
     new_log.save()
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)

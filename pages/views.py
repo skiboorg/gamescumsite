@@ -139,6 +139,8 @@ def profile(request, nickname_req):
                     squad_form = CreateSquadForm()
 
                 form = EditProfileForm(instance=request.user)
+                section = request.GET.get('section')
+
 
                 return render(request, 'pages/ownprofile_new.html', locals())
             else:
