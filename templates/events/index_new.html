@@ -1,0 +1,262 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/events.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">ИГРОВЫЕ <span style="color: #ff7e1f">МЕРОПРИЯТИЯ</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap-20"></div>
+
+
+
+
+            <div class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+
+                              {% for event in all_events %}
+                                     {% if forloop.counter|divisibleby:2 %}
+                                   <div class="edgtf-row-grid-section-wrapper ">
+
+                                    <div class="edgtf-row-grid-section">
+                                        <div class="vc_row wpb_row vc_row-fluid vc_custom_1533727413053">
+                                            <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-10">
+                                                <div class="vc_column-inner">
+                                                    <div class="wpb_wrapper">
+                                                        <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                                                    <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-9737" data-1367-1600="0 0" data-1025-1366="0 0" data-769-1024="0 0 0 65px" data-681-768="0 0" data-680="0 0">
+                                                        <div class="edgtf-eh-item-inner">
+                                                            <div class="edgtf-eh-item-content edgtf-eh-custom-9737" style="padding: 0 0 0 35px">
+                                                                <div class="edgtf-single-image-holder   ">
+                                                                    <div class="edgtf-si-inner">
+                                                                        <img width="800" height="800" src="{{ event.template.image.url }}" class="attachment-full size-full" alt="">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-12">
+                                        <div class="vc_column-inner">
+                                            <div class="wpb_wrapper">
+                                                <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                                                    <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-1468" data-1367-1600="88px 50px 0 70px" data-1025-1366="60px 0 0 55px" data-769-1024="88px 160px 0 65px" data-681-768="80px 80px 0 0px" data-680="80px 0px 0 0px">
+                                                        <div class="edgtf-eh-item-inner">
+                                                            <div class="edgtf-eh-item-content edgtf-eh-custom-1468" style="padding: 93px 20px 0 100px">
+                                                                <div class="edgtf-section-title-holder  edgtf-st-standard edgtf-st-title-left edgtf-st-normal-space ">
+                                                                    <div class="edgtf-st-inner">
+
+                                                                            <span style="color: #ec4e00;">{{ event.template.name }}</span> <br>
+                                                                    <hr>
+                                                                             <span style="color: #ec4e00;">Дата :</span> {{ event.date.date|date:"D, d M, Y" }} | Время: {{ event.date.time|time:"H:i" }}<br>
+                                                                            <span style="color: #ec4e00;">УЧАСТНИКОВ </span>
+                                                                            {%  if event.eventplayers_set.count > 0 %}
+                                                                                {{ event.eventplayers_set.count }}
+                                                                            {% else %}
+                                                                                НЕТ
+                                                                            {% endif %}<br>
+                                                                            <span style="color: #ec4e00;">Активно </span>
+                                                                            {%  if event.is_active %}
+                                                                                    ДА
+                                                                                {% else %}
+                                                                                    НЕТ
+                                                                                {% endif %}<br>
+                                                                            <span style="color: #ec4e00;">Описание события </span><br>
+                                                                            {{ event.template.info }}<br>
+                                                                             <span style="color: #ec4e00;">Награда </span><br>
+                                                                            {% for reward in  event.eventreward_set.all %}
+                                                                                <div style="display: flex;
+                                                                                            align-items: center;
+                                                                                            justify-content: space-between;">
+                                                                                            <img width="50" src="{{ reward.reward_image.url }}">
+                                                                                    <span style=" font-size: 20px;font-weight: bold;">X</span>
+                                                                                    <span style="font-size: 20px;font-weight: bold;">{{ reward.reward_number }}</span>
+                                                                                    <span style="font-size: 20px;font-weight: bold; flex-basis: 70%;">{{ reward.reward_name }}</span>
+
+                                                                                </div>
+
+
+                                                                             {% endfor %}
+
+                                                                            {% if user.is_authenticated and event.is_active %}
+                                                                                {% if event.id in  player_in_events %}
+                                                                                     <div style="margin-top: 20px">
+
+                                                                                      <a itemprop="url" href="{% url 'event_leave' event.id %}"   class="edgtf-btn edgtf-btn-small edgtf-btn-outline">
+                                                                                        <span class="edgtf-btn-overlay bg-red"></span>
+                                                                                        <span class="edgtf-btn-text">Отменить участие</span>
+                                                                                    </a>
+
+                                                                                    </div>
+                                                                                   {% else %}
+
+                                                                                     <div style="margin-top: 20px">
+
+                                                                                     <a itemprop="url" href="{% url 'event_apply' event.id %}"  class="edgtf-btn edgtf-btn-small edgtf-btn-outline">
+                                                                                        <span class="edgtf-btn-overlay bg-green"></span>
+                                                                                        <span class="edgtf-btn-text">Записаться</span>
+                                                                                    </a>
+
+                                                                                    </div>
+
+                                                                                 {% endif %}
+
+
+                                                                            {% endif %}
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                  </div>
+                                  {% else %}
+                                         <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+                                    <div class="vc_row wpb_row vc_row-fluid">
+                                        <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-12">
+                                            <div class="vc_column-inner">
+                                                <div class="wpb_wrapper">
+                                                <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                                                    <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-7852" data-1367-1600="88px 50px 0 70px" data-1025-1366="60px 55px 0 0" data-769-1024="0px 0px 80px 29%" data-681-768="0px 0px 80px 80px" data-680="0 0px 80px 0px">
+                                                        <div class="edgtf-eh-item-inner">
+                                                            <div class="edgtf-eh-item-content edgtf-eh-custom-7852" style="padding: 93px 100px 0 20px">
+                                                                <div class="edgtf-section-title-holder  edgtf-st-standard edgtf-st-title-left edgtf-st-normal-space " style="text-align: right">
+                                                                     <div style="text-align: left" class="edgtf-st-inner">
+
+                                                                            <span style="color: #ec4e00;">{{ event.template.name }}</span> <br>
+                                                                    <hr>
+                                                                         <span style="color: #ec4e00;">Дата :</span> {{ event.date.date|date:"D, d M, Y" }} | Время: {{ event.date.time|time:"H:i" }}<br>
+                                                                            <span style="color: #ec4e00;">УЧАСТНИКОВ </span>
+                                                                            {%  if event.eventplayers_set.count > 0 %}
+                                                                                {{ event.eventplayers_set.count }}
+                                                                            {% else %}
+                                                                                НЕТ
+                                                                            {% endif %}<br>
+                                                                            <span style="color: #ec4e00;">Активно </span>
+                                                                            {%  if event.is_active %}
+                                                                                    ДА
+                                                                                {% else %}
+                                                                                    НЕТ
+                                                                                {% endif %}<br>
+                                                                            <span style="color: #ec4e00;">Описание события </span><br>
+                                                                            {{ event.template.info }}<br>
+                                                                             <span style="color: #ec4e00;">Награда </span><br>
+                                                                            {% for reward in  event.eventreward_set.all %}
+                                                                                <div style="display: flex;
+                                                                                            align-items: center;
+                                                                                            justify-content: space-between;">
+                                                                                            <img width="50" src="{{ reward.reward_image.url }}">
+                                                                                    <span style=" font-size: 20px;font-weight: bold;">X</span>
+                                                                                    <span style="font-size: 20px;font-weight: bold;">{{ reward.reward_number }}</span>
+                                                                                    <span style="font-size: 20px;font-weight: bold; flex-basis: 70%;">{{ reward.reward_name }}</span>
+
+                                                                                </div>
+
+
+                                                                             {% endfor %}
+
+                                                                            {% if user.is_authenticated and event.is_active %}
+                                                                                {% if event.id in  player_in_events %}
+                                                                                     <div style="margin-top: 20px">
+
+                                                                                      <a itemprop="url" href="{% url 'event_leave' event.id %}"   class="edgtf-btn edgtf-btn-small edgtf-btn-outline">
+                                                                                        <span class="edgtf-btn-overlay bg-red"></span>
+                                                                                        <span class="edgtf-btn-text">Отменить участие</span>
+                                                                                    </a>
+
+                                                                                    </div>
+                                                                                   {% else %}
+
+                                                                                     <div style="margin-top: 20px">
+
+                                                                                     <a itemprop="url" href="{% url 'event_apply' event.id %}"  class="edgtf-btn edgtf-btn-small edgtf-btn-outline">
+                                                                                        <span class="edgtf-btn-overlay bg-green"></span>
+                                                                                        <span class="edgtf-btn-text">Записаться</span>
+                                                                                    </a>
+
+                                                                                    </div>
+
+                                                                                 {% endif %}
+
+
+                                                                            {% endif %}
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-12">
+                                            <div class="vc_column-inner">
+                                                <div class="wpb_wrapper">
+                                                    <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                                                        <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-5498" data-1367-1600="0 0" data-1025-1366="0 0" data-769-1024="0 0 0 195px" data-681-768="0 0" data-680="0 0">
+                                                            <div class="edgtf-eh-item-inner">
+                                                                <div class="edgtf-eh-item-content edgtf-eh-custom-5498" style="padding: 0 35px 0 0">
+                                                                    <div class="edgtf-single-image-holder   ">
+                                                                        <div class="edgtf-si-inner">
+                                                                            <img width="800" height="800" src="{{ event.template.image.url }}" class="attachment-full size-full" alt="">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                  {% endif %}
+
+                {% endfor %}
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </div> <!-- close div.content_inner -->
+
+    <div class="gap-20"></div>
+{% endblock %}
+
+

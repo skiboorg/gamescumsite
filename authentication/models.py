@@ -57,7 +57,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarmedium = models.CharField('Аватар 2', max_length=255)
     avatarfull = models.CharField('Аватар 1', max_length=255)
     rank = models.CharField('Ранг игрока', max_length=100, default='Новичек')
-    info = models.TextField('Информация', default='Игрок не указал дополнительных сведений о себе.')
+    info = models.TextField('Информация', blank=True, default='Игрок не указал дополнительных сведений о себе.')
     wallet = models.IntegerField('Баланс', default=0)
     rating = models.IntegerField('Рейтинг', default=1)
     level = models.IntegerField('Уровень', default=1)

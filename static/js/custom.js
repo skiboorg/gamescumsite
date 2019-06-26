@@ -87,7 +87,7 @@ var btn = $('#add_to_bal_btn');
 var create_squad_btn = $('#create_squad_btn');
 var level_up_btn = $('#level_up_btn');
 if (cur_squad_balance < need_for_level_up){
-    level_up_btn.addClass('a_not_active');
+    level_up_btn.attr('href','#')
     level_up_btn.html('НЕ ХВАТАЕТ ДЕНЕГ ЧТОБЫ ПОДНЯТЬ УРОВЕНЬ ОТРЯДА ');
 }
 if (cur_balance < 1000){

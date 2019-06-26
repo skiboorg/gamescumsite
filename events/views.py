@@ -14,7 +14,7 @@ def events_home(request):
     print(player_in_events)
 
 
-    return render(request, 'events/index.html', locals())
+    return render(request, 'events/index_new.html', locals())
 
 def event_apply(request,event_id):
     try:

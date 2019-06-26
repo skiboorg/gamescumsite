@@ -300,12 +300,18 @@
                                                                                                                     <br><br>Наш сервер RUSSIA SURVIVAL [HARDCORE] прежде всего отличается от других - созданной атмосферой выживания на острове. Большое количество серверов SCUM - это аналоги PUBG. Где можно бездумно лутаться и идти стреляться, не о чем не думая, не боясь ни за что. Но мы считаем, что для бездумных PvP есть другие игры - CS, PUBG, ROE..
                                                                                                                 </p></div>
                                                                         <div class="edgtf-si-button-holder" >
-                                                                            <div class="edgtf-si-button"><a itemprop="url" href="https://tetsuo.edge-themes.com/portfolio-item/video-games/" target="_self"  class="edgtf-btn edgtf-btn-medium edgtf-btn-outline"  >                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ПОДРОБНЕЕ О СЕРВЕРЕ</span>            </a></div>
+                                                                            <div class="edgtf-si-button"><a itemprop="url" href="{% url 'about_us' %}" target="_self"  class="edgtf-btn edgtf-btn-medium edgtf-btn-outline"  >                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ПОДРОБНЕЕ О СЕРВЕРЕ</span>            </a></div>
                                                                         </div>
                                                                     </div>
-                                                                </div>		</div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div></div></div></div></div></div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -345,13 +351,12 @@
                 <h2 class="edgtf-si-title">ТОП 10 ИГРОКОВ</h2>
             </div>
             <div class="edgtf-si-text-holder">
-                <p class="edgtf-si-text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin,
-                    lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh
-                    id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi
-                    accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+                <p class="edgtf-si-text">Могучие воины - герои сражений! <br>
+Маньяки, головорезы, убийцы - сражаются за славу и честь!  <br>
+Подвиги лучших бойцов навеки останутся в истории!</p>
             </div>
             <div class="edgtf-si-button-holder">
-                <div class="edgtf-si-button"><a itemprop="url" href="https://tetsuo.edge-themes.com/portfolio-item/digital/" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ВСЕ ИГРОКИ</span>            </a></div>
+                <div class="edgtf-si-button"><a itemprop="url" href="#" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ВСЕ ИГРОКИ</span>            </a></div>
             </div>
         </div>
     	<div class="edgtf-si-images-holder">
@@ -368,11 +373,11 @@
                 <tbody>
                 {% for player in top3 %}
                     <tr>
-                        <td style="display: flex;justify-content: space-between; align-items: center">
+                        <td style="display: flex; align-items: center">
 
                                 <img src="{{ player.avatar }}" alt="ТОП 3 игроков сервера SCUM">
 
-                                    <a href="{% url 'profile' player.nickname%}">{{ player.personaname }}</a>
+                                    <a style="margin-left: 10px" href="{% url 'profile' player.nickname%}">{{ player.personaname }}</a>
 
 
                         </td>

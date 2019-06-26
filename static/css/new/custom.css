@@ -9,6 +9,14 @@ h1{
     font-size: 60px !important;
 }
 
+.bg-red{
+    background-color: #ec1f20 !important;
+}
+
+.bg-green{
+    background-color: #2eec16 !important;
+}
+
 .scum-font{
     font-family: scum_font,sans-serif !important;
 }
@@ -53,7 +61,9 @@ h1{
 .footer-custom-menu ul li a{
      font-family: 'Roboto Condensed', sans-serif !important;
 }
-
+.squad_members{
+    min-width: 45%;
+}
 .modal {
   display: block;
   position: fixed;

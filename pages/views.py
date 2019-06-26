@@ -14,9 +14,13 @@ from lxml import html
 import requests
 import bot_settings
 from django.http import JsonResponse
+from pages.models import SiteStat
 
 
 
+def settings(request):
+    site_settings = SiteStat.objects.get(id=1)
+    return render(request, 'pages/settings.html', locals())
 
 def get_squad_info(player_id):
     try:

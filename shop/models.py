@@ -62,7 +62,7 @@ class ItemsSets(models.Model):
 
 class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
-    set = models.ForeignKey(ItemsSets, blank=False, null=True, on_delete=models.SET_NULL)
+    set = models.ForeignKey(ItemsSets, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, blank=False, null=True)
     name_slug = models.CharField(max_length=255, blank=True, null=True, db_index=True)
     name_lower = models.CharField(max_length=255, blank=True, null=True, default='')

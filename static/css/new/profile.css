@@ -11,7 +11,15 @@
     margin-bottom: 20px;
 }
 
-.alert-sucess{
+.alert-success{
+    border: 2px dotted #2eec16;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.alert-info{
     border: 2px dotted #2eec16;
     padding: 10px 10px;
     text-align: center;
