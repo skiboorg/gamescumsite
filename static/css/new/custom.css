@@ -86,3 +86,27 @@ h1{
   max-width: 710px;
     min-height: 240px;
   border-radius: 8px; }
+
+
+@media only screen and (max-width:375px) {
+    .edgtf-animated-link .edgtf-al-text {
+        font-size: 20px;
+    }
+    .edgtf-si-images-holder{
+        display: none !important;
+    }
+}
+
+
+@media only screen and (max-width:1440px) {
+
+    #slide-10-layer-1{
+        left: 130px !important;
+    }
+    #slide-10-layer-3{
+        left: 160px !important;
+    }
+    #slide-10-layer-9{
+        left: 0 !important;
+    }
+}
