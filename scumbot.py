@@ -241,6 +241,7 @@ async def stat(ctx):
     else:
         print('Аккаунт не активирован!')
         await client.send_message(user, 'Аккаунт не активирован!')
+    conn.close()
 
 @client.command()
 async def server():
