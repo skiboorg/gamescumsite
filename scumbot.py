@@ -164,6 +164,11 @@ async def stat(ctx):
         steam_id = False
     if steam_id:
         print('Аккаунт найден')
+
+        cursor.execute("SELECT id FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_id = cursor.fetchone()[0]
+        cursor.execute("SELECT personaname FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_nick = cursor.fetchone()[0]
         cursor.execute("SELECT level FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
         player_level = cursor.fetchone()[0]
         cursor.execute("SELECT wallet FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
@@ -174,15 +179,68 @@ async def stat(ctx):
         player_kills = cursor.fetchone()[0]
         cursor.execute("SELECT deaths FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
         player_deaths = cursor.fetchone()[0]
-        cursor.execute("SELECT avatar FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        cursor.execute("SELECT avatarmedium FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
         player_avatar = cursor.fetchone()[0]
-        embed = discord.Embed(title="Статистика игрока",
-                              colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/3163030",)
-        embed.set_image(url=player_avatar)
-        embed.add_field(name="Уровень : " + str(player_level) + "**",
-                        value="================================")
-        await client.say(content="================Статистика сервера================", embed=embed)
+        cursor.execute("SELECT vip FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+        player_vip = cursor.fetchone()[0]
 
+        try:
+            cursor.execute("SELECT squad_id FROM squads_squadmembers WHERE player_id=(?)", (player_id,))
+            player_squad_id = cursor.fetchone()[0]
+            print('player_squad_id')
+            print(player_squad_id)
+            is_player_in_squad = True
+        except:
+            is_player_in_squad = False
+
+        if is_player_in_squad:
+            cursor.execute("SELECT name FROM squads_squad WHERE id=(?)", (player_squad_id,))
+            player_squad_name = cursor.fetchone()[0]
+
+        embed = discord.Embed()
+        embed.set_thumbnail(
+            url=player_avatar)
+        embed.set_image(url="https://cdn.discordapp.com/attachments/524819840515702808/593691053165379614/logo.png")
+        embed.add_field(name="**Уровень : " + str(player_level) + "**",
+                        value="================================")
+        embed.add_field(name="**Рейтинг : " + str(player_rating) + "**",
+                        value="================================")
+        embed.add_field(name="**Баланс : " + str(player_wallet) + "**",
+                        value="================================")
+        embed.add_field(name="**Убийств : " + str(player_kills) + " | " + "Смертей : " + str(player_deaths) + "**",
+                        value="================================")
+
+        if is_player_in_squad:
+            embed.add_field(name="**Отряд : " + str(player_squad_name) + "**",
+                        value="================================")
+        else:
+            embed.add_field(name="**Отряд : НЕТ**",
+                            value="================================")
+
+        if player_vip:
+            cursor.execute("SELECT vip_start FROM authentication_steamuser WHERE discord_id=(?)", (player_discord_id,))
+
+            vip_start = datetime.strptime(cursor.fetchone()[0].split('.')[0], '%Y-%m-%d')
+            if vip_start + timedelta(days=30) < datetime.now():
+                print('vip end')
+                await client.send_message(user,
+                                          'Срок действия VIP статуса закончен')
+                cursor.execute("UPDATE authentication_steamuser SET vip = (?) WHERE discord_id = (?); ",
+                               (0, player_discord_id,))
+                embed.add_field(name="**Статус VIP : ЗАКОНЧЕН СРОК ДЕЙСТВИЯ**",
+                                value="================================")
+            else:
+
+                embed.add_field(name="**Статус VIP до : " + str(vip_start + timedelta(days=30)) + "**",
+                            value="================================")
+        else:
+            embed.add_field(name="**Статус VIP : НЕТ**",
+                        value="================================")
+
+        await client.say(content="================Статистика игрока " + player_nick +" ================", embed=embed)
+    else:
+        print('Аккаунт не активирован!')
+        await client.send_message(user, 'Аккаунт не активирован!')
 
 @client.command()
 async def server():
