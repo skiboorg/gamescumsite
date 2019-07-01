@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
         <div class="edgtf-content" style="margin-top: -110px">
             <div class="edgtf-content-inner">
                 <div class="edgtf-full-width">
@@ -99,6 +98,7 @@
                                                                                         <span class="edgtf-social-network-icon fa fa-comments-o"></span>
                                                                                     </a>
                                                                                 </li>
+
 
                                                                             </ul>
                                                                         </div>
@@ -237,7 +237,7 @@
                                                                                 <h4 class="edgtf-al-text">
                                                                                     {% if status == 'online' %}
                                                                                         СЕРВЕР <span style="color: #1fff30">[ONLINE]</span> :
-                                                                                        ИГРОКОВ [<span>{{ players }}</span>] : РАНГ [{{ rank }}] : IP [{{ ip }}]
+                                                                                        ИГРОКОВ [<span id="total-players-online">{{ players }}</span>] : РАНГ [{{ rank }}] : IP [{{ ip }}]
 
 
                                                                                     {% else %}
@@ -356,7 +356,7 @@
 Подвиги лучших бойцов навеки останутся в истории!</p>
             </div>
             <div class="edgtf-si-button-holder">
-                <div class="edgtf-si-button"><a itemprop="url" href="#" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ВСЕ ИГРОКИ</span>            </a></div>
+                <div class="edgtf-si-button"><a itemprop="url" href="{% url 'players' %}" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">                <span class="edgtf-btn-overlay"></span>                <span class="edgtf-btn-text">ВСЕ ИГРОКИ</span>            </a></div>
             </div>
         </div>
     	<div class="edgtf-si-images-holder">
