@@ -33,6 +33,8 @@ urlpatterns = [
     path('about_bonus_pack/', views.about_bonus_pack, name='about_bonus_pack'),
     path('players/', views.players, name='players'),
     path('settings/', views.settings, name='settings'),
+    path('server_stat/', views.server_stat, name='server_stat'),
+    path('discord/', views.discord, name='discord'),
 
 
 

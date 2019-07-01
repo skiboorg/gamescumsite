@@ -43,7 +43,8 @@
                                         <div class="second">
                                             <div class="inner">
                                                 <ul>
-                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ТОП 20 ИГРОКОВ</span></span></a></li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'server_stat' %}" class=""><span class="item_outer"><span class="item_text">СТАТИСТИКА СЕРВЕРА</span></span></a></li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'players' %}" class=""><span class="item_outer"><span class="item_text">ТОП 20 ИГРОКОВ</span></span></a></li>
                                                     <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ТОП 3 ОТРЯДЫ</span></span></a></li>
 
                                                 </ul>
@@ -101,6 +102,9 @@
 
                                                             {% endif %}
                                                         {% endif %}
+                                                        <li> <hr style="width: 90%;"></li>
+                                                         <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'logout' %}" class=""><span class="item_outer"><span class="item_text">ВЫХОД</span></span></a></li>
+
                                                     </ul>
                                                 </div>
                                             </div>

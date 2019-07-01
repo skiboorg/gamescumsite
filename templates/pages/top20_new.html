@@ -1,0 +1,227 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/events.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">СТАТИСТИКА <span style="color: #ff7e1f">СЕРВЕРА</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="margin-top: 40px" class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                            <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+                                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1534408555283">
+                                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                                            <div class="vc_column-inner">
+                                                <div class="wpb_wrapper">
+                                                    <div class="edgtf-tabs   edgtf-tabs-standard ui-tabs ui-widget ui-widget-content ui-corner-all">
+                                                        <ul class="edgtf-tabs-nav clearfix ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                                                            <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-design-136" aria-labelledby="ui-id-1" aria-selected="true" aria-expanded="true">
+                                                                <a href="#tab-design-136" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">ТОП 20 ПО УБИЙСТВАМ</a>
+                                                            </li>
+                                                            <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-projects-777" aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false">
+                                                                <a href="#tab-projects-777" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">ТОП 20 САМЫХ БОГАТЫХ</a>
+                                                            </li>
+                                                            <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-plans-108" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
+                                                                <a href="#tab-plans-108" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">ТОП 20 ПО РЕЙТИНГУ</a>
+                                                            </li>
+                                                             <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-plans-109" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
+                                                                <a href="#tab-plans-109" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">ВСЕ ИГРОКИ</a>
+                                                            </li>
+                                                        </ul>
+                                                            <div class="edgtf-tab-container ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab-design-136" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="display: inline-block;">
+                                                                <div class="wpb_text_column wpb_content_element ">
+                                                                    <div class="wpb_wrapper">
+
+                                                                           <table class="table table-condensed  table-standings" >
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th></th>
+                                                                                    <th>Ник игрока</th>
+                                                                                    <th>Уровень</th>
+                                                                                    <th>Рейтинг</th>
+                                                                                    <th>Смертей</th>
+                                                                                    <th>Убийств</th>
+
+
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                {% for pl in top20_kills %}
+                                                                                    <tr  >
+                                                                                        <td>
+                                                                                            <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                                                        </td>
+                                                                                        <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                                                        <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                                                        <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                                                        <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                                                        <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                                                                    </tr>
+
+
+                                                                                {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="edgtf-tab-container ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab-projects-777" aria-labelledby="ui-id-2" role="tabpanel" aria-hidden="true" style="display: none;">
+                                                            <div class="wpb_text_column wpb_content_element ">
+                                                                <div class="wpb_wrapper">
+                                                                    <table class="table table-condensed  table-standings" >
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>Ник игрока</th>
+                                                                            <th>Уровень</th>
+                                                                            <th>Рейтинг</th>
+                                                                            <th>RC в наличии</th>
+                                                                            <th>RC потрачено</th>
+                                                                            <th>Покупок</th>
+
+
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for pl in top20_money %}
+                                                                            <tr  >
+                                                                                <td>
+                                                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                                                </td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.wallet }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.total_buys_summ }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.total_buys_count }}</td>
+                                                                            </tr>
+
+
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="edgtf-tab-container ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab-plans-108" aria-labelledby="ui-id-3" role="tabpanel" aria-hidden="true" style="display: none;">
+                                                            <div class="wpb_text_column wpb_content_element ">
+                                                                <div class="wpb_wrapper">
+
+                                                                     <table class="table table-condensed  table-standings" >
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <th>Ник игрока</th>
+                                                                                <th>Уровень</th>
+                                                                                <th>Рейтинг</th>
+                                                                                <th>Смертей</th>
+                                                                                <th>Убийств</th>
+
+
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            {% for pl in top20_rating %}
+                                                                                <tr  >
+                                                                                    <td>
+                                                                                        <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                                                    </td>
+                                                                                    <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                                                    <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                                                    <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                                                    <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                                                    <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                                                                </tr>
+
+
+                                                                            {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="edgtf-tab-container ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab-plans-109" aria-labelledby="ui-id-4" role="tabpanel" aria-hidden="true" style="display: none;">
+                                                            <div class="wpb_text_column wpb_content_element ">
+                                                                <div class="wpb_wrapper">
+
+                                                                     <table class="table table-condensed  table-standings" >
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>Ник игрока</th>
+                                                                            <th>Уровень</th>
+                                                                            <th>Рейтинг</th>
+                                                                            <th>Смертей</th>
+                                                                            <th>Убийств</th>
+
+
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for pl in all_players %}
+                                                                            <tr  >
+                                                                                <td>
+                                                                                    <img src="{{ pl.avatarmedium }}" alt="Игрок игрового сервера SCUM ">
+
+
+
+                                                                                </td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">   <a href="{% url 'profile' pl.nickname %}">{{ pl.personaname }}</a>  </td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.level }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.rating }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.deaths }}</td>
+                                                                                <td style="vertical-align: middle !important; font-size: 15px; font-weight: bold;">{{ pl.kills }}</td>
+                                                                            </tr>
+
+
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div> <!-- close div.content_inner -->
+    </div>
+    <div class="gap-20"></div>
+    <div class="gap-20"></div>
+{% endblock %}

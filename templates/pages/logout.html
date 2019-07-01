@@ -1,23 +1,148 @@
-{% extends 'basic.html' %}
 {% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ИГРОВОЙ СЕРВЕР SCUM - СТРАНИЦА ВЫХОДА</title>
+	<script src="{% static 'js/jquery-1.10.1.min.js' %}"></script>
+        <script src="{% static 'js/typewriter.js' %}"></script>
+        <script src="{% static 'js/logout.js' %}"></script>
+    <style>
+        @import "https://fonts.googleapis.com/css?family=Inconsolata";
+        html {
+          min-height: 100%;
+        }
 
-{% block content %}
-      <div class="site-content">
-            <div class="container">
-                <!-- Error 404 -->
-                <div class="error-404">
-                    <div class="row">
-                        <div class="col-md-8 offset-md-2">
-                            <figure class="error-404__figure"><img style="height: 300px;" src="{% static 'images/scum_man.png' %}" alt=""></figure>
-                            <header class="error__header">
-                                <h2 class="error__title">Данные сессии очищенны!</h2>
-                                <h3 class="error__subtitle">Ждем в гости снова:)</h3></header>
-{#                            <div class="error__description"><a href="mailto:info@alchemists.com">info@alchemists.com</a></div>#}
-                            <footer class="error__cta"><a href="/" class="btn btn-primary">На главную</a> </footer>
-                        </div>
-                    </div>
-                </div>
-                <!-- Error 404 / End -->
-            </div>
-        </div>
-{% endblock %}
+        body {
+          box-sizing: border-box;
+          height: 100%;
+          background-color: #000000;
+          background-image: radial-gradient(#11581E, #041607);
+          font-family: monospace;
+          font-size: 1.5rem;
+          color: rgba(128, 255, 128, 0.8);
+          text-shadow: 0 0 1ex #33ff33, 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .overlay {
+		  top:0;
+          pointer-events: none;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+          background-size: auto 4px;
+          z-index: 99;
+        }
+
+        .overlay::before {
+          content: "";
+          pointer-events: none;
+          position: absolute;
+          display: block;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(0deg, transparent 0%, rgba(32, 128, 32, 0.2) 2%, rgba(32, 128, 32, 0.8) 3%, rgba(32, 128, 32, 0.2) 3%, transparent 100%);
+          background-repeat: no-repeat;
+          -webkit-animation: scan 7.5s linear 0s infinite;
+                  animation: scan 7.5s linear 0s infinite;
+        }
+
+        @-webkit-keyframes scan {
+          0% {
+            background-position: 0 -100vh;
+          }
+          35%, 100% {
+            background-position: 0 100vh;
+          }
+        }
+
+        @keyframes scan {
+          0% {
+            background-position: 0 -100vh;
+          }
+          35%, 100% {
+            background-position: 0 100vh;
+          }
+        }
+        .terminal {
+          box-sizing: inherit;
+          position: absolute;
+          height: 100%;
+          width: 1000px;
+          max-width: 100%;
+          padding: 4rem;
+          text-transform: uppercase;
+        }
+
+        .output {
+          color: rgba(128, 255, 128, 0.8);
+          text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .output::before {
+          content: "> ";
+        }
+
+        /*
+        .input {
+          color: rgba(192, 255, 192, 0.8);
+          text-shadow:
+              0 0 1px rgba(51, 255, 51, 0.4),
+              0 0 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .input::before {
+          content: "$ ";
+        }
+        */
+        a {
+          color: #fff;
+          text-decoration: none;
+        }
+
+        a::before {
+          content: "[";
+        }
+
+        a::after {
+          content: "]";
+        }
+
+        .errorcode {
+          color: white;
+        }
+
+            </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+<div class="terminal">
+  <h1>TERMINAL ZX-80</h1>
+    <p style="white-space: pre-line;" id="terminal"></p>
+
+        <script>
+        $(function () {
+            var typewriter = new Typewriter($("#terminal"));
+            typewriter.setCaret("_");
+            typewriter.setCaretPeriod(500);
+            typewriter.setDelay(150, 50);
+            animate(typewriter);
+        });
+        </script>
+
+</div>
+
+</body>
+</html>
+
+
+

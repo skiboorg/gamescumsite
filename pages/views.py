@@ -18,6 +18,24 @@ from pages.models import SiteStat
 
 
 
+def server_stat(request):
+    total_players = SteamUser.objects.filter(is_staff=False)
+    total_rc = 0
+    total_drop_rc = 0
+    total_deaths = 0
+    for player in total_players:
+        total_rc += player.wallet
+        total_drop_rc += player.total_buys_summ
+        total_deaths += player.deaths
+
+
+
+
+    return render(request, 'pages/statistic.html', locals())
+
+def discord(request):
+    return HttpResponseRedirect('https://discord.gg/sgUz53k')
+
 def settings(request):
     site_settings = SiteStat.objects.get(id=1)
     return render(request, 'pages/settings.html', locals())
@@ -228,7 +246,7 @@ def players(request):
     players_active = 'active'
 
     page_title = 'СТАТИСТИКА ИГРОКОВ'
-    return render(request, 'pages/top20.html', locals())
+    return render(request, 'pages/top20_new.html', locals())
 
 def about_bonus_pack(request):
     page_title = 'БОНУС ПАК НОВЫМ ИГРОКАМ'
@@ -244,7 +262,7 @@ def add_to_player_balance(request):
         to_player.save(force_update=True)
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Перевод {} RC, игроку {} '.format(
-                                          request.POST.get('rc_amount'), to_player.nickname))
+                                        request.POST.get('rc_amount'), to_player.nickname))
         new_log.save()
         new_message = PrivateMessages.objects.create(to_player_id=to_player.id,
                                                      from_player_name=player.personaname,

@@ -1,8 +1,84 @@
-{% extends 'basic.html' %}
-
+{% extends 'basic_new.html' %}
+{% load static %}
 
 {% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/events.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">СТАТИСТИКА <span style="color: #ff7e1f">СЕРВЕРА</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
- stats
 
+            <div style="margin-top: 40px;" class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                            <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+                                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1534165637907">
+                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
+                                            <div class="vc_column-inner">
+                                                <div class="wpb_wrapper">
+                                                    <div class="edgtf-counter-holder " style="opacity: 1;">
+                                                        <div class="edgtf-counter-inner">
+                                                        <span class="edgtf-counter edgtf-zero-counter">{{ total_players.count }}</span>
+                                                        <h6 class="edgtf-counter-title">
+                                                            Зарегистрировано пользователей			</h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
+                                            <div class="vc_column-inner"><div class="wpb_wrapper"><div class="edgtf-counter-holder " style="opacity: 1;">
+                                <div class="edgtf-counter-inner">
+                                    <span class="edgtf-counter edgtf-zero-counter">{{ total_rc }}</span>
+                                    <h6 class="edgtf-counter-title">
+                                        ВСЕГО<br>RC			</h6>
+                                </div>
+                            </div>
+                                                <div class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
+                            </div></div></div>
+                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
+                                            <div class="vc_column-inner"><div class="wpb_wrapper"><div class="edgtf-counter-holder " style="opacity: 1;">
+                                <div class="edgtf-counter-inner">
+                                    <span class="edgtf-counter edgtf-zero-counter">{{ total_drop_rc }}</span>
+                                    <h6 class="edgtf-counter-title">
+                                        Потрачено<br>RC			</h6>
+                                </div>
+                            </div><div class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
+                            </div></div></div><div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6"><div class="vc_column-inner"><div class="wpb_wrapper"><div class="edgtf-counter-holder " style="opacity: 1;">
+                                <div class="edgtf-counter-inner">
+                                    <span class="edgtf-counter edgtf-zero-counter">{{ total_deaths }}</span>
+                                    <h6 class="edgtf-counter-title">
+                                        Погибло заключенных			</h6>
+                                </div>
+                            </div><div class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
+                            </div></div></div></div>
+
+
+
+                                </div></div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div> <!-- close div.content_inner -->
+    </div>
+    <div class="gap-20"></div>
+    <div class="gap-20"></div>
 {% endblock %}

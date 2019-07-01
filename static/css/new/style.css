@@ -29453,13 +29453,13 @@ body:not(.edgtf-theme-light-skin) .edgtf-price-table.edgtf-dark-skin .edgtf-pt-i
 
 .edgtf-tabs.edgtf-tabs-boxed .edgtf-tabs-nav li a,
 .edgtf-tabs.edgtf-tabs-standard .edgtf-tabs-nav li a {
-    padding: 7px 26px;
+
     line-height: 25px;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: -.04em;
-    font-family: Rajdhani, sans-serif
+
 }
 
 .edgtf-tabs.edgtf-tabs-standard .edgtf-tabs-nav li a {
