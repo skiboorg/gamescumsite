@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from authentication.models import *
+from squads.models import SquadMembers
 
 
 @admin.register(SteamUser)
@@ -8,7 +9,17 @@ class SteamUserAdmin(admin.ModelAdmin):
     list_filter = ('vip', 'outlaw', 'is_squad_leader', 'old_player', 'is_active')
     search_fields = ('steamid', 'discord_id', 'discord_nickname', 'personaname',)
     ordering = ('personaname',)
-    list_display = ('personaname', 'steamid', 'vip', 'is_active', 'wallet', 'level', 'rating',)
+    list_display = ('personaname', 'steamid', 'vip', 'is_active', 'wallet', 'level', 'get_squad', 'rating',)
+
+    def get_squad(self, obj):
+        squad_member = SquadMembers.objects.get(player=obj)
+        if squad_member:
+            return squad_member.squad.name
+        else:
+            return False
+
+    get_squad.short_description = 'Отряд'
+    get_squad.admin_order_field = 'squad'
 
 
     def make_old_player(modeladmin, request, queryset):
