@@ -1,45 +1,4 @@
 (function ($) {
-	$(document).ready(function () {
-		rbtAjax();
-	});
-
-	// ajax used to request php file
-	function rbtAjax() {
-		var rbtTheme = $('.rbt-toolbar').data("theme");
-		var rbtFeatured = $('.rbt-toolbar').data("featured");
-		var rbtButtonPosition = $('.rbt-toolbar').data("button-position");
-		var rbtButtonHorizontal = $('.rbt-toolbar').data("button-horizontal");
-		var rbtButtonAlt = $('.rbt-toolbar').data("button-alt");
-
-		$.ajax({
-			url: 'https://toolbar.qodeinteractive.com/templates/profile.php',
-			type: "GET",
-			data: {
-				theme: rbtTheme,
-				featured: rbtFeatured,
-				btnpos: rbtButtonPosition,
-				btnhorizontal: rbtButtonHorizontal,
-				btnalt: rbtButtonAlt
-			},
-			success: function (data) {
-				$('.rbt-toolbar').html(data);
-				rbtLazyLoad();
-				rbtListToggle();
-				rbtSmoothScrollCompatibility();
-				showList();
-				rbtLoadScript('https://toolbar.qodeinteractive.com/_toolbar/assets/js/mc-validate.js');
-			}
-		});
-	}
-
-	function rbtLoadScript(url, onSuccess) {
-		jQuery.ajax({
-			url: url,
-			dataType: 'script',
-			success: onSuccess,
-			async: true
-		});
-	}
 
 	// lazy-load
 	function rbtLazyLoad() {

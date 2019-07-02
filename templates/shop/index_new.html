@@ -1,0 +1,245 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/blackmarket.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">BLACK<span style="color: #ff7e1f">MARKET</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="edgtf-container">
+                <div class="edgtf-container-inner clearfix">
+                    <div class="edgtf-grid-row ">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-9">
+                            <p class="woocommerce-result-count">
+                                Showing 1–12 of 18 results</p>
+                            <form class="woocommerce-ordering" method="get">
+                                <select name="orderby" class="orderby select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                    <option value="popularity">Sort by popularity</option>
+                                    <option value="rating">Sort by average rating</option>
+                                    <option value="date" selected="selected">Sort by newness</option>
+                                    <option value="price">Sort by price: low to high</option>
+                                    <option value="price-desc">Sort by price: high to low</option>
+                                </select>
+                                <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 288px;">
+                                    <span class="selection">
+                                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-orderby-ru-container">
+                                        <span class="select2-selection__rendered" id="select2-orderby-ru-container" title="Sort by newness">Sort by newness</span>
+                                        <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                    </span>
+                                    </span>
+                                    <span class="dropdown-wrapper" aria-hidden="true">
+                                    </span>
+                                </span>
+                                <input type="hidden" name="paged" value="1">
+                            </form>
+                            <div class="edgtf-pl-main-holder">
+                                <ul class="products columns-3">
+                                     {% for item in items %}
+
+                                        <li class="post-285 product type-product status-publish has-post-thumbnail product_cat-clothes product_tag-madness product_tag-philosophy first instock shipping-taxable purchasable product-type-simple">
+                                            <div class="edgtf-pl-inner">
+                                                <div class="edgtf-pl-image">
+                                                    {% if item.discount_value > 0 %}
+                                                         <span class="edgtf-onsale">
+                                                            <div>Скидка</div>
+                                                        </span>
+                                                    {% endif %}
+
+                                                    <img  src="{{  item.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="{{  item.name }}">
+                                                    <div class="edgtf-pl-text">
+                                                        <div class="edgtf-pl-text-outer">
+                                                            <div style="z-index: 100" class="edgtf-pl-text-inner">
+
+                                                                {% if user.is_authenticated %}
+                                                     {% if item.category.for_sector %}
+                                                         {% if item.category.for_sector in player_squad_sector.all  %}
+                                                                <form action="{% url 'add_to_cart' %}" id="add-in-cart-form"  method="post" onsubmit="add_to_cart(this);return false;"> {% csrf_token %}
+                                                                    <input type="number" id="items_number" class="form-control val_to_cart" min="1" value="1">
+                                                                    <input type="hidden" id="item_id" value="{{ item.id }}">
+                                                                    <input type="hidden" id="item_name" value="{{ item.name }}">
+                                                                    <input type="hidden" id="item_price" value="{{ item.price }}">
+                                                                    <input type="hidden" id="item_image" value="{{ item. }}">
+                                                                    <button style="width: 140px;" type="submit" class="btn btn-primary btn-icon product__add-to-cart">В корзину</button>
+                                                                </form>
+                                                             {% else %}
+                                                                 <a class="btn btn-danger btn-xs shop_reg_button" href="#" data-toggle="modal" data-target="#modal-login-register">Твой отряд не владеет сектором</a>
+                                                             {% endif %}
+
+                                                     {% else %}
+                                                         {% if not user.vip and item.level > user.level   %}
+                                                             <a class="btn btn-danger btn-xs shop_reg_button" href="#" data-toggle="modal" data-target="#modal-login-register">Недоступно на твоем уровне</a>
+
+                                                         {% else %}
+                                                               <form action="{% url 'add_to_cart' %}" id="add-in-cart-form"  method="post" onsubmit="add_to_cart(this);return false;"> {% csrf_token %}
+                                                                   <input style="background: none;
+                                                                                    color: #fff;
+                                                                                    border: 2px solid #272727;
+                                                                                    padding: 10px;
+                                                                                    width: 55px;"
+                                                                           type="number" id="items_number" class="form-control val_to_cart" min="1" value="1">
+                                                                    <input type="hidden" id="item_id" value="{{ item.id }}">
+                                                                    <input type="hidden" id="item_name" value="{{ item.name }}">
+                                                                    <input type="hidden" id="item_price" value="{{ item.price }}">
+                                                                    <input type="hidden" id="item_image" value="{{ item.image }}">
+                                                                    <button type="submit" class="btn-outline btn-small btn-success">В корзину</button>
+                                                                </form>
+                                                         {% endif %}
+                                                     {% endif %}
+                                                 {% else %}
+                                                     <a class="btn-outline btn-xs btn-warn" href="/login/steam/">НЕОБХОДИМА РЕГИСТРАЦИЯ</a>
+                                                 {% endif %}
+
+
+                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="https://tetsuo.edge-themes.com/product/sneaking-suit/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a>
+                                            </div>
+                                            <div class="edgtf-pl-text-wrapper">
+                                                <div class="edgtf-pl-text-left">
+                                                    <h5 class="edgtf-product-list-title">
+                                                        <a href="#">{{  item.name }}</a>
+                                                    </h5>
+                                                    <span class="edgtf-pl-category">
+                                                        <p>{{  item.category }}</p>
+                                                    </span>
+                                                    <span class="edgtf-pl-category">
+                                                        <p>Уровень товара : {{  item.level }}</p>
+                                                    </span>
+                                                    </div>
+                                                <div class="edgtf-pl-text-right">
+
+                                                        {% if item.discount_value > 0 %}
+                                                            <span class="price">
+                                                                <del>
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        {{ item.price }} RC</span>
+                                                                </del>
+                                                                <ins>
+                                                                    <span class="woocommerce-Price-amount amount">{{  item.discount_value }} RC</span>
+                                                                </ins>
+                                                            </span>
+
+                                                        {% else %}
+                                                            <span class="price">
+                                                                <span class="woocommerce-Price-amount amount">
+                                                                    {{  item.price }} RC
+                                                                </span>
+                                                            </span>
+
+                                                        {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                   </ul>
+                                </div>
+                                <div class="edgtf-shop-pagination">
+                                    <ul>
+                                        <li class="edgtf-pag-number edgtf-pag-active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="edgtf-pag-number">
+                                            <a itemprop="url" href="https://tetsuo.edge-themes.com/shop/page/2/">2</a>
+                                        </li>
+                                        <li class="edgtf-pag-next">
+                                            <a itemprop="url" href="https://tetsuo.edge-themes.com/shop/page/2/">
+                                                <svg width="10px" height="21px" viewBox="0 0 9.999 21.257">
+                                                    <path fill="currentColor" d="M2,5.045l5.253,5.583L2,16.212V5.045 M0,0v21.257l9.999-10.629L0,0L0,0z"></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="edgtf-sidebar-holder edgtf-grid-col-3">
+                            <aside class="edgtf-sidebar">
+                                <div class="widget woocommerce widget_product_search"><form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="https://tetsuo.edge-themes.com/">
+                                    <label class="screen-reader-text">Search for:</label>
+                                    <div class="input-holder clearfix">
+                                        <input type="search" class="search-field" placeholder="Search" value="" name="s" title="Search for:">
+                                        <button type="submit" class="edgtf-search-submit"><span aria-hidden="true" class="edgtf-icon-font-elegant icon_search "></span></button>
+                                        <input type="hidden" name="post_type" value="product">
+                                    </div>
+                                </form></div><div class="widget woocommerce widget_price_filter"><div class="edgtf-widget-title-holder"><h4 class="edgtf-widget-title">Price Filter</h4></div><form method="get" action="https://tetsuo.edge-themes.com/shop/">
+                                <div class="price_slider_wrapper">
+                                    <div class="price_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style=""><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span></div>
+                                    <div class="price_slider_amount">
+                                        <input type="text" id="min_price" name="min_price" value="2" data-min="2" placeholder="Min price" style="display: none;">
+                                        <input type="text" id="max_price" name="max_price" value="29999" data-max="29999" placeholder="Max price" style="display: none;">
+                                        <button type="submit" class="button">Filter</button>
+                                        <div class="price_label" style="">
+                                            Price: <span class="from">$2</span> — <span class="to">$29999</span>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </form></div><div class="widget woocommerce widget_product_categories"><div class="edgtf-widget-title-holder"><h4 class="edgtf-widget-title">Categories</h4></div><ul class="product-categories"><li class="cat-item cat-item-42"><a href="https://tetsuo.edge-themes.com/product-category/animation/">Animation</a></li>
+                                <li class="cat-item cat-item-46"><a href="https://tetsuo.edge-themes.com/product-category/clothes/">Clothes</a></li>
+                                <li class="cat-item cat-item-53"><a href="https://tetsuo.edge-themes.com/product-category/design/">Design</a></li>
+                                <li class="cat-item cat-item-55"><a href="https://tetsuo.edge-themes.com/product-category/inspiration/">Inspiration</a></li>
+                                <li class="cat-item cat-item-54"><a href="https://tetsuo.edge-themes.com/product-category/special-effects/">Special Effects</a></li>
+                                <li class="cat-item cat-item-15"><a href="https://tetsuo.edge-themes.com/product-category/uncategorized/">Uncategorized</a></li>
+                            </ul></div><div class="widget woocommerce widget_products"><div class="edgtf-widget-title-holder"><h4 class="edgtf-widget-title">Most Popular</h4></div><ul class="product_list_widget"><li>
+
+                                <a href="https://tetsuo.edge-themes.com/product/poster/">
+                                    <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Poster</span>
+                                </a>
+
+                                <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>399</span>
+                            </li>
+                                <li>
+
+                                    <a href="https://tetsuo.edge-themes.com/product/recorder/">
+                                        <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Recorder</span>
+                                    </a>
+
+                                    <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>70</span>
+                                </li>
+                                <li>
+
+                                    <a href="https://tetsuo.edge-themes.com/product/wallpaper/">
+                                        <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Wallpaper</span>
+                                    </a>
+
+                                    <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>2</span>
+                                </li>
+                            </ul></div><div class="widget woocommerce widget_product_tag_cloud"><div class="edgtf-widget-title-holder"><h4 class="edgtf-widget-title">Tags</h4></div><div class="tagcloud"><a href="https://tetsuo.edge-themes.com/product-tag/cyberpunk/" class="tag-cloud-link tag-link-48 tag-link-position-1" style="font-size: 8pt;" aria-label="Cyberpunk (1 product)">Cyberpunk</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/dissident/" class="tag-cloud-link tag-link-51 tag-link-position-2" style="font-size: 8pt;" aria-label="Dissident (1 product)">Dissident</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/hierarchy/" class="tag-cloud-link tag-link-52 tag-link-position-3" style="font-size: 8pt;" aria-label="Hierarchy (1 product)">Hierarchy</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/madness/" class="tag-cloud-link tag-link-44 tag-link-position-4" style="font-size: 16.615384615385pt;" aria-label="Madness (5 products)">Madness</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/misanthrope/" class="tag-cloud-link tag-link-50 tag-link-position-5" style="font-size: 22pt;" aria-label="Misanthrope (11 products)">Misanthrope</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/philosophy/" class="tag-cloud-link tag-link-43 tag-link-position-6" style="font-size: 16.615384615385pt;" aria-label="Philosophy (5 products)">Philosophy</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/portfolio/" class="tag-cloud-link tag-link-47 tag-link-position-7" style="font-size: 8pt;" aria-label="Portfolio (1 product)">Portfolio</a>
+                                <a href="https://tetsuo.edge-themes.com/product-tag/replicant/" class="tag-cloud-link tag-link-49 tag-link-position-8" style="font-size: 22pt;" aria-label="Replicant (11 products)">Replicant</a></div></div><div class="widget edgtf-social-icons-group-widget text-align-left"><div class="edgtf-widget-title-holder"><h4 class="edgtf-widget-title">Social</h4></div>							<a class="edgtf-social-icon-widget-holder edgtf-icon-has-hover" style="font-size: 15px;margin: 0 22px 0 0;" href="https://www.facebook.com/Edge-Themes-1996199490466277/" target="_blank">
+                                <span class="edgtf-social-icon-widget fab fa-facebook-f"></span>				</a>
+                                <a class="edgtf-social-icon-widget-holder edgtf-icon-has-hover" style="font-size: 15px;margin: 0 22px 0 0;" href="https://twitter.com/EdgeThemes?lang=en" target="_blank">
+                                    <span class="edgtf-social-icon-widget fab fa-twitter"></span>				</a>
+                                <a class="edgtf-social-icon-widget-holder edgtf-icon-has-hover" style="font-size: 15px;margin: 0 22px 0 0;" href="https://www.behance.net/" target="_blank">
+                                    <span class="edgtf-social-icon-widget fab fa-behance"></span>				</a>
+                                <a class="edgtf-social-icon-widget-holder edgtf-icon-has-hover" style="font-size: 15px;margin: 0 22px 0 0;" href="https://dribbble.com/" target="_blank">
+                                    <span class="edgtf-social-icon-widget fab fa-dribbble"></span>				</a>
+                            </div></aside>					</div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- close div.content_inner -->
+    </div>
+{% endblock %}

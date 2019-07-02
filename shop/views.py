@@ -50,7 +50,7 @@ def shop_home(request):
     player = request.user
 
     hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:6]
-    return render(request, 'shop/index.html', locals())
+    return render(request, 'shop/index_new.html', locals())
 
 
 def shop_show_cat(request, cat_slug):
@@ -62,7 +62,7 @@ def shop_show_cat(request, cat_slug):
     hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:6]
     cat_name = current_cat.name
     print(current_cat)
-    return render(request, 'shop/index.html', locals())
+    return render(request, 'shop/index_new.html', locals())
 
 
 def add_to_cart(request):

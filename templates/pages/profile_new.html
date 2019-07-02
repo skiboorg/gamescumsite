@@ -30,17 +30,14 @@
                                 <div class="player-info-header">
                                                                             <div class="player-info-avatar">
                                                                                 <img src="{{ player.avatarfull }}" alt="Профиль игрока {{ player.personaname }}">
-                                                                            <p>СДЕЛАТЬ ПЕРЕВОД RC</p>
-
                                                                             <div>
                                                                                 {% if user.is_authenticated %}
+                                                                                     <p>СДЕЛАТЬ ПЕРЕВОД RC</p>
                                                                                     <form style="padding-bottom: 15px;" action="{% url 'add_to_player_balance' %}" class="form-inline" method="post">
                                                                                         {% csrf_token %}
-
                                                                                         <input style="width: 75%" type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
                                                                                         <input type='hidden' id="cur_bal" value="{{ request.user.wallet }}">
                                                                                         <input type='hidden' name="player_id" value="{{ player.id }}">
-
                                                                                         <button type="submit" id="add_to_bal_btn" class="btn-outline btn-sm btn-succ">ПЕРЕВЕСТИ</button>
                                                                                     </form>
                                                                                 {% endif %}
