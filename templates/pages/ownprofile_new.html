@@ -48,13 +48,22 @@
                                                                                 <p>{{ player.personaname }}</p>
                                                                                 <p>БАЛАНС<br> <span id="player_wallet">{{ player.wallet }} RC</span></p>
 
-                                                                                {% if is_vip %}
+                                                                                 {% if is_vip %}
                                                                                     <img class="is_vip" src="{% static 'images/vip.png' %}" alt="Профиль игрока {{ player.personaname }}">
 
                                                                                     <p>VIP статус до<br> <span>{{ vip_ends }}</span></p>
                                                                                 {% else %}
-                                                                                    <button class="btn-outline">ПОЛУЧИТЬ VIP</button>
+                                                                                    <a href="#" style="margin-bottom: 20px;" class="btn-outline btn-small btn-warn">ПОЛУЧИТЬ VIP</a>
                                                                                 {% endif %}
+
+                                                                                {% if not player.bonus_pack %}
+                                                                                     <img class="is_bp" src="{% static 'images/bg.png' %}" alt="Профиль игрока {{ player.personaname }}">
+                                                                                     <p>ДОСТУПЕН БОНУС-ПАК</p>
+                                                                                <a href="{% url 'about_bonus_pack' %}" style="margin-bottom: 20px;" class="btn-outline btn-xs btn-succ">ЧТО ТАКОЕ БОНУС ПАК?</a>
+                                                                                <a href="{% url 'bonus_pack' %}"style="margin-bottom: 20px;" class="btn-outline btn-xs btn-warn">ПОЛУЧИТЬ БОНУС ПАК</a>
+                                                                                {% endif %}
+
+
                                                                             </div>
 
 
@@ -96,8 +105,6 @@
                                                                                     <div class="player-info-header-stats-balance-info">{{ bans }}</div>
                                                                                     <div class="player-info-header-stats-balance-label">Время в игре (часов):</div>
                                                                                     <div class="player-info-header-stats-balance-info">{{ player_play_time }}</div>
-                                                                                    <div class="player-info-header-stats-balance-label">Discord ID:</div>
-                                                                                    <div class="player-info-header-stats-balance-info">{{ player.discord_nickname }}</div>
                                                                                     {% if squad_info %}
                                                                                         <div class="player-info-header-stats-balance-label">Отряд:</div>
                                                                                         <div class="player-info-header-stats-balance-info">{{ squad_info.name }}</div>
@@ -451,7 +458,7 @@
                                                                                                             <a class="btn-outline btn-xs btn-warn" href="javascript:void(0);" onclick="del_pm({{ message.id }})">&#10006;</a>
                                                                                                         </div>
 
-                                                                                                       <strong>Сообщение: </strong>{{ message.text }}
+                                                                                                       <strong>Сообщение: </strong><br>{{ message.text }}
                                                                                                 <div class="custom_hr"></div>
                                                                                                 </li>
 

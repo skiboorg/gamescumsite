@@ -11,6 +11,8 @@ def check_profile(request):
         time_now = datetime.now().date()
 
         pm = PrivateMessages.objects.filter(to_player_id=player.id).order_by('-created')
+        print('PM')
+        print(pm)
         orders_count = Orders.objects.filter(player_id=player.id, is_complete=False).count()
         print ('or_count: {}'.format(orders_count))
         if player.rating > player.level * 99:

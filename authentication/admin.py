@@ -10,6 +10,30 @@ class SteamUserAdmin(admin.ModelAdmin):
     ordering = ('personaname',)
     list_display = ('personaname', 'steamid', 'vip', 'is_active', 'wallet', 'level', 'rating',)
 
+
+    def make_old_player(modeladmin, request, queryset):
+        queryset.update(old_player=True)
+    def make_bonus_pack(modeladmin, request, queryset):
+        queryset.update(bonus_pack=True)
+    def make_vip(modeladmin, request, queryset):
+        queryset.update(vip=True)
+    def make_not_vip(modeladmin, request, queryset):
+        queryset.update(vip=False)
+
+    def make_outlaw(modeladmin, request, queryset):
+        queryset.update(outlaw=True)
+    def make_not_outlaw(modeladmin, request, queryset):
+        queryset.update(outlaw=False)
+
+    make_old_player.short_description = "Отметить всех отмеченных старыми игроками"
+    make_bonus_pack.short_description = "Отметить у всех отмеченных выдачу бонус пака"
+    make_vip.short_description = "Отметить всех отмеченных ВИП игроками"
+    make_not_vip.short_description = "Снять у всех отмеченных ВИП статус"
+    make_outlaw.short_description = "Отметить всех отмеченных вне закона игроками"
+    make_not_outlaw.short_description = "Снять у всех отмеченных статус вне закона"
+
+    actions = [make_old_player, make_bonus_pack, make_not_outlaw, make_outlaw, make_not_vip, make_vip]
+
 class LogAdmin(admin.ModelAdmin):
     search_fields = ('player_action', 'player__personaname',)
     class Meta:

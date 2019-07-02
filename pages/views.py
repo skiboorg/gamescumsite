@@ -19,6 +19,7 @@ from pages.models import SiteStat
 
 
 def server_stat(request):
+    page_title = 'СТАТИСТИКА'
     total_players = SteamUser.objects.filter(is_staff=False)
     total_rc = 0
     total_drop_rc = 0
@@ -37,6 +38,7 @@ def discord(request):
     return HttpResponseRedirect('https://discord.gg/sgUz53k')
 
 def settings(request):
+    page_title = 'НАСТРОЙКИ'
     site_settings = SiteStat.objects.get(id=1)
     return render(request, 'pages/settings.html', locals())
 
@@ -178,7 +180,7 @@ def profile(request, nickname_req):
                     player_play_time = get_play_time(player.steamid)
                     bans = get_bans(player.steamid)
                     print(player)
-                    return render(request, 'pages/profile.html', locals())
+                    return render(request, 'pages/profile_new.html', locals())
                 else:
                     return HttpResponseRedirect('/')
 
@@ -195,7 +197,7 @@ def profile(request, nickname_req):
                 player_play_time = get_play_time(player.steamid)
                 bans = get_bans(player.steamid)
                 print(bans)
-                return render(request, 'pages/profile.html', locals())
+                return render(request, 'pages/profile_new.html', locals())
             else:
                 return HttpResponseRedirect('/')
 

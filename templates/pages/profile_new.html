@@ -1,0 +1,139 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/own_profile.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">ПРОФИЛЬ <span style="color: #ff7e1f"><br>{{ player.personaname }}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap-20"></div>
+            <div class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                            <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+
+                                    <div  class="messages">
+                                        {% for message in messages %}
+                                            <div class=" {% if message.tags %}alert-{{ message.tags }}{% else %}alert-danger{% endif %} "><strong>{{ message }}</strong></div>
+                                        {% endfor %}
+                                    </div>
+
+                                <div class="player-info-header">
+                                                                            <div class="player-info-avatar">
+                                                                                <img src="{{ player.avatarfull }}" alt="Профиль игрока {{ player.personaname }}">
+                                                                            <p>СДЕЛАТЬ ПЕРЕВОД RC</p>
+
+                                                                            <div>
+                                                                                {% if user.is_authenticated %}
+                                                                                    <form style="padding-bottom: 15px;" action="{% url 'add_to_player_balance' %}" class="form-inline" method="post">
+                                                                                        {% csrf_token %}
+
+                                                                                        <input style="width: 75%" type="text" pattern="[0-9]*" name="rc_amount" class="form-control" required="required" id="amount" placeholder="Кол-во RC">
+                                                                                        <input type='hidden' id="cur_bal" value="{{ request.user.wallet }}">
+                                                                                        <input type='hidden' name="player_id" value="{{ player.id }}">
+
+                                                                                        <button type="submit" id="add_to_bal_btn" class="btn-outline btn-sm btn-succ">ПЕРЕВЕСТИ</button>
+                                                                                    </form>
+                                                                                {% endif %}
+
+                                                                            </div>
+
+                                                                                 {% if is_vip %}
+                                                                                    <img class="is_vip" src="{% static 'images/vip.png' %}" alt="Профиль игрока {{ player.personaname }}">
+
+                                                                                {% endif %}
+
+
+
+
+                                                                            </div>
+
+
+                                                                            <div class="player-info-header-stats-wrapper" >
+                                                                                <div class="player-info-header-stats">
+                                                                                    <div class="mb-10">
+                                                                                        <p>УБИЙСТВ</p>
+                                                                                        <p>{{ player.kills }}</p>
+                                                                                    </div>
+                                                                                    <div class="mb-10">
+                                                                                        <p>СМЕРТЕЙ</p>
+                                                                                        <p>{{ player.deaths }}</p>
+                                                                                    </div>
+                                                                                    <div class="mb-10">
+                                                                                        <p>УРОВЕНЬ</p>
+                                                                                        <p>{{ player.level }}</p>
+                                                                                    </div>
+                                                                                    <div class="mb-10">
+                                                                                        <p>РЕЙТИНГ</p>
+                                                                                        <p>{{ player.rating }}</p>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="player-info-header-stats-balance">
+
+                                                                                    <div class="player-info-header-stats-balance-label">ДАТА РЕГИСТРАЦИИ:</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ player.date_joined.date|date:"d M, Y" }}</div>
+                                                                                    <div class="player-info-header-stats-balance-label">Покупок в BLACKMARKET:</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ player.total_buys_count }}</div>
+                                                                                    <div class="player-info-header-stats-balance-label">Сумма покупок:</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ player.total_buys_summ }} RC</div>
+                                                                                    {% if player.profile_open %}
+                                                                                        <div class="player-info-header-stats-balance-label">Discord ID:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player.discord_nickname }}</div>
+                                                                                        <div class="player-info-header-stats-balance-label">Steam профиль:</div>
+                                                                                        <div class="player-info-header-stats-balance-info"><a href="{{ player.profileurl }}" target="_blank"> ССЫЛКА</a></div>
+                                                                                    {% endif %}
+                                                                                    <div class="player-info-header-stats-balance-label">Звание:</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ player.rank }}</div>
+                                                                                    <div class="player-info-header-stats-balance-label">VAC-баны:</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ bans }}</div>
+                                                                                    <div class="player-info-header-stats-balance-label">Время в игре (часов):</div>
+                                                                                    <div class="player-info-header-stats-balance-info">{{ player_play_time }}</div>
+                                                                                    {% if squad_info %}
+                                                                                        <div class="player-info-header-stats-balance-label">Отряд:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ squad_info.name }}</div>
+
+                                                                                        <div class="player-info-header-stats-balance-label">Уровень отряда:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ squad_info.level }}</div>
+
+                                                                                    {% else %}
+                                                                                        <div class="player-info-header-stats-balance-label">ОТРЯД:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">НЕТ</div>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                <div class="custom_hr"></div>
+                                                                                <div class="player_info">
+                                                                                    <h4>Дополнительная информация</h4>
+                                                                                    <p>{{ player.info }}</p>
+                                                                                </div>
+                                                                            </div>
+
+
+
+
+                                                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div> <!-- close div.content_inner -->
+    </div>
+    <div class="gap-20"></div>
+{% endblock %}
