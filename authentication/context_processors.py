@@ -14,7 +14,8 @@ def check_profile(request):
         print('PM')
         print(pm)
         orders_count = Orders.objects.filter(player_id=player.id, is_complete=False).count()
-        print ('or_count: {}'.format(orders_count))
+        print('or_count: {}'.format(orders_count))
+
         if player.rating > player.level * 99:
             player.level += 1
             player.save(force_update=True)
