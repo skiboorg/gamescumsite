@@ -5,6 +5,11 @@
   src: url('../../fonts/10929.otf');
 }
 
+.mb-40{
+    margin-bottom: 40px;
+
+}
+
 h1{
     font-size: 60px !important;
 }
@@ -110,3 +115,23 @@ h1{
         left: 0 !important;
     }
 }
+
+
+.custom-select{
+    border: 2px solid #ec4e00;
+    background: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 16px 10px;
+    width: 100%;
+}
+
+.custom-select-border-gray{
+   border: 2px solid #272727 !important;
+}
+
+.custom-select option {
+    margin: 40px;
+    background: #111111;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);

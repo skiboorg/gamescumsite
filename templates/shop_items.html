@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+    <title>{{ page_title }} | ИГРОВОЙ СЕРВЕР SCUM SURVIVAL </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new/style.css' %}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new/custom.css' %}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new/profile.css' %}" media="all" />
+    <link href="{% static 'css/font-awesome.min.css'%} " rel="stylesheet">
+
+    <meta name="description" content="SCUM SURVIVAL – выживание тут! Атмосфера выживания, ценность лута! Экономическая система, Мероприятия. Отсутствие читеров и играющих администраторов!">
+    <link rel="canonical" href="http://gamescum.ru/">
+    <meta name="keywords" content="scum survival, russia,scum game,scum server,scum discord, hardcore, zombie, games,">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GAMESCUM.RU | Сервер SCUM SURVIVAL [HARDCORE] - Живи. Умри. И снова..">
+    <meta property="og:description" content="SCUM SURVIVAL – выживание тут! Атмосфера выживания, ценность лута! Экономическая система, Мероприятия. Отсутствие читеров и играющих администраторов!">
+    <meta property="og:url" content="http://GAMESCUM.RU/">
+    <meta property="og:site_name" content="GAMESCUM.RU">
+    <meta property="og:image" content="http://www.gamescum.ru{% static 'images/logo.png' %}">
+    <meta property="og:image:secure_url" content="http://www.gamescum.ru{% static 'images/logo.png' %}">
+{#    <meta property="og:image:width" content="534">#}
+{#    <meta property="og:image:height" content="623">#}
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet" media="all">
+
+    <script type="text/javascript" src="{% static 'js/new/jq.js' %}"></script>
+
+{#    <script type="text/javascript" src="{% static 'js/new/2.js' %}"></script>#}
+
+    <script type="text/javascript" src="{% static 'js/new/3.js' %}"></script>
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+
+
+</head>
+
+<body class="archive paged post-type-archive post-type-archive-product paged-2 post-type-paged-2 tetsuo-core-1.0 woocommerce woocommerce-page woocommerce-js tetsuo-ver-1.0 edgtf-grid-1300 edgtf-wide-dropdown-menu-content-in-grid edgtf-animated-logo edgtf-menu-split-animation edgtf-fixed-on-scroll edgtf-dropdown-animate-height edgtf-header-standard edgtf-menu-area-shadow-disable edgtf-menu-area-in-grid-shadow-disable edgtf-menu-area-border-disable edgtf-menu-area-in-grid-border-disable edgtf-logo-area-border-disable edgtf-logo-area-in-grid-border-disable edgtf-header-vertical-shadow-disable edgtf-side-menu-slide-from-right edgtf-woocommerce-page edgtf-woo-main-page edgtf-woocommerce-columns-3 edgtf-woo-normal-space edgtf-woo-pl-info-below-image edgtf-woo-single-thumb-below-image edgtf-woo-single-has-pretty-photo edgtf-default-mobile-header edgtf-sticky-up-mobile-header wpb-js-composer js-comp-ver-5.5.4 vc_responsive edgtf-fullscreen-search edgtf-search-fade edgtf-chrome edgtf-fixed-header-appear">
+        <form id="dummy_form">{% csrf_token %}
+
+</form>
+<div class="edgtf-wrapper">
+    <div class="edgtf-wrapper-inner">
+
+        <a id='edgtf-back-to-top' href='#'>
+                <span class="edgtf-icon-stack">
+                     <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                </span>
+            <span class="edgtf-btt-text">НАВЕРХ</span>
+        </a>
+
+
+
+
+{% include 'header_new.html' %}
+
+{% block content %}
+
+{% endblock %}
+{% block gbvideo %}
+{% endblock %}
+{% include 'footer_new.html' %}
+</div>
+<!-- close div.edgtf-wrapper-inner  -->
+</div>
+<!-- close div.edgtf-wrapper -->
+{% block js %}
+{% endblock %}
+
+
+
+
+<script type="text/javascript" src="{% static 'js/new/4.js' %}"></script>
+
+<script type='text/javascript' src='{% static 'js/new/5.js ' %}'></script>
+<script type='text/javascript' src='{% static 'js/new/6.js ' %}'></script>
+
+<script type="text/javascript" src="{% static 'js/new/7.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/new/8.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/new/9.js' %}"></script>
+
+
+
+<script type="text/javascript" src="{% static 'js/new/10.js' %}"></script>
+ <script src="{% static 'js/custom.js'%}"></script>
+ <script src="{% static 'js/add_to_cart.js'%}"></script>
+    <script src="{% static 'js/delete_from_cart.js'%}"></script>
+     <script src="{% static 'js/place_order.js'%}"></script>
+    <script src="{% static 'js/jquery.amaran.min.js'%}"></script>
+ <script src="{% static 'js/jquery.marquee.min.js'%}"></script>
+
+</body>
+
+</html>

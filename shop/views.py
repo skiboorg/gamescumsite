@@ -65,6 +65,12 @@ def shop_show_cat(request, cat_slug):
     return render(request, 'shop/index_new.html', locals())
 
 
+def shop_show_item(request, item_slug):
+    return render(request, 'shop/item.html', locals())
+
+def shop_show_set(request, set_slug):
+    return render(request, 'shop/set.html', locals())
+
 def add_to_cart(request):
     return_dict = {}
     data = request.POST

@@ -1,4 +1,4 @@
-{% extends 'basic_new.html' %}
+{% extends 'shop_items.html' %}
 {% load static %}
 
 {% block content %}
@@ -26,123 +26,31 @@
                                         <li class="post-285 product type-product status-publish has-post-thumbnail product_cat-clothes product_tag-madness product_tag-philosophy first instock shipping-taxable purchasable product-type-simple">
                                             <div class="edgtf-pl-inner">
                                                 <div class="edgtf-pl-image">
-
-                                                    {% if user.vip %}
-                                                          <span class="edgtf-onsale">
-                                                            <div>-30% VIP</div>
-                                                        </span>
-                                                    {% else %}
-                                                        {% if item.discount_value > 0 %}
-                                                         <span class="edgtf-onsale">
-                                                            <div>- {{ item.discount }}%</div>
-                                                        </span>
-                                                    {% endif %}
-                                                    {% endif %}
-
-
-
-
-                                                    <img  src="{{  item.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="{{  item.name }}">
+                                                    <img width="300" height="300"  src="{{  item.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="{{  item.name }}">
                                                     <div class="edgtf-pl-text">
                                                         <div class="edgtf-pl-text-outer">
-                                                            <div style="z-index: 100" class="edgtf-pl-text-inner">
-
-                                                                {% if user.is_authenticated %}
-                                                                     {% if item.category.for_sector %}
-                                                                            {% if item.category.for_sector in player_squad_sector.all  %}
-                                                                                <form action="{% url 'add_to_cart' %}" id="add-in-cart-form"  method="post" onsubmit="add_to_cart(this);return false;"> {% csrf_token %}
-                                                                                    <input type="number" id="items_number" class="form-control val_to_cart" min="1" value="1">
-                                                                                    <input type="hidden" id="item_id" value="{{ item.id }}">
-                                                                                    <input type="hidden" id="item_name" value="{{ item.name }}">
-                                                                                    <input type="hidden" id="item_price" value="{{ item.price }}">
-                                                                                    <input type="hidden" id="item_image" value="{{ item.image }}">
-                                                                                    <button style="width: 140px;" type="submit" class="btn btn-primary btn-icon product__add-to-cart">В корзину</button>
-                                                                                </form>
-                                                                             {% else %}
-                                                                                 <a class="btn btn-danger btn-xs shop_reg_button" href="#" data-toggle="modal" data-target="#modal-login-register">Твой отряд не владеет сектором</a>
-                                                                             {% endif %}
-
-                                                                     {% else %}
-                                                                             {% if not user.vip and item.level > user.level   %}
-                                                                                 <a class="btn btn-danger btn-xs shop_reg_button" href="#" data-toggle="modal" data-target="#modal-login-register">Недоступно на твоем уровне</a>
-
-                                                                             {% else %}
-                                                                                   <form style="position: relative;top: 186px;" action="{% url 'add_to_cart' %}" id="add-in-cart-form"  method="post" onsubmit="add_to_cart(this);return false;"> {% csrf_token %}
-                                                                                       <input style="background: none;
-                                                                                                        color: #fff;
-                                                                                                        border: 2px solid #272727;
-                                                                                                        padding: 10px;
-                                                                                                        width: 55px;"
-                                                                                               type="number" id="items_number" class="form-control val_to_cart" min="1" value="1">
-
-
-                                                                                        <input type="hidden" id="item_id" value="{{ item.id }}">
-                                                                                        <input type="hidden" id="item_name" value="{{ item.name }}">
-                                                                                        <input type="hidden" id="item_price" value="{{ item.price }}">
-                                                                                        <input type="hidden" id="item_image" value="{{ item.image }}">
-                                                                                        <button type="submit" class="btn-outline btn-small btn-success">В корзину</button>
-                                                                                    </form>
-                                                                                 <a href="#" style="font-size: 40px;
-                                                                                                     font-size: 40px;
-                                                                                                     position: relative;
-                                                                                                     top: 153px;
-                                                                                                     left: 119px;" title="В ИЗБРАННОЕ"><span>&#9734;</span></a>
-                                                                             {% endif %}
-                                                                     {% endif %}
-                                                                 {% else %}
-                                                                     <a class="btn-outline btn-xs btn-warn" href="/login/steam/">НЕОБХОДИМА РЕГИСТРАЦИЯ</a>
-                                                                 {% endif %}
-
+                                                            <div class="edgtf-pl-text-inner">
+                                                              <a href="{% url 'shop_show_item' item.name_slug %}" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Купить</a>
 
                                                              </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="https://tetsuo.edge-themes.com/product/sneaking-suit/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a>
+                                                <a href="{% url 'shop_show_item' item.name_slug %}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a>
                                             </div>
-                                            <div style="text-align: center" class="item-info">
+                                            <div  class="item-info">
                                                  <h5 class="edgtf-product-list-title">
                                                         {{  item.name }}
                                                     </h5>
-                                                    <span class="edgtf-pl-category">
-                                                       Категория :  {{  item.category.name }}<br>
-                                                         Уровень товара : {{  item.level }}
-                                                    </span>
-                                            <div class="item-price">
-                                                 {% if user.vip  %}
-                                                         <span class="price">
-                                                                <ins>
-                                                                    <span style="color: #ec4e00; font-size: 30px;" class="woocommerce-Price-amount amount">{{  item.discount_vip_value }} RC</span>
-                                                                </ins>
-                                                                <del>
-                                                                    <span class="woocommerce-Price-amount amount">
-                                                                        {{ item.price }} RC</span>
-                                                                </del>
+                                                    <div style="display: grid;
+                                                                grid-template-columns: 40% 55%;
+                                                                grid-column-gap: 10px;" class="edgtf-pl-category">
+                                                        <div>Категория</div>
+                                                        <div>{{  item.category.name }}</div>
+                                                        <div>Модификаций</div>
+                                                        <div> {{ item.subitem_set.count }}</div>
+                                                    </div>
 
-                                                            </span>
-                                                    {% else %}
-                                                        {% if item.discount_value > 0 %}
-                                                            <span class="price">
-                                                                <ins>
-                                                                    <span style="color: #ec4e00; font-size: 30px;" class="woocommerce-Price-amount amount">{{  item.discount_value }} RC</span>
-                                                                </ins>
-                                                                <del>
-                                                                    <span class="woocommerce-Price-amount amount">
-                                                                        {{ item.price }} RC</span>
-                                                                </del>
-
-                                                            </span>
-
-                                                        {% else %}
-                                                            <span class="price">
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    {{  item.price }} RC
-                                                                </span>
-                                                            </span>
-
-                                                        {% endif %}
-                                                    {% endif %}
-                                            </div>
 
 
 
@@ -176,6 +84,21 @@
                         </div>
                         <div class="edgtf-sidebar-holder edgtf-grid-col-3">
                             <aside class="edgtf-sidebar">
+
+                               <form  method="get">
+
+                                   <select class="custom-select custom-select-border-gray mb-40" name="orderby" >
+                                            <option value="popularity" >Sort by popularity</option>
+                                            <option value="rating" >Sort by average rating</option>
+                                            <option value="date" >Sort by newness</option>
+                                            <option value="price" >Sort by price: low to high</option>
+                                            <option value="price-desc"  selected='selected'>Sort by price: high to low</option>
+                                    </select>
+
+                                <input type="hidden" name="paged" value="1" />
+                                </form>
+
+
                                 <div class="widget woocommerce widget_product_search">
                                     <form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="https://tetsuo.edge-themes.com/">
                                     <label class="screen-reader-text">Search for:</label>

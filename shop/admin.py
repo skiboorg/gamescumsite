@@ -16,6 +16,8 @@ class CategoriesAdmin(admin.ModelAdmin):
         model = Categories
 
 
+
+
 class ItemsInline (admin.TabularInline):
     model = ItemsInOrder
     extra = 0
@@ -38,9 +40,14 @@ class BasketAdmin(admin.ModelAdmin):
     class Meta:
         model = Baskets
 
+
+
 admin.site.register(Categories,CategoriesAdmin)
+admin.site.register(SubItem)
 admin.site.register(Items)
 admin.site.register(Orders,OredersAdmin)
 admin.site.register(ItemsInOrder)
 admin.site.register(Baskets,BasketAdmin)
+admin.site.register(Set)
+admin.site.register(SetImage)
 # Register your models here.

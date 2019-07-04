@@ -201,11 +201,7 @@
                                                                                                     max-width: 430px;" class="form-group">
                                                                                             <div>
                                                                                                 <label style="display: block" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
-                                                                                                <select style="border: 2px solid #ec4e00;
-                                                                                                                background: none;
-                                                                                                                color: #fff;
-                                                                                                                font-size: 16px;
-                                                                                                                padding: 16px 66px;"
+                                                                                                <select class="custom-select"
                                                                                                         name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" >
                                                                                                     {% for wear in squad_wear %}
                                                                                                         <option data-image="{{ wear.image.url }}" style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
@@ -214,14 +210,7 @@
                                                                                                 </select>
                                                                                             </div>
 
-                                                                                            <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
-                                                                                        </div>
-
-                                                                                    </div>
-
-
-
-                                                                                    <div style=" margin-bottom: 30px;" class="form-group form-group--upload">
+                                                                                         <div style=" margin-bottom: 30px;" class="form-group form-group--upload">
 
                                                                                         <div class="form-group__upload">
                                                                                             <label class="btn-outline ">Загрузить логотип отряда...
@@ -229,6 +218,15 @@
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
+
+                                                                                         </div>
+
+                                                                                    </div>
+    <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+
+
+
+
 
                                                                                     <div class="form-group">
                                                                                         <label for="squad_info">Дополнительная информация об отряде </label>

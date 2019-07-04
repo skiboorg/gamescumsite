@@ -27,11 +27,13 @@ class Categories(models.Model):
         verbose_name_plural = "Категории"
 
 
-class ItemsSets(models.Model):
+class Set(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
     name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
     name_slug = models.SlugField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to='set/', null=True, blank=False)
+    description = models.TextField(blank=True, null=True, default='')
+    spawn_commands = models.TextField(blank=True, null=True, default='')
     discount = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
     active = models.BooleanField(default=True)
@@ -39,18 +41,11 @@ class ItemsSets(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    @property
-    def get_total_cost(self):
-        total_cost = 0
-        for item in self.items_set:
-            total_cost += item.price
-
-        return (total_cost)
 
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
         self.name_lower = self.name.lower()
-        super(ItemsSets, self).save(*args, **kwargs)
+        super(Set, self).save(*args, **kwargs)
 
     def __str__(self):
         return 'Сет : %s ' % self.name
@@ -59,10 +54,26 @@ class ItemsSets(models.Model):
         verbose_name = "Сет"
         verbose_name_plural = "Сеты"
 
+class SetImage(models.Model):
+    set = models.ForeignKey(Set, blank=True, null=True, on_delete=models.SET_NULL)
+    image = models.ImageField(upload_to='set_images/',  blank=False)
+    description = models.CharField(max_length=255, blank=False, null=True)
+
+    def __str__(self):
+        try:
+            return 'Часть сета: %s ' % self.set.name
+        except:
+            return 'Часть сета без привязки к сету '
+
+
+    class Meta:
+        verbose_name = "Часть сета"
+        verbose_name_plural = "Части сетов"
+
+
 
 class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
-    set = models.ForeignKey(ItemsSets, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, blank=False, null=True)
     name_slug = models.CharField(max_length=255, blank=True, null=True, db_index=True)
     name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
@@ -97,11 +108,50 @@ class Items(models.Model):
         return (dis_vip_val)
 
     def __str__(self):
-        return '%s . Уровень товара : %s' % (self.name,self.level)
+        return '%s . Уровень товара : %s' % (self.name, self.level)
 
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
+
+class SubItem(models.Model):
+    item = models.ForeignKey(Items, blank=True, null=True, on_delete=models.SET_NULL)
+    color_name = models.CharField(max_length=255, blank=False)
+    item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
+    image = models.ImageField(upload_to='shop/', null=True, blank=False)
+    active = models.BooleanField(default=True)
+    price = models.IntegerField(default=0)
+    buys = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+    discount = models.IntegerField(default=0)
+    for_vip = models.BooleanField(default=False)
+
+
+
+    @property
+    def discount_value(self):
+        if self.discount > 0:
+            dis_val = self.price - (self.price * self.discount / 100)
+        else:
+            dis_val = 0
+        return (dis_val)
+
+    # todo добавить расчет скидки для старых игроков
+    @property
+    def discount_vip_value(self):
+        dis_vip_val = self.price - (self.price * 30 / 100)
+        return (dis_vip_val)
+
+    def __str__(self):
+        try:
+            return 'Вариант %s для товара : %s' % (self.color_name, self.item.name)
+        except:
+            return 'Вариант %s без привязки к товару' % (self.color_name)
+
+    class Meta:
+        verbose_name = "Вариант товара"
+        verbose_name_plural = "Варианты товаров"
 
 
 class Orders(models.Model):
@@ -122,22 +172,33 @@ class Orders(models.Model):
 
 
 class ItemsInOrder(models.Model):
-    order = models.ForeignKey(Orders, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    number = models.IntegerField(blank=True, null=True, default=0)
+    order = models.ForeignKey(Orders, blank=False, null=True, default=None, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.SET_NULL)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if self.item.discount > 0:
-            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
-        elif self.order.player.vip:
-            self.current_price = self.item.price - (self.item.price * 50 / 100)
+        if self.subitem:
+            if self.subitem.discount > 0:
+                self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
+            elif self.order.player.vip:
+                self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+            else:
+                self.current_price = self.subitem.price
+            self.total_price = self.number * self.current_price
+
         else:
-            self.current_price = self.item.price
-        self.total_price = self.number * self.current_price
+            if self.item.discount > 0:
+                self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
+            elif self.order.player.vip:
+                self.current_price = self.item.price - (self.item.price * 30 / 100)
+            else:
+                self.current_price = self.item.price
+            self.total_price = self.number * self.current_price
 
         super(ItemsInOrder, self).save(*args, **kwargs)
 
@@ -151,9 +212,10 @@ class ItemsInOrder(models.Model):
 
 
 class Baskets(models.Model):
-    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    number = models.IntegerField(blank=True, null=True, default=0)
+    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.SET_NULL)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -164,22 +226,37 @@ class Baskets(models.Model):
         verbose_name_plural = "Товары в корзинах"
 
     def save(self, *args, **kwargs):
-        if self.item.discount > 0:
-            self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
-        elif self.player.vip:
-            self.current_price = self.item.price - (self.item.price * 50 / 100)
+        if self.subitem:
+            if self.subitem.discount > 0:
+                self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
+            elif self.player.vip:
+                self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+            else:
+                self.current_price = self.subitem.price
+            self.total_price = self.number * self.current_price
         else:
-            self.current_price = self.item.price
-        self.total_price = self.number * self.current_price
+            if self.item.discount > 0:
+                self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
+            elif self.player.vip:
+                self.current_price = self.item.price - (self.item.price * 30 / 100)
+            else:
+                self.current_price = self.item.price
+            self.total_price = self.number * self.current_price
 
         super(Baskets, self).save(*args, **kwargs)
 
 class FavoriteItems(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return 'Товар %s  в избранном у игрока  %s' % (self.item.name, self.player.personaname)
+        if self.subitem:
+            return 'Товар %s (вариант %s) в избранном у игрока  %s' % (self.item.name,
+                                                                       self.subitem.color_name,
+                                                                       self.player.personaname)
+        else:
+            return 'Товар %s  в избранном у игрока  %s' % (self.item.name, self.player.personaname)
 
     class Meta:
         verbose_name = "Избранный товар"
