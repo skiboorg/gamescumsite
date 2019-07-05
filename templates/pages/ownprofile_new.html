@@ -188,18 +188,17 @@
                                                                                 <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                                                     {% csrf_token %}
                                                                                     <div>
-                                                                                        <div class="form-group">
+                                                                                        <div style="display: grid;
+                                                                                                    grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+                                                                                                    align-items: center;grid-gap: 10px;">
                                                                                             <label for="contact-form-name">Название отряда <span class="required">*</span></label>
                                                                                             {{ squad_form.name.errors }}
                                                                                             <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                                                                                         </div>
-                                                                                        <div style="display: flex;
-                                                                                                    flex-direction: row;
-                                                                                                    flex-wrap: wrap;
-                                                                                                    align-items: center;
-                                                                                                    justify-content: space-between;
-                                                                                                    max-width: 430px;" class="form-group">
-                                                                                            <div>
+                                                                                        <div style="display: grid;
+                                                                                                    grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+                                                                                                    align-items: center;grid-gap: 10px;" >
+
                                                                                                 <label style="display: block" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
                                                                                                 <select class="custom-select"
                                                                                                         name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" >
@@ -208,12 +207,12 @@
                                                                                                     {% endfor %}
 
                                                                                                 </select>
-                                                                                            </div>
 
-                                                                                         <div style=" margin-bottom: 30px;" class="form-group form-group--upload">
+
+                                                                                         <div class="form-group form-group--upload">
 
                                                                                         <div class="form-group__upload">
-                                                                                            <label class="btn-outline ">Загрузить логотип отряда...
+                                                                                            <label class="btn-outline ">Логотип отряда...
                                                                                                 <input type="file" name="{{ squad_form.avatar.name }}" required="required"  style="display: none;" >
                                                                                             </label>
                                                                                         </div>
@@ -222,13 +221,14 @@
                                                                                          </div>
 
                                                                                     </div>
-    <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
-
-
 
 
 
                                                                                     <div class="form-group">
+                                                                                         <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+
+
+
                                                                                         <label for="squad_info">Дополнительная информация об отряде </label>
 
                                                                                         <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="wpcf7-form-control wpcf7-textarea" placeholder="Дополнительных сведений об отряде не предоставлено."></textarea>
