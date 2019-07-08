@@ -28,11 +28,10 @@ def server_stat(request):
         total_rc += player.wallet
         total_drop_rc += player.total_buys_summ
         total_deaths += player.deaths
-
-
-
-
     return render(request, 'pages/statistic.html', locals())
+
+def vip(request):
+    return render(request, 'pages/vip.html', locals())
 
 def discord(request):
     return HttpResponseRedirect('https://discord.gg/sgUz53k')

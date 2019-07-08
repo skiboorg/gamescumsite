@@ -53,7 +53,7 @@
 
                                                                                     <p>VIP статус до<br> <span>{{ vip_ends }}</span></p>
                                                                                 {% else %}
-                                                                                    <a href="#" style="margin-bottom: 20px;" class="btn-outline btn-small btn-warn">ПОЛУЧИТЬ VIP</a>
+                                                                                    <a href="{% url 'vip' %}" style="margin-bottom: 20px;" class="btn-outline btn-small btn-warn">ПОЛУЧИТЬ VIP</a>
                                                                                 {% endif %}
 
                                                                                 {% if not player.bonus_pack %}
@@ -189,14 +189,14 @@
                                                                                     {% csrf_token %}
                                                                                     <div>
                                                                                         <div style="display: grid;
-                                                                                                    grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+                                                                                                    grid-template-columns: 1fr 5fr;
                                                                                                     align-items: center;grid-gap: 10px;">
                                                                                             <label for="contact-form-name">Название отряда <span class="required">*</span></label>
                                                                                             {{ squad_form.name.errors }}
                                                                                             <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                                                                                         </div>
                                                                                         <div style="display: grid;
-                                                                                                    grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+                                                                                                    grid-template-columns: 1fr 2fr 3fr;
                                                                                                     align-items: center;grid-gap: 10px;" >
 
                                                                                                 <label style="display: block" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
@@ -224,21 +224,27 @@
 
 
 
-                                                                                    <div class="form-group">
+                                                                                    <div style="    display: grid;
+                                                                                                grid-template-columns: 1fr 5fr;
+                                                                                                align-items: center;
+                                                                                                grid-gap: 10px;
+                                                                                            ">
                                                                                          <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
 
 
-
-                                                                                        <label for="squad_info">Дополнительная информация об отряде </label>
+                                                                                        <div>
+                                                                                            <label for="squad_info">Дополнительная информация об отряде </label>
 
                                                                                         <textarea id="squad_info" name="{{ squad_form.info.name }}"  class="wpcf7-form-control wpcf7-textarea" placeholder="Дополнительных сведений об отряде не предоставлено."></textarea>
-                                                                                    </div>
-                                                                                    <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
-                                                                                    {% if profile_bad %}
-                                                                                        <p align="center" style="color: #f34141; font-weight: bold;">ЭТА ФУНКЦИЯ ДОСТУПНА ТОЛЬКО ПОСЛЕ АКТИВАЦИИ АККАУНТА</p>
-                                                                                    {% else %}
-                                                                                        <button type="submit" id="create_squad_btn" class="btn-outline">Создать отряд.</button>
-                                                                                    {% endif %}
+                                                                                        <input type="hidden" name="{{ squad_form.leader.name }}" value="{{ request.user.id }}">
+                                                                                        {% if profile_bad %}
+                                                                                            <p align="center" style="color: #f34141; font-weight: bold;">ЭТА ФУНКЦИЯ ДОСТУПНА ТОЛЬКО ПОСЛЕ АКТИВАЦИИ АККАУНТА</p>
+                                                                                        {% else %}
+                                                                                            <button type="submit" id="create_squad_btn" class="btn-outline">Создать отряд.</button>
+                                                                                        {% endif %}
+                                                                                        </div>
+                                                                                     </div>
+
                                                                                 </form>
 
 
