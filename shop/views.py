@@ -66,6 +66,10 @@ def shop_show_cat(request, cat_slug):
 
 
 def shop_show_item(request, item_slug):
+    item = Items.objects.get(name_slug=item_slug, active=True )
+
+    subitems = SubItem.objects.filter(item=item)
+
     return render(request, 'shop/item.html', locals())
 
 def shop_show_set(request, set_slug):
