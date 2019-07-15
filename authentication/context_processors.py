@@ -7,6 +7,7 @@ def check_profile(request):
     if request.user.is_authenticated:
 
         player = request.user
+        player_wallet = player.wallet
         last_login = player.last_vizit
         time_now = datetime.now().date()
 
@@ -75,6 +76,13 @@ def get_player_squad_info(request):
         try:
             player_squad_member = SquadMembers.objects.get(player=player.id)
             player_squad = player_squad_member.squad
+
+            player_squad_server = player_squad_member.squad.server
+            if player_squad_server == 0:
+                player_squad_server_name = 'Сервер #1 (Общий)'
+            elif player_squad_server == 1:
+                player_squad_server_name = 'Сервер #2 (Приватный)'
+
             player_squad_sector = SquadSectors.objects.filter(squad=player_squad.id)
             for sect in player_squad_sector:
                 if sect.in_war:

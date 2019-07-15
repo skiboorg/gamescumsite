@@ -79,6 +79,7 @@ class Items(models.Model):
     name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
     image = models.ImageField(upload_to='shop/', null=True, blank=False)
+    description = models.TextField(blank=True, null=True, default='')
     active = models.BooleanField(default=True)
     price = models.IntegerField(default=0)
     buys = models.IntegerField(default=0)
@@ -119,6 +120,7 @@ class SubItem(models.Model):
     item = models.ForeignKey(Items, blank=True, null=True, on_delete=models.SET_NULL)
     color_name = models.CharField(max_length=255, blank=False)
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
+    description = models.TextField(blank=True, null=True, default='')
     image = models.ImageField(upload_to='shop/', null=True, blank=False)
     active = models.BooleanField(default=True)
     price = models.IntegerField(default=0)
@@ -182,26 +184,26 @@ class ItemsInOrder(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        if self.subitem:
-            if self.subitem.discount > 0:
-                self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
-            elif self.order.player.vip:
-                self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
-            else:
-                self.current_price = self.subitem.price
-            self.total_price = self.number * self.current_price
-
-        else:
-            if self.item.discount > 0:
-                self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
-            elif self.order.player.vip:
-                self.current_price = self.item.price - (self.item.price * 30 / 100)
-            else:
-                self.current_price = self.item.price
-            self.total_price = self.number * self.current_price
-
-        super(ItemsInOrder, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.subitem:
+    #         if self.subitem.discount > 0:
+    #             self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
+    #         elif self.order.player.vip:
+    #             self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+    #         else:
+    #             self.current_price = self.subitem.price
+    #         self.total_price = self.number * self.current_price
+    #
+    #     else:
+    #         if self.item.discount > 0:
+    #             self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
+    #         elif self.order.player.vip:
+    #             self.current_price = self.item.price - (self.item.price * 30 / 100)
+    #         else:
+    #             self.current_price = self.item.price
+    #         self.total_price = self.number * self.current_price
+    #
+    #     super(ItemsInOrder, self).save(*args, **kwargs)
 
 
     def __str__(self):
@@ -228,18 +230,20 @@ class Baskets(models.Model):
 
     def save(self, *args, **kwargs):
         if self.subitem:
-            if self.subitem.discount > 0:
-                self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
-            elif self.player.vip:
-                self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+            if self.item.discount > 0:
+                if self.player.vip:
+                    self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+                else:
+                    self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
             else:
                 self.current_price = self.subitem.price
             self.total_price = self.number * self.current_price
         else:
             if self.item.discount > 0:
-                self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
-            elif self.player.vip:
-                self.current_price = self.item.price - (self.item.price * 30 / 100)
+                if self.player.vip:
+                    self.current_price = self.item.price - (self.item.price * 30 / 100)
+                else:
+                    self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
             else:
                 self.current_price = self.item.price
             self.total_price = self.number * self.current_price

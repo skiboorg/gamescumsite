@@ -106,6 +106,9 @@
                                                                                     <div class="player-info-header-stats-balance-label">Время в игре (часов):</div>
                                                                                     <div class="player-info-header-stats-balance-info">{{ player_play_time }}</div>
                                                                                     {% if squad_info %}
+
+                                                                                        <div class="player-info-header-stats-balance-label">Сервер:</div>
+                                                                                        <div class="player-info-header-stats-balance-info">{{ player_squad_server_name }}</div>
                                                                                         <div class="player-info-header-stats-balance-label">Отряд:</div>
                                                                                         <div class="player-info-header-stats-balance-info">{{ squad_info.name }}</div>
 
@@ -188,18 +191,16 @@
                                                                                 <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                                                     {% csrf_token %}
                                                                                     <div>
-                                                                                        <div style="display: grid;
-                                                                                                    grid-template-columns: 1fr 5fr;
-                                                                                                    align-items: center;grid-gap: 10px;">
-                                                                                            <label for="contact-form-name">Название отряда <span class="required">*</span></label>
+                                                                                        <div style="display: flex;align-items: center; margin-bottom: 20px">
+                                                                                            <label style="flex-basis: 16%;" for="contact-form-name">Название отряда <span class="required">*</span></label>
                                                                                             {{ squad_form.name.errors }}
                                                                                             <input type="text" name="{{ squad_form.name.name }}" value="" required="required"  class="form-control" placeholder="Тру-нагибаторы">
                                                                                         </div>
                                                                                         <div style="display: grid;
-                                                                                                    grid-template-columns: 1fr 2fr 3fr;
+                                                                                                    grid-template-columns: 3fr 2fr 2fr;
                                                                                                     align-items: center;grid-gap: 10px;" >
-
-                                                                                                <label style="display: block" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
+                                                                                        <div style="display: flex;align-items: center;">
+                                                                                             <label style="flex-basis: 50%" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
                                                                                                 <select class="custom-select"
                                                                                                         name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" >
                                                                                                     {% for wear in squad_wear %}
@@ -207,6 +208,21 @@
                                                                                                     {% endfor %}
 
                                                                                                 </select>
+                                                                                        </div>
+
+                                                                                               <div style="display: flex;align-items: center;">
+                                                                                                   <label style="flex-basis: 50%" for="squad_server">Сервер <span class="required">*</span></label>
+                                                                                                <select class="custom-select"
+                                                                                                        name="{{  squad_form.server.name }}" id="squad_server" required="required" >
+
+                                                                                                        <option style="color: #000" value="0">Сервер #1 (Общий)</option>
+                                                                                                        <option style="color: #000" value="1">Сервер #2 (Приватный)</option>
+
+
+                                                                                                </select>
+                                                                                               </div>
+
+
 
 
                                                                                          <div class="form-group form-group--upload">
@@ -225,11 +241,11 @@
 
 
                                                                                     <div style="    display: grid;
-                                                                                                grid-template-columns: 1fr 5fr;
+                                                                                                grid-template-columns: 1fr 7fr;
                                                                                                 align-items: center;
                                                                                                 grid-gap: 10px;
                                                                                             ">
-                                                                                         <img id="squad_wear_sample" style=" width: 75px;" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+                                                                                         <img id="squad_wear_sample" style=" width: 75px; margin: 0 auto" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
 
 
                                                                                         <div>
@@ -253,12 +269,15 @@
                                                                             {% if player.is_squad_leader %}
                                                                                 <div id="squad" class="card card--clean alc-staff">
                                                                                     <a  href="{% url 'delete_squad' %}" class="btn-outline btn-warn" onclick="return confirm('Точно удалить? Вся информация будет безвозвратно утеряна!!!');">УДАЛИТЬ ОТРЯД</a>
-                                                                                    <a href="{% url 'level_up' %}" id="level_up_btn" class="btn-outline">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
+                                                                                    {% if not player_squad_server == 1 %}
+                                                                                         <a href="{% url 'level_up' %}" id="level_up_btn" class="btn-outline">ПОВЫСИТЬ УРОВЕНЬ ОТРЯДА</a>
+                                                                                    {% endif %}
                                                                                     <div style="margin-top: 20px;" class="card__content">
                                                                                         <div>
                                                                                             <div class="player-info-header-stats-balance">
                                                                                                 <div class="player-info-header-stats-balance-label">БАЛАНС ОТРЯДА :</div>
                                                                                                 <div class="player-info-header-stats-balance-info"><span id="squad_balance">{{ squad_info.balance }} RC</span></div>
+                                                                                                {% if not player_squad_server == 1 %}
                                                                                                 <div class="player-info-header-stats-balance-label">ТЕКУЩИЙ УРОВЕНЬ ОТРЯДА :</div>
                                                                                                 <div class="player-info-header-stats-balance-info">{{ squad_info.level }}</div>
                                                                                                 <div class="player-info-header-stats-balance-label">НА ДАННОМ УРОВНЕ ДОСТУПНО :</div>
@@ -289,8 +308,10 @@
                                                                                                         <span id="level_up_cost">15000</span> RC
                                                                                                     {% endif %}
                                                                                                 </div>
+                                                                                                    {% endif %}
                                                                                             </div>
                                                                                         </div>
+
                                                                                     <h6>Редактирование отряда</h6>
                                                                                         <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                                                             {% csrf_token %}

@@ -29,6 +29,7 @@ class Squad(models.Model):
     balance = models.IntegerField(default=0, blank=True)
     level = models.IntegerField(default=1, blank=True)
     rating = models.IntegerField(default=1, blank=True)
+    server = models.IntegerField(default=0)
     info = models.TextField(default='Дополнительных сведений об отряде не предоставлено.', blank=True, null=True)
     battles_wins = models.IntegerField(default=0, blank=True)
     battles_loose = models.IntegerField(default=0, blank=True)
@@ -73,6 +74,7 @@ class SquadMembers(models.Model):
     squad = models.ForeignKey(Squad, blank=True, null=True, default=None, on_delete=models.CASCADE)
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     income = models.IntegerField(default=0, blank=True)
+
 
 
     def __str__(self):

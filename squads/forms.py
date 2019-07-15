@@ -12,6 +12,7 @@ class CreateSquadForm(ModelForm):
             'avatar',
             'info',
             'leader',
+            'server',
             'wear',
         )
 
