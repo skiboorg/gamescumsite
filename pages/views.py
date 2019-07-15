@@ -63,6 +63,7 @@ def index(request):
     news = News.objects.all().order_by('-id')[:12]
 
     page = requests.get(bot_settings.SERVER_URL)
+    page1 = requests.get(bot_settings.SERVER1_URL)
     if page:
         tree = html.fromstring(page.content)
         players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]
@@ -70,6 +71,13 @@ def index(request):
         name = tree.xpath('//*[@id="serverPage"]/h2/text()')
         ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
         status = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
+    if page1:
+        tree1 = html.fromstring(page1.content)
+        players1 = tree1.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')[0]
+        rank1 = tree1.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[1]/text()')[0]
+        name1 = tree1.xpath('//*[@id="serverPage"]/h2/text()')
+        ip1 = tree1.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')[0]
+        status1 = tree1.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[4]/text()')[0]
     top3 = SteamUser.objects.filter(is_active=True, is_staff=False).order_by('-rating')[:10]
 
     return render(request, 'pages/index_new.html', locals())

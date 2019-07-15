@@ -225,7 +225,7 @@
                                                             <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
                                                                 <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-9499" data-1025-1366="50px 0 0 20%" data-680="40px 0 0 20%">
                                                                     <div class="edgtf-eh-item-inner">
-                                                                        <div class="edgtf-eh-item-content edgtf-eh-custom-9499" style="padding: 71px 0 0 20%">
+                                                                        <div class="edgtf-eh-item-content edgtf-eh-custom-9499" style="padding: 71px 0 0 20%;position: relative;left: 50px;">
                                                                             <div class="edgtf-animated-link edgtf-al-appear">
                                                                                 <span class="edgtf-al-rect"></span>
                                                                                 <span class="edgtf-al-rect"></span>
@@ -236,8 +236,31 @@
                                                                                 <span class="edgtf-al-rect"></span>
                                                                                 <h4 class="edgtf-al-text">
                                                                                     {% if status == 'online' %}
-                                                                                        СЕРВЕР <span style="color: #1fff30">[ONLINE]</span> :
+                                                                                        СЕРВЕР#1 <span style="color: #1fff30">[ONLINE]</span> :
                                                                                         ИГРОКОВ [<span id="total-players-online">{{ players }}</span>] : РАНГ [{{ rank }}] : IP [{{ ip }}]
+
+
+                                                                                    {% else %}
+                                                                                        СЕРВЕР OFFLINE
+                                                                                    {% endif %}
+
+                                                                                </h4>
+                                                                                <a class="edgtf-al-link" href="{% url 'settings' %}" target="_blank"></a>
+                                                                                <span class="edgtf-al-bg"></span></div>
+                                                                        </div>
+                                                                     <div class="edgtf-eh-item-content edgtf-eh-custom-9499" style="padding: 71px 0 0 20%;position: relative;left: 50px;">
+                                                                            <div class="edgtf-animated-link edgtf-al-appear">
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <span class="edgtf-al-rect"></span>
+                                                                                <h4 class="edgtf-al-text">
+                                                                                    {% if status == 'online' %}
+                                                                                        СЕРВЕР#2 <span style="color: #1fff30">[ONLINE]</span> :
+                                                                                        ИГРОКОВ [<span id="total-players-online">{{ players1 }}</span>] : РАНГ [{{ rank1 }}] : IP [{{ ip1 }}]
 
 
                                                                                     {% else %}

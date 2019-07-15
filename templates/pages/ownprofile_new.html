@@ -191,6 +191,9 @@
                                                                                 <form enctype="multipart/form-data" action="{% url 'create_squad' %}" method="post">
                                                                                     {% csrf_token %}
                                                                                     <div>
+                                                                                    <span style="margin-bottom: 20px;color: red;display: block;border: 2px dashed red; text-align: center;padding: 20px;">
+                                                                                        Отмеченное <sup style="color: white">*</sup> обязательно для заполнения
+                                                                                    </span>
                                                                                         <div style="display: flex;align-items: center; margin-bottom: 20px">
                                                                                             <label style="flex-basis: 16%;" for="contact-form-name">Название отряда <span class="required">*</span></label>
                                                                                             {{ squad_form.name.errors }}
@@ -201,7 +204,7 @@
                                                                                                     align-items: center;grid-gap: 10px;" >
                                                                                         <div style="display: flex;align-items: center;">
                                                                                              <label style="flex-basis: 50%" for="squad_form_wear">Форма отряда <span class="required">*</span></label>
-                                                                                                <select class="custom-select"
+                                                                                                <select class="custom-select profile-select"
                                                                                                         name="{{  squad_form.wear.name }}" id="squad_form_wear" required="required" >
                                                                                                     {% for wear in squad_wear %}
                                                                                                         <option data-image="{{ wear.image.url }}" style="color: #000" value="{{ wear.id }}">{{ wear.name }}</option>
@@ -212,7 +215,7 @@
 
                                                                                                <div style="display: flex;align-items: center;">
                                                                                                    <label style="flex-basis: 50%" for="squad_server">Сервер <span class="required">*</span></label>
-                                                                                                <select class="custom-select"
+                                                                                                <select class="custom-select profile-select"
                                                                                                         name="{{  squad_form.server.name }}" id="squad_server" required="required" >
 
                                                                                                         <option style="color: #000" value="0">Сервер #1 (Общий)</option>
@@ -228,7 +231,7 @@
                                                                                          <div class="form-group form-group--upload">
 
                                                                                         <div class="form-group__upload">
-                                                                                            <label class="btn-outline ">Логотип отряда...
+                                                                                            <label class="btn-outline ">Логотип отряда<sup>*</sup>
                                                                                                 <input type="file" name="{{ squad_form.avatar.name }}" required="required"  style="display: none;" >
                                                                                             </label>
                                                                                         </div>
@@ -470,20 +473,21 @@
                                                                         <div style="display: flex;
                                                                                             flex-wrap: wrap;
                                                                                             justify-content: space-between;" class="squad_members_requests">
-                                                                             {% if squad_info %}
+
                                                                                 <div id="squad_members" class="squad_members">
                                                                                         <h4>Личные сообщения</h4>
                                                                                    <ul style="list-style: none">
-                                                                                        {% if pm%}
+                                                                                        {% if pm %}
                                                                                             {% for message in pm %}
                                                                                                 <li id="pm_message_{{ message.id }}" >
                                                                                                         <div style="display: flex; justify-content: space-between; align-items: center">
+
                                                                                                               <img style="border-radius: 10px;" src="{{ message.from_player_avatar }}"/>
                                                                                                             <a style="flex-basis: 70%"  href="{% url 'profile' message.from_player_name_slug %}">{{ message.from_player_name }}</a>
                                                                                                             <a class="btn-outline btn-xs btn-warn" href="javascript:void(0);" onclick="del_pm({{ message.id }})">&#10006;</a>
                                                                                                         </div>
 
-                                                                                                       <strong>Сообщение: </strong><br>{{ message.text }}
+                                                                                                       <strong>Дата: {{ message.created | date:"d M, Y" }} | Сообщение : </strong><br>{{ message.text }}
                                                                                                 <div class="custom_hr"></div>
                                                                                                 </li>
 
@@ -494,8 +498,8 @@
 
                                                                                     </ul>
                                                                                 </div>
-                                                                            {% endif %}
-                                                                            {% if player.is_squad_leader %}
+
+
                                                                                 <div id="squad_requests" class="squad_members">
                                                                                         <h4>Заказы в BLACKMARKET</h4>
 
@@ -537,7 +541,7 @@
                                                                                 </div>
 
 
-                                                                            {% endif %}
+
                                                                         </div>
 
                                                                         </div>
