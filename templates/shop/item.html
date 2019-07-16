@@ -41,6 +41,12 @@
                                              data-discount_percent="{{ subitem.discount }}"
                                              data-discount="{{ subitem.discount_value }}"
                                              data-discount_vip="{{ subitem.discount_vip_value }}"
+                                              {% if subitem.id in favorites_subitem_id %}
+                                                    data-in_fav="1"
+                                                {% else %}
+                                                    data-in_fav="0"
+                                              {% endif %}
+
                                              src="{{ subitem.image.url }}"
                                              onclick="changeItem(this)"
                                         >
@@ -147,7 +153,12 @@
                 <input type="hidden" id="item_subitem" value="0">
 
                 <button type="submit" id="submit_button" class="btn-outline btn-small">Купить</button>
-                <button type="button"  class="btn-outline btn-small" data-item_id="{{ item.id }}" data-subitem_id="0" onclick="add_to_favorite(this)" >В ИЗБРАННОЕ</button>
+                {% if item.id in favorites_id %}
+                    <button type="button" id="addtofav" class="btn-outline btn-small" data-item_id="{{ item.id }}" data-subitem_id="0" onclick="add_to_favorite(this)" >Удалить из избранного</button>
+                    {% else %}
+                    <button type="button" id="addtofav" class="btn-outline btn-small" data-item_id="{{ item.id }}" data-subitem_id="0" onclick="add_to_favorite(this)" >В ИЗБРАННОЕ</button>
+                    {% endif %}
+
             </form>
             <span style="display: none" id="low_level">Недоступно на твоем уровне</span>
 
@@ -194,9 +205,39 @@
             success: function (data) {
                 console.log('OK');
                 console.log(data);
-                if (data.added === 'added'){
-                    btn.html('В ИЗБРАННОМ')
-                    btn.attr('disabled','disabled')
+                if (data.action === 'added'){
+                     console.log('added');
+                    btn.html('УДАЛИТЬ ИЗ ИЗБРАННОГО')
+
+                    $.amaran({
+                        'theme'     :'colorful',
+                        'content'   :{
+                           bgcolor:'#27ae60',
+                           color:'#fff',
+                           message:'Товар добавлен в избранное'
+                        },
+                        'position'  :'bottom right',
+                        'outEffect' :'slideBottom'
+                    });
+
+
+                }
+
+                if (data.action === 'deleted'){
+                    console.log('deleted');
+                    btn.html('В ИЗБРАННОЕ')
+
+                    $.amaran({
+                        'theme'     :'colorful',
+                        'content'   :{
+                           bgcolor:'#ae1737',
+                           color:'#fff',
+                           message:'Товар удален из избранного'
+                        },
+                        'position'  :'bottom right',
+                        'outEffect' :'slideBottom'
+                    });
+
 
                 }
 
@@ -240,11 +281,22 @@
         let subitem_discount_vip = i.dataset.discount_vip
         let subitem_discount_percent = i.dataset.discount_percent
         let subitem_color_name = i.dataset.color_name
+        let subitem_in_fav = i.dataset.in_fav
 
 
 
 
         $('#item_image_big').attr('src',subitem_image_big)
+
+        $('#addtofav').attr('data-item_id',0)
+        $('#addtofav').attr('data-subitem_id',subitem_id)
+
+        if (subitem_in_fav === '1'){
+            $('#addtofav').html('УДАЛИТЬ ИЗ ИЗБРАННОГО')
+        }
+        else{
+            $('#addtofav').html('В Избранное')
+        }
 
         if ($('#is_vip').html() === 'True'){
 

@@ -77,6 +77,20 @@ def search(request):
 
 def shop_show_item(request, item_slug):
     item = Items.objects.get(name_slug=item_slug, active=True )
+    favorites = FavoriteItems.objects.filter(player_id=request.user.id)
+    favorites_id = []
+    favorites_subitem_id = []
+    for favorite in favorites:
+        try:
+            favorites_id.append(favorite.item.id)
+        except:
+            pass
+        try:
+            favorites_subitem_id.append(favorite.subitem.id)
+        except:
+            pass
+
+    print(favorites_id)
 
     subitems = SubItem.objects.filter(item=item)
 
@@ -154,13 +168,23 @@ def add_to_favorite(request):
     data = request.POST
     item_id = int(data.get('item_id'))
     subitem_id = int(data.get('subitem_id'))
-    newitem = False
+
     if item_id != 0:
-        newitem = FavoriteItems.objects.create(player_id=request.user.id,item_id=item_id)
+        #newitem = FavoriteItems.objects.create(player_id=request.user.id,item_id=item_id)
+        addtofav, created = FavoriteItems.objects.get_or_create(player_id=request.user.id, item_id=item_id)
+        if not created:
+            addtofav.delete()
+            return_dict['action'] = 'deleted'
+        else:
+            return_dict['action'] = 'added'
     if subitem_id != 0:
-        newitem = FavoriteItems.objects.create(player_id=request.user.id, subitem_id=subitem_id)
-    if newitem:
-        return_dict['added'] = 'added'
+        addtofav, created = FavoriteItems.objects.get_or_create(player_id=request.user.id, subitem_id=subitem_id)
+        if not created:
+            addtofav.delete()
+            return_dict['action'] = 'deleted'
+        else:
+            return_dict['action'] = 'added'
+
 
     return JsonResponse(return_dict)
 

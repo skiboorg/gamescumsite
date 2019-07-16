@@ -236,7 +236,10 @@ class Baskets(models.Model):
                 else:
                     self.current_price = self.subitem.price - (self.subitem.price * self.subitem.discount / 100)
             else:
-                self.current_price = self.subitem.price
+                if self.player.vip:
+                    self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
+                else:
+                    self.current_price = self.subitem.price
             self.total_price = self.number * self.current_price
         else:
             if self.item.discount > 0:
@@ -245,7 +248,10 @@ class Baskets(models.Model):
                 else:
                     self.current_price = self.item.price - (self.item.price * self.item.discount / 100)
             else:
-                self.current_price = self.item.price
+                if self.player.vip:
+                    self.current_price = self.item.price - (self.item.price * 30 / 100)
+                else:
+                    self.current_price = self.item.price
             self.total_price = self.number * self.current_price
 
         super(Baskets, self).save(*args, **kwargs)
@@ -257,7 +263,7 @@ class FavoriteItems(models.Model):
 
     def __str__(self):
         if self.subitem:
-            return 'Товар %s (вариант %s) в избранном у игрока  %s' % (self.item.name,
+            return 'Товар %s (вариант %s) в избранном у игрока  %s' % (self.subitem.item.name,
                                                                        self.subitem.color_name,
                                                                        self.player.personaname)
         else:

@@ -50,4 +50,5 @@ admin.site.register(ItemsInOrder)
 admin.site.register(Baskets,BasketAdmin)
 admin.site.register(Set)
 admin.site.register(SetImage)
+admin.site.register(FavoriteItems)
 # Register your models here.
