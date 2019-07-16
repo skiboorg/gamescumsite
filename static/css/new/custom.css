@@ -18,6 +18,22 @@ h1{
     font-size: 60px !important;
 }
 
+.cart-btn{
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.shop_active_cat{
+    background: #272727;
+    padding: 10px !important;
+}
+.page-item-active{
+    background: #272727;
+    padding: 0px 7px;
+    box-sizing: border-box;
+    border: 2px solid #ec4e00;
+}
 .bg-red{
     background-color: #ec1f20 !important;
 }

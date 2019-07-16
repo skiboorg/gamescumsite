@@ -40596,12 +40596,12 @@ div.woocommerce>.products>.product-category .woocommerce-loop-category__title .c
 }
 
 .edgtf-shopping-cart-holder .edgtf-header-cart .edgtf-cart-number {
-    font-size: 12px;
+    font-size: 8px;
     font-weight: 400;
     letter-spacing: .12em;
     position: relative;
-    top: 4px;
-    left: -16.5px
+    top: 3px;
+    left: -18px;
 }
 
 .edgtf-shopping-cart-holder .edgtf-header-cart.edgtf-header-cart-icon-pack .edgtf-cart-icon {

@@ -36,7 +36,7 @@ def shop_home(request):
         items_qs = items_all
         param = None
 
-    items_paginator = Paginator(items_qs, 12)
+    items_paginator = Paginator(items_qs, 9)
 
     try:
         items = items_paginator.get_page(page)
@@ -64,6 +64,16 @@ def shop_show_cat(request, cat_slug):
     print(current_cat)
     return render(request, 'shop/index_new.html', locals())
 
+def search(request):
+    page_title = 'BLACKMARKET'
+    all_categories = Categories.objects.all().filter(active=True)
+    try:
+        query = request.GET.get('query').lower()
+    except:
+        query = ''
+    items = Items.objects.filter(name_lower__contains=query)
+
+    return render(request, 'shop/index_new.html', locals())
 
 def shop_show_item(request, item_slug):
     item = Items.objects.get(name_slug=item_slug, active=True )
@@ -80,11 +90,19 @@ def add_to_cart(request):
     data = request.POST
     item_id = int(data.get('item_id'))
     item_number = int(data.get('item_number'))
-    addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
-                                                       item_id=item_id, defaults={'number': item_number})
-    if not created:
-        addtocart.number += int(item_number)
-        addtocart.save(force_update=True)
+    item_subitem = int(data.get('item_subitem'))
+    if item_subitem == 0:
+        addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
+                                                           item_id=item_id, defaults={'number': item_number})
+        if not created:
+            addtocart.number += int(item_number)
+            addtocart.save(force_update=True)
+    else:
+        addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
+                                                            subitem_id=item_subitem, defaults={'number': item_number})
+        if not created:
+            addtocart.number += int(item_number)
+            addtocart.save(force_update=True)
     all_items_in_cart = Baskets.objects.filter(player_id=request.user.id)
     count_items_in_cart = all_items_in_cart.count()
     total_cart_price = 0
@@ -92,27 +110,69 @@ def add_to_cart(request):
     return_dict['total_items_in_cart'] = count_items_in_cart
     return_dict['all_items'] = list()
     for item in all_items_in_cart:
+
         total_cart_price += item.total_price
+
         item_dict = dict()
-        item_dict['id'] = item.item.id
-        item_dict['name'] = item.item.name
-        item_dict['category'] = item.item.category.name
-        item_dict['price'] = item.current_price
-        item_dict['total_price'] = item.total_price
-        item_dict['number'] = item.number
-        item_dict['image'] = str(item.item.image)
-        return_dict['all_items'].append(item_dict)
+        try:
+            print('item id {}'.format(item.item.id))
+            item_dict['id'] = item.item.id
+            item_dict['name'] = item.item.name
+            item_dict['category'] = item.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'no'
+            item_dict['image'] = str(item.item.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('item id none')
+        try:
+            print('subitem id {}'.format(item.subitem.id))
+            item_dict['id'] = item.subitem.id
+            item_dict['name'] = item.subitem.item.name + ' ' + item.subitem.color_name
+            item_dict['category'] = item.subitem.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'yes'
+            item_dict['image'] = str(item.subitem.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('subitem id none')
+
+
+
 
     return_dict['total_cart_price'] = total_cart_price
     return_dict['player_wallet'] = request.user.wallet
     return JsonResponse(return_dict)
 
 
+def add_to_favorite(request):
+    return_dict = {}
+    data = request.POST
+    item_id = int(data.get('item_id'))
+    subitem_id = int(data.get('subitem_id'))
+    newitem = False
+    if item_id != 0:
+        newitem = FavoriteItems.objects.create(player_id=request.user.id,item_id=item_id)
+    if subitem_id != 0:
+        newitem = FavoriteItems.objects.create(player_id=request.user.id, subitem_id=subitem_id)
+    if newitem:
+        return_dict['added'] = 'added'
+
+    return JsonResponse(return_dict)
+
 def delete_from_cart(request):
     return_dict = {}
     data = request.POST
     item_id = int(data.get('item_id'))
-    Baskets.objects.filter(player_id=request.user.id, item_id=item_id).delete()
+    subitem_id = int(data.get('subitem_id'))
+    if item_id != 0:
+        Baskets.objects.filter(player_id=request.user.id, item_id=item_id).delete()
+    if subitem_id != 0:
+        Baskets.objects.filter(player_id=request.user.id, subitem_id=subitem_id).delete()
     all_items_in_cart = Baskets.objects.filter(player_id=request.user.id)
     count_items_in_cart = all_items_in_cart.count()
     total_cart_price = 0
@@ -122,14 +182,32 @@ def delete_from_cart(request):
     for item in all_items_in_cart:
         total_cart_price += item.total_price
         item_dict = dict()
-        item_dict['id'] = item.item.id
-        item_dict['name'] = item.item.name
-        item_dict['category'] = item.item.category.name
-        item_dict['price'] = item.current_price
-        item_dict['total_price'] = item.total_price
-        item_dict['number'] = item.number
-        item_dict['image'] = str(item.item.image)
-        return_dict['all_items'].append(item_dict)
+        try:
+            print('item id {}'.format(item.item.id))
+            item_dict['id'] = item.item.id
+            item_dict['name'] = item.item.name
+            item_dict['category'] = item.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'no'
+            item_dict['image'] = str(item.item.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('item id none')
+        try:
+            print('subitem id {}'.format(item.subitem.id))
+            item_dict['id'] = item.subitem.id
+            item_dict['name'] = item.subitem.item.name + ' ' + item.subitem.color_name
+            item_dict['category'] = item.subitem.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'yes'
+            item_dict['image'] = str(item.subitem.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('subitem id none')
 
     return_dict['total_cart_price'] = total_cart_price
     return_dict['player_wallet'] = request.user.wallet

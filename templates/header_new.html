@@ -138,49 +138,78 @@
 
                                 </ul>
                             </nav>
-{#                            {% if user.is_authenticated %}#}
-{#                            <div class="edgtf-shopping-cart-holder">#}
-{#                                <div class="edgtf-shopping-cart-inner">#}
-{#                                    <a itemprop="url" class="edgtf-header-cart edgtf-header-cart-svg-path" href="https://tetsuo.edge-themes.com/cart/">#}
-{#                                        <span class="edgtf-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"#}
-{#                                             width="18.998px" height="20.998px" viewBox="0 0 18.998 20.998" enable-background="new 0 0 18.998 20.998" xml:space="preserve">#}
-{#                                            <path fill="#231F20" d="M16.917,4h-2.916V0h-9v4H2.042L0,20.998h18.998L16.917,4z M7.001,2h5v2h-5V2z M2.818,18.498L4.26,6.5h0.741#}
-{#                                                h9h0.703l1.469,11.998H2.818z"/>#}
-{#                                            </svg>#}
-{#                                        </span>#}
-{#                                        <span class="edgtf-cart-number">10</span>#}
-{#                                    </a>#}
-{#                                    <div class="edgtf-shopping-cart-dropdown">#}
-{#                                        <ul>#}
-{#                                            <li>#}
-{#                                                <div class="edgtf-item-image-holder">#}
-{#                                                    <a itemprop="url" href="https://tetsuo.edge-themes.com/product/gadget/">#}
-{#                                                        <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-11-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>#}
-{#                                                </div>#}
-{#                                                <div class="edgtf-item-info-holder">#}
-{#                                                    <h5 itemprop="name" class="edgtf-product-title">#}
-{#                                                        <a itemprop="url" href="https://tetsuo.edge-themes.com/product/gadget/">Gadget</a>#}
-{#                                                    </h5>#}
-{#                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>550</span> <span class="edgtf-quantity"> x 1</span>#}
-{#                                                    <a href="https://tetsuo.edge-themes.com/cart/?remove_item=0c74b7f78409a4022a2c4c5a5ca3ee19&#038;_wpnonce=5f455611a7" class="remove" title="Remove this item"><span class="icon-arrows-remove"></span></a> </div>#}
-{#                                            </li>#}
-{#                                            <li class="edgtf-cart-bottom">#}
-{#                                                <div class="edgtf-subtotal-holder clearfix">#}
-{#                                                    <span class="edgtf-total">Total:</span>#}
-{#                                                    <span class="edgtf-total-amount">#}
-{#										<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>550</span>#}
-{#                                                        </span>#}
-{#                                                </div>#}
-{#                                                <div class="edgtf-btn-holder clearfix">#}
-{#                                                    <a itemprop="url" href="https://tetsuo.edge-themes.com/checkout/" class="edgtf-checkout">CHECKOUT</a>#}
-{#                                                    <a itemprop="url" href="https://tetsuo.edge-themes.com/cart/" class="edgtf-view-cart">VIEW CART</a>#}
-{#                                                </div>#}
-{#                                            </li>#}
-{#                                        </ul>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% endif %}#}
+                            {% if user.is_authenticated %}
+                            <div class="edgtf-shopping-cart-holder">
+                                <div class="edgtf-shopping-cart-inner">
+                                    <a itemprop="url" class="edgtf-header-cart edgtf-header-cart-svg-path" href="https://tetsuo.edge-themes.com/cart/">
+                                        <span class="edgtf-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             width="18.998px" height="20.998px" viewBox="0 0 18.998 20.998" enable-background="new 0 0 18.998 20.998" xml:space="preserve">
+                                            <path fill="#231F20" d="M16.917,4h-2.916V0h-9v4H2.042L0,20.998h18.998L16.917,4z M7.001,2h5v2h-5V2z M2.818,18.498L4.26,6.5h0.741
+                                                h9h0.703l1.469,11.998H2.818z"/>
+                                            </svg>
+                                        </span>
+                                        <span id="count_items_in_cart" class="edgtf-cart-number">{{ count_items_in_cart }}</span>
+                                    </a>
+                                    <div class="edgtf-shopping-cart-dropdown">
+                                        <ul class="header-cart">
+                                            {% for item_in_backet in all_items_in_cart %}
+                                                {% if item_in_backet.item.id %}
+                                                    <li>
+                                                        <div class="edgtf-item-image-holder">
+                                                            <a itemprop="url" href="{% url 'shop_show_item' item_in_backet.item.name_slug %}">
+                                                                <img width="300" height="300" src="{{ item_in_backet.item.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>
+                                                        </div>
+                                                        <div class="edgtf-item-info-holder">
+                                                            <h5 itemprop="name" class="edgtf-product-title">
+                                                                <a itemprop="url" href="{% url 'shop_show_item' item_in_backet.item.name_slug %}">{{ item_in_backet.item.name }}</a>
+                                                            </h5>
+                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ item_in_backet.current_price }} RC</span> <span class="edgtf-quantity"> x {{ item_in_backet.number }} = {{ item_in_backet.total_price }} RC</span>
+                                                            <a href="#" class="remove" data-item_id="{{  item_in_backet.item.id }}" data-subitem_id="0" onclick="delete_from_cart(this);return false;">&#215;</a> </div>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% if item_in_backet.subitem.id %}
+                                                      <li>
+                                                        <div class="edgtf-item-image-holder">
+                                                            <a itemprop="url" href="{% url 'shop_show_item' item_in_backet.subitem.item.name_slug %}?i={{ item_in_backet.subitem.id }}">
+                                                                <img width="300" height="300" src="{{ item_in_backet.subitem.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>
+                                                        </div>
+                                                        <div class="edgtf-item-info-holder">
+                                                            <h5 itemprop="name" class="edgtf-product-title">
+                                                                <a itemprop="url" href="{% url 'shop_show_item' item_in_backet.subitem.item.name_slug %}?i={{ item_in_backet.subitem.id }}">{{ item_in_backet.subitem.item.name }} {{ item_in_backet.subitem.color_name }}</a>
+                                                            </h5>
+                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ item_in_backet.current_price }} RC</span> <span class="edgtf-quantity"> x {{ item_in_backet.number }} = {{ item_in_backet.total_price }} RC</span>
+                                                            <a href="#" class="remove" data-item_id="0" data-subitem_id="{{ item_in_backet.subitem.id }}" onclick="delete_from_cart(this);return false;">&#215;</a> </div>
+                                                    </li>
+                                                {% endif %}
+
+
+                                            {% endfor %}
+                                        {% if all_items_in_cart.count > 0 %}
+
+                                            <li class="edgtf-cart-bottom">
+                                                <div class="edgtf-subtotal-holder clearfix">
+                                                    <span class="edgtf-total">Итого:</span>
+                                                        <span class="edgtf-total-amount">
+										                 <span class="woocommerce-Price-amount amount">{{ total_cart_price }} RC</span>
+                                                        </span>
+                                                </div>
+
+
+                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>
+
+                                            </li>
+
+                                        {% else %}
+                                             <li > КОРЗИНА ПУСТА </li>
+                                        {% endif %}
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
 
 
                         </div>

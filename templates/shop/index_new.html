@@ -17,7 +17,13 @@
             <div style="margin-top: 40px;" class="edgtf-container">
                 <div class="edgtf-container-inner clearfix">
                     <div class="edgtf-grid-row ">
-                        <div class="edgtf-page-content-holder edgtf-grid-col-9">
+
+                        <div id="items_paginator" class="edgtf-page-content-holder edgtf-grid-col-9">
+                        <div>
+                        <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
+                                    <span style="color: red; font-size: larger;">Выдача купленного товара происходит после 18:00! Свяжитесь с администратором в Discord</span>
+                            </strong>
+                        </div>
 
                             <div class="edgtf-pl-main-holder">
                                 <ul class="products columns-3">
@@ -46,7 +52,7 @@
                                                                 grid-template-columns: 40% 55%;
                                                                 grid-column-gap: 10px;" class="edgtf-pl-category">
                                                         <div>Категория</div>
-                                                        <div>{{  item.category.name }}</div>
+                                                        <div><a href="{%  url 'shop_show_cat' item.category.name_slug %}">{{  item.category.name }}</a></div>
                                                         <div>Модификаций</div>
                                                         <div> {{ item.subitem_set.count }}</div>
                                                     </div>
@@ -62,50 +68,68 @@
                                         {% endfor %}
                                    </ul>
                                 </div>
-                                <div class="edgtf-shop-pagination">
-                                    <ul>
-                                        <li class="edgtf-pag-number edgtf-pag-active">
-                                            <a href="#">1</a>
-                                        </li>
-                                        <li class="edgtf-pag-number">
-                                            <a itemprop="url" href="https://tetsuo.edge-themes.com/shop/page/2/">2</a>
-                                        </li>
-                                        <li class="edgtf-pag-next">
-                                            <a itemprop="url" href="https://tetsuo.edge-themes.com/shop/page/2/">
-                                                <svg width="10px" height="21px" viewBox="0 0 9.999 21.257">
-                                                    <path fill="currentColor" d="M2,5.045l5.253,5.583L2,16.212V5.045 M0,0v21.257l9.999-10.629L0,0L0,0z"></path>
-                                                </svg>
-                                            </a>
-                                        </li>
+
+                        <nav id="items_paginator" class="edgtf-shop-pagination" aria-label="Shop navigation">
+                                <ul style="display: flex; align-items: center; justify-content: center;margin-bottom: 40px;"
+                                    class="pagination justify-content-end">
+                                {% if items.has_previous %}
+                                    <li class="page-item">
+                                      <a class="page-link" href="?page=1{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Previous">
+                                        <
+                                      </a>
+                                    </li>
+                                {% endif %}
+                                    {% for pg in items.paginator.page_range %}
+                                        {% if items.number == pg %}
+                                            <li class="page-item page-item-active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% elif pg > items.number|add:'-9' and pg < items.number|add:'9' %}
+
+                                            <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% if items.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?page={{ items.paginator.num_pages }}{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Next">
+                                      >
+
+                                    </a>
+                                  </li>
+                                  {% endif %}
 
                                 </ul>
-                            </div>
+
+                            </nav>
 
                         </div>
-                        <div class="edgtf-sidebar-holder edgtf-grid-col-3">
+                        <div id="#items_filter" class="edgtf-sidebar-holder edgtf-grid-col-3">
                             <aside class="edgtf-sidebar">
 
-                               <form  method="get">
+                             <form  method="get">
 
-                                   <select class="custom-select custom-select-border-gray mb-40" name="orderby" >
-                                            <option value="popularity" >Sort by popularity</option>
-                                            <option value="rating" >Sort by average rating</option>
-                                            <option value="date" >Sort by newness</option>
-                                            <option value="price" >Sort by price: low to high</option>
-                                            <option value="price-desc"  selected='selected'>Sort by price: high to low</option>
+                                   <select class="custom-select custom-select-border-gray mb-40" name="order" >
+                                             <option value="0" >фильтрация по признаку</option>
+                                                <option {% if order == 'discount' %}selected="selected"{% endif %} value="discount">со скидкой</option>
+                                                <option {% if order == 'price_gte' %}selected="selected"{% endif %} value="price_gte">начинать с дорогих</option>
+                                                <option {% if order == 'price_lte' %}selected="selected"{% endif %}value="price_lte">начинать с дешевых</option>
+                                                <option {% if order == 'age_gte' %}selected="selected"{% endif %} value="age_gte">начинать с новых</option>
+                                                <option {% if order == 'age_lte' %}selected="selected"{% endif %} value="age_lte">начинать со старых</option>
                                     </select>
 
-                                <input type="hidden" name="paged" value="1" />
+                                <button style="padding: 0px;
+                                                position: relative;
+                                                top: -39px;
+                                                width: 100%;
+                                                font-size: 12px;" type="submit" class="">ПРИМЕНИТЬ</button>
                                 </form>
 
 
                                 <div class="widget woocommerce widget_product_search">
-                                    <form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="https://tetsuo.edge-themes.com/">
-                                    <label class="screen-reader-text">Search for:</label>
+                                    <form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="{% url 'search' %}">
+                                    <label class="screen-reader-text">Поиск</label>
                                     <div class="input-holder clearfix">
-                                        <input type="search" class="search-field" placeholder="Search" value="" name="s" title="Search for:">
+                                        <input type="search" class="search-field" placeholder="Поиск" name="query" value=""  >
                                         <button type="submit" class="edgtf-search-submit"><span aria-hidden="true" class="edgtf-icon-font-elegant icon_search "></span></button>
-                                        <input type="hidden" name="post_type" value="product">
+
                                     </div>
                                 </form>
                                 </div>
@@ -114,12 +138,11 @@
                                         <h4 class="edgtf-widget-title">Категории</h4>
                                     </div>
                                     <ul class="product-categories">
-                                        <li class="cat-item cat-item-42"><a href="https://tetsuo.edge-themes.com/product-category/animation/">СЕТЫ</a></li>
-                                        <li class="cat-item cat-item-46"><a href="https://tetsuo.edge-themes.com/product-category/clothes/">Clothes</a></li>
-                                        <li class="cat-item cat-item-53"><a href="https://tetsuo.edge-themes.com/product-category/design/">Design</a></li>
-                                        <li class="cat-item cat-item-55"><a href="https://tetsuo.edge-themes.com/product-category/inspiration/">Inspiration</a></li>
-                                        <li class="cat-item cat-item-54"><a href="https://tetsuo.edge-themes.com/product-category/special-effects/">Special Effects</a></li>
-                                        <li class="cat-item cat-item-15"><a href="https://tetsuo.edge-themes.com/product-category/uncategorized/">Uncategorized</a></li>
+
+                                        <li class="cat-item {% if cat_name == 'ВСЕ ПРЕДЛОЖЕНИЯ'%}shop_active_cat{% endif %}"><a  href="{% url 'shop_home' %}">ВСЕ ПРЕДЛОЖЕНИЯ</a></li>
+                                        {% for cat in all_categories %}
+                                        <li style="text-transform: uppercase" class="cat-item {% if cat.name == cat_name%}shop_active_cat{% endif %}"><a href="{% url 'shop_show_cat' cat.name_slug %}">{{ cat.name }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
 

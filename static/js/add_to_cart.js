@@ -11,15 +11,17 @@ function add_to_cart(form) {
         var item_name = form.elements["item_name"].value
         var item_price = form.elements["item_price"].value
         var item_image = form.elements["item_image"].value
+        var item_subitem = form.elements["item_subitem"].value
         var csrf_token = form.elements["csrfmiddlewaretoken"].value
 
 
 
     console.log($(form).attr('action'));
-     console.log(csrf_token);
+     console.log(item_subitem);
         var data = {};
         data.item_id = item_id;
         data.item_number = item_number;
+        data.item_subitem = item_subitem;
         data['csrfmiddlewaretoken'] = csrf_token;
         var url = $(form).attr('action');
   console.log(data);
@@ -34,23 +36,61 @@ function add_to_cart(form) {
                 console.log(data.all_items);
                 $('.header-cart').empty();
                 $.each(data.all_items,function (k,v) {
-                    $('.header-cart').append('   <li class="header-cart__item">\n' +
-            '                                    <figure style="width: 100px;" class="header-cart__product-thumb">\n' +
-            '                                        <a href="#"><img src="/media/' + v.image + '" alt=""></a>\n' +
-            '                                    </figure>\n' +
-            '                                    <div class="header-cart__inner"><span class="header-cart__product-cat">'+ v.category +'</span>\n' +
-            '                                        <h5 class="header-cart__product-name"><a href="#">'+ v.name +'</a></h5>\n' +
-            '                                        <div class="header-cart__product-sum"><span class="header-cart__product-price">'+ v.price +'</span> x <span class="header-cart__product-count">'+ v.number +'</span>= <span class="header-cart__product-count">'+ v.total_price +' RC</span> </div>\n' +
-            '                                         <a class="fa fa-times header-cart__close" href="#" data-item_id="'+ v.id +'" onclick="delete_from_cart(this);return false;"></a>\n' +
-            '                                    </div>\n' +
-            '                                </li>')
+                    if (v.subitem === 'no'){
+                        $('.header-cart').append(' <li>\n' +
+                          '                                                        <div class="edgtf-item-image-holder">\n' +
+                          '                                                            <a itemprop="url" href="#">\n' +
+                          '                                                                <img width="300" height="300" src="/media/' + v.image + '" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>\n' +
+                          '                                                        </div>\n' +
+                          '                                                        <div class="edgtf-item-info-holder">\n' +
+                          '                                                            <h5 itemprop="name" class="edgtf-product-title">\n' +
+                          '                                                                <a itemprop="url" href="#">'+ v.name +'</a>\n' +
+                          '                                                            </h5>\n' +
+                          '                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>'+ v.price +' RC</span> <span class="edgtf-quantity"> x '+ v.number +' = '+ v.total_price +' RC</span>\n' +
+                          '                                                            <a href="#" class="remove" data-item_id="'+ v.id +'" data-subitem_id="0" onclick="delete_from_cart(this);return false;">&#215;</a> </div>\n' +
+                          '                                                    </li>')
+                    }
+
+                     if (v.subitem === 'yes'){
+                        $('.header-cart').append(' <li>\n' +
+                          '                                                        <div class="edgtf-item-image-holder">\n' +
+                          '                                                            <a itemprop="url" href="#">\n' +
+                          '                                                                <img width="300" height="300" src="/media/' + v.image + '" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>\n' +
+                          '                                                        </div>\n' +
+                          '                                                        <div class="edgtf-item-info-holder">\n' +
+                          '                                                            <h5 itemprop="name" class="edgtf-product-title">\n' +
+                          '                                                                <a itemprop="url" href="#">'+ v.name +'</a>\n' +
+                          '                                                            </h5>\n' +
+                          '                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>'+ v.price +' RC</span> <span class="edgtf-quantity"> x '+ v.number +' = '+ v.total_price +' RC</span>\n' +
+                          '                                                            <a href="#" class="remove" data-item_id="0" data-subitem_id="'+ v.id +'" onclick="delete_from_cart(this);return false;">&#215;</a> </div>\n' +
+                          '                                                    </li>')
+                    }
+
+
+
+
+
+
+
+
 
 
                 })
-               $('.header-cart').append('  <li class="header-cart__item header-cart__item--subtotal"><span class="header-cart__subtotal">ИТОГО</span> <span class="header-cart__subtotal-sum">'+ data.total_cart_price +' RC</span></li>\n' +
-                   '                                <li class="header-cart__item header-cart__item--action"><a href="#" class="btn btn-warning btn-outline">БАЛАНС : '+ data.player_wallet +'</a> <a href="/blackmarket/place_order/" onclick="place_order(this);return false;" data-total_price="'+ data.total_cart_price +'" class="btn btn-warning btn-block">ОПЛАТИТЬ</a></li>')
 
-                $('#count_items_in_cart').html('('+ data.total_items_in_cart +')');
+                $('.header-cart').append('<li class="edgtf-cart-bottom">\n' +
+                    '                                                <div class="edgtf-subtotal-holder clearfix">\n' +
+                    '                                                    <span class="edgtf-total">Итого:</span>\n' +
+                    '                                                        <span class="edgtf-total-amount">\n' +
+                    '\t\t\t\t\t\t\t\t\t\t                 <span class="woocommerce-Price-amount amount">'+ data.total_cart_price +' RC</span>\n' +
+                    '                                                        </span>\n' +
+                    '                                                </div>\n' +
+                    '\n' +
+                    '\n' +
+                    '                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
+                    '\n' +
+                    '                                            </li> ')
+
+                $('#count_items_in_cart').html( data.total_items_in_cart );
                 $('.info-block__cart-sum').html(data.total_cart_price + ' RC');
                 $.amaran({
                         'theme'     :'user blue',

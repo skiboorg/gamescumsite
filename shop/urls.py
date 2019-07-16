@@ -22,9 +22,11 @@ urlpatterns = [
     path('', views.shop_home, name='shop_home'),
     path('category/<cat_slug>', views.shop_show_cat, name='shop_show_cat'),
     path('item/<item_slug>', views.shop_show_item, name='shop_show_item'),
+    path('search', views.search, name='search'),
     path('set/<set_slug>', views.shop_show_set, name='shop_show_set'),
     path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
     path('delete_from_cart/', views.delete_from_cart, name='delete_from_cart'),
+    path('add_to_favorite/', views.add_to_favorite, name='add_to_favorite'),
     path('place_order/', views.place_order, name='place_order'),
 
 ]

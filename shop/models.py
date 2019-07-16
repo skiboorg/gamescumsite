@@ -216,7 +216,7 @@ class ItemsInOrder(models.Model):
 
 class Baskets(models.Model):
     player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.SET_NULL)
-    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
@@ -230,7 +230,7 @@ class Baskets(models.Model):
 
     def save(self, *args, **kwargs):
         if self.subitem:
-            if self.item.discount > 0:
+            if self.subitem.discount > 0:
                 if self.player.vip:
                     self.current_price = self.subitem.price - (self.subitem.price * 30 / 100)
                 else:
