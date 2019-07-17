@@ -8,14 +8,30 @@
                 <div class="edgtf-title-wrapper">
                     <div class="edgtf-title-inner">
                         <div class="edgtf-grid">
+
                             <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">BLACK<span style="color: #ff7e1f">MARKET</span></h3>
+                            <div style="text-align: end" class="breadcrumbs">
+                                <ul >
+                                    <li><a href="/">Главная</a></li>
+                                     <li><a href="{% url 'shop_home' %}">BlackMarket</a></li>
+                                     <li><a href="{% url 'shop_show_cat' item.category.name_slug %}">{{ item.category.name }}</a></li>
+                                    <li>{{ item.name }}</li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
             <div  style="margin-top: 40px;" class="edgtf-container">
+
                 <div class="edgtf-container-inner clearfix">
+                <div style=" margin-bottom: 30px;">
+                                <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
+                                    <span style="color: red; font-size: larger;">Выдача купленного товара происходит после 18:00! Свяжитесь с администратором в Discord</span>
+                                </strong>
+                            </div>
                     <div id="product-242" class="post-242 product type-product status-publish has-post-thumbnail product_cat-animation product_tag-madness product_tag-philosophy first instock sale shipping-taxable purchasable product-type-simple">
 
                         <div style="    display: grid;    grid-template-columns: 1fr 1fr; grid-gap: 30px">
@@ -174,6 +190,20 @@
 
 
                     </div>
+                 <div style="font-size: 13px" class="alert alert-warning ">
+
+                                <img style="float: left;margin: 10px" src="{% static '/images/Devolver_Digital_Logo.png' %}">
+                                <strong>
+                                    Эти изображения получены с сайта SCUM или с сайтов, созданных и принадлежащих Devolver Digital
+                                    или Gamepires и Croteam, которые владеют авторским правом на SCUM. Все торговые марки и
+                                    зарегистрированные торговые марки, представленные на изображении, являются собственностью
+                                    Devolver Digital. Для получения дополнительной информации см. Уведомление об авторских правах.<br>
+                                    Считается, что использование изображений для иллюстрации статей, относящихся к предмету
+                                    рассматриваемых изображений, квалифицируется как законное использование в соответствии с
+                                    законодательством США об авторском праве, так как такое отображение не существенно ограничивает
+                                    право владельца авторских прав на продажу материалов, защищенных авторским правом.
+                                </strong>
+                            </div>
 
                 </div>
             </div>

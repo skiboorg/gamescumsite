@@ -45,27 +45,31 @@ class Set(models.Model):
 
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
-        new_price = 0
-        for item in self.items_set.all():
-            new_price += item.price
-        for subitem in self.subitem_set.all():
-            new_price += subitem.price
-        self.price = new_price
         super(Set, self).save(*args, **kwargs)
 
     @property
     def discount_value(self):
         if self.discount > 0:
-            dis_val = self.price - (self.price * self.discount / 100)
+            dis_val = self.get_total_price - (self.get_total_price * self.discount / 100)
         else:
-            dis_val = 0
+            dis_val = self.get_total_price
         return (dis_val)
 
     # todo добавить расчет скидки для старых игроков
     @property
     def discount_vip_value(self):
-        dis_vip_val = self.price - (self.price * 30 / 100)
+        dis_vip_val = self.get_total_price - (self.get_total_price * 30 / 100)
         return (dis_vip_val)
+
+    @property
+    def get_total_price(self):
+        price = 0
+        for item in self.items_set.all():
+            price += item.price
+        for subitem in self.subitem_set.all():
+            price += subitem.price
+        return (price)
+
 
 
     def __str__(self):
@@ -128,7 +132,7 @@ class Items(models.Model):
         if self.discount > 0:
             dis_val = self.price - (self.price * self.discount / 100)
         else:
-            dis_val = 0
+            dis_val = self.price
         return (dis_val)
 
     #todo добавить расчет скидки для старых игроков
@@ -146,7 +150,7 @@ class Items(models.Model):
 
 
 class SubItem(models.Model):
-    item = models.ForeignKey(Items, blank=True, null=True, on_delete=models.SET_NULL)
+    item = models.ForeignKey(Items, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Основной товар')
     set = models.ManyToManyField(Set, blank=True, null=True, verbose_name='В составе сета')
     color_name = models.CharField(max_length=255, blank=False)
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
@@ -159,7 +163,12 @@ class SubItem(models.Model):
     discount = models.IntegerField(default=0)
     for_vip = models.BooleanField(default=False)
 
+    def image_tag(self):
+        # used in the admin site model as a "thumbnail"
+        return mark_safe('<img src="{}" width="100" height="100" />'.format(self.image.url))
 
+
+    image_tag.short_description = 'Картинка'
 
     @property
     def discount_value(self):
@@ -187,7 +196,7 @@ class SubItem(models.Model):
 
 
 class Orders(models.Model):
-    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     server = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
     is_complete = models.BooleanField(default=False)
@@ -205,9 +214,9 @@ class Orders(models.Model):
 
 
 class ItemsInOrder(models.Model):
-    order = models.ForeignKey(Orders, blank=False, null=True, default=None, on_delete=models.SET_NULL)
-    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.SET_NULL)
-    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    order = models.ForeignKey(Orders, blank=False, null=True, default=None, on_delete=models.CASCADE)
+    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.CASCADE)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.CASCADE)
     number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
@@ -245,9 +254,9 @@ class ItemsInOrder(models.Model):
 
 
 class Baskets(models.Model):
-    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.SET_NULL)
-    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    player = models.ForeignKey(SteamUser, blank=False, null=True, default=None, on_delete=models.CASCADE)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.CASCADE)
     number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
@@ -289,7 +298,7 @@ class Baskets(models.Model):
 class FavoriteItems(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.CASCADE)
-    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         if self.subitem:
@@ -329,6 +338,7 @@ def apply_discount(sender,instance,**kwargs):
 post_delete.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 post_save.connect(ItemsInOrder_post_save, sender=ItemsInOrder)
 post_save.connect(apply_discount, sender=Categories)
+
 
 
 

@@ -136,7 +136,18 @@ h1{
     }
 }
 
-
+.breadcrumbs ul{
+    list-style: none;
+    display: inline-flex;
+}
+.breadcrumbs ul li:after{
+    content: '/';
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.breadcrumbs ul li:last-child:after{
+    content: '' !important;
+}
 .custom-select{
     border: 2px solid #ec4e00;
     background: none;

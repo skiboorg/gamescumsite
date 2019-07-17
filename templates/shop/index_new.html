@@ -9,6 +9,19 @@
                     <div class="edgtf-title-inner">
                         <div class="edgtf-grid">
                             <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">BLACK<span style="color: #ff7e1f">MARKET</span></h3>
+                            <div style="text-align: end" class="breadcrumbs">
+                                <ul >
+                                    <li><a href="/">Главная</a></li>
+
+                                    {% if  cat_name == 'ВСЕ ПРЕДЛОЖЕНИЯ'%}
+                                     <li>BlackMarket</li>
+                                    {% else %}
+                                        <li><a href="{% url 'shop_home' %}">BlackMarket</a></li>
+                                        <li>{{ cat_name }}</li>
+                                    {% endif %}
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -19,7 +32,7 @@
                     <div class="edgtf-grid-row ">
 
                         <div id="items_paginator" class="edgtf-page-content-holder edgtf-grid-col-9">
-                            <div>
+                            <div style=" margin-bottom: 30px;">
                                 <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
                                     <span style="color: red; font-size: larger;">Выдача купленного товара происходит после 18:00! Свяжитесь с администратором в Discord</span>
                                 </strong>
@@ -121,6 +134,7 @@
                         </div>
                         <div id="#items_filter" class="edgtf-sidebar-holder edgtf-grid-col-3">
                             <aside class="edgtf-sidebar">
+                            {% if  cat_name == 'ВСЕ ПРЕДЛОЖЕНИЯ'%}
 
                                 <form  method="get">
 
@@ -139,7 +153,7 @@
                                                 width: 100%;
                                                 font-size: 12px;" type="submit" class="">ПРИМЕНИТЬ</button>
                                 </form>
-
+                                {% endif %}
 
                                 <div class="widget woocommerce widget_product_search">
                                     <form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="{% url 'search' %}">
@@ -177,8 +191,15 @@
                                                     <span class="product-title">{{ set.name }}</span>
                                                 </a>
 
+                                                    {% if user.vip %}
+                                                      <span class="woocommerce-Price-amount amount">{{ set.discount_vip_value }} RC</span>
+                                                    {% else %}
+                                                        {% if item.discount_value > 0 %}
+                                                            <span class="woocommerce-Price-amount amount">{{ set.discount_value }} RC</span>
+                                                        {% endif %}
+                                                        <span class="woocommerce-Price-amount amount">{{ set.get_total_price }} RC</span>
+                                                    {% endif %}
 
-                                                <span class="woocommerce-Price-amount amount">{{ set.price }} RC</span>
                                             </li>
                                         {% endfor %}
 

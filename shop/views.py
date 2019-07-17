@@ -8,11 +8,26 @@ import json
 
 
 def shop_home(request):
+    fav_items_dict = defaultdict(list)
+    i = 0
     shop_active = 'active'
     page_title = 'BLACKMARKET'
     order = request.GET.get('order')
     all_categories = Categories.objects.all().filter(active=True)
     items_all = Items.objects.all().filter(active=True)
+    sets = Set.objects.all()
+    favorites = FavoriteItems.objects.filter(player_id=request.user.id)
+    for favorite in favorites:
+        try:
+            fav_items_dict[i].append({"item_id": favorite.item.id,"subitem_id": 0})
+        except:
+            pass
+        try:
+            fav_items_dict[i].append({"item_id": 0, "subitem_id": favorite.subitem.id})
+        except:
+            pass
+        i +=1
+    fav_items = json.dumps(dict(fav_items_dict))
     page = request.GET.get('page')
 
 
