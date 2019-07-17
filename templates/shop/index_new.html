@@ -19,15 +19,15 @@
                     <div class="edgtf-grid-row ">
 
                         <div id="items_paginator" class="edgtf-page-content-holder edgtf-grid-col-9">
-                        <div>
-                        <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
+                            <div>
+                                <strong>Вся информация вымышленная и является предметами игры SCUM, любое сходство случайно, реальной ценности не представляет!<br>
                                     <span style="color: red; font-size: larger;">Выдача купленного товара происходит после 18:00! Свяжитесь с администратором в Discord</span>
-                            </strong>
-                        </div>
+                                </strong>
+                            </div>
 
                             <div class="edgtf-pl-main-holder">
                                 <ul class="products columns-3">
-                                     {% for item in items %}
+                                    {% for item in items %}
 
                                         <li class="post-285 product type-product status-publish has-post-thumbnail product_cat-clothes product_tag-madness product_tag-philosophy first instock shipping-taxable purchasable product-type-simple">
                                             <div class="edgtf-pl-inner">
@@ -36,26 +36,26 @@
                                                     <div class="edgtf-pl-text">
                                                         <div class="edgtf-pl-text-outer">
                                                             <div class="edgtf-pl-text-inner">
-                                                              <a href="{% url 'shop_show_item' item.name_slug %}" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Купить</a>
+                                                                <a href="{% url 'shop_show_item' item.name_slug %}" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Купить</a>
 
-                                                             </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <a href="{% url 'shop_show_item' item.name_slug %}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a>
                                             </div>
                                             <div  class="item-info">
-                                                 <h5 class="edgtf-product-list-title">
-                                                        {{  item.name }}
-                                                    </h5>
-                                                    <div style="display: grid;
+                                                <h5 class="edgtf-product-list-title">
+                                                    {{  item.name }}
+                                                </h5>
+                                                <div style="display: grid;
                                                                 grid-template-columns: 40% 55%;
                                                                 grid-column-gap: 10px;" class="edgtf-pl-category">
-                                                        <div>Категория</div>
-                                                        <div><a href="{%  url 'shop_show_cat' item.category.name_slug %}">{{  item.category.name }}</a></div>
-                                                        <div>Модификаций</div>
-                                                        <div> {{ item.subitem_set.count }}</div>
-                                                    </div>
+                                                    <div>Категория</div>
+                                                    <div><a href="{%  url 'shop_show_cat' item.category.name_slug %}">{{  item.category.name }}</a></div>
+                                                    <div>Модификаций</div>
+                                                    <div> {{ item.subitem_set.count }}</div>
+                                                </div>
 
 
 
@@ -65,20 +65,20 @@
 
 
                                         </li>
-                                        {% endfor %}
-                                   </ul>
-                                </div>
+                                    {% endfor %}
+                                </ul>
+                            </div>
 
-                        <nav id="items_paginator" class="edgtf-shop-pagination" aria-label="Shop navigation">
+                            <nav id="items_paginator" class="edgtf-shop-pagination" aria-label="Shop navigation">
                                 <ul style="display: flex; align-items: center; justify-content: center;margin-bottom: 40px;"
                                     class="pagination justify-content-end">
-                                {% if items.has_previous %}
-                                    <li class="page-item">
-                                      <a class="page-link" href="?page=1{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Previous">
-                                        <
-                                      </a>
-                                    </li>
-                                {% endif %}
+                                    {% if items.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Previous">
+                                                <
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                     {% for pg in items.paginator.page_range %}
                                         {% if items.number == pg %}
                                             <li class="page-item page-item-active"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
@@ -87,35 +87,53 @@
                                             <li class="page-item"><a class="page-link" href="?page={{ pg }}{% if param %}&order={{ param }}{% endif %}#items_paginator">{{pg}}</a></li>
                                         {% endif %}
                                     {% endfor %}
-                                {% if items.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?page={{ items.paginator.num_pages }}{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Next">
-                                      >
+                                    {% if items.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ items.paginator.num_pages }}{% if param %}&order={{ param }}{% endif %}#items_paginator" aria-label="Next">
+                                                >
 
-                                    </a>
-                                  </li>
-                                  {% endif %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
 
                                 </ul>
 
                             </nav>
+                            <div style="font-size: 13px" class="alert alert-warning ">
+
+                                <img style="float: left;margin: 10px" src="{% static '/images/Devolver_Digital_Logo.png' %}">
+                                <strong>
+                                    Эти изображения получены с сайта SCUM или с сайтов, созданных и принадлежащих Devolver Digital
+                                    или Gamepires и Croteam, которые владеют авторским правом на SCUM. Все торговые марки и
+                                    зарегистрированные торговые марки, представленные на изображении, являются собственностью
+                                    Devolver Digital. Для получения дополнительной информации см. Уведомление об авторских правах.<br>
+                                    Считается, что использование изображений для иллюстрации статей, относящихся к предмету
+                                    рассматриваемых изображений, квалифицируется как законное использование в соответствии с
+                                    законодательством США об авторском праве, так как такое отображение не существенно ограничивает
+                                    право владельца авторских прав на продажу материалов, защищенных авторским правом.
+                                </strong>
+                            </div>
+
+
+
+
 
                         </div>
                         <div id="#items_filter" class="edgtf-sidebar-holder edgtf-grid-col-3">
                             <aside class="edgtf-sidebar">
 
-                             <form  method="get">
+                                <form  method="get">
 
-                                   <select class="custom-select custom-select-border-gray mb-40" name="order" >
-                                             <option value="0" >фильтрация по признаку</option>
-                                                <option {% if order == 'discount' %}selected="selected"{% endif %} value="discount">со скидкой</option>
-                                                <option {% if order == 'price_gte' %}selected="selected"{% endif %} value="price_gte">начинать с дорогих</option>
-                                                <option {% if order == 'price_lte' %}selected="selected"{% endif %}value="price_lte">начинать с дешевых</option>
-                                                <option {% if order == 'age_gte' %}selected="selected"{% endif %} value="age_gte">начинать с новых</option>
-                                                <option {% if order == 'age_lte' %}selected="selected"{% endif %} value="age_lte">начинать со старых</option>
+                                    <select class="custom-select custom-select-border-gray mb-40" name="order" >
+                                        <option value="0" >фильтрация по признаку</option>
+                                        <option {% if order == 'discount' %}selected="selected"{% endif %} value="discount">со скидкой</option>
+                                        <option {% if order == 'price_gte' %}selected="selected"{% endif %} value="price_gte">начинать с дорогих</option>
+                                        <option {% if order == 'price_lte' %}selected="selected"{% endif %}value="price_lte">начинать с дешевых</option>
+                                        <option {% if order == 'age_gte' %}selected="selected"{% endif %} value="age_gte">начинать с новых</option>
+                                        <option {% if order == 'age_lte' %}selected="selected"{% endif %} value="age_lte">начинать со старых</option>
                                     </select>
 
-                                <button style="padding: 0px;
+                                    <button style="padding: 0px;
                                                 position: relative;
                                                 top: -39px;
                                                 width: 100%;
@@ -125,13 +143,13 @@
 
                                 <div class="widget woocommerce widget_product_search">
                                     <form role="search" method="get" class="edgtf-searchform woocommerce-product-search" action="{% url 'search' %}">
-                                    <label class="screen-reader-text">Поиск</label>
-                                    <div class="input-holder clearfix">
-                                        <input type="search" class="search-field" placeholder="Поиск" name="query" value=""  >
-                                        <button type="submit" class="edgtf-search-submit"><span aria-hidden="true" class="edgtf-icon-font-elegant icon_search "></span></button>
+                                        <label class="screen-reader-text">Поиск</label>
+                                        <div class="input-holder clearfix">
+                                            <input type="search" class="search-field" placeholder="Поиск" name="query" value=""  >
+                                            <button type="submit" class="edgtf-search-submit"><span aria-hidden="true" class="edgtf-icon-font-elegant icon_search "></span></button>
 
-                                    </div>
-                                </form>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="widget woocommerce widget_product_categories">
                                     <div class="edgtf-widget-title-holder">
@@ -141,77 +159,75 @@
 
                                         <li class="cat-item {% if cat_name == 'ВСЕ ПРЕДЛОЖЕНИЯ'%}shop_active_cat{% endif %}"><a  href="{% url 'shop_home' %}">ВСЕ ПРЕДЛОЖЕНИЯ</a></li>
                                         {% for cat in all_categories %}
-                                        <li style="text-transform: uppercase" class="cat-item {% if cat.name == cat_name%}shop_active_cat{% endif %}"><a href="{% url 'shop_show_cat' cat.name_slug %}">{{ cat.name }}</a></li>
+                                            <li style="text-transform: uppercase" class="cat-item {% if cat.name == cat_name%}shop_active_cat{% endif %}"><a href="{% url 'shop_show_cat' cat.name_slug %}">{{ cat.name }}</a></li>
                                         {% endfor %}
-                                    </ul>
-                                </div>
-
-                                 <div class="widget woocommerce widget_products">
-                                    <div class="edgtf-widget-title-holder">
-                                        <h4 class="edgtf-widget-title">СЕТЫ</h4>
-                                    </div>
-                                    <ul class="product_list_widget">
-                                        <li>
-                                            <a href="https://tetsuo.edge-themes.com/product/poster/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Poster</span>
-                                            </a>
-
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>399</span>
-                                        </li>
-                                        <li>
-
-                                            <a href="https://tetsuo.edge-themes.com/product/recorder/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Recorder</span>
-                                            </a>
-
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>70</span>
-                                        </li>
-                                        <li>
-
-                                            <a href="https://tetsuo.edge-themes.com/product/wallpaper/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Wallpaper</span>
-                                            </a>
-
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>2</span>
-                                        </li>
                                     </ul>
                                 </div>
 
                                 <div class="widget woocommerce widget_products">
                                     <div class="edgtf-widget-title-holder">
-                                        <h4 class="edgtf-widget-title">В ИЗБРАННОМ</h4>
+                                        <h4 class="edgtf-widget-title">СЕТЫ</h4>
                                     </div>
                                     <ul class="product_list_widget">
-                                        <li>
-                                            <a href="https://tetsuo.edge-themes.com/product/poster/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-9.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Poster</span>
-                                            </a>
+                                        {% for set in sets %}
+                                            <li>
+                                                <a href="#">
+                                                    <img width="300" height="300" src="{{ set.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a"
+                                                         sizes="(max-width: 300px) 100vw, 300px">
+                                                    <span class="product-title">{{ set.name }}</span>
+                                                </a>
 
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>399</span>
-                                        </li>
-                                        <li>
 
-                                            <a href="https://tetsuo.edge-themes.com/product/recorder/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-4.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Recorder</span>
-                                            </a>
+                                                <span class="woocommerce-Price-amount amount">{{ set.price }} RC</span>
+                                            </li>
+                                        {% endfor %}
 
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>70</span>
-                                        </li>
-                                        <li>
-
-                                            <a href="https://tetsuo.edge-themes.com/product/wallpaper/">
-                                                <img width="300" height="300" src="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" srcset="https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-300x300.jpg 300w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-150x150.jpg 150w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-70x70.jpg 70w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10-100x100.jpg 100w, https://tetsuo.edge-themes.com/wp-content/uploads/2018/07/Product-feat-img-10.jpg 596w" sizes="(max-width: 300px) 100vw, 300px">		<span class="product-title">Wallpaper</span>
-                                            </a>
-
-                                            <div class="star-rating"><span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>2</span>
-                                        </li>
                                     </ul>
+                                </div>
+
+                                <div class="widget woocommerce widget_products">
+                                    <div class="edgtf-widget-title-holder">
+                                        <h4 class="edgtf-widget-title">ИЗБРАННОЕ</h4>
+                                    </div>
+                                    <span id="fav_items" style="display: none">{{ fav_items }}</span>
+                                    <ul class="product_list_widget">
+                                        {% if favorites.count > 0 %}
+                                            {% for fav_item in favorites %}
+                                                {% if fav_item.item %}
+                                                    <li >
+                                                        <a href="{% url 'shop_show_item' fav_item.item.name_slug %}">
+                                                            <img width="300" height="300" src="{{ fav_item.item.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a"
+                                                                 sizes="(max-width: 300px) 100vw, 300px">
+                                                            <span class="product-title">{{ fav_item.item.name }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if fav_item.subitem %}
+
+                                                    <li>
+                                                        <a href="{% url 'shop_show_item' fav_item.subitem.item.name_slug %}?i={{ fav_item.subitem.id }}">
+                                                            <img width="300" height="300" src="{{ fav_item.subitem.image.url }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a"
+                                                                 sizes="(max-width: 300px) 100vw, 300px">
+                                                            <span class="product-title">{{ fav_item.subitem.item.name }} {{ fav_item.subitem.color_name }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+
+
+                                            {% endfor %}
+                                            </ul>
+                                            <hr>
+                                            <a style="display: block;
+                                                  text-align: center;
+                                                  margin-top: 25px;"
+                                               onclick="massInCart();return false;"
+                                               href="#" class="btn-outline btn-xs">Купить все</a>
+                                        {% else %}
+                                            Избранных товаров нет
+                                        {% endif %}
+
+
                                 </div>
 
                             </aside>
@@ -222,4 +238,119 @@
 
         </div> <!-- close div.content_inner -->
     </div>
+
+    <script>
+
+    var items = []
+    var ii=0
+
+        function massInCart() {
+
+            let fav_items = $('#fav_items').html()
+             var data = {};
+                data.fav_items = fav_items;
+                data['csrfmiddlewaretoken'] = $('#dummy_form [name="csrfmiddlewaretoken"]').val();
+                var url = '/blackmarket/mass_to_cart/';
+                console.log(data);
+                $.ajax({
+                        url:url,
+                        type:'POST',
+                        data: data,
+                        cache:true,
+                        success: function (data) {
+                            console.log('OK');
+                            console.log(data.total_items_in_cart);
+                            console.log(data.all_items);
+                            console.log(data.new_items);
+                            $('.header-cart').empty();
+                            $.each(data.all_items,function (k,v) {
+                                if (v.subitem === 'no'){
+                                    $('.header-cart').append(' <li>\n' +
+                                        '                                                        <div class="edgtf-item-image-holder">\n' +
+                                        '                                                            <a itemprop="url" href="#">\n' +
+                                        '                                                                <img width="300" height="300" src="/media/' + v.image + '" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>\n' +
+                                        '                                                        </div>\n' +
+                                        '                                                        <div class="edgtf-item-info-holder">\n' +
+                                        '                                                            <h5 itemprop="name" class="edgtf-product-title">\n' +
+                                        '                                                                <a itemprop="url" href="#">'+ v.name +'</a>\n' +
+                                        '                                                            </h5>\n' +
+                                        '                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>'+ v.price +' RC</span> <span class="edgtf-quantity"> x '+ v.number +' = '+ v.total_price +' RC</span>\n' +
+                                        '                                                            <a href="#" class="remove" data-item_id="'+ v.id +'" data-subitem_id="0" onclick="delete_from_cart(this);return false;">&#215;</a> </div>\n' +
+                                        '                                                    </li>')
+                                }
+
+                                if (v.subitem === 'yes'){
+                                    $('.header-cart').append(' <li>\n' +
+                                        '                                                        <div class="edgtf-item-image-holder">\n' +
+                                        '                                                            <a itemprop="url" href="#">\n' +
+                                        '                                                                <img width="300" height="300" src="/media/' + v.image + '" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="a" /> </a>\n' +
+                                        '                                                        </div>\n' +
+                                        '                                                        <div class="edgtf-item-info-holder">\n' +
+                                        '                                                            <h5 itemprop="name" class="edgtf-product-title">\n' +
+                                        '                                                                <a itemprop="url" href="#">'+ v.name +'</a>\n' +
+                                        '                                                            </h5>\n' +
+                                        '                                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>'+ v.price +' RC</span> <span class="edgtf-quantity"> x '+ v.number +' = '+ v.total_price +' RC</span>\n' +
+                                        '                                                            <a href="#" class="remove" data-item_id="0" data-subitem_id="'+ v.id +'" onclick="delete_from_cart(this);return false;">&#215;</a> </div>\n' +
+                                        '                                                    </li>')
+                                }
+
+
+
+
+
+
+
+
+
+
+                            })
+
+                            $('.header-cart').append('<li class="edgtf-cart-bottom">\n' +
+                                '                                                <div class="edgtf-subtotal-holder clearfix">\n' +
+                                '                                                    <span class="edgtf-total">Итого:</span>\n' +
+                                '                                                        <span class="edgtf-total-amount">\n' +
+                                '\t\t\t\t\t\t\t\t\t\t                 <span class="woocommerce-Price-amount amount">'+ data.total_cart_price +' RC</span>\n' +
+                                '                                                        </span>\n' +
+                                '                                                </div>\n' +
+                                '\n' +
+                                '\n' +
+                                '                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
+                                '\n' +
+                                '                                            </li> ')
+
+                            $('#count_items_in_cart').html( data.total_items_in_cart );
+                            $('.info-block__cart-sum').html(data.total_cart_price + ' RC');
+
+
+
+                             $.each(data.new_items,function (k,v) {
+
+                                $.amaran({
+                                'theme'     :'user blue',
+                                'content'   :{
+                                    img:'/media/'+ v.image,
+                                    user:'Добавлено :',
+                                    message: '1 шт. - ' + v.name
+                                },
+                                'position'  :'bottom right',
+                                'outEffect' :'slideBottom'
+                            });
+
+                             })
+
+
+
+
+
+
+                        },
+                        error: function () {
+                            console.log('ERROR')
+                        }
+                    }
+                )
+
+        }
+
+    </script>
 {% endblock %}

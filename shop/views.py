@@ -3,6 +3,8 @@ from django.shortcuts import render
 from shop.models import *
 from authentication.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from collections import defaultdict
+import json
 
 
 def shop_home(request):
@@ -54,9 +56,27 @@ def shop_home(request):
 
 
 def shop_show_cat(request, cat_slug):
+    fav_items_dict = defaultdict(list)
+    i=0
     page_title = 'BLACKMARKET'
     shop_active = 'active'
     all_categories = Categories.objects.all().filter(active=True)
+    sets = Set.objects.all()
+    favorites = FavoriteItems.objects.filter(player_id=request.user.id)
+
+    for favorite in favorites:
+        try:
+            fav_items_dict[i].append({"item_id": favorite.item.id,"subitem_id": 0})
+        except:
+            pass
+        try:
+            fav_items_dict[i].append({"item_id": 0, "subitem_id": favorite.subitem.id})
+        except:
+            pass
+        i +=1
+    fav_items = json.dumps(dict(fav_items_dict))
+    print(json.dumps(fav_items))
+
     current_cat = all_categories.get(name_slug=cat_slug)
     items = Items.objects.filter(category__name_slug=cat_slug).all().filter(active=True)
     hot_items = Items.objects.all().order_by('-buys').filter(active=True)[:6]
@@ -98,6 +118,89 @@ def shop_show_item(request, item_slug):
 
 def shop_show_set(request, set_slug):
     return render(request, 'shop/set.html', locals())
+
+def mass_to_cart(request):
+    return_dict = {}
+    data = request.POST
+    items = []
+    subitems = []
+    return_dict['new_items'] = list()
+
+
+    f_items = json.loads(data['fav_items'])
+    print('FAVORITE ITEMS')
+    print(f_items)
+
+    for i in f_items:
+        if f_items[i][0]['item_id'] != 0:
+            items.append(f_items[i][0]['item_id'])
+        if f_items[i][0]['subitem_id'] != 0:
+            subitems.append(f_items[i][0]['subitem_id'])
+    print(items)
+    print(subitems)
+
+    for item in items:
+        items_dict = dict()
+        item_fetch = Items.objects.get(id=item)
+        items_dict['name'] = item_fetch.name
+        items_dict['image'] = str(item_fetch.image)
+        return_dict['new_items'].append(items_dict)
+        addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,item_id=item, defaults={'number': 1})
+        if not created:
+            addtocart.number += 1
+            addtocart.save(force_update=True)
+    for subitem in subitems:
+        subitems_dict = dict()
+        item_fetch = SubItem.objects.get(id=subitem)
+        subitems_dict['name'] = item_fetch.item.name + ' ' + item_fetch.color_name
+        subitems_dict['image'] = str(item_fetch.image)
+        return_dict['new_items'].append(subitems_dict)
+        addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,subitem_id=subitem, defaults={'number': 1})
+        if not created:
+            addtocart.number += 1
+            addtocart.save(force_update=True)
+
+    all_items_in_cart = Baskets.objects.filter(player_id=request.user.id)
+    count_items_in_cart = all_items_in_cart.count()
+    total_cart_price = 0
+
+    return_dict['total_items_in_cart'] = count_items_in_cart
+    return_dict['all_items'] = list()
+    for item in all_items_in_cart:
+
+        total_cart_price += item.total_price
+
+        item_dict = dict()
+        try:
+            print('item id {}'.format(item.item.id))
+            item_dict['id'] = item.item.id
+            item_dict['name'] = item.item.name
+            item_dict['category'] = item.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'no'
+            item_dict['image'] = str(item.item.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('item id none')
+        try:
+            print('subitem id {}'.format(item.subitem.id))
+            item_dict['id'] = item.subitem.id
+            item_dict['name'] = item.subitem.item.name + ' ' + item.subitem.color_name
+            item_dict['category'] = item.subitem.item.category.name
+            item_dict['price'] = item.current_price
+            item_dict['total_price'] = item.total_price
+            item_dict['number'] = item.number
+            item_dict['subitem'] = 'yes'
+            item_dict['image'] = str(item.subitem.image)
+            return_dict['all_items'].append(item_dict)
+        except:
+            print('subitem id none')
+
+    return_dict['total_cart_price'] = total_cart_price
+    return_dict['player_wallet'] = request.user.wallet
+    return JsonResponse(return_dict)
 
 def add_to_cart(request):
     return_dict = {}

@@ -183,10 +183,12 @@
     <script>
 
     function add_to_favorite(el) {
+        item_id = '0'
+        subitem_id = '0'
 
         let btn = $(el)
-        let item_id = btn.data('item_id')
-        let subitem_id = btn.data('subitem_id')
+        item_id = btn.attr('data-item_id')
+        subitem_id = btn.attr('data-subitem_id')
 
         let url = '/blackmarket/add_to_favorite/';
         let csrf_token = $('#dummy_form [name="csrfmiddlewaretoken"]').val();
@@ -197,6 +199,7 @@
         data['csrfmiddlewaretoken'] = csrf_token;
 
         console.log(data);
+
         $.ajax({
             url:url,
             type:'POST',

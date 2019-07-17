@@ -3,6 +3,7 @@ from django.db.models.signals import post_save, post_delete
 from authentication.models import SteamUser
 from pytils.translit import slugify
 from squads.models import SquadSectors
+from django.utils.safestring import mark_safe
 
 class Categories(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
@@ -29,11 +30,11 @@ class Categories(models.Model):
 
 class Set(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
-    name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
     name_slug = models.SlugField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to='set/', null=True, blank=False)
     description = models.TextField(blank=True, null=True, default='')
-    spawn_commands = models.TextField(blank=True, null=True, default='')
+    # spawn_commands = models.TextField(blank=True, null=True, default='')
+    price = models.IntegerField(default=0, blank=True)
     discount = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
     active = models.BooleanField(default=True)
@@ -44,8 +45,28 @@ class Set(models.Model):
 
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
-        self.name_lower = self.name.lower()
+        new_price = 0
+        for item in self.items_set.all():
+            new_price += item.price
+        for subitem in self.subitem_set.all():
+            new_price += subitem.price
+        self.price = new_price
         super(Set, self).save(*args, **kwargs)
+
+    @property
+    def discount_value(self):
+        if self.discount > 0:
+            dis_val = self.price - (self.price * self.discount / 100)
+        else:
+            dis_val = 0
+        return (dis_val)
+
+    # todo добавить расчет скидки для старых игроков
+    @property
+    def discount_vip_value(self):
+        dis_vip_val = self.price - (self.price * 30 / 100)
+        return (dis_vip_val)
+
 
     def __str__(self):
         return 'Сет : %s ' % self.name
@@ -54,26 +75,27 @@ class Set(models.Model):
         verbose_name = "Сет"
         verbose_name_plural = "Сеты"
 
-class SetImage(models.Model):
-    set = models.ForeignKey(Set, blank=True, null=True, on_delete=models.SET_NULL)
-    image = models.ImageField(upload_to='set_images/',  blank=False)
-    description = models.CharField(max_length=255, blank=False, null=True)
-
-    def __str__(self):
-        try:
-            return 'Часть сета: %s ' % self.set.name
-        except:
-            return 'Часть сета без привязки к сету '
-
-
-    class Meta:
-        verbose_name = "Часть сета"
-        verbose_name_plural = "Части сетов"
+# class SetImage(models.Model):
+#     set = models.ForeignKey(Set, blank=True, null=True, on_delete=models.SET_NULL)
+#     image = models.ImageField(upload_to='set_images/',  blank=False)
+#     description = models.CharField(max_length=255, blank=False, null=True)
+#
+#     def __str__(self):
+#         try:
+#             return 'Часть сета: %s ' % self.set.name
+#         except:
+#             return 'Часть сета без привязки к сету '
+#
+#
+#     class Meta:
+#         verbose_name = "Часть сета"
+#         verbose_name_plural = "Части сетов"
 
 
 
 class Items(models.Model):
     category = models.ForeignKey(Categories, blank=False, null=True, on_delete=models.CASCADE)
+    set = models.ManyToManyField(Set,blank=True, null=True, verbose_name='В составе сета')
     name = models.CharField(max_length=255, blank=False, null=True)
     name_slug = models.CharField(max_length=255, blank=True, null=True, db_index=True)
     name_lower = models.CharField(max_length=255, blank=True, null=True, default='')
@@ -93,6 +115,13 @@ class Items(models.Model):
         self.name_slug = slugify(self.name)
         self.name_lower = self.name.lower()
         super(Items, self).save(*args, **kwargs)
+
+    def image_tag(self):
+        # used in the admin site model as a "thumbnail"
+        return mark_safe('<img src="{}" width="100" height="100" />'.format(self.image.url))
+
+
+    image_tag.short_description = 'Картинка'
 
     @property
     def discount_value(self):
@@ -118,6 +147,7 @@ class Items(models.Model):
 
 class SubItem(models.Model):
     item = models.ForeignKey(Items, blank=True, null=True, on_delete=models.SET_NULL)
+    set = models.ManyToManyField(Set, blank=True, null=True, verbose_name='В составе сета')
     color_name = models.CharField(max_length=255, blank=False)
     item_spawn_name = models.CharField(max_length=255, blank=False, null=True)
     description = models.TextField(blank=True, null=True, default='')
