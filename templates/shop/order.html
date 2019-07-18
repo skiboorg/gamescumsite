@@ -40,7 +40,7 @@
                                                      {% for item in cart_items %}
                                                          {% if item.item.id %}
                                                          <div class="set-item">
-                                                         <img width="100px" src="{{ item.image.url }}">
+                                                         <img width="100px" src="{{ item.item.image.url }}">
                                                              <div>
                                                                  <h4>{{ item.name }}</h4>
                                                          <p>{{ item.description }}</p>

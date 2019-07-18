@@ -377,7 +377,7 @@ def order(request):
     print('cart_items')
     print(cart_items)
     total_cart_price = 0
-    
+
     for item in cart_items:
         total_cart_price += item.total_price
     if player.wallet < total_cart_price:
