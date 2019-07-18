@@ -26,46 +26,51 @@ def check_profile(request):
         #     player.rank = 'VIP'
         #     player.save(force_update=True)
 
+        # проверка активирован ли аккаунт через дискорд
+        if player.discord_id == None:
+            profile_bad = True
+        else:
+            profile_bad = False
+
+            if time_now > last_login:
+                if player.vip:
+                    player.rating += 2
+                    player.wallet += 50
+                    player.last_vizit = datetime.now().date()
+                    player.save(force_update=True)
+                else:
+                    if not player.outlaw:
+                        player.rating += 1
+                        player.wallet += 25
+                        player.last_vizit = datetime.now().date()
+                        player.save(force_update=True)
+
+            # проверка срока действия вип статуса
+
+            if player.vip:
+                if player.vip_start + timedelta(days=30) < time_now:
+                    print('is_not_vip')
+                    player.vip = False
+                    player.save(force_update=True)
+                    is_vip = False
+                else:
+                    print('is_vip')
+                    print(time_now)
+                    print(player.vip_start + timedelta(days=30))
+                    print(player.vip_start)
+                    is_vip = True
+
+
 
         if time_now > player.last_buy:
             player.buys_count = 0
 
         # проверка последнего входа на сайт и начисление ЗП
         #todo добавить начисление ЗП от уровня отряда Если игрок (Pl1) в отряде (SQ1) ур. zp = 35 + ур. SQ1*5
-        if time_now > last_login:
-            if player.vip:
-                player.rating += 2
-                player.wallet += 50
-                player.last_vizit = datetime.now().date()
-                player.save(force_update=True)
-            else:
-                if not player.outlaw:
-                    player.rating += 1
-                    player.wallet += 25
-                    player.last_vizit = datetime.now().date()
-                    player.save(force_update=True)
 
-        #проверка срока действия вип статуса
 
-        if player.vip:
-            if player.vip_start + timedelta(days=30) < time_now:
-                print('is_not_vip')
-                player.vip = False
-                player.save(force_update=True)
-                is_vip = False
-            else:
-                print('is_vip')
-                print(time_now)
-                print(player.vip_start + timedelta(days=30))
-                print(player.vip_start)
-                is_vip = True
 
-        # проверка активирован ли аккаунт через дискорд
 
-        if player.discord_id == None:
-            profile_bad = True
-        else:
-            profile_bad = False
 
     return locals()
 

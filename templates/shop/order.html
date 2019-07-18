@@ -10,13 +10,12 @@
                     <div class="edgtf-title-wrapper">
                         <div class="edgtf-title-inner">
                             <div class="edgtf-grid">
-                                <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">СОСТАВ СЕТА<br><span style="color: #ff7e1f">{{ set_item.name }}</span></h3>
+                                <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">ОФОРМЛЕНИЕ<span style="color: #ff7e1f">ЗАКАЗА</span></h3>
                                 <div style="text-align: end" class="breadcrumbs">
                                 <ul >
                                     <li><a href="/">Главная</a></li>
                                      <li><a href="{% url 'shop_home' %}">BlackMarket</a></li>
-
-                                    <li>Обзор сета</li>
+                                    <li>Оформление заказа</li>
                                 </ul>
                             </div>
                             </div>
@@ -34,24 +33,12 @@
                                         <div class="vc_row wpb_row vc_row-fluid vc_custom_1534166646182">
 
                                             <div class="set-wrapper">
-                                                <div class="set-description">
-                                                    <img src="{{ set_item.image.url }}">
-                                                    <p>{{ set_item.description }}</p>
-
-                                                </div>
                                                  <div class="set-items">
-                                                     {% if user.vip %}
-                                                      <h3>Цена : {{ set_item.discount_vip_value }} RC</h3>
-                                                     {% else %}
-                                                        {% if set_item.discount > 0 %}
-                                                            <h3>Цена : {{ set_item.discount_value }} RC</h3>
-                                                        {% endif %}
-                                                            <h3>Цена : {{ set_item.get_total_price }} RC</h3>
-                                                     {% endif %}
 
-                                                    <h3>Cостав</h3>
+                                                    <h3>В заказе</h3>
                                                  <div class="custom_hr"></div>
-                                                     {% for item in set_items %}
+                                                     {% for item in cart_items %}
+                                                         {% if item.item.id %}
                                                          <div class="set-item">
                                                          <img width="100px" src="{{ item.image.url }}">
                                                              <div>
@@ -60,17 +47,22 @@
                                                              </div>
 
                                                          </div>
-                                                     {% endfor %}
-                                                 {% for item in set_subitems %}
+                                                         {% endif %}
+                                                         {% if item.subitem.id %}
                                                          <div class="set-item">
-                                                         <img width="100px" src="{{ item.image.url }}">
+                                                         <img width="100px" src="{{ item.subitem.image.url }}">
                                                              <div>
                                                                  <h4>{{ item.name }}</h4>
                                                          <p>{{ item.description }}</p>
                                                              </div>
 
                                                          </div>
+                                                         {% endif %}
+
+
+
                                                      {% endfor %}
+
 
 
                                                  <a style="display: block;

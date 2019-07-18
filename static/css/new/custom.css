@@ -189,3 +189,23 @@ h1{
     border: 2px solid #ec4e00;
     cursor: pointer;
 }
+
+.set-wrapper{
+display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.set-description{
+
+
+}
+
+.set-item{
+display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.set-items{
+
+}

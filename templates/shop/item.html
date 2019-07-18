@@ -43,12 +43,12 @@
                                 </div>
                             <span id="is_vip" style="display: none">{{ is_vip }}</span>
                             <span id="level" style="display: none">{{ player.level }}</span>
-
+                            {% if subitems %}
                                 <div style="    display: grid;    grid-template-columns: repeat(auto-fill, minmax(110px, auto));">
-                                <img  class="subitem-image subitem-image-active"
-                                             data-id="{{ item.id }}"
-                                            data-main_item="1"
 
+                                <img id="main_item"  class="subitem-image subitem-image-active"
+                                             data-id="{{ item.id }}"
+                                             data-main_item="1"
                                              data-price="{{ item.price }}"
                                              data-color_name="{{ item.name }}"
                                              data-level="{{ item.level }}"
@@ -58,12 +58,11 @@
                                              data-discount_percent="{{ item.discount }}"
                                              data-discount="{{ item.discount_value }}"
                                              data-discount_vip="{{ item.discount_vip_value }}"
-                                              {% if bitem.id in favorites_item_id %}
+                                              {% if item.id in favorites_id %}
                                                     data-in_fav="1"
                                                 {% else %}
                                                     data-in_fav="0"
                                               {% endif %}
-
                                              src="{{ item.image.url }}"
                                              onclick="changeItem(this)"
                                         >
@@ -91,6 +90,7 @@
                                         >
                                     {% endfor %}
                                 </div>
+                            {% endif %}
 
 
 
@@ -233,220 +233,7 @@
 
         </div> <!-- close div.content_inner -->
     </div>
-    <script>
 
-    function add_to_favorite(el) {
-        item_id = '0'
-        subitem_id = '0'
-
-        let btn = $(el)
-        item_id = btn.attr('data-item_id')
-        subitem_id = btn.attr('data-subitem_id')
-
-        let url = '/blackmarket/add_to_favorite/';
-        let csrf_token = $('#dummy_form [name="csrfmiddlewaretoken"]').val();
-
-        var data = {};
-        data.item_id = item_id;
-        data.subitem_id = subitem_id;
-        data['csrfmiddlewaretoken'] = csrf_token;
-
-        console.log(data);
-
-        $.ajax({
-            url:url,
-            type:'POST',
-            data: data,
-            cache:true,
-            success: function (data) {
-                console.log('OK');
-                console.log(data);
-                if (data.action === 'added'){
-                     console.log('added');
-                    btn.html('УДАЛИТЬ ИЗ ИЗБРАННОГО')
-
-                    $.amaran({
-                        'theme'     :'colorful',
-                        'content'   :{
-                           bgcolor:'#27ae60',
-                           color:'#fff',
-                           message:'Товар добавлен в избранное'
-                        },
-                        'position'  :'bottom right',
-                        'outEffect' :'slideBottom'
-                    });
-
-
-                }
-
-                if (data.action === 'deleted'){
-                    console.log('deleted');
-                    btn.html('В ИЗБРАННОЕ')
-
-                    $.amaran({
-                        'theme'     :'colorful',
-                        'content'   :{
-                           bgcolor:'#ae1737',
-                           color:'#fff',
-                           message:'Товар удален из избранного'
-                        },
-                        'position'  :'bottom right',
-                        'outEffect' :'slideBottom'
-                    });
-
-
-                }
-
-
-
-            },
-            error: function () {
-                console.log('ERROR')
-            }
-        });
-
-
-    }
-
-
-        var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
-
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
-
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                }
-            }
-        };
-
-    function changeItem(i) {
-
-
-        let subitem_id = i.dataset.id
-        let main_item = i.dataset.main_item
-        let subitem_level = i.dataset.level
-        let subitem_price = i.dataset.price
-        let subitem_image = i.dataset.image
-        let subitem_image_big = i.dataset.image_big
-        let subitem_description = i.dataset.description
-        let subitem_discount = i.dataset.discount
-        let subitem_discount_vip = i.dataset.discount_vip
-        let subitem_discount_percent = i.dataset.discount_percent
-        let subitem_color_name = i.dataset.color_name
-        let subitem_in_fav = i.dataset.in_fav
-
-        $('.subitem-image').each(function () {
-
-            $(this).removeClass('subitem-image-active')
-
-        })
-
-        $(i).addClass('subitem-image-active')
-
-
-
-
-        $('#item_image_big').attr('src',subitem_image_big)
-
-        $('#addtofav').attr('data-item_id',0)
-        $('#addtofav').attr('data-subitem_id',subitem_id)
-
-        if (subitem_in_fav === '1'){
-            $('#addtofav').html('УДАЛИТЬ ИЗ ИЗБРАННОГО')
-        }
-        else{
-            $('#addtofav').html('В Избранное')
-        }
-
-        if ($('#is_vip').html() === 'True'){
-
-            $('#discount_vip').html(subitem_discount_vip + ' RC')
-            $('#price').html(subitem_price + ' RC')
-            $('#discount_vip_label').html('-30% VIP')
-
-
-            $('#item_name').val(subitem_color_name)
-            $('#item_price').val(subitem_discount_vip)
-            $('#item_image').val(subitem_image)
-            $('#item_subitem').val(subitem_id)
-
-
-
-        }else {
-
-            if (parseInt($('#level').html()) < parseInt(subitem_level)){
-                $('#cart_form').css('display','none');
-                $('#low_level').css('display','block');
-
-            }
-            else{
-                 $('#cart_form').css('display','block');
-                $('#low_level').css('display','none');
-
-
-            }
-
-            if (subitem_discount > 0){
-              $('#discount').html(subitem_discount + ' RC')
-                $('#price').html(subitem_price + ' RC')
-                $('#discount_label').html('- '+ subitem_discount_percent + '%')
-                $('#price').css('display','inline-block')
-                $('.edgtf-onsale').css('display','block')
-                 $('#item_price').val(subitem_discount)
-            }
-            else{
-                $('#discount').html(subitem_price + ' RC')
-                $('#price').css('display','none')
-                $('.edgtf-onsale').css('display','none')
-                 $('#item_price').val(subitem_price)
-            }
-
-
-            $('#item_name').val(subitem_color_name)
-
-            $('#item_image').val(subitem_image)
-
-
-        }
-         console.log(main_item)
-
-            if (main_item === '0'){
-             $('#item_subitem').val(subitem_id)
-                $('#item_color').css('display','block')
-            }else{
-               $('#item_subitem').val('0')
-                $('#item_color').css('display','none')
-               $('#item_id').val(subitem_id)
-            }
-        $('#item_description').html(subitem_description)
-
-        $('#item_color').html(subitem_color_name)
-
-
-
-
-    }
-
-        $( document ).ready(function() {
-            console.log( "ready!" );
-
-
-
-            if(getUrlParameter('i') !== undefined){
-               console.log(getUrlParameter('i'));
-               document.getElementById('subitem_'+getUrlParameter('i')).click();
-            }
-
-
-
-        });
-
-    </script>
 
 
 

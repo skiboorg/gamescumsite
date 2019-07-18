@@ -132,6 +132,21 @@ def shop_show_item(request, item_slug):
     return render(request, 'shop/item.html', locals())
 
 def shop_show_set(request, set_slug):
+    all_set_items = defaultdict(list)
+    i=0
+    set_item = Set.objects.get(name_slug=set_slug)
+    set_items = set_item.items_set.all()
+    set_subitems = set_item.subitem_set.all()
+    for item in set_items:
+        all_set_items[i].append({"item_id": item.id,"subitem_id": 0})
+        i += 1
+    for item in set_subitems:
+        all_set_items[i].append({"item_id": 0,"subitem_id":  item.id})
+        i += 1
+        i +=1
+    total_set_items = json.dumps(dict(all_set_items))
+
+    print(total_set_items)
     return render(request, 'shop/set.html', locals())
 
 def mass_to_cart(request):
@@ -355,6 +370,29 @@ def delete_from_cart(request):
     return_dict['player_wallet'] = request.user.wallet
 
     return JsonResponse(return_dict)
+
+def order(request):
+    player = request.user
+    cart_items = Baskets.objects.filter(player_id=player.id)
+    print('cart_items')
+    print(cart_items)
+    total_cart_price = 0
+    
+    for item in cart_items:
+        total_cart_price += item.total_price
+    if player.wallet < total_cart_price:
+        no_money = True
+    else:
+        no_money = False
+    if player.vip and player.buys_count >= 5:
+        buy_limit = True
+    elif not player.vip and player.buys_count >= 3:
+        buy_limit = True
+    else:
+        buy_limit = False
+    print('total_cart_price')
+    print(total_cart_price)
+    return render(request, 'shop/order.html', locals())
 
 
 def place_order(request):

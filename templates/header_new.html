@@ -141,7 +141,7 @@
                             {% if user.is_authenticated %}
                             <div class="edgtf-shopping-cart-holder">
                                 <div class="edgtf-shopping-cart-inner">
-                                    <a itemprop="url" class="edgtf-header-cart edgtf-header-cart-svg-path" href="https://tetsuo.edge-themes.com/cart/">
+                                    <a itemprop="url" class="edgtf-header-cart edgtf-header-cart-svg-path" href="#">
                                         <span class="edgtf-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              width="18.998px" height="20.998px" viewBox="0 0 18.998 20.998" enable-background="new 0 0 18.998 20.998" xml:space="preserve">
                                             <path fill="#231F20" d="M16.917,4h-2.916V0h-9v4H2.042L0,20.998h18.998L16.917,4z M7.001,2h5v2h-5V2z M2.818,18.498L4.26,6.5h0.741
@@ -196,7 +196,7 @@
                                                 </div>
 
 
-                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>
+                                                <a itemprop="url" href="{% url 'order' %}" class="btn-outline cart-btn btn-xs">Оформить заказ</a>
 
                                             </li>
 

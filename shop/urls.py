@@ -29,5 +29,7 @@ urlpatterns = [
     path('delete_from_cart/', views.delete_from_cart, name='delete_from_cart'),
     path('add_to_favorite/', views.add_to_favorite, name='add_to_favorite'),
     path('place_order/', views.place_order, name='place_order'),
+    path('order/', views.order, name='order'),
+
 
 ]
