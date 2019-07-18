@@ -184,3 +184,8 @@ h1{
     border: 2px solid #ec4e00;
     cursor: pointer;
 }
+
+.subitem-image-active{
+    border: 2px solid #ec4e00;
+    cursor: pointer;
+}
