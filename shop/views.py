@@ -19,7 +19,7 @@ def shop_home(request):
     favorites = FavoriteItems.objects.filter(player_id=request.user.id)
     for favorite in favorites:
         try:
-            fav_items_dict[i].append({"item_id": favorite.item.id,"subitem_id": 0})
+            fav_items_dict[i].append({"item_id": favorite.item.id, "subitem_id": 0})
         except:
             pass
         try:
@@ -446,7 +446,7 @@ def place_order(request):
                                         current_price=item.subitem.price)
             item.subitem.buys = item.item.buys + 1
             item.subitem.save(force_update=True)
-            spawn_txt += '#spawnItem ' + item.subitem.item_spawn_name + ' ' + str(subitem.number) + '\n'
+            spawn_txt += '#spawnItem ' + item.subitem.item_spawn_name + ' ' + str(item.subitem.number) + '\n'
         except:
             pass
 

@@ -28461,7 +28461,7 @@ body.edgtf-theme-light-skin .edgtf-image-with-text-holder.edgtf-image-behavior-c
     left: 0
 }
 
-.edgtf-pie-chart-holder .edgtf-pc-percentage .edgtf-pc-percent {
+.edgtf-pie-chart-holder .edgtf-pc-percentage .edgtf-pc-percent .settings-kolvo {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -28475,6 +28475,13 @@ body.edgtf-theme-light-skin .edgtf-image-with-text-holder.edgtf-image-behavior-c
     position: relative;
     top: -15px;
     content: '%';
+    font-size: 15px
+}
+
+.settings-kolvo:after{
+    position: relative;
+    top: -15px;
+    content: 'шт.';
     font-size: 15px
 }
 
