@@ -246,7 +246,7 @@ class ItemsInOrder(models.Model):
 
 
     def __str__(self):
-        return 'В заказе ' 
+        return 'В заказе '
 
     class Meta:
         verbose_name = "Товар в заказе"
