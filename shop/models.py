@@ -198,7 +198,7 @@ class SubItem(models.Model):
 class Orders(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
     server = models.IntegerField(default=0)
-    total_price = models.IntegerField(default=0)
+    total_price = models.IntegerField(default=0,blank=True)
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -246,7 +246,7 @@ class ItemsInOrder(models.Model):
 
 
     def __str__(self):
-        return 'Товар : %s . В заказе от игрока ID %s .' % (self.item.name, self.order.player.steamid)
+        return 'В заказе ' 
 
     class Meta:
         verbose_name = "Товар в заказе"

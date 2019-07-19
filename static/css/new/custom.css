@@ -206,6 +206,9 @@ display: grid;
     grid-template-columns: 1fr 4fr;
 }
 
-.set-items{
+.order-item{
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    align-items: center;
 
 }

@@ -32,28 +32,28 @@
                                     <div class="edgtf-row-grid-section">
                                         <div class="vc_row wpb_row vc_row-fluid vc_custom_1534166646182">
 
-                                            <div class="set-wrapper">
-                                                 <div class="set-items">
+
+
 
                                                     <h3>В заказе</h3>
                                                  <div class="custom_hr"></div>
                                                      {% for item in cart_items %}
                                                          {% if item.item.id %}
-                                                         <div class="set-item">
+                                                         <div class="order-item">
                                                          <img width="100px" src="{{ item.item.image.url }}">
                                                              <div>
-                                                                 <h4>{{ item.name }}</h4>
-                                                         <p>{{ item.description }}</p>
+                                                                 <h4>{{ item.item.name }} X {{ item.number }} = {{ item.total_price }} RC</h4>
+
                                                              </div>
 
                                                          </div>
                                                          {% endif %}
                                                          {% if item.subitem.id %}
-                                                         <div class="set-item">
+                                                         <div class="order-item">
                                                          <img width="100px" src="{{ item.subitem.image.url }}">
                                                              <div>
-                                                                 <h4>{{ item.name }}</h4>
-                                                         <p>{{ item.description }}</p>
+                                                                 <h4>{{ item.subitem.item.name }} {{item.subitem.color_name }} X {{ item.number }} = {{ item.total_price }} RC</h4>
+
                                                              </div>
 
                                                          </div>
@@ -62,17 +62,49 @@
 
 
                                                      {% endfor %}
+                                                 <div class="custom_hr"></div>
+                                                <h5>Общая стоимость : {{ total_cart_price }} RC</h5>
+                                                <h6>Баланс игрока : {{ player.wallet }} RC</h6>
+                                                <h6>Осталось покупок : {{ buy_count }}</h6>
 
 
 
-                                                 <a style="display: block;
-                                                  text-align: center;
-                                                  margin-top: 25px;"
-                                               onclick="massInCart();return false;"
-                                               href="#" class="btn-outline btn-xs">Все в корзину</a>
 
-                                                </div>
-                                            </div>
+                                                {% if no_money %}
+                                                    <span style="margin-bottom: 20px;
+                                                        color: #e42626;
+                                                        display: block;
+                                                        border: 2px dashed #e42626;
+                                                        text-align: center;
+                                                        font-weight: 700;
+                                                        padding: 20px;">Нехватает RC для покупки</span>
+                                                {% elif buy_limit %}
+                                                <span style="margin-bottom: 20px;
+                                                    color: #e42626;
+                                                    display: block;
+                                                    border: 2px dashed #e42626;
+                                                    text-align: center;
+                                                    font-weight: 700;
+                                                    padding: 20px;">Лимит покупок в день исчерпан</span>
+
+                                                {% else %}
+                                                    <form style="min-width: 50%" action="{% url 'place_order' %}" method="post">{% csrf_token %}
+                                                        <label for="server">На какой сервер доставить покупку?<span class="required">*</span></label>
+                                                            <select class="custom-select profile-select"
+                                                                    name="server" id="server"  required="required" >
+
+                                                                    <option style="color: #000" value="0">Сервер #1 (Общий)</option>
+                                                                    <option style="color: #000" value="1">Сервер #2 (Приватный)</option>
+
+
+                                                            </select>
+                                                    <button style="margin-top: 20px" type="submit">Оформить</button>
+
+                                                    </form>
+
+                                                {% endif %}
+
+
                                         </div>
                                     </div>
                                 </div>
