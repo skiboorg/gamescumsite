@@ -243,7 +243,7 @@ def bonus_pack(request):
                                                  'Ожидай в дискорде сообщения от администрации сервера.')
 
     webhook = DiscordWebhook(url=bot_settings.SHOP_ADMIN_URL)
-    embed = DiscordEmbed(title='ЗАЯВКА НА БОНУС ПАК', color=242424)
+    embed = DiscordEmbed(title='ЗАЯВКА НА БОНУС ПАК', color=0xec4e00)
     embed.add_embed_field(name='Заказчик : ', value=player.personaname)
     embed.add_embed_field(name='STEAMID: ', value=player.steamid)
 

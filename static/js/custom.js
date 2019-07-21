@@ -252,17 +252,24 @@ function changeItem(i) {
             $('#low_level').css('display','none');
         }
 
-        if (subitem_discount > 0){
+        if (subitem_discount_percent > 0){
             $('#discount').html(subitem_discount + ' RC')
+            $('#discount').css('display','inline-block')
             $('#price').html(subitem_price + ' RC')
+            $('#price').removeClass('main-color')
+            $('#price').css('text-decoration', 'line-through')
             $('#discount_label').html('- '+ subitem_discount_percent + '%')
             $('#price').css('display','inline-block')
             $('.edgtf-onsale').css('display','block')
             $('#item_price').val(subitem_discount)
         }
         else{
+            $('#discount').css('display','none')
             $('#discount').html(subitem_price + ' RC')
-            $('#price').css('display','none')
+            $('#price').css('display','block')
+            $('#price').html(subitem_price + ' RC')
+            $('#price').addClass('main-color')
+            $('#price').css('text-decoration', 'none')
             $('.edgtf-onsale').css('display','none')
             $('#item_price').val(subitem_price)
         }
@@ -369,7 +376,7 @@ function massInCart() {
                     '                                                </div>\n' +
                     '\n' +
                     '\n' +
-                    '                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
+                    '                                                <a itemprop="url" href="/blackmarket/order/" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
                     '\n' +
                     '                                            </li> ')
 

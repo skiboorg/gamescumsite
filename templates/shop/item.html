@@ -102,7 +102,7 @@
                                         {% if user.vip  %}
                                             <span class="price">
                                                 <ins>
-                                                    <span id="discount_vip" style="color: #ec4e00; font-size: 30px;" class="woocommerce-Price-amount amount">{{  item.discount_vip_value }} RC</span>
+                                                    <span id="discount_vip"  class="woocommerce-Price-amount amount main-color">{{  item.discount_vip_value }} RC</span>
                                                 </ins>
                                                 <del>
                                                     <span id="price" class="woocommerce-Price-amount amount">
@@ -111,23 +111,26 @@
 
                                                 </span>
                                         {% else %}
-                                            {% if item.discount_value > 0 %}
+                                            {% if item.discount > 0 %}
                                                 <span class="price">
-                                                    <ins>
-                                                        <span id="discount" style="color: #ec4e00; font-size: 30px;" class="woocommerce-Price-amount amount">{{  item.discount_value }} RC</span>
-                                                    </ins>
-                                                    <del>
+
+                                                        <span id="discount"  class="woocommerce-Price-amount amount main-color">{{  item.discount_value }} RC</span>
+
                                                         <span id="price" class="woocommerce-Price-amount amount">
                                                             {{ item.price }} RC</span>
-                                                    </del>
+
 
                                                     </span>
 
                                             {% else %}
-                                                <span class="price">
-                                                    <span id="price" class="woocommerce-Price-amount amount">
-                                                        {{  item.price }} RC
-                                                    </span>
+                                                 <span class="price">
+
+                                                        <span id="discount" style="display: none"  class="woocommerce-Price-amount amount main-color">{{  item.discount_value }} RC</span>
+
+                                                        <span id="price" class="woocommerce-Price-amount amount main-color">
+                                                            {{ item.price }} RC</span>
+
+
                                                     </span>
 
                                             {% endif %}
@@ -138,8 +141,12 @@
                                             <div id="discount_vip_label">-30% VIP</div>
                                             </span>
                                     {% else %}
-                                        {% if item.discount_value > 0 %}
+                                        {% if item.discount > 0 %}
                                             <span class="edgtf-onsale">
+                                            <div id="discount_label">- {{ item.discount }}%</div>
+                                            </span>
+                                            {% else %}
+                                            <span style="display: none" class="edgtf-onsale">
                                             <div id="discount_label">- {{ item.discount }}%</div>
                                             </span>
                                         {% endif %}
@@ -191,7 +198,7 @@
                 <input type="hidden" id="item_image" value="{{ item.image }}">
                 <input type="hidden" id="item_subitem" value="0">
 
-                <button type="submit" id="submit_button" class="btn-outline btn-small">Купить</button>
+                <button type="submit" id="submit_button" class="btn-outline btn-small">В корзину</button>
                 {% if item.id in favorites_id %}
                     <button type="button" id="addtofav" class="btn-outline btn-small" data-item_id="{{ item.id }}" data-subitem_id="0" onclick="add_to_favorite(this)" >Удалить из избранного</button>
                     {% else %}

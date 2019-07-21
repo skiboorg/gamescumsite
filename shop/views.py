@@ -483,7 +483,7 @@ def place_order(request):
 
     webhook = DiscordWebhook(url=bot_settings.SHOP_ADMIN_URL)
     embed = DiscordEmbed(title='НОВЫЙ ЗАКАЗ №{}'.format(order.id),
-                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=242424)
+                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=0xec4e00)
     embed.add_embed_field(name='Заказчик : ', value=order.player.personaname)
     embed.add_embed_field(name='STEAMID: ', value=order.player.steamid)
     if order.server == 0:
@@ -500,7 +500,7 @@ def place_order(request):
 
     webhook = DiscordWebhook(url=bot_settings.SHOP_PLAYERS_URL)
     embed = DiscordEmbed(title='ЗАКАЗ №{} УСПЕШНО СФОРМИРОВАН'.format(order.id),
-                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=242424)
+                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=0xec4e00)
     if order.server == 0:
         embed.add_embed_field(name='Сервер: ', value="#1 ОБЩИЙ")
     if order.server == 1:

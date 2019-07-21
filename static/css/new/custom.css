@@ -179,6 +179,10 @@ h1{
 
 }
 
+.main-color{
+    color: #ec4e00;
+    font-size: 30px;
+}
 
 .subitem-image:hover{
     border: 2px solid #ec4e00;
