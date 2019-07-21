@@ -197,7 +197,7 @@ class SubItem(models.Model):
 
 class Orders(models.Model):
     player = models.ForeignKey(SteamUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
-    server = models.IntegerField(default=0)
+    server = models.IntegerField('0 - Общий сервер 1- Прватный', default=0)
     total_price = models.IntegerField(default=0,blank=True)
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

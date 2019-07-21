@@ -61,7 +61,7 @@
                                                                             {% if user.is_authenticated %}
                                                                                 {% if player.wallet > 20000 %}
 
-                                                                                    <a itemprop="url" href="#" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
+                                                                                    <a itemprop="url" href="{% url 'buy_vip' %}" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
                                                                                         <span class="edgtf-btn-overlay"></span>
                                                                                         <span class="edgtf-btn-text">Купить за 20 000RC</span>
                                                                                     </a>

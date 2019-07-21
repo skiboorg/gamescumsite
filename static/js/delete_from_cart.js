@@ -62,7 +62,7 @@ console.log(csrf_token);
                     '                                                </div>\n' +
                     '\n' +
                     '\n' +
-                    '                                                <a itemprop="url" href="" class="btn-outline cart-btn  btn-xs">Оформить заказ</a>\n' +
+                    '                                                <a itemprop="url" href="/blackmarket/order/" class="btn-outline cart-btn  btn-xs">Оформить заказ</a>\n' +
                     '\n' +
                     '                                            </li> ')
                    $('#count_items_in_cart').html( data.total_items_in_cart );

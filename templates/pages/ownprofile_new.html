@@ -502,6 +502,11 @@
 
                                                                                 <div id="squad_requests" class="squad_members">
                                                                                         <h4>Заказы в BLACKMARKET</h4>
+                                                                                {% if all_orders%}
+                                                                                    <p style="color: red">
+                                                                                        ЗАКАЗЫ ВЫДАЮТСЯ ПОСЛЕ 20:00 МСК
+                                                                                    </p>
+                                                                                {% endif %}
 
                                                                                 <ul style="list-style: none">
                                                                                     {% if all_orders%}
@@ -511,8 +516,14 @@
                                                                                                 <strong>Состав заказа :</strong>
                                                                                                     <ol >
                                                                                                         {% for item in order.itemsinorder_set.all%}
+                                                                                                            {% if item.item.id %}
                                                                                                             <li><strong>{{ item.item.name }} x {{ item.number }} шт.</strong></li>
+                                                                                                            {% endif %}
+                                                                                                            {% if item.subitem.id %}
+                                                                                                                 <li><strong>{{ item.subitem.item.name }} {{ item.subitem.color_name }} x {{ item.number }} шт.</strong></li>
+                                                                                                            {% endif %}
                                                                                                         {% endfor %}
+
                                                                                                     </ol>
                                                                                                     <strong>Состояние: <span>В обработке</span></strong>
                                                                                             <div class="custom_hr"></div>
@@ -527,14 +538,7 @@
                                                                                     {% endif %}
 
                                                                                 </ul>
-                                                                                {% if all_orders%}
 
-                                                                                    <p>
-                                                                                        ЗАКАЗЫ ВЫДАЮТСЯ ПОСЛЕ 20:00 МСК
-                                                                                    </p>
-
-
-                                                                                {% endif %}
 
 
 

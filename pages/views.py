@@ -9,13 +9,15 @@ from squads.models import *
 from shop.models import Orders
 import json
 from django.contrib import messages
-from datetime import datetime , time
+#from datetime import datetime , time
 from lxml import html
 import requests
 import bot_settings
 from django.http import JsonResponse
 from pages.models import SiteStat
-
+from datetime import datetime, timedelta
+import bot_settings
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 
 def server_stat(request):
@@ -240,6 +242,15 @@ def bonus_pack(request):
     messages.add_message(request, messages.SUCCESS, 'Заявка на получение бонус-пака отправлена! '
                                                  'Ожидай в дискорде сообщения от администрации сервера.')
 
+    webhook = DiscordWebhook(url=bot_settings.SHOP_ADMIN_URL)
+    embed = DiscordEmbed(title='ЗАЯВКА НА БОНУС ПАК', color=242424)
+    embed.add_embed_field(name='Заказчик : ', value=player.personaname)
+    embed.add_embed_field(name='STEAMID: ', value=player.steamid)
+    
+    webhook.add_embed(embed)
+
+    webhook.execute()
+
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
 
@@ -256,6 +267,27 @@ def players(request):
 
     page_title = 'СТАТИСТИКА ИГРОКОВ'
     return render(request, 'pages/top20_new.html', locals())
+
+def buy_vip(request):
+    player = request.user
+    if player.wallet >= 20000:
+        player.vip = True
+        player.vip_start = datetime.now()
+        old_player_wallet = player.wallet
+        player.wallet -= 20000
+        player.save(force_update=True)
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Покупка VIP за RC. Баланс кошелька до покупки : {}.'
+                                                    ' Баланс кошелька после покупки : {}. '.format(old_player_wallet,
+                                                                                                   player.wallet))
+        new_log.save()
+    else:
+        new_log = Logs.objects.create(player_id=request.user.id,
+                                      player_action='Попытка покупки VIP за RC. Баланс кошелька до покупки : {}.'.format
+                                      (player.wallet))
+        new_log.save()
+    return HttpResponseRedirect('/profile/' + player.nickname)
+
 
 def about_bonus_pack(request):
     page_title = 'БОНУС ПАК НОВЫМ ИГРОКАМ'

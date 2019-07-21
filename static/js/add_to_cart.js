@@ -86,7 +86,7 @@ function add_to_cart(form) {
                     '                                                </div>\n' +
                     '\n' +
                     '\n' +
-                    '                                                <a itemprop="url" href="" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
+                    '                                                <a itemprop="url" href="/blackmarket/order/" class="btn-outline cart-btn btn-xs">Оформить заказ</a>\n' +
                     '\n' +
                     '                                            </li> ')
 

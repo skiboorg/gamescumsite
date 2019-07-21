@@ -36,6 +36,7 @@ urlpatterns = [
     path('server_stat/', views.server_stat, name='server_stat'),
     path('discord/', views.discord, name='discord'),
     path('vip/', views.vip, name='vip'),
+    path('buy_vip/', views.buy_vip, name='buy_vip'),
 
 
 

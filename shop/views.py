@@ -5,6 +5,9 @@ from authentication.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from collections import defaultdict
 import json
+from django.conf import settings
+import bot_settings
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 
 def shop_home(request):
@@ -421,7 +424,7 @@ def place_order(request):
     player = request.user
     all_cart_items = Baskets.objects.filter(player_id=player.id)
     total_price = 0
-
+    print(request.POST)
     for item in all_cart_items:
         total_price += item.total_price
     data = request.POST
@@ -434,21 +437,21 @@ def place_order(request):
     order = Orders.objects.create(player_id=player.id, server=server , total_price=total_price)
 
     for item in all_cart_items:
+
         try:
+            print(item)
             ItemsInOrder.objects.create(order_id=order.id, item_id=item.item.id, number=item.number, current_price=item.item.price)
             item.item.buys = item.item.buys + 1
             item.item.save(force_update=True)
             spawn_txt += '#spawnItem ' + item.item.item_spawn_name + ' ' + str(item.number) + '\n'
         except:
-            pass
-        try:
+            print(item)
             ItemsInOrder.objects.create(order_id=order.id, subitem_id=item.subitem.id, number=item.number,
                                         current_price=item.subitem.price)
-            item.subitem.buys = item.item.buys + 1
+            item.subitem.buys = item.subitem.buys + 1
             item.subitem.save(force_update=True)
-            spawn_txt += '#spawnItem ' + item.subitem.item_spawn_name + ' ' + str(item.subitem.number) + '\n'
-        except:
-            pass
+            spawn_txt += '#spawnItem ' + item.subitem.item_spawn_name + ' ' + str(item.number) + '\n'
+
 
 
     all_cart_items.delete()
@@ -478,8 +481,36 @@ def place_order(request):
                                                           .format(str(order.id), player.discord_nickname))
         new_message.save()
 
+    webhook = DiscordWebhook(url=bot_settings.SHOP_ADMIN_URL)
+    embed = DiscordEmbed(title='НОВЫЙ ЗАКАЗ №{}'.format(order.id),
+                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=242424)
+    embed.add_embed_field(name='Заказчик : ', value=order.player.personaname)
+    embed.add_embed_field(name='STEAMID: ', value=order.player.steamid)
+    if order.server == 0:
+        embed.add_embed_field(name='Сервер: ', value="#1 ОБЩИЙ")
+    if order.server == 1:
+        embed.add_embed_field(name='Сервер: ', value="#2 ПРИВАТНЫЙ")
 
+    embed.add_embed_field(name='SPAWN', value=order.spawn_text)
 
+    # add embed object to webhook
+    webhook.add_embed(embed)
+
+    webhook.execute()
+
+    webhook = DiscordWebhook(url=bot_settings.SHOP_PLAYERS_URL)
+    embed = DiscordEmbed(title='ЗАКАЗ №{} УСПЕШНО СФОРМИРОВАН'.format(order.id),
+                         description='Дата заказа : ' + order.created_at.strftime('%d-%m-%Y'), color=242424)
+    if order.server == 0:
+        embed.add_embed_field(name='Сервер: ', value="#1 ОБЩИЙ")
+    if order.server == 1:
+        embed.add_embed_field(name='Сервер: ', value="#2 ПРИВАТНЫЙ")
+
+    embed.add_embed_field(name='Заказчик : ', value=order.player.personaname)
+    embed.add_embed_field(name='Сумма заказа : ', value=order.total_price)
+    embed.set_footer(text="Ожидайте доставки")
+    webhook.add_embed(embed)
+    webhook.execute()
 
 
     return HttpResponseRedirect('/')
