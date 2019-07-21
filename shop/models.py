@@ -215,7 +215,7 @@ class Orders(models.Model):
 
 class ItemsInOrder(models.Model):
     order = models.ForeignKey(Orders, blank=False, null=True, default=None, on_delete=models.CASCADE)
-    item = models.ForeignKey(Items, blank=False, null=True, default=None, on_delete=models.CASCADE)
+    item = models.ForeignKey(Items, blank=True, null=True, default=None, on_delete=models.CASCADE)
     subitem = models.ForeignKey(SubItem, blank=True, null=True, default=None, on_delete=models.CASCADE)
     number = models.IntegerField(blank=False, null=True, default=0)
     current_price = models.IntegerField(default=0)
