@@ -246,7 +246,7 @@ def bonus_pack(request):
     embed = DiscordEmbed(title='ЗАЯВКА НА БОНУС ПАК', color=242424)
     embed.add_embed_field(name='Заказчик : ', value=player.personaname)
     embed.add_embed_field(name='STEAMID: ', value=player.steamid)
-    
+
     webhook.add_embed(embed)
 
     webhook.execute()
