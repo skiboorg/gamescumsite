@@ -506,7 +506,7 @@ def place_order(request):
     if order.server == 1:
         embed.add_embed_field(name='Сервер: ', value="#2 ПРИВАТНЫЙ")
 
-    embed.add_embed_field(name='Заказчик : ', value=order.player.personaname)
+    embed.add_embed_field(name='Заказчик : ', value="Кто-то ;)")
     embed.add_embed_field(name='Сумма заказа : ', value=order.total_price)
     embed.set_footer(text="Ожидайте доставки")
     webhook.add_embed(embed)
