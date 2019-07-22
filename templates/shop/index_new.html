@@ -194,10 +194,11 @@
                                                     {% if user.vip %}
                                                       <span class="woocommerce-Price-amount amount">{{ set.discount_vip_value }} RC</span>
                                                     {% else %}
-                                                        {% if item.discount_value > 0 %}
+                                                        {% if set.discount > 0 %}
                                                             <span class="woocommerce-Price-amount amount">{{ set.discount_value }} RC</span>
-                                                        {% endif %}
+                                                        {% else %}
                                                         <span class="woocommerce-Price-amount amount">{{ set.get_total_price }} RC</span>
+                                                        {% endif %}
                                                     {% endif %}
 
                                             </li>
@@ -239,11 +240,13 @@
                                             {% endfor %}
                                             </ul>
                                             <hr>
+                                            {% if user.is_authenticated %}
                                             <a style="display: block;
                                                   text-align: center;
                                                   margin-top: 25px;"
                                                onclick="massInCart();return false;"
                                                href="#" class="btn-outline btn-xs">Все в корзину</a>
+                                                {% endif %}
                                         {% else %}
                                             Избранных товаров нет
                                         {% endif %}
