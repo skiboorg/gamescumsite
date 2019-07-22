@@ -45,8 +45,9 @@
                                                      {% else %}
                                                         {% if set_item.discount > 0 %}
                                                             <h3>Цена : {{ set_item.discount_value }} RC</h3>
-                                                        {% endif %}
+                                                        {% else %}
                                                             <h3>Цена : {{ set_item.get_total_price }} RC</h3>
+                                                         {% endif %}
                                                      {% endif %}
 
                                                     <h3>Cостав</h3>
