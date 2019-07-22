@@ -100,11 +100,30 @@
                                                                         </li>
                                                                         <li class="edgtf-pt-button">
                                                                             {% if user.is_authenticated %}
-                                                                                <a itemprop="url" href="#" target="_self" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
+                                                                                <a style="margin-bottom: 10px; display: block" itemprop="url" href="https://qiwi.me/gamescum" target="_blank" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
                                                                                     <span class="edgtf-btn-overlay"></span>
-                                                                                    <span class="edgtf-btn-text">Купить за 250 &#8381;</span>
+                                                                                    <span class="edgtf-btn-text">QIWI</span>
 
                                                                                 </a>
+                                                                                 <a style="margin-bottom: 10px; display: block" itemprop="url" href="https://money.yandex.ru/to/410016706719303" target="_blank" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
+                                                                                    <span class="edgtf-btn-overlay"></span>
+                                                                                    <span class="edgtf-btn-text">Яндекс.Деньги</span>
+
+                                                                                </a>
+                                                                                 <a style="margin-bottom: 10px; display: block" data-wallet="R202493688161" itemprop="url" href="javascript:void(0)"  onclick="copyToClipboardWM(this)" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
+                                                                                    <span class="edgtf-btn-overlay"></span>
+                                                                                    <span class="edgtf-btn-text">R202493688161</span>
+
+                                                                                </a>
+
+                                                                                 <a style="margin-bottom: 10px; display: block" data-wallet="Z975376717386" itemprop="url" href="javascript:void(0)" onclick="copyToClipboardWM(this)" class="edgtf-btn edgtf-btn-medium edgtf-btn-outline">
+                                                                                    <span class="edgtf-btn-overlay"></span>
+                                                                                    <span class="edgtf-btn-text">Z975376717386</span>
+
+                                                                                </a>
+
+
+
                                                                             {% else %}
                                                                                 <span style="padding: 10px; border: 2px solid red">Необходима регистрация</span>
                                                                             {% endif %}
@@ -131,6 +150,18 @@
     </div>
     <div class="gap-20"></div>
     <div class="gap-20"></div>
+    <script>
+    function copyToClipboardWM(el){
+        var dummy = document.createElement("input");
+          document.body.appendChild(dummy);
+          dummy.setAttribute("id", "dummy_id");
+          document.getElementById("dummy_id").value=$(el).attr('data-wallet')
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+        $(el).html('Скопировано');
+    }
+    </script>
 {% endblock %}
 
 
