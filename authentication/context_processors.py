@@ -64,6 +64,7 @@ def check_profile(request):
 
         if time_now > player.last_buy:
             player.buys_count = 0
+            player.save(force_update=True)
 
         # проверка последнего входа на сайт и начисление ЗП
         #todo добавить начисление ЗП от уровня отряда Если игрок (Pl1) в отряде (SQ1) ур. zp = 35 + ур. SQ1*5

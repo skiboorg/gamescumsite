@@ -26,6 +26,7 @@ urlpatterns = [
     path('profile/<nickname_req>', views.profile, name='profile'),
     path('del_message/', views.del_message, name='del_message'),
     path('bonus_pack/', views.bonus_pack, name='bonus_pack'),
+    path('reset_limit/', views.reset_limit, name='reset_limit'),
     path('about_us/', views.about_us, name='about_us'),
     path('rules/', views.rules, name='rules'),
     path('support/', views.support, name='support'),

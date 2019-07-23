@@ -62,6 +62,22 @@
                                                                                 <a href="{% url 'about_bonus_pack' %}" style="margin-bottom: 20px;" class="btn-outline btn-xs btn-succ">ЧТО ТАКОЕ БОНУС ПАК?</a>
                                                                                 <a href="{% url 'bonus_pack' %}"style="margin-bottom: 20px;" class="btn-outline btn-xs btn-warn">ПОЛУЧИТЬ БОНУС ПАК</a>
                                                                                 {% endif %}
+                                                                                {% if is_vip and player.buys_count == 5 or not is_vip and player.buys_count == 3%}
+                                                                                    <p style="margin-top: 20px;
+                                                                                            font-size: 20px;
+                                                                                            color: #00ec14;
+                                                                                            font-weight: 600;">ДОСТУПЕН СБРОС ЛИМИТА<br>
+                                                                                        НА ПОКУПКИ - 1000 RC</p>
+                                                                                        {% if player.wallet > 1001 %}
+                                                                                         <a href="{% url 'reset_limit' %}"style="margin-top: 20px;" class="btn-outline btn-xs btn-succ">СБРОСИТЬ ЛИМИТ</a>
+                                                                                            {% else %}
+                                                                                            <p style="margin-top: 20px;
+                                                                                            color: red;
+                                                                                            border: 2px dashed red;
+                                                                                            padding: 12px;">НЕХВАТАЕТ СРЕДСТВ ДЛЯ СБРОСА</p>
+                                                                                        {% endif %}
+                                                                                {% endif %}
+
 
 
                                                                             </div>
@@ -248,7 +264,7 @@
                                                                                                 align-items: center;
                                                                                                 grid-gap: 10px;
                                                                                             ">
-                                                                                         <img id="squad_wear_sample" style=" width: 75px; margin: 0 auto" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
+                                                                                         <img id="squad_wear_sample" style=" width: 100%; margin: 0 auto" src="{{ squad_wear.first.image.url }}" alt="Россйский игровой сервер SCUM">
 
 
                                                                                         <div>

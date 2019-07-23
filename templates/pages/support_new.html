@@ -95,11 +95,11 @@
                                                         <span class="edgtf-btn-overlay"></span>
                                                         <span class="edgtf-btn-text">Яндекс.Деньги</span>
                                                     </a></div>
-                                                     <div style="margin-bottom: 20px" class="wpb_wrapper"><a itemprop="url"  href="https://www.webmoney.ru/" target="_blank" class="edgtf-btn edgtf-btn-huge edgtf-btn-outline">
+                                                     <div style="margin-bottom: 20px" class="wpb_wrapper"><a itemprop="url" data-wallet="R202493688161"  href="javascript:void(0)" onclick="copyToClipboardWM(this)"  class="edgtf-btn edgtf-btn-huge edgtf-btn-outline">
                                                         <span class="edgtf-btn-overlay"></span>
                                                         <span class="edgtf-btn-text">Webmoney R202493688161</span>
                                                     </a></div>
-                                                    <div class="wpb_wrapper"><a itemprop="url" href="https://www.webmoney.ru/" target="_blank" class="edgtf-btn edgtf-btn-huge edgtf-btn-outline">
+                                                    <div class="wpb_wrapper"><a itemprop="url" data-wallet="Z975376717386" href="javascript:void(0)" onclick="copyToClipboardWM(this)"  class="edgtf-btn edgtf-btn-huge edgtf-btn-outline">
                                                         <span class="edgtf-btn-overlay"></span>
                                                         <span class="edgtf-btn-text">Webmoney Z975376717386</span>
                                                     </a></div>
@@ -125,4 +125,17 @@
 
         </div> <!-- close div.content_inner -->
     </div>
+    </div>
+     <script>
+    function copyToClipboardWM(el){
+        var dummy = document.createElement("input");
+          document.body.appendChild(dummy);
+          dummy.setAttribute("id", "dummy_id");
+          document.getElementById("dummy_id").value=$(el).attr('data-wallet')
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+        $(el).html('Скопировано');
+    }
+    </script>
 {% endblock %}

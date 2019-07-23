@@ -77,7 +77,7 @@
                                                         border: 2px dashed #e42626;
                                                         text-align: center;
                                                         font-weight: 700;
-                                                        padding: 20px;">Нехватает RC для покупки</span>
+                                                        padding: 20px;">Нехватает RC для покупки </span>
                                                 {% elif buy_limit %}
                                                 <span style="margin-bottom: 20px;
                                                     color: #e42626;
@@ -85,7 +85,7 @@
                                                     border: 2px dashed #e42626;
                                                     text-align: center;
                                                     font-weight: 700;
-                                                    padding: 20px;">Лимит покупок в день исчерпан</span>
+                                                    padding: 20px;">Лимит покупок в день исчерпан <span style="color: #1fff30">Лимит можно сбросить в ЛК</span></span>
 
                                                 {% else %}
                                                     <form style="min-width: 50%" action="{% url 'place_order' %}" method="post">{% csrf_token %}

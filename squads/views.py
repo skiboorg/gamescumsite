@@ -664,10 +664,11 @@ def stat(request):
             names={}
             for row in reader:
                 p += 1
-                r = row['SteamID;DayPay'].split(';')
+                r = row['SteamID;DayPay;Rate'].split(';')
                 try:
                     u = SteamUser.objects.get(steamid=r[0])
                     u.wallet += int(r[1])
+                    u.rating += int(r[2])
                     u.save(force_update=True)
                     names[u.personaname] = r[1]
                 except:
@@ -676,8 +677,8 @@ def stat(request):
         webhook = DiscordWebhook(url=bot_settings.TIME_PAY_URL)
         embed = DiscordEmbed(title='Выдача премии за время в игре',
                              description='', color=242424)
-        for p,m in names.items():
-            embed.add_embed_field(name='Ник : ' + p, value='Выдано : ' + m + ' RC',  inline=False)
+        for p,m,r in names.items():
+            embed.add_embed_field(name='Ник : ' + p, value='Выдано : ' + m + ' RC | Начислено : ' + r + 'рейтинга',  inline=False)
 
 
         webhook.add_embed(embed)

@@ -226,6 +226,21 @@ def about_us(request):
     page_title = 'О ПРОЕКТЕ'
     return render(request, 'pages/about_us_new.html', locals())
 
+def reset_limit(request):
+    player = request.user
+    player.buys_count = 0
+    old_wallet = player.wallet
+    player.wallet -= 1000
+    player.save(force_update=True)
+    new_log = Logs.objects.create(player_id=request.user.id,
+                                  player_action='Сброс лимита покупок. До сброса баланс : {}.  После сброса {} '.format(
+                                      old_wallet, player.wallet))
+    new_log.save()
+
+    messages.add_message(request, messages.SUCCESS, 'Дневной лимит сброшен, приятных покупок;) ')
+
+    return HttpResponseRedirect('/profile/' + request.user.nickname)
+
 def bonus_pack(request):
     admins = SteamUser.objects.filter(is_staff=True)
     player = request.user
