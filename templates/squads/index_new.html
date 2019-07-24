@@ -30,7 +30,7 @@
                                         <tr>
                                             <th></th>
                                             <th>Название отряда</th>
-                                            <th>Лидер</th>
+                                            <th>Сервер</th>
                                             <th>Уровень</th>
                                             <th>Состав</th>
                                             <th>Набор</th>
@@ -50,7 +50,11 @@
                                                 {{ squad.name }}
                                             </td>
                                             <td style="vertical-align: middle;">
-                                                <a href="{% url 'profile' squad.leader.nickname %}">{{ squad.leader.personaname }}</a>
+                                                {% if squad.server == 0 %}
+                                                #1 ОБЩИЙ
+                                                {% else %}
+                                                #2 ПРИВАТНЫЙ
+                                                {% endif %}
                                             </td>
                                                 <td style="vertical-align: middle;">{{ squad.level }}</td>
                                                 <td style="vertical-align: middle;">{{ squad.get_members.count }}</td>
@@ -94,7 +98,13 @@
                                              <td  style="vertical-align: top;">
                                             <span style="color: #ec4e00; font-weight: 600; border-bottom: 2px solid #ec4e00;"> Состав отряда</span><br>
                                                  {% for member in squad.squadmembers_set.all %}
-                                                    <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
+                                                     {% if member.player.is_squad_leader %}
+                                                         <span style="color: red">&#9733;</span><a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
+                                                     {% else %}
+                                                         <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
+                                                     {% endif %}
+
+
 
                                                  {% endfor %}
 
