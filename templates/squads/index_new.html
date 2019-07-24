@@ -56,7 +56,7 @@
                                                 <td style="vertical-align: middle;">{{ squad.get_members.count }}</td>
                                                 <td style="vertical-align: middle;">
                                                     {% if player_squad_member %}
-                                                        <span style="border: 2px dashed #00ec14; color: #00ec14; padding: 10px ">Ты уже в отряде</span>
+                                                        <span style="border: 2px dashed #00ec14; color: #00ec14; padding: 10px; font-size: 13px">Ты уже в отряде</span>
                                                     {% else %}
 
                                                         {% if squad.recruting and user.is_authenticated%}
@@ -76,14 +76,14 @@
                                                     {% endif %}
                                                 </td>
 
-                                                <td style="vertical-align: top;"><a style="font-size: 14px; padding: 10px 25px;" href="javascript:void(0);" class="btn-xs btn-outline " type="button" onclick="showSquadInfo(this)"  data-target="#squad_info_{{ squad.id }}" >ПОДРОБНЕЕ</a></td>
+                                                <td style="vertical-align: middle;"><a style="font-size: 14px; padding: 10px 25px;" href="javascript:void(0);" class="btn-xs btn-outline " type="button" onclick="showSquadInfo(this)"  data-target="#squad_info_{{ squad.id }}" >ПОДРОБНЕЕ</a></td>
                                             </tr>
                                             <tr id="squad_info_{{ squad.id }}"  style="display: none">
 
 
                                             <td style="vertical-align: top;" >
 
-                                                <img style="width: 500px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
+                                                <img style="width: 370px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
 
 
                                             </td>
@@ -92,18 +92,18 @@
                                                 </td>
 
                                              <td  style="vertical-align: top;">
-                                            <span> Состав отряда</span><br>
+                                            <span style="color: #ec4e00; font-weight: 600; border-bottom: 2px solid #ec4e00;"> Состав отряда</span><br>
                                                  {% for member in squad.squadmembers_set.all %}
                                                     <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
 
                                                  {% endfor %}
 
                                              </td>
-                                            <td style="vertical-align: top;"> ПОБЕД <br> {{ squad.battles_wins }}
+                                                <td style="vertical-align: top;"><span style="color: #ec4e00; font-weight: 600; border-bottom: 2px solid #ec4e00;"> ПОБЕД</span> <br> {{ squad.battles_wins }}
 
                                             </td >
                                             <td style="vertical-align: top;">
-                                            ПОРАЖЕНИЙ <br> {{ squad.battles_loose }}
+                                                <span style="color: #ec4e00; font-weight: 600; border-bottom: 2px solid #ec4e00;">ПОРАЖЕНИЙ</span> <br> {{ squad.battles_loose }}
                                             </td>
                                             <td></td>
                                             <td></td>
