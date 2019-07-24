@@ -81,17 +81,17 @@
                                             <tr id="squad_info_{{ squad.id }}"  style="display: none">
 
 
-                                            <td >
+                                            <td style="vertical-align: middle;" >
 
-                                                <img style="width: 220px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
+                                                <img style="width: 500px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
 
 
                                             </td>
-                                                <td >
+                                                <td style="vertical-align: middle;" >
                                                   {{ squad.info }}
                                                 </td>
-                                             <td></td>
-                                             <td  style="width: 20%">
+
+                                             <td  style="vertical-align: middle;">
                                             <span> Состав отряда :</span><br>
                                                  {% for member in squad.squadmembers_set.all %}
                                                     <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
@@ -99,12 +99,13 @@
                                                  {% endfor %}
 
                                              </td>
-                                            <td> ПОБЕД <br> {{ squad.battles_wins }}
+                                            <td style="vertical-align: middle;"> ПОБЕД <br> {{ squad.battles_wins }}
 
-                                            </td>
-                                            <td>
+                                            </td >
+                                            <td style="vertical-align: middle;">
                                             ПОРАЖЕНИЙ <br> {{ squad.battles_loose }}
                                             </td>
+                                            <td></td>
                                             <td></td>
 
                                         </tr>
