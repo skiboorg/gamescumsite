@@ -92,7 +92,7 @@
                                                 </td>
 
                                              <td  style="vertical-align: top;">
-                                            <span> Состав отряда :</span><br>
+                                            <span> Состав отряда</span><br>
                                                  {% for member in squad.squadmembers_set.all %}
                                                     <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
 
