@@ -520,7 +520,7 @@
                                                                                         <h4>Заказы в BLACKMARKET</h4>
                                                                                 {% if all_orders%}
                                                                                     <p style="color: red">
-                                                                                        ЗАКАЗЫ ВЫДАЮТСЯ ПОСЛЕ 20:00 МСК
+                                                                                        ЗАКАЗЫ ВЫДАЮТСЯ 18:00 - 00:00 МСК
                                                                                     </p>
                                                                                 {% endif %}
 
@@ -572,6 +572,61 @@
                                                         </div>
 
                                                         <!-- pm -->
+
+                                                     <!-- logs-->
+                                                    <h5  class="edgtf-accordion-title ui-accordion-header ui-state-default  ui-corner-top" role="tab" id="ui-id-1" aria-controls="ui-id-2" aria-selected="true" aria-expanded="true" tabindex="0">
+
+                                                            <span id="logs" class="edgtf-tab-title">
+                                                               Начисления | Списания
+                                                            </span>
+                                                        </h5>
+                                                        <div class="edgtf-accordion-content ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom " id="ui-id-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="display: block;">
+                                                            <div class="edgtf-accordion-content-inner">
+
+                                                                <div class="wpb_text_column wpb_content_element ">
+                                                                    <div class="wpb_wrapper">
+                                                                        <div class="squad-info">
+
+
+
+                                                                        <div class="squad_members_requests">
+
+                                                                                <div id="squad_members" class="squad_members">
+
+                                                                                   <ul style="list-style: none">
+                                                                                        {% if player_logs %}
+                                                                                            {% for log in player_logs %}
+                                                                                                <li  >
+                                                                                                    <strong>Дата: {{ log.created | date:"d M, Y | H:m:s" }} </strong><br>
+                                                                                                    <strong>{{ log.log_action }}</strong><br>
+                                                                                                    {{ log.comment }}
+
+                                                                                                <div class="custom_hr"></div>
+                                                                                                </li>
+
+                                                                                            {% endfor %}
+                                                                                        {% else %}
+                                                                                            <li ><strong>Пока тут пусто)</strong> </li>
+                                                                                        {% endif %}
+
+                                                                                    </ul>
+                                                                                </div>
+
+
+
+
+
+
+                                                                        </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- logs -->
 
                                                     </div>
                                                 </div>

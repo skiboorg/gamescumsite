@@ -17,7 +17,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 
 def create_squad(request):
     if request.POST:
-
+        player = request.user
         if request.POST.get('update'):
             print('upadting')
             squad = Squad.objects.get(leader_id=request.user.id)
@@ -34,11 +34,17 @@ def create_squad(request):
             if squad_form.is_valid():
                 instance = Squad(avatar=request.FILES['avatar'])
                 squad_form.save()
+                old_wallet = player.wallet
                 request.user.wallet -= 1000
                 request.user.save(force_update=True)
                 new_log = Logs.objects.create(player_id=request.user.id,
                                               player_action='Создание отряда {}'.format(request.POST['name']))
                 new_log.save()
+                PlayerLog.objects.create(player_id=player.id,
+                                         log_action='Списание RC',
+                                         comment='С баланса списано 1000 RC за создание отряда.'
+                                                 'Прежний баланс {}, новый баланс {}'.format(old_wallet,
+                                                                                             player.wallet)).save()
                 return HttpResponseRedirect('/profile/' + request.user.nickname +'#squad')
 
 
@@ -193,6 +199,8 @@ def add_to_balance(request):
             squad_member = SquadMembers.objects.get(player=player.id)
             squad_member.income += int(request.POST.get('rc_amount'))
             squad_member.save(force_update=True)
+            old_wallet = player.wallet
+            old_rating = player.rating
             player.wallet -= int(request.POST.get('rc_amount'))
             player.rating += 1
             player.save(force_update=True)
@@ -205,6 +213,19 @@ def add_to_balance(request):
                                           format(squad.name,
                                                  request.POST.get('rc_amount')))
             new_log.save()
+            PlayerLog.objects.create(player_id=player.id,
+                                     log_action='Списание RC',
+                                     comment='С баланса списано {} RC за перевод на баланс отряда.'
+                                             'Прежний баланс {}, новый баланс {}'.format(request.POST.get('rc_amount'),
+                                                                                         old_wallet,
+                                                                                         player.wallet)).save()
+            PlayerLog.objects.create(player_id=player.id,
+                                     log_action='Начисление рейтинга',
+                                     comment='За перевод более 500 RC на баланс отряда начислен рейтинг'
+                                             'Прежнее значение {}, новое значение {}'.format(old_rating,
+                                                                                             player.rating)).save()
+
+
         else:
             messages.add_message(request, messages.WARNING, 'Минимальная сумма пополнения 500 RC!')
             new_log = Logs.objects.create(player_id=request.user.id,
@@ -239,7 +260,7 @@ def show_squads(request):
             req_disct.append(req.squad.id)
         print(req_disct)
 
-    return render(request, 'squads/index.html', locals())
+    return render(request, 'squads/index_new.html', locals())
 
 def join_request(request,name_slug):
     try:
@@ -602,8 +623,15 @@ def stat(request):
         if amount:
             users = SteamUser.objects.all()
             for u in users:
+                old_wallet = u.wallet
                 u.wallet += int(amount)
                 u.save(force_update=True)
+                PlayerLog.objects.create(player_id=u.id,
+                                         log_action='Начисление RC',
+                                         comment='На баланс начислено {} RC. Щедрость Андрея не знает границ;)'
+                                                 'Прежний баланс {}, новый баланс {}'.format(amount,
+                                                                                             old_wallet,
+                                                                                             u.wallet)).save()
 
             webhook = DiscordWebhook(url=bot_settings.TIME_PAY_URL)
             embed = DiscordEmbed(title='Массовая выдача ЗП',
@@ -661,28 +689,40 @@ def stat(request):
         with open(os.path.join(settings.BASE_DIR, uploaded_time_file_url[1:])) as csvfile:
             reader = csv.DictReader(csvfile)
             p = 0
-            names={}
+            total_players = 0
+            total_rc = 0
             for row in reader:
                 p += 1
                 r = row['SteamID;DayPay;Rate'].split(';')
                 try:
                     u = SteamUser.objects.get(steamid=r[0])
+                    old_wallet = u.wallet
+                    old_rating = u.rating
                     u.wallet += int(r[1])
                     u.rating += int(r[2])
                     u.save(force_update=True)
-                    names[u.personaname] = r[1]
+                    total_players +=1
+                    total_rc +=int(r[1])
+                    PlayerLog.objects.create(player_id=u.id,
+                                             log_action='Начисление RC и рейтинга',
+                                             comment='На баланс начислено {} RC и увеличен рейтинг на {} за время, проведенное в игре)'
+                                                     'Прежний баланс {}, новый баланс {}. Прежний рейтинг {}, '
+                                                     'Новый рейтинг {}'.format(r[1],
+                                                                               r[2],
+                                                                               old_wallet,
+                                                                               u.wallet,
+                                                                               old_rating,
+                                                                               u.rating)).save()
+
                 except:
                     pass
 
         webhook = DiscordWebhook(url=bot_settings.TIME_PAY_URL)
         embed = DiscordEmbed(title='Выдача премии за время в игре',
                              description='', color=242424)
-        for p,m,r in names.items():
-            embed.add_embed_field(name='Ник : ' + p, value='Выдано : ' + m + ' RC | Начислено : ' + r + 'рейтинга',  inline=False)
 
-
+        embed.add_embed_field(name='Количество игроков :' + str(total_players), value='Общая сумма : ' + str(total_rc) + ' RC. Проверяйте логи на сайте в ЛК ',  inline=False)
         webhook.add_embed(embed)
-
         webhook.execute()
 
 

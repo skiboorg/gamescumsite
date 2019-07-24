@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import SteamUser
+from authentication.models import SteamUser, PlayerLog
 
 class EventTemplates(models.Model):
     name = models.CharField('Название шаблона', max_length=50, blank=False, null=True, default='')
@@ -32,8 +32,14 @@ class Event(models.Model):
         if all_players:
             for player in all_players:
                 if player.is_present:
+                    old_rating = player.player.rating
                     player.player.rating += 1
                     player.player.save(force_update=True)
+                    PlayerLog.objects.create(player_id=player.id,
+                                             log_action='Начисление рейтинга',
+                                             comment='За участие в мероприятии твой рейтинг был увеличен.'
+                                                     'Прежнее значение {}, новое значение {}'.format(old_rating,
+                                                                                                     player.player.rating)).save()
         super(Event, self).save(*args, **kwargs)
 
 class EventPlayers(models.Model):

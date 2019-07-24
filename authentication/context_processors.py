@@ -1,4 +1,4 @@
-from authentication.models import PrivateMessages
+from authentication.models import PrivateMessages, PlayerLog
 from squads.models import Squad,SquadMembers,SquadSectors,SectorWars
 from shop.models import Orders
 from datetime import datetime, timedelta
@@ -20,6 +20,9 @@ def check_profile(request):
         if player.rating > player.level * 99:
             player.level += 1
             player.save(force_update=True)
+            PlayerLog.objects.create(player_id=player.id,
+                                     log_action='Поднятие уровня',
+                                     comment='Твой уровень был увеличен на 1').save()
 
         # if not player.vip and player.rating > 500:
         #     player.vip = True
@@ -34,16 +37,34 @@ def check_profile(request):
 
             if time_now > last_login:
                 if player.vip:
+                    old_rating = player.rating
+                    old_wallet = player.wallet
                     player.rating += 2
                     player.wallet += 50
                     player.last_vizit = datetime.now().date()
                     player.save(force_update=True)
+                    PlayerLog.objects.create(player_id=player.id,
+                                             log_action='Начисление рейтинга и RC (с учетом VIP) за ежедневный вход на сайт',
+                                             comment='Прежний рейтинг {} , новый рейтинг {}. Прежний баланс {} ,'
+                                                     ' новый баланс {}'.format(old_rating,
+                                                                               player.rating,
+                                                                               old_wallet,
+                                                                               player.wallet)).save()
                 else:
                     if not player.outlaw:
+                        old_rating = player.rating
+                        old_wallet = player.wallet
                         player.rating += 1
                         player.wallet += 25
                         player.last_vizit = datetime.now().date()
                         player.save(force_update=True)
+                        PlayerLog.objects.create(player_id=player.id,
+                                                 log_action='Начисление рейтинга и RC за ежедневный вход на сайт',
+                                                 comment='Прежний рейтинг {} , новый рейтинг {}. Прежний баланс {} ,'
+                                                         ' новый баланс {}'.format(old_rating,
+                                                                                   player.rating,
+                                                                                   old_wallet,
+                                                                                   player.wallet)).save()
 
             # проверка срока действия вип статуса
 
@@ -53,6 +74,9 @@ def check_profile(request):
                     player.vip = False
                     player.save(force_update=True)
                     is_vip = False
+                    PlayerLog.objects.create(player_id=player.id,
+                                             log_action='Отмена VIP',
+                                             comment='VIP статус был отменен, т.к. закончен срок его действия').save()
                 else:
                     print('is_vip')
                     print(time_now)

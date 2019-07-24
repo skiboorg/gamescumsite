@@ -457,15 +457,34 @@ def place_order(request):
     all_cart_items.delete()
     order.spawn_text = spawn_txt
     order.save(force_update=True)
+    old_rating = player.rating
+    old_wallet = player.wallet
     player.wallet = player.wallet - order.total_price
     player.total_buys_count += 1
     player.buys_count += 1
     player.last_buy = datetime.now().date()
+    PlayerLog.objects.create(player_id=player.id,
+                             log_action='Списание RC',
+                             comment='С баланса списано {} RC за оплату заказа {}.'
+                                     'Прежний баланс {}, новый баланс {}'.format(order.total_price,
+                                                                                 order.id,
+                                                                                 old_wallet,
+                                                                                 player.wallet)).save()
 
     if player.vip and order.total_price >= 500:
         player.rating += 3
+        PlayerLog.objects.create(player_id=player.id,
+                                 log_action='Начисление рейтинга',
+                                 comment='С учетом VIP за покупку более 500 RC начислен рейтинг'
+                                         'Прежнее значение {}, новое значение {}'.format(old_rating,
+                                                                                     player.rating)).save()
     if not player.vip and order.total_price >= 500:
         player.rating += 1
+        PlayerLog.objects.create(player_id=player.id,
+                                 log_action='Начисление рейтинга',
+                                 comment='За покупку более 500 RC начислен рейтинг'
+                                         'Прежнее значение {}, новое значение {}'.format(old_rating,
+                                                                                         player.rating)).save()
 
     player.total_buys_summ += order.total_price
     player.save(force_update=True)

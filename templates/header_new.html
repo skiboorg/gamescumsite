@@ -55,7 +55,7 @@
                                         <div class="second">
                                             <div class="inner">
                                                 <ul>
-                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ВСЕ ОТРЯДЫ</span></span></a></li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'all_squads' %}" class=""><span class="item_outer"><span class="item_text">ВСЕ ОТРЯДЫ</span></span></a></li>
                                                     <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ВОЙНА ЗА СЕКТОРА</span></span></a></li>
                                                     <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span class="item_outer"><span class="item_text">ИСПЫТАНИЯ</span></span></a></li>
                                                 </ul>
@@ -83,6 +83,7 @@
                                                             {% if pm.count > 0 %}<span  class="highlight"> <span id="pm_count">{{ pm.count }}</span></span>{% endif %}
                                                             </span></span> </a>
                                                         </li>
+                                                    <li id="nav-menu-item-845" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#logs" class=""><span class="item_outer"><span class="item_text">Логи событий</span></span></a></li>
                                                         <li id="nav-menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="{% url 'profile' user.nickname %}#pm" class=""><span class="item_outer"><span class="item_text">Заказы
                                                             {% if orders_count > 0 %}<span  class="highlight"> {{ orders_count }}</span>{% endif %}
                                                             </span></span></a>

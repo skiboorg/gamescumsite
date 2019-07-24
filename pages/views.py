@@ -148,6 +148,7 @@ def profile(request, nickname_req):
 
 
                 own_profile = True
+                player_logs = PlayerLog.objects.filter(player_id=request.user.id).order_by('-created')
 
                 player = request.user
                 squad_info = get_squad_info(player.id)
@@ -236,6 +237,11 @@ def reset_limit(request):
                                   player_action='Сброс лимита покупок. До сброса баланс : {}.  После сброса {} '.format(
                                       old_wallet, player.wallet))
     new_log.save()
+    PlayerLog.objects.create(player_id=player.id,
+                             log_action='Списание RC',
+                             comment='С баланса списано 1000 RC за сброс лимита на покупки.'
+                                     'Прежний баланс {}, новый баланс {}'.format(old_wallet,
+                                                                                 player.wallet)).save()
 
     messages.add_message(request, messages.SUCCESS, 'Дневной лимит сброшен, приятных покупок;) ')
 
@@ -265,6 +271,9 @@ def bonus_pack(request):
     webhook.add_embed(embed)
 
     webhook.execute()
+    PlayerLog.objects.create(player_id=player.id,
+                             log_action='Запрос',
+                             comment='Запрос на бонус-пак успешно отправлен').save()
 
     return HttpResponseRedirect('/profile/' + request.user.nickname)
 
@@ -296,6 +305,11 @@ def buy_vip(request):
                                                     ' Баланс кошелька после покупки : {}. '.format(old_player_wallet,
                                                                                                    player.wallet))
         new_log.save()
+        PlayerLog.objects.create(player_id=player.id,
+                                 log_action='Списание RC',
+                                 comment='С баланса списано 20000 RC за покупку VIP.'
+                                         'Прежний баланс {}, новый баланс {}'.format(old_player_wallet,
+                                                                                     player.wallet)).save()
     else:
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Попытка покупки VIP за RC. Баланс кошелька до покупки : {}.'.format
@@ -312,6 +326,8 @@ def add_to_player_balance(request):
     player = request.user
     to_player = SteamUser.objects.get(id=request.POST.get('player_id'))
     if player.wallet >= int(request.POST.get('rc_amount')):
+        old_player_wallet = player.wallet
+        old_to_player_wallet = to_player.wallet
         player.wallet -= int(request.POST.get('rc_amount'))
         player.save(force_update=True)
         to_player.wallet += int(request.POST.get('rc_amount'))
@@ -330,6 +346,20 @@ def add_to_player_balance(request):
         messages.add_message(request, messages.SUCCESS,
                              'Баланс игрока '+ to_player.personaname +' успешно пополнен на '
                              + request.POST.get('rc_amount') + ' RC')
+        PlayerLog.objects.create(player_id=player.id,
+                                 log_action='Списание RC',
+                                 comment='С баланса списано {} RC за перевод игроку {}.'
+                                         'Прежний баланс {}, новый баланс {}'.format(request.POST.get('rc_amount'),
+                                                                                     to_player.personaname,
+                                                                                     old_player_wallet,
+                                                                                     player.wallet)).save()
+        PlayerLog.objects.create(player_id=to_player.id,
+                                 log_action='Пополнение RC',
+                                 comment='На баланс зачислено {} RC от игрока {}'
+                                         'Прежний баланс {}, новый баланс {}'.format(request.POST.get('rc_amount'),
+                                                                                     player.personaname,
+                                                                                     old_to_player_wallet,
+                                                                                     to_player.wallet)).save()
     else:
         new_log = Logs.objects.create(player_id=request.user.id,
                                       player_action='Попытка перевода {} RC, игроку {} '.format(

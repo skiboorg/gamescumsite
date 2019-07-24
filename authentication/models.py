@@ -117,3 +117,8 @@ class Logs(models.Model):
         verbose_name = "Действие игрока"
         verbose_name_plural = "Действия игроков"
 
+class PlayerLog(models.Model):
+    player = models.ForeignKey(SteamUser,blank=False,null=False, on_delete=models.CASCADE)
+    log_action = models.CharField(max_length=50,blank=True,null=True)
+    comment = models.TextField(blank=True,null=True)
+    created = models.DateTimeField(auto_now=True)

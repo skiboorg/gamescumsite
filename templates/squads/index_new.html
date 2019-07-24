@@ -1,0 +1,148 @@
+{% extends 'basic_new.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="edgtf-content">
+        <div class="edgtf-content-inner">
+            <div class="edgtf-title-holder edgtf-centered-type edgtf-title-va-window-top" style="height: 300px;background-image: url({% static 'images/events.jpg' %});" data-height="138">
+                <div class="edgtf-title-wrapper">
+                    <div class="edgtf-title-inner">
+                        <div class="edgtf-grid">
+                            <h3 style="text-align: end" class="edgtf-page-title entry-title scum-font">ОТРЯДЫ <span style="color: #ff7e1f">СЕРВЕРА</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="margin-top: 40px;" class="edgtf-full-width">
+                <div class="edgtf-full-width-inner">
+                    <div class="edgtf-grid-row">
+                        <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                            <div class="edgtf-row-grid-section-wrapper ">
+                                <div class="edgtf-row-grid-section">
+
+
+
+
+                                     <table class="table table-condensed  table-standings" style="border-collapse:collapse;">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Название отряда</th>
+                                            <th>Лидер</th>
+                                            <th>Уровень</th>
+                                            <th>Состав</th>
+                                            <th>Набор</th>
+                                            <th></th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for squad in squads %}
+                                            <tr >
+                                                <td style="vertical-align: middle;">
+                                                    <img width="200px" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
+
+                                                </td>
+                                            <td style="vertical-align: middle;">
+                                                {{ squad.name }}
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <a href="{% url 'profile' squad.leader.nickname %}">{{ squad.leader.personaname }}</a>
+                                            </td>
+                                                <td style="vertical-align: middle;">{{ squad.level }}</td>
+                                                <td style="vertical-align: middle;">{{ squad.get_members.count }}</td>
+                                                <td style="vertical-align: middle;">
+                                                    {% if player_squad_member %}
+                                                        <span style="border: 2px dashed #00ec14; color: #00ec14; padding: 10px ">Ты уже в отряде</span>
+                                                    {% else %}
+
+                                                        {% if squad.recruting and user.is_authenticated%}
+
+
+                                                            {% if squad.id in req_disct %}
+                                                                <span style="border: 2px dashed #00ec14; color: #00ec14; padding: 10px "> Заявка уже подана</span>
+                                                            {% else %}
+
+                                                                <a class="btn-outline btn-xs btn-succ" href="{% url 'join_request' squad.name_slug %}"> Вступить</a>
+                                                            {% endif %}
+
+
+                                                        {% else %}
+                                                            Закрыт
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+
+                                                <td style="vertical-align: middle;"><a style="font-size: 14px; padding: 10px 25px;" href="javascript:void(0);" class="btn-xs btn-outline " type="button" onclick="showSquadInfo(this)"  data-target="#squad_info_{{ squad.id }}" >ПОДРОБНЕЕ</a></td>
+                                            </tr>
+                                            <tr id="squad_info_{{ squad.id }}"  style="display: none">
+
+
+                                            <td >
+
+                                                <img style="width: 220px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
+
+
+                                            </td>
+                                                <td >
+                                                  {{ squad.info }}
+                                                </td>
+                                             <td></td>
+                                             <td  style="width: 20%">
+                                            <span> Состав отряда :</span><br>
+                                                 {% for member in squad.squadmembers_set.all %}
+                                                    <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
+
+                                                 {% endfor %}
+
+                                             </td>
+                                            <td> ПОБЕД <br> {{ squad.battles_wins }}
+
+                                            </td>
+                                            <td>
+                                            ПОРАЖЕНИЙ <br> {{ squad.battles_loose }}
+                                            </td>
+                                            <td></td>
+
+                                        </tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div></div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div> <!-- close div.content_inner -->
+    </div>
+    <div class="gap-20"></div>
+    <div class="gap-20"></div>
+
+    <script>
+    var last_tab = false
+    function showSquadInfo(el) {
+        console.log(last_tab)
+        if (last_tab){
+            $(last_tab).css('display','none')
+        }
+        tab = $(el).attr('data-target')
+        last_tab = tab
+
+        $(tab).css('display','table-row')
+
+
+    }
+    </script>
+{% endblock %}
