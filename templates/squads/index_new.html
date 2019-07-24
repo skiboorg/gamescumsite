@@ -76,22 +76,22 @@
                                                     {% endif %}
                                                 </td>
 
-                                                <td style="vertical-align: middle;"><a style="font-size: 14px; padding: 10px 25px;" href="javascript:void(0);" class="btn-xs btn-outline " type="button" onclick="showSquadInfo(this)"  data-target="#squad_info_{{ squad.id }}" >ПОДРОБНЕЕ</a></td>
+                                                <td style="vertical-align: top;"><a style="font-size: 14px; padding: 10px 25px;" href="javascript:void(0);" class="btn-xs btn-outline " type="button" onclick="showSquadInfo(this)"  data-target="#squad_info_{{ squad.id }}" >ПОДРОБНЕЕ</a></td>
                                             </tr>
                                             <tr id="squad_info_{{ squad.id }}"  style="display: none">
 
 
-                                            <td style="vertical-align: middle;" >
+                                            <td style="vertical-align: top;" >
 
                                                 <img style="width: 500px;" src="{{ squad.avatar.url }}" alt="Отряд игрового сервера SCUM {{ squad.name }}">
 
 
                                             </td>
-                                                <td style="vertical-align: middle;" >
+                                                <td style="vertical-align: top;" >
                                                   {{ squad.info }}
                                                 </td>
 
-                                             <td  style="vertical-align: middle;">
+                                             <td  style="vertical-align: top;">
                                             <span> Состав отряда :</span><br>
                                                  {% for member in squad.squadmembers_set.all %}
                                                     <a href="{% url 'profile' member.player.nickname %}">{{ member.player.personaname }}</a><br>
@@ -99,10 +99,10 @@
                                                  {% endfor %}
 
                                              </td>
-                                            <td style="vertical-align: middle;"> ПОБЕД <br> {{ squad.battles_wins }}
+                                            <td style="vertical-align: top;"> ПОБЕД <br> {{ squad.battles_wins }}
 
                                             </td >
-                                            <td style="vertical-align: middle;">
+                                            <td style="vertical-align: top;">
                                             ПОРАЖЕНИЙ <br> {{ squad.battles_loose }}
                                             </td>
                                             <td></td>
