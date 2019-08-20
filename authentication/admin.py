@@ -23,7 +23,7 @@ class SteamUserAdmin(admin.ModelAdmin):
     get_squad.admin_order_field = 'squad'
 
     def get_vip_ends(self,obj):
-        player = SteamUser.objects.get(personaname=obj)
+        player = SteamUser.objects.get(steamid=obj.steamid)
         if player.vip:
             return player.vip_start + timedelta(days=30)
         else:
