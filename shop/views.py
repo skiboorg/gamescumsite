@@ -145,7 +145,7 @@ def shop_show_item(request, item_slug):
 
     print(favorites_id)
 
-    subitems = SubItem.objects.filter(item=item)
+    subitems = SubItem.objects.filter(item=item, active=True)
 
     return render(request, 'shop/item.html', locals())
 

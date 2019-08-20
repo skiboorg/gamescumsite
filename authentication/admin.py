@@ -9,10 +9,11 @@ class SteamUserAdmin(admin.ModelAdmin):
     list_filter = ('vip', 'outlaw', 'is_squad_leader', 'old_player', 'is_active')
     search_fields = ('steamid', 'discord_id', 'discord_nickname', 'personaname',)
     ordering = ('personaname',)
-    list_display = ('personaname', 'steamid', 'vip', 'is_active', 'wallet', 'level', 'get_squad', 'rating',)
+    list_display = ('personaname', 'steamid', 'vip','get_vip_ends', 'is_active', 'wallet', 'level', 'get_squad', 'rating',)
 
     def get_squad(self, obj):
         squad_member = SquadMembers.objects.get(player=obj)
+        print('OBJ = {}'.format(obj))
         if squad_member:
             return squad_member.squad.name
         else:
@@ -20,6 +21,18 @@ class SteamUserAdmin(admin.ModelAdmin):
 
     get_squad.short_description = 'Отряд'
     get_squad.admin_order_field = 'squad'
+
+    def get_vip_ends(self,obj):
+        player = SteamUser.objects.get(personaname=obj)
+        if player.vip:
+            return player.vip_start + timedelta(days=30)
+        else:
+            return 'НЕТ ВИП'
+
+
+
+    get_vip_ends.short_description = 'Окончание VIP'
+    get_vip_ends.admin_order_field = 'vip_ends'
 
 
     def make_old_player(modeladmin, request, queryset):

@@ -118,6 +118,10 @@ class Items(models.Model):
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
         self.name_lower = self.name.lower()
+
+        if not self.active:
+            item_in_fav = FavoriteItems.objects.filter(item=self.id)
+            item_in_fav.delete()
         super(Items, self).save(*args, **kwargs)
 
     def image_tag(self):
@@ -162,6 +166,13 @@ class SubItem(models.Model):
     level = models.IntegerField(default=1)
     discount = models.IntegerField(default=0)
     for_vip = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+
+        if not self.active:
+            item_in_fav = FavoriteItems.objects.filter(subitem=self.id)
+            item_in_fav.delete()
+        super(SubItem, self).save(*args, **kwargs)
 
     def image_tag(self):
         # used in the admin site model as a "thumbnail"
