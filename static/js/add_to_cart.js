@@ -107,7 +107,7 @@ function add_to_cart(form) {
                       $.amaran({
                         'theme'     :'user blue',
                         'content'   :{
-                            img:'/media/'+item_image,
+                            img:'/media/stop.jpg',
                             user:'Достигнут лимит :',
                             message: 'Максимум 5 ед. товара в корзине'
                         },
