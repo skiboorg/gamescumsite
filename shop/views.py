@@ -252,6 +252,7 @@ def mass_to_cart(request):
 
 def add_to_cart(request):
     return_dict = {}
+    return_dict['max_items'] = False
     data = request.POST
     item_id = int(data.get('item_id'))
     item_number = int(data.get('item_number'))
@@ -260,13 +261,21 @@ def add_to_cart(request):
         addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
                                                            item_id=item_id, defaults={'number': item_number})
         if not created:
-            addtocart.number += int(item_number)
+            if addtocart.number + int(item_number) > 5:
+
+                return_dict['max_items'] = True
+            else:
+                addtocart.number += int(item_number)
             addtocart.save(force_update=True)
     else:
         addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
                                                             subitem_id=item_subitem, defaults={'number': item_number})
         if not created:
-            addtocart.number += int(item_number)
+            if addtocart.number + int(item_number) > 5:
+
+                return_dict['max_items'] = True
+            else:
+                addtocart.number += int(item_number)
             addtocart.save(force_update=True)
     all_items_in_cart = Baskets.objects.filter(player_id=request.user.id)
     count_items_in_cart = all_items_in_cart.count()

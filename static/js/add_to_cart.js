@@ -92,7 +92,8 @@ function add_to_cart(form) {
 
                 $('#count_items_in_cart').html( data.total_items_in_cart );
                 $('.info-block__cart-sum').html(data.total_cart_price + ' RC');
-                $.amaran({
+                if (!data.max_items){
+                   $.amaran({
                         'theme'     :'user blue',
                         'content'   :{
                             img:'/media/'+item_image,
@@ -102,6 +103,19 @@ function add_to_cart(form) {
                         'position'  :'bottom right',
                         'outEffect' :'slideBottom'
                     });
+                }else{
+                      $.amaran({
+                        'theme'     :'user blue',
+                        'content'   :{
+                            img:'/media/'+item_image,
+                            user:'Достигнут лимит :',
+                            message: 'Максимум 5 ед. товара в корзине'
+                        },
+                        'position'  :'bottom right',
+                        'outEffect' :'slideBottom'
+                    });
+                }
+
             },
             error: function () {
                 console.log('ERROR')
