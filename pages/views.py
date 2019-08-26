@@ -112,21 +112,21 @@ def chat_log(request):
                 msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                 msg_time = msg[0].split('-')[1].split('.')
                 msg_time[0] = str(int(msg_time[0]) + 3)
+                if msg[3] == 'Global':
+                    server_response = requests.get(
+                        'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}&format=json'.format(
+                            bot_settings.STEAM_KEY, msg[1]))
+                    json_data = json.loads(server_response.text)
+                    print('get user avatar')
+                    userAvatar = json_data['response']['players'][0]['avatar']
 
-                server_response = requests.get(
-                    'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}&format=json'.format(
-                        bot_settings.STEAM_KEY, msg[1]))
-                json_data = json.loads(server_response.text)
-                print('get user avatar')
-                userAvatar = json_data['response']['players'][0]['avatar']
+                    webhook = DiscordWebhook(url=bot_settings.DISCORD_CHAT_WH)
+                    embed = DiscordEmbed(title=msg[4], color=0xec4e00)
+                    embed.set_author(name=msg[2][:msg[2].find('(')], icon_url='{}'.format(userAvatar))
 
-                webhook = DiscordWebhook(url=bot_settings.DISCORD_CHAT_WH)
-                embed = DiscordEmbed(title=msg[4], color=0xec4e00)
-                embed.set_author(name=msg[2][:msg[2].find('(')], icon_url='{}'.format(userAvatar))
-
-                embed.set_footer(text='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
-                webhook.add_embed(embed)
-                webhook.execute()
+                    embed.set_footer(text='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
+                    webhook.add_embed(embed)
+                    webhook.execute()
     return HttpResponse(status=200)
 
 
