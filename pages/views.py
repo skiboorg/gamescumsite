@@ -130,6 +130,12 @@ def chat_log(request):
         # webhook.add_embed(embed)
         # webhook.execute()
 
+        # const
+        # factor = mapId.height() / 1200000;
+        # this.zoom.kx = ((this.feed.kx * -1) + 613142.340) * factor;
+        # this.zoom.ky = (this.feed.ky + 593500) * factor;
+        # this.zoom.vx = ((this.feed.vx * -1) + 613142.340) * factor;
+        # this.zoom.vy = (this.feed.vy + 593500) * factor;
 
         if DF:
             for msg in DF:
@@ -150,7 +156,6 @@ def chat_log(request):
 
                 userAvatar = json_data['response']['players'][0]['avatar']
 
-                webhook_url = 'https://discordapp.com/api/webhooks/614005912662835215/Un9HD3x5x6XZWGYhgdHzLrwfM4EF9uYA8RfLTniCssIUnsvzFZE8wKaUxaNsmWJvBTQR'
                 webhook = DiscordWebhook(url=webhook_url)
                 # embed = DiscordEmbed(title='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
                 # embed.add_embed_field(name=msg[2][:msg[2].find('(')], value=msg[4])
