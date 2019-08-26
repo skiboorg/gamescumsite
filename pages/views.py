@@ -1,6 +1,8 @@
 from django.contrib.auth import logout
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from news.models import News
 from authentication.forms import EditProfileForm
 from squads.forms import *
@@ -14,10 +16,171 @@ from lxml import html
 import requests
 import bot_settings
 from django.http import JsonResponse
-from pages.models import SiteStat
+from pages.models import *
 from datetime import datetime, timedelta
 import bot_settings
 from discord_webhook import DiscordWebhook, DiscordEmbed
+
+
+@csrf_exempt
+def kill_log(request):
+    logTime = request.POST.get('time')
+    logText = json.loads(request.POST.get('data'))
+
+
+    logtext, created = KillLog.objects.get_or_create(LogTime=logTime, defaults={'oldLog': logText})
+
+    if created:
+        print('new killlog is created')
+    else:
+        print('killlog is present')
+
+        oldlog = logtext.oldLog
+        old = oldlog.splitlines()
+
+        newlog = json.loads(request.POST.get('data'))
+        new = newlog.splitlines()
+        DF = [x for x in new if x not in old]
+        print('kill df = ', DF)
+        logtext.oldLog = newlog
+        logtext.save(force_update=True)
+        killerNick = ''
+        killerID = ''
+        killerGameX = ''
+        killerGameY = ''
+        victimNick = ''
+        victimID = ''
+        victimGameX = ''
+        victimGameY = ''
+        isEventKill = False
+        if DF:
+            for msg in DF:
+                msg = msg.replace(': ',',').replace('S[',',').replace('C[',',').replace('] (killer',',').split(',')
+                print('kill log=' , msg)
+                victimNick = msg[2].replace(' ','')[:msg[2].find('(')-1]
+                victimID = msg[2].replace(' ','')[msg[2].find('('):msg[2].find(')')-1]
+                killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
+                victimID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
+                killerGameX = msg[6]
+                killerGameY = msg[7]
+                victimGameX = msg[10]
+                victimGameY = msg[11]
+
+
+
+
+                try:
+                    if msg[22]:
+                        isEventKill = True
+                except:
+                    pass
+
+
+    return HttpResponse(status=200)
+
+@csrf_exempt
+def chat_log(request):
+
+    steam_url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamids=76561198031013162'
+
+    # test=["2019.08.26-07.10.37: '76561198005560814:Non(2495)' 'Local: уже идем'", "2019.08.26-07.10.44: '76561198294173616:CTAPOBEP(34)' 'Global: за тобой)'", "2019.08.26-07.10.46: '76561198836595365:Alpha(2736)' 'Global: сервак пвп да?'", "2019.08.26-07.10.49: '76561198005560814:Non(2495)' 'Local: )'", "2019.08.26-07.10.52: '76561198119304883:Djony Falcony(2046)' 'Global: Так точно!'"]
+    # for msg in test:
+    #     msg = msg.replace(": '", ':').replace("' '",':').replace("'",'')
+    #     print (msg)
+    logTime = request.POST.get('time')
+    logText = json.loads(request.POST.get('data'))
+    print(logTime)
+
+
+    logtext, created = GameChat.objects.get_or_create(logTime=logTime,defaults={'oldLog':logText})
+
+    if created:
+        print('new log is created')
+
+
+
+    else:
+        print('log is present')
+
+        oldlog = logtext.oldLog
+        old = oldlog.splitlines()
+
+        newlog = json.loads(request.POST.get('data'))
+        new = newlog.splitlines()
+        DF = [x for x in new if x not in old]
+        print('df = ', DF)
+        logtext.oldLog = newlog
+        logtext.save(force_update=True)
+
+        # server_response = requests.get(
+        #     'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamids={}&format=json'.format(
+        #        '76561198031013162'))
+        # json_data = json.loads(server_response.text)
+        # print('get user avatar')
+
+        # userAvatar = json_data['response']['players'][0]['avatar']
+
+
+        # webhook_url = 'https://discordapp.com/api/webhooks/614005912662835215/Un9HD3x5x6XZWGYhgdHzLrwfM4EF9uYA8RfLTniCssIUnsvzFZE8wKaUxaNsmWJvBTQR'
+        # webhook = DiscordWebhook(url=webhook_url)
+        # embed = DiscordEmbed(title="Сообщение из чата")
+        # embed.set_author(name="автор", icon_url='{}'.format(userAvatar))
+        #
+        # embed.set_footer(text="12.23.2333 12:32:23")
+        # webhook.add_embed(embed)
+        # webhook.execute()
+
+
+        if DF:
+            for msg in DF:
+                msg = msg.replace(": '", ':').replace("' '", ':').replace("'", '')
+                print(msg)
+                msg = msg.split(':')
+                print('msg2= ', msg[2])
+                print('msg4= ', msg[4])
+                msg_date = list(reversed(msg[0].split('-')[0].split('.')))
+                msg_time = msg[0].split('-')[1].split('.')
+                msg_time[0] = str(int(msg_time[0]) + 3)
+
+                server_response = requests.get(
+                    'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=BD1EBFF1F1644726E7F1399B2E9FF8B4&steamids={}&format=json'.format(
+                        msg[1]))
+                json_data = json.loads(server_response.text)
+                print('get user avatar')
+
+                userAvatar = json_data['response']['players'][0]['avatar']
+
+                webhook_url = 'https://discordapp.com/api/webhooks/614005912662835215/Un9HD3x5x6XZWGYhgdHzLrwfM4EF9uYA8RfLTniCssIUnsvzFZE8wKaUxaNsmWJvBTQR'
+                webhook = DiscordWebhook(url=webhook_url)
+                # embed = DiscordEmbed(title='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
+                # embed.add_embed_field(name=msg[2][:msg[2].find('(')], value=msg[4])
+                # webhook.add_embed(embed)
+                # webhook.execute()
+
+                embed = DiscordEmbed(title=msg[4], color=0xec4e00)
+                embed.set_author(name=msg[2][:msg[2].find('(')], icon_url='{}'.format(userAvatar))
+
+                embed.set_footer(text='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
+                webhook.add_embed(embed)
+                webhook.execute()
+
+    #if request.GET:
+
+        #print(json.loads(request.GET.get('data')))
+
+
+        # newlog = json.loads(request.GET.get('data'))
+        # Dict1 = newlog.readlines()
+        # Dict2 = oldlog.readlines()
+        # DF = [x for x in Dict1 if x not in Dict2]
+        # print(DF)
+
+
+
+
+
+    return HttpResponse(status=200)
+
 
 
 def server_stat(request):

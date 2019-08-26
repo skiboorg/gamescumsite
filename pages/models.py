@@ -21,3 +21,38 @@ class SiteStat(models.Model):
         verbose_name = "Статистика сайта"
         verbose_name_plural = "Статистика сайта"
 
+
+
+class GameChat(models.Model):
+    logTime = models.CharField(max_length=20, blank=True)
+    oldLog = models.TextField(blank=False, null=True)
+
+
+class KillLog(models.Model):
+    LogTime = models.CharField(max_length=20, blank=True)
+    oldLog = models.TextField(blank=False, null=True)
+
+#2019.08.26-08.19.54: Died: Pancho Mapuche (76561198111887633), Killer: survir0k (76561198245656512) S[KillerLoc: 155329.67, 36280.19, 30147.57, VictimLoc: 156226.64, 36061.13, 29876.15] C[KillerLoc: 155329.67, 36280.19, 30147.57, VictimLoc: 156225.69, 36056.66, 29876.15]
+
+class KillStat(models.Model):
+    killTime = models.CharField(max_length=20, blank=True)
+    killerID = models.CharField(max_length=20, blank=True)
+    killerNick = models.CharField(max_length=100, blank=True)
+    victimID = models.CharField(max_length=20, blank=True)
+    victimNick = models.CharField(max_length=100, blank=True)
+    killerLocGameCoordX = models.CharField(max_length=255, blank=True)
+    killerLocGameCoordY = models.CharField(max_length=255, blank=True)
+    killerLocGameCoordZ = models.CharField(max_length=255, blank=True)
+    victimLocGameCoordX = models.CharField(max_length=255, blank=True)
+    victimLocGameCoordY = models.CharField(max_length=255, blank=True)
+    victimLocGameCoordZ = models.CharField(max_length=255, blank=True)
+    killerLocCoordX = models.CharField(max_length=255, blank=True)
+    killerLocCoordY = models.CharField(max_length=255, blank=True)
+    killerLocCoordZ = models.CharField(max_length=255, blank=True)
+    victimLocCoordX = models.CharField(max_length=255, blank=True)
+    victimLocCoordY = models.CharField(max_length=255, blank=True)
+    victimLocCoordZ = models.CharField(max_length=255, blank=True)
+    isEvent = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+
