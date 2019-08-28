@@ -18,10 +18,32 @@ from datetime import datetime, timedelta
 import bot_settings
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from django.views.decorators.csrf import csrf_exempt
+import math
 
-
+def sector(x,y):
+    if (y >= 317500):
+        sect = 'D'
+    elif (y >= 11500):
+        sect = 'C'
+    elif (y >= -294500):
+        sect = 'B'
+    else:
+        sect = 'A'
+    if (x >= 315000):
+        sect += '4'
+    elif (x >= 9500):
+        sect += '3'
+    elif (x >= -295500):
+        sect += '2'
+    else:
+        sect += '1'
+    return sect
+def calculateDistance(x1,y1,x2,y2):
+    dist = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return dist * 0.1
 @csrf_exempt
 def kill_log(request):
+    print(request.POST)
     logTime = request.POST.get('time')
     logText = json.loads(request.POST.get('data'))
 
@@ -59,31 +81,78 @@ def kill_log(request):
         # this.zoom.vy = (this.feed.vy + 593500) * factor;
 
         if DF:
-            for msg in DF:
-                msg = msg.replace(': ', ',').replace('S[', ',').replace('C[', ',').replace('] (killer', ',').split(',')
-                print('kill log=', msg)
-                victimNick = msg[2].replace(' ', '')[:msg[2].find('(') - 1]
-                victimID = msg[2].replace(' ', '')[msg[2].find('('):msg[2].find(')') - 1]
-                killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
-                victimID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
-                killerGameX = msg[6]
-                killerGameY = msg[7]
-                victimGameX = msg[10]
-                victimGameY = msg[11]
 
-                try:
-                    if msg[22]:
-                        isEventKill = True
-                except:
-                    pass
+            for msg in DF:
+
+
+                msg = msg.replace(': ', ',').replace('S[', ',').replace('C[', ',').replace('] (killer',
+                                                                                           ',').split(',')
+                print('msg len = ', len(msg))
+                if len(msg) == 21 and not len(msg) == 22:
+
+                    print('kill log=', msg)
+                    victimNick = msg[2].replace(' ', '')[:msg[2].find('(') - 1]
+                    victimID = msg[2].replace(' ', '')[msg[2].find('('):msg[2].find(')') - 1]
+                    killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
+                    killerID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
+                    killerGameX = msg[6]
+                    killerGameY = msg[7]
+                    victimGameX = msg[10]
+                    victimGameY = msg[11]
+                    killerLocCoordX = str(((float(killerGameX) * -1) + 613142.340) * 0.001)
+                    killerLocCoordY = str((float(killerGameY) + 593500) * 0.001)
+                    victimLocCoordX = str(((float(victimGameX) * -1) + 613142.340) * 0.001)
+                    victimLocCoordY = str((float(victimGameY) + 593500) * 0.001)
+                    newKillStat = KillStat.objects.create(killerID=killerID,
+                                            killerNick=killerNick,
+                                            victimID=victimID,
+                                            victimNick=victimNick,
+                                            killerLocGameCoordX=killerGameX,
+                                            killerLocGameCoordY=killerGameY,
+                                            victimLocGameCoordX=victimGameX,
+                                            victimLocGameCoordY=victimGameY,
+                                            killerLocCoordX=killerLocCoordX,
+                                            killerLocCoordY=killerLocCoordY,
+                                            victimLocCoordX=victimLocCoordX,
+                                            victimLocCoordY=victimLocCoordY)
+
+
+                    newKillStat.save()
+
+                    msg_date = list(reversed(msg[0].split('-')[0].split('.')))
+                    msg_time = msg[0].split('-')[1].split('.')
+                    msg_time[0] = str(int(msg_time[0]) + 3)
+                    print('send in discord', msg_date , msg_time)
+                    webhook = DiscordWebhook(url=bot_settings.DISCORD_KILL_LOG)
+                    embed = DiscordEmbed(title='-',
+                                         description="Игрок {} убил игрока {} в квадрате {} с расстояния {}м".format(
+                                             killerNick,
+                                             victimNick,
+                                             sector(round(float(victimGameX)),round(float(victimGameY))),
+                                            calculateDistance(round(float(killerLocCoordX)),
+                                                              round(float(victimLocCoordX)),
+                                                              round(float(killerLocCoordY)),
+                                                              round(float(victimLocCoordY))),
+                                             color=0xec4e00))
+
+                    embed.set_footer(text='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
+                    webhook.add_embed(embed)
+                    webhook.execute()
+
+
+
+
+
     return HttpResponse(status=200)
 
 
 @csrf_exempt
 def chat_log(request):
+    print(request.POST.get('data'))
     logTime = request.POST.get('time')
     logText = json.loads(request.POST.get('data'))
     print(logTime)
+
 
     logtext, created = GameChat.objects.get_or_create(logTime=logTime, defaults={'oldLog': logText})
 
