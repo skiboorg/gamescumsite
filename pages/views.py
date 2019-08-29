@@ -132,13 +132,13 @@ def kill_log(request):
                     msg_time[0] = str(int(msg_time[0]) + 3)
                     print('send in discord', msg_date , msg_time)
 
-                    base_image = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/map.jpg')
-                    watermark = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/zone.png')
-                    width, height = base_image.size
-                    transparent = Image.new('RGB', (width, height), (0, 0, 0, 0))
-                    transparent.paste(base_image, (0, 0))
-                    transparent.paste(watermark, (600 - 35, 600 - 35), mask=watermark)
-                    #transparent.show()
+                    # base_image = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/map.jpg')
+                    # watermark = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/zone.png')
+                    # width, height = base_image.size
+                    # transparent = Image.new('RGB', (width, height), (0, 0, 0, 0))
+                    # transparent.paste(base_image, (0, 0))
+                    # transparent.paste(watermark, (600 - 35, 600 - 35), mask=watermark)
+                    # #transparent.show()
 
                     webhook = DiscordWebhook(url=bot_settings.DISCORD_KILL_LOG)
 
