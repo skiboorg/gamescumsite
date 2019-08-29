@@ -35,7 +35,6 @@ class KillLog(models.Model):
 #2019.08.26-08.19.54: Died: Pancho Mapuche (76561198111887633), Killer: survir0k (76561198245656512) S[KillerLoc: 155329.67, 36280.19, 30147.57, VictimLoc: 156226.64, 36061.13, 29876.15] C[KillerLoc: 155329.67, 36280.19, 30147.57, VictimLoc: 156225.69, 36056.66, 29876.15]
 
 class KillStat(models.Model):
-    killTime = models.CharField(max_length=20, blank=True)
     killerID = models.CharField(max_length=20, blank=True)
     killerNick = models.CharField(max_length=100, blank=True)
     victimID = models.CharField(max_length=20, blank=True)
@@ -48,7 +47,22 @@ class KillStat(models.Model):
     killerLocCoordY = models.CharField(max_length=255, blank=True)
     victimLocCoordX = models.CharField(max_length=255, blank=True)
     victimLocCoordY = models.CharField(max_length=255, blank=True)
-    isEvent = models.BooleanField(default=False)
+    killerSector = models.CharField(max_length=5, blank=True)
+    victimSector = models.CharField(max_length=5, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+class WarZone(models.Model):
+    zoneName = models.CharField('Название зоны', max_length=20, blank=True)
+    zoneX = models.CharField('Х', max_length=20, blank=True)
+    zoneY = models.CharField('Y', max_length=20, blank=True)
+    repRewardAll = models.IntegerField('Награда репутация для всех', default=1)
+    rcRewardAll = models.IntegerField('Награда RC для всех', default=50)
+    repRewardTop1 = models.IntegerField('Награда репутация для ТОП1', default=100)
+    rcRewardTop1 = models.IntegerField('Награда RC для ТОП1', default=5000)
+
+    class Meta:
+        verbose_name = "Warzone"
+        verbose_name_plural = "Warzone"
+
 
 

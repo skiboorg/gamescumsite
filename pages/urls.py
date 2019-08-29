@@ -40,6 +40,7 @@ urlpatterns = [
     path('buy_vip/', views.buy_vip, name='buy_vip'),
     path('chat_log/', views.chat_log, name='chat_log'),
     path('kill_log/', views.kill_log, name='kill_log'),
+    path('warzone/<zonename>', views.warzone, name='warzone'),
 
 
 

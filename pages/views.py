@@ -19,6 +19,7 @@ import bot_settings
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from django.views.decorators.csrf import csrf_exempt
 import math
+from PIL import Image
 
 def sector(x,y):
     if (y >= 317500):
@@ -38,9 +39,14 @@ def sector(x,y):
     else:
         sect += '1'
     return sect
-def calculateDistance(x1,y1,x2,y2):
-    dist = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    return dist * 0.1
+def calculateDistance(x1,x2,y1,y2):
+    print('x1,x2,y1,y2',x1,x2,y1,y2)
+    dist = round(math.sqrt(((x2 - x1)**2 + (y2 - y1)**2)) * 0.01)
+    return dist
+
+def warzone(request,zonename):
+    pass
+
 @csrf_exempt
 def kill_log(request):
     print(request.POST)
@@ -114,7 +120,9 @@ def kill_log(request):
                                             killerLocCoordX=killerLocCoordX,
                                             killerLocCoordY=killerLocCoordY,
                                             victimLocCoordX=victimLocCoordX,
-                                            victimLocCoordY=victimLocCoordY)
+                                            victimLocCoordY=victimLocCoordY,
+                                            killerSector=str(sector(round(float(killerGameX)),round(float(killerGameY)))),
+                                            victimSector=str(sector(round(float(victimGameX)),round(float(victimGameY)))))
 
 
                     newKillStat.save()
@@ -123,18 +131,28 @@ def kill_log(request):
                     msg_time = msg[0].split('-')[1].split('.')
                     msg_time[0] = str(int(msg_time[0]) + 3)
                     print('send in discord', msg_date , msg_time)
+
+                    base_image = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/map.jpg')
+                    watermark = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/zone.png')
+                    width, height = base_image.size
+                    transparent = Image.new('RGB', (width, height), (0, 0, 0, 0))
+                    transparent.paste(base_image, (0, 0))
+                    transparent.paste(watermark, (600 - 35, 600 - 35), mask=watermark)
+                    #transparent.show()
+
                     webhook = DiscordWebhook(url=bot_settings.DISCORD_KILL_LOG)
+
                     embed = DiscordEmbed(title='-',
-                                         description="Игрок {} убил игрока {} в квадрате {} с расстояния {}м".format(
+                                         description="Игрок {} убил игрока {} в квадрате {} с расстояния {} м.".format(
                                              killerNick,
                                              victimNick,
                                              sector(round(float(victimGameX)),round(float(victimGameY))),
-                                            calculateDistance(round(float(killerLocCoordX)),
-                                                              round(float(victimLocCoordX)),
-                                                              round(float(killerLocCoordY)),
-                                                              round(float(victimLocCoordY))),
+                                            calculateDistance(float(killerGameX),
+                                                              float(victimGameX),
+                                                              float(killerGameY),
+                                                              float(victimGameY)),
                                              color=0xec4e00))
-
+                   #m embed.set_image(url=transparent)
                     embed.set_footer(text='-'.join(msg_date) + ' - ' + ':'.join(msg_time))
                     webhook.add_embed(embed)
                     webhook.execute()
