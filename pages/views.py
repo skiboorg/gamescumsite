@@ -126,10 +126,36 @@ def kill_log(request):
 
 
                     newKillStat.save()
+                    #TODO добавлять рейтинг при убийстве (рейтинг для ВИП?)
+                    try:
+                        killer = SteamUser.objects.get(steamid=killerID)
+                        print('KILLER KILLS = ', killer.kills)
+                        killer.kills += 1
+                        killer.save(force_update=True)
+                        print('KILLER NICK = ', killer.personaname)
+                    except:
+                        print('KILLER NOT FOUND')
+                    try:
+                        victim = SteamUser.objects.get(steamid=victimID)
+                        print('VICTIM DEATHS = ', victim.deaths)
+                        victim.deaths += 1
+                        victim.save(force_update=True)
+                        print('VICTIM NICK = ', victim.personaname)
+                    except:
+                        print('VICTIM NOT FOUND')
+
 
                     msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                     msg_time = msg[0].split('-')[1].split('.')
-                    msg_time[0] = str(int(msg_time[0]) + 3)
+                    if int(msg_time[0] + 3) > 23:
+                        msg_date[0] = str(int(msg_date[0] + 1))
+                        if int(msg_time[0]) + 3 - 24 < 10:
+                            msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)
+                        else:
+                            msg_time[0] = str(int(msg_time[0]) + 3 - 24)
+                    else:
+                        msg_time[0] = str(int(msg_time[0]) + 3)
+                    #msg_time[0] = str(int(msg_time[0]) + 3)
                     print('send in discord', msg_date , msg_time)
 
                     # base_image = Image.open('C:/Users/ххх/PycharmProjects/gamescumsite_new/map.jpg')
@@ -198,7 +224,14 @@ def chat_log(request):
                 print('msg4= ', msg[4])
                 msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                 msg_time = msg[0].split('-')[1].split('.')
-                msg_time[0] = str(int(msg_time[0]) + 3)
+                if int(msg_time[0] + 3) > 23:
+                    msg_date[0] = str(int(msg_date[0] + 1))
+                    if int(msg_time[0]) + 3 - 24 < 10:
+                        msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)
+                    else:
+                        msg_time[0] = str(int(msg_time[0]) + 3 - 24)
+                else:
+                    msg_time[0] = str(int(msg_time[0]) + 3)
                 if msg[3] == 'Global':
                     server_response = requests.get(
                         'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}&format=json'.format(
