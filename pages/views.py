@@ -97,10 +97,18 @@ def kill_log(request):
                 if len(msg) == 21 and not len(msg) == 22:
 
                     print('kill log=', msg)
-                    victimNick = msg[2].replace(' ', '')[:msg[2].find('(') - 1]
-                    victimID = msg[2].replace(' ', '')[msg[2].find('('):msg[2].find(')') - 1]
-                    killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
-                    killerID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
+                  #  victimNick = msg[2].replace(' ', '')[:msg[2].find('(') - 1]
+                  #  victimID = msg[2].replace(' ', '')[msg[2].find('('):msg[2].find(')') - 1]
+                   # victimNick = msg[2].replace(' ', '')[:msg[2].find('(7') - 1]
+                 #  victimID = msg[2].replace(' ', '')[msg[2].find('('):len(msg[2])-2]
+                    victimNick = msg[2].replace('(', '').replace (')', '').split(' 7')[0]
+                    victimID = '7' + msg[2].replace('(', '').replace (')', '').split(' 7')[1]
+                  #  killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
+                   # killerID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
+                   # killerNick = msg[4].replace(' ', '')[:msg[4].find('(7') - 1]
+                  #  killerID = msg[4].replace(' ', '')[msg[4].find('('):len(msg[4])-2]
+                    killerNick = msg[4].replace('(', '').replace(')', '').split(' 7')[0]
+                    killerID = '7' + msg[4].replace('(', '').replace(')', '').split(' 7')[1]
                     killerGameX = msg[6]
                     killerGameY = msg[7]
                     victimGameX = msg[10]
@@ -143,11 +151,9 @@ def kill_log(request):
                         print('VICTIM NICK = ', victim.personaname)
                     except:
                         print('VICTIM NOT FOUND')
-
-
                     msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                     msg_time = msg[0].split('-')[1].split('.')
-                    if int(msg_time[0] + 3) > 23:
+                    if int(msg_time[0]) + 3 > 23:
                         msg_date[0] = str(int(msg_date[0] + 1))
                         if int(msg_time[0]) + 3 - 24 < 10:
                             msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)
@@ -224,7 +230,7 @@ def chat_log(request):
                 print('msg4= ', msg[4])
                 msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                 msg_time = msg[0].split('-')[1].split('.')
-                if int(msg_time[0] + 3) > 23:
+                if int(msg_time[0]) + 3 > 23:
                     msg_date[0] = str(int(msg_date[0] + 1))
                     if int(msg_time[0]) + 3 - 24 < 10:
                         msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)

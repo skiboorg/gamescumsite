@@ -53,12 +53,14 @@ class KillStat(models.Model):
 
 class WarZone(models.Model):
     zoneName = models.CharField('Название зоны', max_length=20, blank=True)
+    zoneImage = models.ImageField('Картинка',upload_to='zone_images/', null=True, blank=True)
     zoneX = models.CharField('Х', max_length=20, blank=True)
     zoneY = models.CharField('Y', max_length=20, blank=True)
     repRewardAll = models.IntegerField('Награда репутация для всех', default=1)
     rcRewardAll = models.IntegerField('Награда RC для всех', default=50)
     repRewardTop1 = models.IntegerField('Награда репутация для ТОП1', default=100)
     rcRewardTop1 = models.IntegerField('Награда RC для ТОП1', default=5000)
+    isActive = models.BooleanField('Не менять в ручную!', default=False)
 
     class Meta:
         verbose_name = "Warzone"
