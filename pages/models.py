@@ -1,4 +1,5 @@
 from django.db import models
+from authentication.models import SteamUser
 
 class SiteStat(models.Model):
     is_active = models.BooleanField(default=True)
@@ -54,8 +55,10 @@ class KillStat(models.Model):
 class WarZone(models.Model):
     zoneName = models.CharField('Название зоны', max_length=20, blank=True)
     zoneImage = models.ImageField('Картинка',upload_to='zone_images/', null=True, blank=True)
+    zoneDescription = models.TextField('Описание', blank=True,null=True, default='')
     zoneX = models.CharField('Х', max_length=20, blank=True)
     zoneY = models.CharField('Y', max_length=20, blank=True)
+    zoneR = models.CharField('Радиус', max_length=20, blank=True)
     repRewardAll = models.IntegerField('Награда репутация для всех', default=1)
     rcRewardAll = models.IntegerField('Награда RC для всех', default=50)
     repRewardTop1 = models.IntegerField('Награда репутация для ТОП1', default=100)
@@ -65,6 +68,11 @@ class WarZone(models.Model):
     class Meta:
         verbose_name = "Warzone"
         verbose_name_plural = "Warzone"
+class WarZonePlayer(models.Model):
+    zone = models.ForeignKey(WarZone, null=True, blank=True, on_delete=models.CASCADE)
+    player = models.ForeignKey(SteamUser, null=True, blank=True, on_delete=models.CASCADE)
+    playerKills = models.IntegerField(default=0)
+    playerDeaths = models.IntegerField(default=0)
 
 
 
