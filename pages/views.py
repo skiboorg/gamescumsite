@@ -85,7 +85,7 @@ def kill_log(request):
                     victimNick = msg[2].replace('(', '').replace (')', '').split(' 7')[0]
                     victimID = '7' + msg[2].replace('(', '').replace (')', '').split(' 7')[1]
                     killerNick = msg[4].replace('(', '').replace(')', '').split(' 7')[0]
-                    killerID = '7' + msg[4].replace('(', '').replace(')', '').split(' 7')[1]
+                    killerID = '7' + msg[4].replace('(', '').replace(') ', '').split(' 7')[1]
                     killerGameX = msg[6]
                     killerGameY = msg[7]
                     victimGameX = msg[10]
@@ -94,6 +94,27 @@ def kill_log(request):
                     killerLocCoordY = str((float(killerGameY) + 593500) * 0.001)
                     victimLocCoordX = str(((float(victimGameX) * -1) + 613142.340) * 0.001)
                     victimLocCoordY = str((float(victimGameY) + 593500) * 0.001)
+
+                    try:
+                        print('killerID =', killerID)
+                        killer = SteamUser.objects.get(steamid=killerID)
+                        print(killer)
+                        print('KILLER KILLS = ', killer.kills)
+                        killer.kills += 1
+                        killer.save(force_update=True)
+                        print('KILLER NICK = ', killer.personaname)
+                    except:
+                        print('KILLER NOT FOUND')
+
+                    try:
+                        victim = SteamUser.objects.get(steamid=victimID)
+                        print('VICTIM DEATHS = ', victim.deaths)
+                        victim.deaths += 1
+                        victim.save(force_update=True)
+                        print('VICTIM NICK = ', victim.personaname)
+                    except:
+                        print('VICTIM NOT FOUND')
+
                     newKillStat = KillStat.objects.create(killerID=killerID,
                                             killerNick=killerNick,
                                             victimID=victimID,
@@ -111,23 +132,9 @@ def kill_log(request):
 
 
                     newKillStat.save()
-                    #TODO добавлять рейтинг при убийстве (рейтинг для ВИП?)
-                    try:
-                        killer = SteamUser.objects.get(steamid=killerID)
-                        print('KILLER KILLS = ', killer.kills)
-                        killer.kills += 1
-                        killer.save(force_update=True)
-                        print('KILLER NICK = ', killer.personaname)
-                    except:
-                        print('KILLER NOT FOUND')
-                    try:
-                        victim = SteamUser.objects.get(steamid=victimID)
-                        print('VICTIM DEATHS = ', victim.deaths)
-                        victim.deaths += 1
-                        victim.save(force_update=True)
-                        print('VICTIM NICK = ', victim.personaname)
-                    except:
-                        print('VICTIM NOT FOUND')
+
+
+
                     msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                     msg_time = msg[0].split('-')[1].split('.')
                     if int(msg_time[0]) + 3 > 23:
@@ -201,7 +208,7 @@ def chat_log(request):
 
         if DF:
             for msg in DF:
-                msg = msg.replace(": '", ':').replace("' '", ':').replace("'", '')
+                msg = msg.replace(": '", ':').replace("' '", ':').replace("'", '').replace(': ',':')
                 print(msg)
                 msg = msg.split(':')
                 print('msg2= ', msg[2])
@@ -216,6 +223,10 @@ def chat_log(request):
                         msg_time[0] = str(int(msg_time[0]) + 3 - 24)
                 else:
                     msg_time[0] = str(int(msg_time[0]) + 3)
+
+                if msg[3] == 'Local':
+                    if msg[4] == '!!заказ':
+                        print('order comand')
                 if msg[3] == 'Global':
                     server_response = requests.get(
                         'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={}&steamids={}&format=json'.format(
@@ -443,12 +454,10 @@ def del_message(request):
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'
 
-
     data = {
         'sender': 'ываывавыа',
         'instruction': ['ываукупамыкцук','qwewqe']
     }
-
 
     sock = socket.socket()
     sock.connect(('localhost', 9099))

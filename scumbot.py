@@ -329,7 +329,30 @@ if not DEV_MODE:
 
         else:
             await client.say('Для активации аккаунта нужно отправить личное сообщение <@525364065933983744>')
+else:
+    @client.command(pass_context=True)
+    async def activate(ctx, steamid):
+        await client.say('Бот в режиме разработки. Приносим извенения за временные неудобства')
 
+
+    @client.command()
+    async def server():
+        await client.say('Бот в режиме разработки. Приносим извенения за временные неудобства')
+
+
+    @client.command(pass_context=True)
+    async def stat(ctx):
+        await client.say('Бот в режиме разработки. Приносим извенения за временные неудобства')
+
+
+    @client.command()
+    async def p():
+        await client.say('Бот в режиме разработки. Приносим извенения за временные неудобства')
+
+
+    @client.command(pass_context=True)
+    async def zp(ctx):
+        await client.say('Бот в режиме разработки. Приносим извенения за временные неудобства')
 
 async def get_players():
     await client.wait_until_ready()
@@ -346,23 +369,59 @@ async def get_players():
         await asyncio.sleep(60)
 
 async def get_zone():
+
     await client.wait_until_ready()
+    last_msg = 0
+    # mgs = []  # Empty list to put all the messages in the log
+    # number = 100  # Converting the amount of messages to delete to an integer
+    # async for x in client.logs_from(client.get_channel('619238553288704028'), limit=number):
+    #     mgs.append(x)
+    # await client.delete_messages(mgs)
     while not client.is_closed:
+        print('get active warzone')
+        try:
+            cursor.execute("SELECT id FROM pages_warzone WHERE isActive = (?);", (1,))
+            result = cursor.fetchone()[0]
+            print(result)
+            if result:
+                print('active warzone found')
+                cursor.execute("UPDATE pages_warzone SET isActive = (?) WHERE id = (?); ",
+                               (0, result,))
+                conn.commit()
+        except:
+            print('no active warzone')
+
+        if last_msg:
+            await client.delete_message(last_msg)
+
+
+
         cursor.execute("SELECT * FROM pages_warzone ")
-
         result = cursor.fetchall()
-        print('Generating new warzone')
+        print('result = ',result)
         totalItems = len(result)
-        zoneNumber = random.randint(0, totalItems - 1)
-
+        print('totalItems',totalItems)
+        zoneNumber = random.randint(1, totalItems - 1)
+        print('zoneNumber = ',zoneNumber)
         print(result[zoneNumber][0])
-
-        cursor.execute("SELECT id FROM pages_warzone WHERE id=(?)", (zoneNumber,))
-        result = cursor.fetchone()
+        cursor.execute("SELECT zoneImage FROM pages_warzone WHERE id=(?)", (zoneNumber,))
+        zone_image = cursor.fetchone()[0]
+        cursor.execute("SELECT zoneDescription FROM pages_warzone WHERE id=(?)", (zoneNumber,))
+        zone_description = cursor.fetchone()[0]
+        cursor.execute("SELECT zoneName FROM pages_warzone WHERE id=(?)", (zoneNumber,))
+        zone_name = cursor.fetchone()[0]
         cursor.execute("UPDATE pages_warzone SET isActive = (?) WHERE id = (?); ",
                        (1, zoneNumber,))
+        conn.commit()
 
-        await client.send_message(client.get_channel('503982204074852352'), str(random.randint(1, 18)))
+
+        embed = discord.Embed()
+
+        embed.set_image(url='https://gamescum.ru/media/'+zone_image)
+        embed.add_field(name="**" + zone_name + "**",
+                        value=zone_description)
+
+        last_msg = await client.send_message(client.get_channel('619238553288704028'),embed=embed)
 
         await asyncio.sleep(10)
 
@@ -378,4 +437,5 @@ async def get_zone():
 #
 #
 client.loop.create_task(get_players())
+#client.loop.create_task(get_zone())
 client.run(TOKEN)
