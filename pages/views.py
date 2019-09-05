@@ -20,6 +20,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 from django.views.decorators.csrf import csrf_exempt
 import math
 from PIL import Image
+import socket
 
 def sector(x,y):
     if (y >= 317500):
@@ -69,22 +70,6 @@ def kill_log(request):
         print('kill df = ', DF)
         logtext.oldLog = newlog
         logtext.save(force_update=True)
-        killerNick = ''
-        killerID = ''
-        killerGameX = ''
-        killerGameY = ''
-        victimNick = ''
-        victimID = ''
-        victimGameX = ''
-        victimGameY = ''
-        isEventKill = False
-
-        # const
-        # factor = mapId.height() / 1200000;
-        # this.zoom.kx = ((this.feed.kx * -1) + 613142.340) * factor;
-        # this.zoom.ky = (this.feed.ky + 593500) * factor;
-        # this.zoom.vx = ((this.feed.vx * -1) + 613142.340) * factor;
-        # this.zoom.vy = (this.feed.vy + 593500) * factor;
 
         if DF:
 
@@ -97,16 +82,8 @@ def kill_log(request):
                 if len(msg) == 21 and not len(msg) == 22:
 
                     print('kill log=', msg)
-                  #  victimNick = msg[2].replace(' ', '')[:msg[2].find('(') - 1]
-                  #  victimID = msg[2].replace(' ', '')[msg[2].find('('):msg[2].find(')') - 1]
-                   # victimNick = msg[2].replace(' ', '')[:msg[2].find('(7') - 1]
-                 #  victimID = msg[2].replace(' ', '')[msg[2].find('('):len(msg[2])-2]
                     victimNick = msg[2].replace('(', '').replace (')', '').split(' 7')[0]
                     victimID = '7' + msg[2].replace('(', '').replace (')', '').split(' 7')[1]
-                  #  killerNick = msg[4].replace(' ', '')[:msg[4].find('(') - 1]
-                   # killerID = msg[4].replace(' ', '')[msg[4].find('('):msg[4].find(')') - 1]
-                   # killerNick = msg[4].replace(' ', '')[:msg[4].find('(7') - 1]
-                  #  killerID = msg[4].replace(' ', '')[msg[4].find('('):len(msg[4])-2]
                     killerNick = msg[4].replace('(', '').replace(')', '').split(' 7')[0]
                     killerID = '7' + msg[4].replace('(', '').replace(')', '').split(' 7')[1]
                     killerGameX = msg[6]
@@ -154,7 +131,7 @@ def kill_log(request):
                     msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                     msg_time = msg[0].split('-')[1].split('.')
                     if int(msg_time[0]) + 3 > 23:
-                        msg_date[0] = str(int(msg_date[0] + 1))
+                        msg_date[0] = str(int(msg_date[0]) + 1)
                         if int(msg_time[0]) + 3 - 24 < 10:
                             msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)
                         else:
@@ -211,6 +188,7 @@ def chat_log(request):
     else:
         print('log is present')
 
+
         oldlog = logtext.oldLog
         old = oldlog.splitlines()
 
@@ -231,7 +209,7 @@ def chat_log(request):
                 msg_date = list(reversed(msg[0].split('-')[0].split('.')))
                 msg_time = msg[0].split('-')[1].split('.')
                 if int(msg_time[0]) + 3 > 23:
-                    msg_date[0] = str(int(msg_date[0] + 1))
+                    msg_date[0] = str(int(msg_date[0]) + 1)
                     if int(msg_time[0]) + 3 - 24 < 10:
                         msg_time[0] = '0' + str(int(msg_time[0]) + 3 - 24)
                     else:
@@ -464,6 +442,32 @@ def del_message(request):
 
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'
+    # HOST = '127.0.0.1'  # The server's hostname or IP address
+    # PORT = 8193  # The port used by the server
+    #
+    # def json_message(p1,p2):
+    #
+    #     data = {
+    #         'sender': p1,
+    #         'instruction': p2
+    #     }
+    #
+    #     json_data = json.dumps(data, sort_keys=False, indent=2)
+    #     print("data %s" % json_data)
+    #
+    #     send_message(json_data + ";")
+    #
+    #     return json_data
+    #
+    # def send_message(data):
+    #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    #         s.connect((HOST, PORT))
+    #         s.sendall(data.encode())
+    #         data = s.recv(1024)
+    #
+    #     print('Received', repr(data))
+    #
+    # json_message('test','test1')
     return render(request, 'pages/about_us_new.html', locals())
 
 

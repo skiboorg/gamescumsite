@@ -65,6 +65,11 @@ class WarZone(models.Model):
     rcRewardTop1 = models.IntegerField('Награда RC для ТОП1', default=5000)
     isActive = models.BooleanField('Не менять в ручную!', default=False)
 
+
+    def __str__(self):
+        return 'Зона : {}'.format(self.zoneName)
+
+
     class Meta:
         verbose_name = "Warzone"
         verbose_name_plural = "Warzone"
