@@ -442,32 +442,26 @@ def del_message(request):
 
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'
-    # HOST = '127.0.0.1'  # The server's hostname or IP address
-    # PORT = 8193  # The port used by the server
-    #
-    # def json_message(p1,p2):
-    #
-    #     data = {
-    #         'sender': p1,
-    #         'instruction': p2
-    #     }
-    #
-    #     json_data = json.dumps(data, sort_keys=False, indent=2)
-    #     print("data %s" % json_data)
-    #
-    #     send_message(json_data + ";")
-    #
-    #     return json_data
-    #
-    # def send_message(data):
-    #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    #         s.connect((HOST, PORT))
-    #         s.sendall(data.encode())
-    #         data = s.recv(1024)
-    #
-    #     print('Received', repr(data))
-    #
-    # json_message('test','test1')
+
+
+    data = {
+        'sender': 'ываывавыа',
+        'instruction': ['ываукупамыкцук','qwewqe']
+    }
+
+
+    sock = socket.socket()
+    sock.connect(('localhost', 9099))
+    raw_data = json.dumps(data, ensure_ascii=False).encode("utf-8")
+    sock.send(raw_data)
+
+    data = sock.recv(1024)
+    sock.close()
+
+
+
+
+
     return render(request, 'pages/about_us_new.html', locals())
 
 

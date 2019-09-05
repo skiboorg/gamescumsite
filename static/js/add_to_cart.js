@@ -15,7 +15,9 @@ function add_to_cart(form) {
         var csrf_token = form.elements["csrfmiddlewaretoken"].value
 
 
-
+    if (parseInt(item_number) > 5){
+        item_number = '5'
+    }
     console.log($(form).attr('action'));
      console.log(item_subitem);
         var data = {};

@@ -256,6 +256,8 @@ def add_to_cart(request):
     data = request.POST
     item_id = int(data.get('item_id'))
     item_number = int(data.get('item_number'))
+    if item_number > 5:
+        item_number = 5
     item_subitem = int(data.get('item_subitem'))
     if item_subitem == 0:
         addtocart, created = Baskets.objects.get_or_create(player_id=request.user.id,
