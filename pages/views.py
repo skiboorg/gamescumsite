@@ -454,18 +454,18 @@ def del_message(request):
 def about_us(request):
     page_title = 'О ПРОЕКТЕ'
 
-    data = {
-        'sender': 'ываывавыа',
-        'instruction': ['ываукупамыкцук','qwewqe']
-    }
-
-    sock = socket.socket()
-    sock.connect(('localhost', 9099))
-    raw_data = json.dumps(data, ensure_ascii=False).encode("utf-8")
-    sock.send(raw_data)
-
-    data = sock.recv(1024)
-    sock.close()
+    # data = {
+    #     'sender': 'ываывавыа',
+    #     'instruction': ['ываукупамыкцук','qwewqe']
+    # }
+    #
+    # sock = socket.socket()
+    # sock.connect(('localhost', 9099))
+    # raw_data = json.dumps(data, ensure_ascii=False).encode("utf-8")
+    # sock.send(raw_data)
+    #
+    # data = sock.recv(1024)
+    # sock.close()
 
 
 
