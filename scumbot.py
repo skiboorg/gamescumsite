@@ -147,7 +147,7 @@ if not DEV_MODE:
         tree = html.fromstring(page.content)
         players = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[2]/text()')
         embed = discord.Embed(colour=discord.Colour(0x36393e),
-                              description="\n```cs\n# Игроков онлайн : " + str(players[0])+ "\n```\nРестарты сервера в: 02:30 и 14:30 МСК")
+                              description="\n```cs\n# Игроков онлайн : " + str(players[0])+ "\n```\nРестарты сервера в: 14:00, 20:00, 3:00 МСК")
         embed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/519049749656109086/525958386232197131/1logo_scum_survival.png")
         await client.say(embed=embed)
@@ -257,7 +257,7 @@ if not DEV_MODE:
         name = tree.xpath('//*[@id="serverPage"]/h2/text()')
         ip = tree.xpath('//*[@id="serverPage"]/div[1]/div/dl/dd[3]/text()')
         embed = discord.Embed(title="RU/EU SURVIVAL PvP [HARDCORE] discord.me/scumsurvival",
-                              colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/3163030",
+                              colour=discord.Colour(0xa1885c), url="https://www.battlemetrics.com/servers/scum/4329500",
                               description="[Наш сайт](http://www.gamescum.ru) | [ВК](https://vk.com/scum_survival) | [Steam](https://steamcommunity.com/app/513710/discussions/4/3104564981115010821/) | [Discord](https://discord.gg/sgUz53k)")
 
         embed.set_image(url="https://cdn.discordapp.com/attachments/519049749656109086/541194143242911745/2.png")
@@ -270,7 +270,7 @@ if not DEV_MODE:
 
         embed.add_field(name="**IP сервера : " + str(ip[0]) + "**",
                         value="================================")
-        embed.add_field(name="**Плановые рестарты в: 02:30 и 14:30 МСК**",
+        embed.add_field(name="**Плановые рестарты в: 14:00, 20:00, 3:00 МСК**",
                         value="================================")
         embed.add_field(name="**Ранг сервера:**", value=str(rank[0]), inline=True)
         embed.add_field(name="**Онлайн сервера**", value=str(players[0]), inline=True)
