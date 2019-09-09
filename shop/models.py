@@ -122,6 +122,8 @@ class Items(models.Model):
         if not self.active:
             item_in_fav = FavoriteItems.objects.filter(item=self.id)
             item_in_fav.delete()
+            item_in_cart = Baskets.objects.filter(item=self.id)
+            item_in_cart.delete()
         super(Items, self).save(*args, **kwargs)
 
     def image_tag(self):
