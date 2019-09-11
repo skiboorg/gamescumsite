@@ -45,8 +45,87 @@ def calculateDistance(x1,x2,y1,y2):
     dist = round(math.sqrt(((x2 - x1)**2 + (y2 - y1)**2)) * 0.01)
     return dist
 
-def warzone(request,zonename):
+def warzone(request):
     pass
+
+
+@csrf_exempt
+def login_log(request):
+    print(request.POST)
+    logTime = request.POST.get('time')
+    logText = json.loads(request.POST.get('data'))
+
+    logtext, created = LoginLog.objects.get_or_create(LogTime=logTime, defaults={'oldLog': logText})
+
+    if created:
+        print('new loginlog is created')
+    else:
+        print('loginlog is present')
+        oldlog = logtext.oldLog
+        old = oldlog.splitlines()
+
+        newlog = json.loads(request.POST.get('data'))
+        new = newlog.splitlines()
+        DF = [x for x in new if x not in old]
+        print('login df = ', DF)
+        logtext.oldLog = newlog
+        logtext.save(force_update=True)
+
+        if DF:
+            for msg in DF:
+                print('login msg=', msg)
+                if msg.find('logged in') != -1:
+                    print('player logged in')
+
+                    msg = msg.replace(' ', '').replace("'", '').split(':')
+                    steamID = msg[1]
+
+                    print('steamID=',steamID)
+                    firstBraket = 0
+                    lastBraket = msg[2].find('loggedin') - 1
+                    i = lastBraket
+                    while i != 1:
+                        if msg[2][i] == '(':
+                            firstBraket = i+1
+                            break
+                        i -= 1
+                    serverID = msg[2][firstBraket:lastBraket]
+                    print('serverID=', serverID)
+                    try:
+                        player = SteamUser.objects.get(steamid=steamID)
+                        PlayersOnline.objects.create(player_id=player.id, serverId=serverID).save()
+                    except:
+                        print('player not in base')
+                else:
+                    print('player logged out')
+                    msg = msg.replace(": '",':').replace("' ",':').split(':')
+                    serverID = msg[1]
+
+                    try:
+                        playerLog = PlayersOnline.objects.get(serverId=serverID)
+
+                        print(playerLog.player.personaname)
+                        print(datetime.now())
+                        print((datetime.now() - playerLog.created_at).total_seconds() / 60.0)
+                        totalTime = round((datetime.now() - playerLog.created_at).total_seconds() / 60.0)
+
+                        webhook = DiscordWebhook(url=bot_settings.DISCORD_TIME_LOG)
+
+                        embed = DiscordEmbed(title='Начисление за время',
+                                             description="Игрок {} за время, проведенное в игре, получает {} RC".format(playerLog.player.personaname, round(totalTime * 0.3)),
+                                                 color=0xec4e00)
+                        # m embed.set_image(url=transparent)
+
+                        webhook.add_embed(embed)
+                        webhook.execute()
+                        playerLog.player.wallet += round(totalTime * 0.3)
+                        playerLog.player.save(force_update=True)
+                        playerLog.delete()
+                    except:
+                        print('player not in base')
+                    print('serverID=', serverID)
+
+    return HttpResponse(status=200)
 
 @csrf_exempt
 def kill_log(request):
