@@ -108,19 +108,23 @@ def login_log(request):
                         print(datetime.now())
                         print((datetime.now() - playerLog.created_at).total_seconds() / 60.0)
                         totalTime = round((datetime.now() - playerLog.created_at).total_seconds() / 60.0)
-
+                        money = round(totalTime * 0.3)
                         webhook = DiscordWebhook(url=bot_settings.DISCORD_TIME_LOG)
 
                         embed = DiscordEmbed(title='Начисление за время',
-                                             description="Игрок {} за время, проведенное в игре, получает {} RC".format(playerLog.player.personaname, round(totalTime * 0.3)),
+                                             description="Игрок {} за время, проведенное в игре, получает {} RC".format(playerLog.player.personaname, money),
                                                  color=0xec4e00)
                         # m embed.set_image(url=transparent)
 
                         webhook.add_embed(embed)
                         webhook.execute()
-                        playerLog.player.wallet += round(totalTime * 0.3)
+                        playerLog.player.wallet += money
                         playerLog.player.save(force_update=True)
+                        PlayerLog.objects.create(player_id=PlayerLog.player.id,
+                                                 log_action='Начисление за игровое время',
+                                                 comment='За {} мин., проведенных в игре, начисленно {} RC'.format(totalTime,money)).save()
                         playerLog.delete()
+
                     except:
                         print('player not in base')
                     print('serverID=', serverID)
